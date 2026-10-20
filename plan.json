@@ -1,0 +1,519 @@
+{
+ "version": 1,
+ "updated": "2026-10-20",
+ "athlete": {
+  "name": "Albert Grau",
+  "weight": 75,
+  "goalWeight": 70,
+  "ftpStart": 240,
+  "goalFtp": 280
+ },
+ "ftp": 245,
+ "start": "2026-10-19",
+ "weeks": {
+  "1": {
+   "name": "Base aeròbica",
+   "img": "media/gravel.webp"
+  },
+  "2": {
+   "name": "Progressió",
+   "img": "media/mud.webp"
+  },
+  "3": {
+   "name": "Construcció",
+   "img": "media/peloton.webp"
+  },
+  "4": {
+   "name": "Descàrrega i test",
+   "img": "media/group.webp"
+  }
+ },
+ "sessions": [
+  {
+   "cat": "rest",
+   "d": "2026-10-19",
+   "k": 1,
+   "min": 0,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Avui",
+     "x": "Descans total. 15′ de mobilitat suau si et ve de gust."
+    }
+   ],
+   "t": "Descans",
+   "type": "rest",
+   "z": "z1",
+   "id": "s20261019"
+  },
+  {
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    90
+   ],
+   "cat": "end",
+   "d": "2026-10-20",
+   "fuel": "Aigua amb electròlits",
+   "k": 1,
+   "min": 60,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "10′ · 5′ a {49} i 5′ progressius fins a {61}"
+    },
+    {
+     "l": "Principal",
+     "x": "40′ en Z2 a {63,71}. Cada 8′, 1′ a 105–110 rpm sense canviar els watts (×4)"
+    },
+    {
+     "l": "Calma",
+     "x": "10′ baixant de {57} a {45}"
+    }
+   ],
+   "t": "Eficiència aeròbica i cadència",
+   "type": "end",
+   "z": "z2",
+   "id": "s20261020"
+  },
+  {
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    90
+   ],
+   "cat": "end",
+   "d": "2026-10-21",
+   "fuel": "Aigua amb electròlits",
+   "k": 1,
+   "min": 70,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "10′ progressiu fins a {61}"
+    },
+    {
+     "l": "Principal",
+     "x": "50′ en Z2 a {63,73}, amb 5 × 1′ a 105–110 rpm repartits cada 8–10′"
+    },
+    {
+     "l": "Calma",
+     "x": "10′ en Z1"
+    }
+   ],
+   "t": "Z2 i cadència",
+   "type": "end",
+   "z": "z2",
+   "id": "s20261021"
+  },
+  {
+   "cad": [
+    85,
+    90
+   ],
+   "cat": "tempo",
+   "d": "2026-10-22",
+   "fuel": "30–40 g/h de carbohidrats",
+   "ints": [
+    {
+     "cad": [
+      85,
+      90
+     ],
+     "hi": 0.85,
+     "label": "Tempo 10′",
+     "lo": 0.8,
+     "n": 3,
+     "s": 600
+    }
+   ],
+   "k": 1,
+   "min": 75,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ progressiu de {53} a {71}, amb 2 × 30″ a 100 rpm"
+    },
+    {
+     "l": "Principal",
+     "x": "3 × 10′ a {80,85} · 85–90 rpm · 5′ a {57} entre sèries"
+    },
+    {
+     "l": "Calma",
+     "x": "15′ en Z1–Z2"
+    }
+   ],
+   "t": "Tempo",
+   "type": "int",
+   "z": "z3",
+   "id": "s20261022"
+  },
+  {
+   "cad": [
+    88,
+    92
+   ],
+   "cat": "rec",
+   "d": "2026-10-23",
+   "fuel": "Aigua",
+   "k": 1,
+   "min": 40,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "40′ en Z1 a {45,53} i 90 rpm. Si tens les cames carregades, descansa del tot"
+    }
+   ],
+   "t": "Recuperació",
+   "type": "rec",
+   "z": "z1",
+   "id": "s20261023"
+  },
+  {
+   "cad": [
+    85,
+    95
+   ],
+   "cat": "ss",
+   "d": "2026-10-24",
+   "fuel": "50–60 g/h de carbohidrats",
+   "ints": [
+    {
+     "cad": [
+      85,
+      95
+     ],
+     "hi": 0.92,
+     "label": "Sweet spot 12′",
+     "lo": 0.88,
+     "n": 3,
+     "s": 720
+    }
+   ],
+   "k": 1,
+   "key": true,
+   "min": 90,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ · 10′ en Z2 i 3 × 1′ a {94} amb 1′ suau entre repeticions"
+    },
+    {
+     "l": "Principal",
+     "x": "3 × 12′ a {88,92} · 85–95 rpm · 6′ a {57} entre sèries. Si l'última no surt, baixa 5 W però acaba-la"
+    },
+    {
+     "l": "Calma",
+     "x": "15′ en Z1–Z2"
+    }
+   ],
+   "t": "Sweet spot",
+   "type": "int",
+   "z": "ss",
+   "id": "s20261024"
+  },
+  {
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    90
+   ],
+   "cat": "long",
+   "d": "2026-10-25",
+   "fuel": "60–80 g/h de carbohidrats",
+   "k": 1,
+   "maxMin": 180,
+   "min": 150,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "2h30–3h a l'exterior en Z2 a {61,73}"
+    },
+    {
+     "l": "Pujades",
+     "x": "No passis de {90} ni baixis de 80 rpm: treu un pinyó"
+    }
+   ],
+   "t": "Fons llarg",
+   "type": "long",
+   "z": "z2",
+   "id": "s20261025"
+  },
+  {
+   "cat": "rest",
+   "d": "2026-10-26",
+   "k": 1,
+   "min": 0,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Avui",
+     "x": "Descans. Opcional: 30–40′ de força (esquat, pes mort romanès, gambes, core)"
+    }
+   ],
+   "t": "Descans",
+   "type": "rest",
+   "z": "z1",
+   "id": "s20261026"
+  },
+  {
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    90
+   ],
+   "cat": "end",
+   "d": "2026-10-27",
+   "fuel": "Aigua amb electròlits",
+   "k": 1,
+   "min": 75,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "10′ progressiu fins a Z2"
+    },
+    {
+     "l": "Principal",
+     "x": "55′ en Z2 a {63,72}, amb 4 blocs de 5′ a 95 rpm + 3′ a 105 rpm"
+    },
+    {
+     "l": "Calma",
+     "x": "10′ en Z1"
+    }
+   ],
+   "t": "Z2 i tècnica de cadència",
+   "type": "end",
+   "z": "z2",
+   "id": "s20261027"
+  },
+  {
+   "cad": [
+    88,
+    92
+   ],
+   "cat": "ss",
+   "d": "2026-10-28",
+   "fuel": "50–60 g/h de carbohidrats",
+   "ints": [
+    {
+     "cad": [
+      88,
+      92
+     ],
+     "hi": 0.92,
+     "label": "Sweet spot 20′",
+     "lo": 0.88,
+     "n": 2,
+     "s": 1200
+    }
+   ],
+   "k": 1,
+   "key": true,
+   "min": 80,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ · 10′ en Z2 i 2 × 1′ a {95}"
+    },
+    {
+     "l": "Principal",
+     "x": "2 × 20′ a {88,92} · 88–92 rpm · 8′ a {57} entre sèries"
+    },
+    {
+     "l": "Calma",
+     "x": "10′ en Z1"
+    }
+   ],
+   "t": "Sweet spot llarg",
+   "type": "int",
+   "z": "ss",
+   "id": "s20261028"
+  },
+  {
+   "cad": null,
+   "cat": "force",
+   "d": "2026-10-29",
+   "fuel": "30–40 g/h de carbohidrats",
+   "ints": [
+    {
+     "cad": [
+      60,
+      65
+     ],
+     "hi": 0.85,
+     "label": "Força 6′",
+     "lo": 0.8,
+     "n": 4,
+     "s": 360
+    }
+   ],
+   "k": 1,
+   "min": 75,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ progressiu en Z2"
+    },
+    {
+     "l": "Principal",
+     "x": "4 × 6′ a {80,85} a 60–65 rpm · 4′ a {57} i 95 rpm entre sèries. Tronc estable"
+    },
+    {
+     "l": "Atenció",
+     "x": "Si et molesten els genolls, puja a 70–75 rpm"
+    },
+    {
+     "l": "Calma",
+     "x": "15′ en Z1–Z2"
+    }
+   ],
+   "t": "Força-resistència",
+   "type": "int",
+   "z": "z3",
+   "id": "s20261029"
+  },
+  {
+   "cad": [
+    88,
+    92
+   ],
+   "cat": "rec",
+   "d": "2026-10-30",
+   "fuel": "Aigua",
+   "k": 1,
+   "min": 40,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "40′ en Z1 a {45,53}, o descans total"
+    }
+   ],
+   "t": "Recuperació",
+   "type": "rec",
+   "z": "z1",
+   "id": "s20261030"
+  },
+  {
+   "cad": [
+    85,
+    95
+   ],
+   "cat": "ss",
+   "d": "2026-10-31",
+   "fuel": "50–60 g/h de carbohidrats",
+   "ints": [
+    {
+     "cad": [
+      85,
+      95
+     ],
+     "hi": 0.93,
+     "label": "Sweet spot 10′",
+     "lo": 0.9,
+     "n": 4,
+     "s": 600
+    },
+    {
+     "cad": null,
+     "hi": null,
+     "label": "Esprint 10″",
+     "lo": 1.5,
+     "n": 4,
+     "s": 10
+    }
+   ],
+   "k": 1,
+   "key": true,
+   "min": 100,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ · 10′ en Z2 i 3 × 1′ a {94}"
+    },
+    {
+     "l": "Principal",
+     "x": "4 × 10′ a {90,93} amb 5′ a {57} · 10′ en Z2 · 4 × 10″ d'esprint assegut, a fons i a +110 rpm, amb 2′50″ suau"
+    },
+    {
+     "l": "Calma",
+     "x": "10′ en Z1"
+    }
+   ],
+   "t": "Sweet spot i esprints",
+   "type": "int",
+   "z": "ss",
+   "id": "s20261031"
+  },
+  {
+   "band": [
+    0.56,
+    0.8
+   ],
+   "cad": [
+    85,
+    90
+   ],
+   "cat": "long",
+   "d": "2026-11-01",
+   "fuel": "60–80 g/h de carbohidrats",
+   "ints": [
+    {
+     "cad": [
+      85,
+      90
+     ],
+     "hi": 0.82,
+     "label": "Tempo 15′",
+     "lo": 0.78,
+     "n": 2,
+     "s": 900
+    }
+   ],
+   "k": 1,
+   "maxMin": 190,
+   "min": 170,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Primeres 2h",
+     "x": "Z2 a {61,73}"
+    },
+    {
+     "l": "Darrera hora",
+     "x": "2 × 15′ a {78,82} amb 10′ en Z2 entre els dos blocs"
+    },
+    {
+     "l": "Final",
+     "x": "10′ suaus"
+    }
+   ],
+   "t": "Fons llarg amb tempo",
+   "type": "long",
+   "z": "z3",
+   "id": "s20261101"
+  }
+ ]
+}
