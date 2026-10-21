@@ -1,6 +1,6 @@
 {
- "version": 3,
- "updated": "2026-10-21 (2)",
+ "version": 4,
+ "updated": "2026-10-21 (3)",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -116,47 +116,68 @@
    "id": "s20261021"
   },
   {
-   "cat": "rest",
+   "cat": "rec",
    "d": "2026-10-22",
    "ints": [],
    "k": 1,
-   "min": 0,
-   "ord": 1,
-   "steps": [
-    {
-     "l": "Avui",
-     "x": "Descans total. Si et ve de gust, 15′ de mobilitat. Res de córrer."
-    }
-   ],
-   "t": "Descans",
-   "type": "rest",
-   "z": "z1",
-   "id": "s20261022",
-   "key": false,
-   "note": "Canvi del coach: dimecres vas fer 2h28 amb 74′ per sobre de Z2 (NP 190 W, ~150 TSS) i després vas córrer 32′. Aquest estímul ja cobreix el tempo de la setmana. Avui toca descansar per arribar fresc al sweet spot de dissabte."
-  },
-  {
-   "cad": [
-    88,
-    92
-   ],
-   "cat": "rec",
-   "d": "2026-10-23",
-   "fuel": "Aigua",
-   "k": 1,
-   "min": 40,
+   "min": 50,
    "ord": 1,
    "steps": [
     {
      "l": "Sessió",
-     "x": "40′ en Z1 a {45,53} i 90 rpm. Si tens les cames carregades, descansa del tot"
+     "x": "45–60′ en Z1 a {45,55}, terreny pla, 90 rpm. A les pujades, puja caminant de watts: no passis de {65}"
+    },
+    {
+     "l": "Regla",
+     "x": "Si et sembla massa fàcil, és que ho estàs fent bé"
     }
    ],
-   "t": "Recuperació",
+   "t": "Volta de recuperació",
    "type": "rec",
    "z": "z1",
+   "id": "s20261022",
+   "key": false,
+   "note": "Surts dijous, però després de la sortida forta de dimecres (NP 190 W) i de córrer, ha de ser molt suau. Si et sentís bé i apretes, la pagaràs dissabte.",
+   "cad": [
+    88,
+    92
+   ],
+   "fuel": "Aigua; si passa d'1 h, una barreta"
+  },
+  {
+   "cad": [
+    85,
+    90
+   ],
+   "cat": "end",
+   "d": "2026-10-23",
+   "fuel": "Aigua amb electròlits; 30 g/h si passa d'1 h",
+   "k": 1,
+   "min": 75,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "10′ progressius fins a {61}"
+    },
+    {
+     "l": "Principal",
+     "x": "55′ en Z2 a {63,72} · cada 10′, 1′ a 105–110 rpm sense canviar els watts · a les pujades no passis de {75}"
+    },
+    {
+     "l": "Calma",
+     "x": "10′ en Z1"
+    }
+   ],
+   "t": "Z2 i cadència",
+   "type": "end",
+   "z": "z2",
    "id": "s20261023",
-   "note": "Opcional. Si dijous et lleves amb les cames carregades, fes descans total també avui."
+   "note": "Z2 controlat. Ha de ser una sessió fàcil: dissabte és el dia important.",
+   "band": [
+    0.56,
+    0.75
+   ]
   },
   {
    "cad": [
