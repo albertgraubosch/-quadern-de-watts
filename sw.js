@@ -1,5 +1,5 @@
 // Quadern de Watts service worker. Bump VERSION on every release so phones pick up the new app.
-const VERSION = "qw-1.1.0";
+const VERSION = "qw-1.1.1";
 const SHELL = [
   "./", "index.html", "app.css", "app.js", "manifest.webmanifest",
   "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png",

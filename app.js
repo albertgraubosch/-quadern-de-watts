@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.1.0";
+const APP_VERSION="1.1.1";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -754,19 +754,21 @@ function askCoach(q){
   coachBusy=true;renderMsgs();
   const hist=coach.msgs.filter(m=>m.role==="user"||m.role==="bot").slice(-12,-1).map(m=>({role:m.role==="user"?"user":"model",parts:[{text:m.role==="user"?m.text:JSON.stringify({reply:m.text,changes:(m.raw||[])})}]}));
   const contents=hist.concat([{role:"user",parts:[{text:coachContext()+"\n\nPREGUNTA DE L'ALBERT:\n"+q}]}]);
-  const body={systemInstruction:{parts:[{text:COACH_RULES}]},contents,generationConfig:{temperature:0.4,responseMimeType:"application/json",maxOutputTokens:1200}};
-  fetch("https://generativelanguage.googleapis.com/v1beta/models/"+COACH_MODEL+":generateContent",{method:"POST",headers:{"Content-Type":"application/json","x-goog-api-key":coach.key},body:JSON.stringify(body)})
+  const body={systemInstruction:{parts:[{text:COACH_RULES}]},contents,generationConfig:{temperature:0.4,responseMimeType:"application/json",maxOutputTokens:8192}};
+  const ctl=new AbortController(),tmr=setTimeout(()=>ctl.abort(),90000);
+  fetch("https://generativelanguage.googleapis.com/v1beta/models/"+COACH_MODEL+":generateContent",{method:"POST",signal:ctl.signal,headers:{"Content-Type":"application/json","x-goog-api-key":coach.key},body:JSON.stringify(body)})
   .then(r=>r.json().catch(()=>({})).then(j=>{if(!r.ok)throw {status:r.status,body:j};return j}))
   .then(j=>{
     const cand=j.candidates&&j.candidates[0];
     const text=cand&&cand.content&&cand.content.parts?cand.content.parts.map(p=>p.text||"").join(""):"";
-    if(!text){coach.msgs.push({role:"error",text:"El coach no ha pogut respondre aquesta pregunta. Prova de formular-la d'una altra manera."});return}
+    if(!text){const fr=cand&&cand.finishReason,bl=j.promptFeedback&&j.promptFeedback.blockReason;
+      coach.msgs.push({role:"error",text:fr==="MAX_TOKENS"?"El coach s'ha quedat sense espai per respondre. Torna-ho a provar amb una pregunta més curta.":(bl||fr==="SAFETY")?"Google ha bloquejat aquesta resposta. Prova de dir-ho d'una altra manera.":"El coach no ha pogut respondre ("+(fr||"sense resposta")+"). Torna-ho a provar."});return}
     const r=parseCoach(text);
     const changes=r.changes.slice(0,6).map(c=>{const v=validateChange(c);return {ok:v.ok,txt:v.txt,raw:c}});
     coach.msgs.push({role:"bot",text:r.reply||"Fet.",changes,raw:r.changes,state:changes.some(c=>c.ok)?"pending":null,at:new Date().toISOString()});
   })
-  .catch(e=>{coach.msgs.push({role:"error",text:e&&e.status!=null?geminiErr(e.status,e.body):"No s'ha pogut parlar amb el coach. Comprova la connexió."})})
-  .then(()=>{coachBusy=false;saveCoach();renderMsgs()});
+  .catch(e=>{coach.msgs.push({role:"error",text:e&&e.status!=null?geminiErr(e.status,e.body):(e&&e.name==="AbortError"?"El coach ha trigat massa a respondre. Torna-ho a provar.":"No s'ha pogut parlar amb el coach. Comprova la connexió.")})})
+  .then(()=>{clearTimeout(tmr);coachBusy=false;saveCoach();renderMsgs()});
 }
 function applyMsg(i){
   const m=coach.msgs[i];if(!m||m.state!=="pending")return;
