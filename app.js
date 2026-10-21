@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.4.0";
+const APP_VERSION="1.5.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -298,18 +298,41 @@ function sessionCard(p,kick){
     '<div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span>'+(p.cad?'<span>Cadència <b>'+p.cad[0]+'–'+p.cad[1]+' rpm</b></span>':'')+(kpct?'<span>Intensitat <b>'+(kpct>0?"+":"")+kpct+' %</b></span>':'')+'</div></div>'+
     (active(p)?profileHTML(p):"")+stepsHTML(p)+resultHTML(p)+'</div></article>';
 }
-function renderCover(){
-  const inp=document.getElementById("ftp");if(document.activeElement!==inp)inp.value=ftp();
-  document.getElementById("wkg").textContent=(ftp()/WEIGHT).toFixed(2).replace(".",",");
-  document.getElementById("goal").textContent=GOAL;
-  const dt=new Date();document.getElementById("issue").textContent=DAYNAMES[dt.getDay()]+" "+dt.getDate()+" "+MONTHS[dt.getMonth()]+" · S"+Math.max(1,weekNo(todayStr));
+function mainTarget(p){
+  const k=p.k||1;
+  if(p.ints&&p.ints.length){const x=p.ints[0];return x.hi==null?">"+W(x.lo,k):W(x.lo,k)+"–"+W(x.hi,k)}
+  if(p.band)return W(p.band[0],k)+"–"+W(p.band[1],k);
+  if(p.type==="rec")return W(.45,k)+"–"+W(.55,k);
+  return "—";
 }
-function renderLadder(){
-  const lo=Math.min(220,FTP0-20),hi=Math.max(300,GOAL+20),F=ftp(),pos=v=>((Math.min(hi,Math.max(lo,v))-lo)/(hi-lo)*100).toFixed(1)+"%";
-  const mk=(v,cls,label,sub)=>'<div class="mk '+cls+'" style="bottom:'+pos(v)+'"><i></i><span><b>'+label+'</b><br><small>'+sub+'</small></span></div>';
-  const prog=Math.max(0,Math.min(100,Math.round((F-FTP0)/(GOAL-FTP0)*100)));
-  document.getElementById("ladder").innerHTML='<div class="fill" style="height:'+pos(F)+'"></div>'+
-    mk(GOAL,"goal",GOAL,"Objectiu gener")+(Math.abs(F-FTP0)>=12?mk(FTP0,"",FTP0,"Referència"):"")+mk(F,"now",F,F===FTP0?"Referència":"Ara · "+prog+" % del camí"+(Math.abs(F-FTP0)<12&&F!==FTP0?" (inici "+FTP0+")":""));
+function renderHero(){
+  const inp=document.getElementById("ftp");if(document.activeElement!==inp)inp.value=ftp();
+  const dt=new Date(),kick=document.getElementById("heroKick"),title=document.getElementById("heroTitle"),sub=document.getElementById("heroSub"),tiles=document.getElementById("heroTiles"),ver=document.getElementById("heroVerdict");
+  kick.textContent="Avui · "+DAYNAMES[dt.getDay()]+" "+dt.getDate()+" "+MONTHS[dt.getMonth()];
+  sub.hidden=true;ver.hidden=true;ver.innerHTML="";tiles.innerHTML="";
+  if(planState==="loading"){title.textContent="Carregant…";return}
+  if(!Object.keys(S).length){title.textContent="Sense pla";sub.hidden=false;sub.textContent=planMsg||"Demana a Claude que prepari el pla.";return}
+  const p=sessionsOn(todayStr)[0];
+  if(!p){const next=all().find(x=>x.d>todayStr&&active(x));title.textContent=next?"Dia lliure":"Pla completat";sub.hidden=false;sub.textContent=next?"Propera sessió: «"+next.t+"», "+dayLabel(next.d)+".":"Envia el resum a Claude per preparar les setmanes següents.";return}
+  if(p.type==="rest"){title.textContent=p.t;sub.hidden=false;sub.textContent=p.note||"Avui les cames es fan al sofà. El descans també fa pujar l'FTP.";return}
+  title.textContent=p.t;
+  if(p.key){kick.textContent+=" · Sessió clau"}
+  const t=[["Durada",fmtPlanDur(p)],["Watts",mainTarget(p)],["Rpm",p.cad?p.cad[0]+"–"+p.cad[1]:"lliure"]];
+  tiles.innerHTML=t.map(x=>'<div class="tile2"><span class="k">'+x[0]+'</span><span class="v">'+esc(x[1])+'</span></div>').join("");
+  const act=actFor(p),d=act&&data[act.id];
+  if(act&&d&&!d.error&&!loading[act.id]){
+    const a=analyze(p,act,d);
+    ver.hidden=false;ver.innerHTML='<span class="vpill '+a.level+'"><i>'+(a.level==="bad"?"!":"✓")+'</i>'+(a.level==="ok"?"Ben fet":a.level==="warn"?"Fet, amb matisos":"No s'ha complert")+' · '+fmtDur(act.moving_time||0)+(act.average_watts?" · "+Math.round(act.average_watts)+" W":"")+'</span>';
+  } else if(act){ver.hidden=false;ver.innerHTML='<span class="vpill"><i>✓</i>Feta · analitzant…</span>'}
+  else if(p.done){ver.hidden=false;ver.innerHTML='<span class="vpill"><i>✓</i>Marcada com a feta</span>'}
+}
+function renderProgress(){
+  const el=document.getElementById("progress"),F=ftp();
+  const prog=Math.max(0,Math.min(100,(F-FTP0)/(GOAL-FTP0)*100));
+  el.innerHTML='<div class="in" style="gap:12px"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h3>Cap als '+GOAL+' W</h3><span class="note">Test a la S4</span></div>'+
+    '<div class="bar2"><i style="width:'+Math.max(2,prog).toFixed(0)+'%"></i></div>'+
+    '<div class="row"><span>Ara <b>'+F+' W</b> · <b>'+(F/WEIGHT).toFixed(2).replace(".",",")+'</b> W/kg</span><span>Objectiu <b>'+GOAL+' W</b> · <b>'+(GOAL/70).toFixed(1).replace(".",",")+'</b> W/kg</span></div>'+
+    '<div class="note">L\'FTP només es mou amb un test. Fins aleshores, la referència és '+FTP0+' W.</div></div>';
 }
 function renderSetup(){
   const el=document.getElementById("setup");
@@ -360,19 +383,6 @@ function renderDecide(){
   });
   el.innerHTML=h+'</div>';
 }
-function renderToday(){
-  const el=document.getElementById("today");
-  const dt=new Date(),label="Avui · "+DAYNAMES[dt.getDay()]+" "+dt.getDate()+" "+MONTHS[dt.getMonth()];
-  if(planState==="loading"){el.innerHTML='<article class="card"><div class="in"><div class="kicker">'+label+'</div><div class="note">Carregant el pla…</div></div></article>';return}
-  if(!Object.keys(S).length){el.innerHTML='<article class="card"><div class="in"><div class="kicker">'+label+'</div><h2>Encara no hi ha cap sessió</h2><div class="note">'+esc(planMsg||"Demana a Claude que prepari el pla.")+'</div></div></article>';return}
-  const list=sessionsOn(todayStr);
-  if(!list.length){
-    const next=all().find(x=>x.d>todayStr&&active(x));
-    el.innerHTML='<article class="card"><div class="in"><div class="kicker">'+label+'</div><h2>'+(next?"Avui no hi ha sessió":"Pla completat")+'</h2><div class="note">'+(next?"La propera és «"+esc(next.t)+"», el "+esc(dayLabel(next.d))+".":"Toca «Envia el resum a Claude» perquè prepari les setmanes següents.")+'</div></div></article>';
-    return;
-  }
-  el.innerHTML=list.map(p=>sessionCard(p,label)).join("");
-}
 const loadCache=new Map();
 function actualLoad(a){
   const d=data[a.id],F=ftp(),key=a.id+"|"+F+"|"+(d&&d.w?d.w.length:0);
@@ -399,31 +409,27 @@ function weekStats(ws,we){
 function hrs(m){return (Math.round(m/6)/10).toString().replace(".",",")+" h"}
 function renderWeek(){
   const weeks=[...new Set(all().map(s=>weekNo(s.d)))].sort((a,b)=>a-b);
-  const tabs=document.getElementById("tabs"),strip=document.getElementById("strip"),sel=document.getElementById("sel");
-  if(!weeks.length){tabs.innerHTML="";strip.innerHTML="";sel.innerHTML="";document.getElementById("weekhead").innerHTML='<div class="kicker">El pla</div><h2>Setmana a setmana</h2>';return}
+  const strip=document.getElementById("strip"),sel=document.getElementById("sel");
+  if(!weeks.length){strip.innerHTML="";sel.innerHTML="";document.getElementById("wkName").textContent="Setmana";document.getElementById("wkLoad").textContent="";return}
   if(weekSel==null||!weeks.includes(weekSel)){const cw=weekNo(todayStr);weekSel=weeks.includes(cw)?cw:(weeks.find(w=>w>=cw)||weeks[weeks.length-1])}
-  const ws=addDays(START,(weekSel-1)*7),we=addDays(ws,6),st=weekStats(ws,we);
+  const ws=addDays(START,(weekSel-1)*7),we=addDays(ws,6);
   const wk=(plan&&plan.weeks&&plan.weeks[String(weekSel)])||{};
-  const img=wk.img||"media/peloton.webp",wi=document.getElementById("weekimg");if(wi.getAttribute("src")!==img)wi.setAttribute("src",img);
-  document.getElementById("weekhead").innerHTML='<div class="kicker">Setmana '+weekSel+' · '+esc(dayLabel(ws))+' – '+esc(dayLabel(we))+'</div><h2>'+esc(wk.name||("Setmana "+weekSel))+'</h2>'+
-    '<div class="wkprog"><div><div class="k">Hores</div><div class="v">'+hrs(st.doneMin)+' / '+hrs(st.planMin)+'</div><div class="bar"><i style="width:'+Math.min(100,st.planMin?st.doneMin/st.planMin*100:0).toFixed(0)+'%"></i></div></div>'+
-    '<div><div class="k">Sessions</div><div class="v">'+st.doneN+' / '+st.totN+'</div><div class="bar"><i style="width:'+(st.totN?st.doneN/st.totN*100:0).toFixed(0)+'%"></i></div></div><div id="wkload"></div></div>';
-  tabs.innerHTML=weeks.map(w=>'<button type="button" role="tab" data-week="'+w+'" aria-selected="'+(w===weekSel)+'">S'+w+'</button>').join("");
+  document.getElementById("wkName").textContent="Setmana "+weekSel+(wk.name?" · "+wk.name:"");
+  document.getElementById("wkPrev").disabled=weekSel<=weeks[0];
+  document.getElementById("wkNext").disabled=weekSel>=weeks[weeks.length-1];
   const days=[];for(let i=0;i<7;i++)days.push(addDays(ws,i));
   const weekSessions=all().filter(s=>s.d>=ws&&s.d<=we);
-  const maxMin=Math.max(60,...weekSessions.map(s=>s.maxMin||s.min||0));
-  if(!selId||!weekSessions.some(s=>s.id===selId)){const t=weekSessions.find(s=>s.d===todayStr&&active(s))||weekSessions.find(s=>active(s)&&s.d>=todayStr&&s.type!=="rest")||weekSessions[0];selId=t?t.id:null}
+  if(!selId||!weekSessions.some(s=>s.id===selId)){const t=weekSessions.find(s=>s.d===todayStr&&active(s))||weekSessions.find(s=>active(s)&&s.d>=todayStr&&s.type!=="rest")||weekSessions.find(active)||weekSessions[0];selId=t?t.id:null}
   const dayInfo=days.map(d=>{
     const on=weekSessions.filter(s=>s.d===d);const p=on.find(active)||on[0]||null;
     const act=acts[d]||null;
-    const pl=p?plannedLoad(p):0,al=act?actualLoad(act):null;
-    return {d,p,act,pl,al};
+    return {d,p,act,pl:p?plannedLoad(p):0,al:act?actualLoad(act):null};
   });
   const scale=Math.max(80,...dayInfo.map(x=>Math.max(x.pl,x.al?x.al.tss:0)))*1.12;
   strip.innerHTML=dayInfo.map(({d,p,act,pl,al})=>{
-    const dd=parseD(d),dl='<div class="dl"><small>'+DAYS[dd.getDay()]+'</small><b>'+dd.getDate()+'</b>'+(al?'<i class="tss">'+Math.round(al.tss)+'</i>':'<i class="tss"> </i>')+'</div>';
+    const dd=parseD(d),dl='<div class="dl"><small>'+DAYS[dd.getDay()]+'</small><b>'+dd.getDate()+'</b><i class="tss">'+(al?Math.round(al.tss):" ")+'</i></div>';
     if(!p&&!act)return '<div class="daybtn" aria-hidden="true"><div class="col2"></div>'+dl+'</div>';
-    const ph=p?(p.type==="rest"||!active(p)?14:Math.max(8,pl/scale*100)):0;
+    const ph=p?(p.type==="rest"||!active(p)?12:Math.max(8,pl/scale*100)):0;
     const ah=al?Math.max(6,al.tss/scale*100):0;
     let tick="";
     if(p&&active(p)&&p.type!=="rest"){
@@ -434,15 +440,13 @@ function renderWeek(){
     } else if(act&&al)tick='<span class="tick extra">+</span>';
     const top=Math.max(ph,ah);
     const pcls="pb"+(p&&p.type==="rest"?" rest":"")+(p&&!active(p)?" gone":"");
-    const cls="daybtn"+(d===todayStr?" today":"");
-    const label=dayLabel(d)+": "+(p?p.t:"sense sessió")+(al?". Fet: "+Math.round(al.tss)+" TSS, intensitat "+al.IF.toFixed(2):"");
-    const target=p?p.id:"";
-    return '<button type="button" class="'+cls+'"'+(target?' data-sel="'+esc(target)+'"':'')+' aria-pressed="'+(p&&p.id===selId)+'" style="--zc:var(--'+esc(p?p.z:"z1")+')'+(al?';--ac:var(--'+ifZone(al.IF)+')':'')+'" aria-label="'+esc(label)+'"><div class="col2">'+
+    const label=dayLabel(d)+": "+(p?p.t:"sense sessió")+(al?". Fet: "+Math.round(al.tss)+" TSS":"");
+    return '<button type="button" class="daybtn'+(d===todayStr?" today":"")+'"'+(p?' data-sel="'+esc(p.id)+'"':'')+' aria-pressed="'+(!!p&&p.id===selId)+'" style="--zc:var(--'+esc(p?p.z:"z1")+')'+(al?';--ac:var(--'+ifZone(al.IF)+')':'')+'" aria-label="'+esc(label)+'"><div class="col2">'+
       (p?'<div class="'+pcls+'" style="height:'+ph.toFixed(0)+'%"></div>':'')+(al?'<div class="ab" style="height:'+ah.toFixed(0)+'%"></div>':'')+
       (tick?'<div class="tickwrap" style="bottom:'+top.toFixed(0)+'%">'+tick+'</div>':'')+'</div>'+dl+'</button>';
   }).join("");
   const wkPlan=dayInfo.reduce((m,x)=>m+x.pl,0),wkDone=dayInfo.reduce((m,x)=>m+(x.al?x.al.tss:0),0);
-  document.getElementById("wkload").innerHTML='<div class="k">Càrrega (TSS)</div><div class="v">'+Math.round(wkDone)+' / '+Math.round(wkPlan)+'</div><div class="bar"><i style="width:'+Math.min(100,wkPlan?wkDone/wkPlan*100:0).toFixed(0)+'%"></i></div>';
+  document.getElementById("wkLoad").textContent=Math.round(wkDone)+" / "+Math.round(wkPlan)+" TSS";
   const p=S[selId];
   sel.innerHTML=p?sessionCard(p,esc(dayLabel(p.d))+(p.d===todayStr?" · Avui":"")):"";
 }
@@ -461,7 +465,7 @@ function renderStatus(){
   document.getElementById("refresh").disabled=!strava.refreshToken;
   document.getElementById("ver").textContent="Versió "+APP_VERSION+(plan&&plan.updated?" · pla del "+plan.updated:"")+".";
 }
-function render(){renderCover();renderStatus();renderSetup();renderLadder();renderDecide();renderToday();renderWeek();renderLog();renderZones();renderConn()}
+function render(){renderHero();renderStatus();renderSetup();renderDecide();renderWeek();renderProgress();renderLog();renderZones();renderConn()}
 
 /* ---------- Progress sync ---------- */
 function syncDone(){
@@ -639,6 +643,7 @@ document.getElementById("refresh").addEventListener("click",()=>{loadPlan();load
 document.getElementById("share").addEventListener("click",shareSummary);
 document.addEventListener("click",e=>{
   const el=e.target.closest("button");if(!el)return;
+  if(el.id==="wkPrev"||el.id==="wkNext"){weekSel=(weekSel||1)+(el.id==="wkNext"?1:-1);selId=null;renderWeek();return}
   if(el.id==="connect"){startAuth();return}
   if(el.id==="importBtn"){
     try{const raw=(document.getElementById("importKey").value||"").trim();const j=JSON.parse(decodeURIComponent(escape(atob(raw))));
@@ -650,7 +655,7 @@ document.addEventListener("click",e=>{
   if(el.id==="disconnect"){strava={clientId:strava.clientId,clientSecret:strava.clientSecret};saveStrava();acts={};data={};stravaState="idle";stravaMsg="Strava desconnectat.";render();return}
   const ds=el.dataset;
   if(ds.week){weekSel=+ds.week;selId=null;renderWeek();return}
-  if(ds.sel){selId=ds.sel;renderWeek();return}
+  if(ds.sel){selId=ds.sel;renderWeek();const t=document.getElementById("sel");if(t&&t.getBoundingClientRect().top>window.innerHeight*0.6)t.scrollIntoView({behavior:"smooth",block:"start"});return}
   if(ds.retry){delete data[ds.retry];loadDetail(ds.retry);return}
   if(ds.choose){chooser=ds.choose;renderDecide();return}
   if(ds.cancel){chooser=null;renderDecide();return}
@@ -683,7 +688,6 @@ function tick(){
 }
 setInterval(tick,60000);
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"){const t=localDate(new Date());if(t!==todayStr){todayStr=t;weekSel=null;selId=null}render();if(Date.now()-lastLoad>60000){loadPlan();loadActivities()}}});
-try{const v=document.getElementById("heroVid");v.addEventListener("canplay",()=>{const pp=v.play();if(pp&&pp.catch)pp.catch(()=>{})})}catch(e){}
 
 /* ---------- Boot ---------- */
 if(plan){applyPlanMeta();S=buildSessions();planState="ready"}

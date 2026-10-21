@@ -13,87 +13,53 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="preload" as="image" href="media/mud.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
-<link rel="stylesheet" href="app.css?v=1.4.0">
+<link rel="stylesheet" href="app.css?v=1.5.0">
 </head>
 <body>
-<header class="cover" id="cover">
-  <img class="poster" src="media/hero-poster.jpg" alt="">
-  <video id="heroVid" src="media/hero.mp4" poster="media/hero-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
-  <div class="in g">
-    <div class="mast col" style="width:100%"><span class="brand">Quadern de Watts</span><span class="issue" id="issue">Hivern 2026</span></div>
-    <div class="col" style="width:100%">
-      <div class="kicker" style="color:var(--photo-ink)">Pla d'hivern · Girona</div>
-      <h1><span>Albert</span><span class="pink">Grau</span></h1>
-      <div class="dek">Dotze setmanes per passar de rodar a competir: 280 watts i 70 quilos.</div>
-      <div class="coverstats">
-        <div><div class="v"><input id="ftp" type="number" inputmode="numeric" min="100" max="500" value="245" aria-label="FTP en watts">W</div><div class="k">FTP actual</div></div>
-        <div><div class="v" id="wkg">3,3</div><div class="k">W/kg</div></div>
-        <div><div class="v" id="goal">280</div><div class="k">Objectiu</div></div>
-      </div>
+<header class="hero" id="hero">
+  <img class="heroimg" id="heroimg" src="media/mud.webp" alt="L'Albert i un company rodant per un camí enfangat">
+  <div class="shade"></div>
+  <div class="top g"><div class="col" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px">
+    <span class="brand">Quadern de Watts</span>
+    <label class="pill" for="ftp">FTP <input id="ftp" type="number" inputmode="numeric" min="100" max="500" value="245"> W</label>
+  </div></div>
+  <div class="bottom g"><div class="col" style="width:100%;display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span class="kick" id="heroKick">Avui</span>
+      <h1 id="heroTitle">Carregant…</h1>
+      <span class="sub" id="heroSub" hidden></span>
     </div>
-  </div>
+    <div id="heroVerdict" hidden></div>
+    <div class="tiles" id="heroTiles"></div>
+    <div class="glass">
+      <div class="wkbar"><button type="button" id="wkPrev" aria-label="Setmana anterior">‹</button><span class="nm" id="wkName">Setmana</span><span class="ld" id="wkLoad"></span><button type="button" id="wkNext" aria-label="Setmana següent">›</button></div>
+      <div class="strip" id="strip"></div>
+      <div class="legend2"><span><i class="lp"></i>Previst</span><span><i class="la"></i>Fet · alçada = càrrega, color = intensitat real</span></div>
+    </div>
+  </div></div>
 </header>
 
 <main class="g">
-  <div class="col stack">
+  <div class="col stack" style="gap:22px">
     <div class="status" id="status"><span class="dot"></span><span class="msg" id="statusMsg">Carregant el pla…</span><button class="btn ghost" id="refresh" type="button">Actualitza</button></div>
-
     <section class="card" id="setup" hidden></section>
     <section class="card decide" id="decide" hidden></section>
-    <section id="today" class="stack" style="gap:16px"></section>
-
-
-    <section class="stack" style="gap:16px">
-      <div><div class="kicker">El camí</div><h2>Cap als 280</h2></div>
-      <div class="spread">
-        <div class="tile">
-          <video src="media/nomercy.mp4" poster="media/nomercy-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
-          <div class="cap">Primavera · Empordà</div>
-        </div>
-        <div class="ladder">
-          <div class="label">FTP en watts</div>
-          <div class="track" id="ladder"></div>
-        </div>
-      </div>
-      <div class="bio">
-        <img src="media/portrait.webp" alt="Albert amb el casc i les ulleres, somrient">
-        <dl>
-          <dt>Atleta</dt><dd style="font-family:var(--f-body);font-weight:600">Albert Grau Bosch</dd>
-          <dt>Edat</dt><dd>23 anys</dd>
-          <dt>Pes</dt><dd>75 → 70 kg</dd>
-          <dt>Cadència</dt><dd>77 → 88 rpm</dd>
-          <dt>Pic de forma</dt><dd>gener 2027</dd>
-        </dl>
-      </div>
-    </section>
+    <section id="sel" aria-label="Sessió seleccionada"></section>
+    <section class="card progress" id="progress"></section>
+    <div class="actions"><button class="btn primary" id="share" type="button">Envia el resum a Claude</button></div>
+    <details class="box" id="logBox"><summary>Canvis al pla</summary><ul class="log" id="log"></ul></details>
+    <details class="box"><summary>Zones de potència</summary>
+      <div class="tbl" style="margin-top:10px"><table class="zt"><thead><tr><th>Zona</th><th>% FTP</th><th>Watts</th></tr></thead><tbody id="zones"></tbody></table></div>
+    </details>
+    <details class="box" id="connBox"><summary>Connexió amb Strava</summary><div class="conn" id="conn"></div></details>
+    <p class="note">L'app mira Strava cada 5 minuts mentre està oberta i cada cop que hi tornes. <span id="ver"></span></p>
   </div>
 </main>
-
-<section aria-label="Setmana">
-  <div class="weekcover" id="weekcover"><img id="weekimg" src="media/gravel.webp" alt=""><div class="in g"><div class="col" style="width:100%" id="weekhead"></div></div></div>
-  <div class="g"><div class="col">
-    <div class="tabs" role="tablist" id="tabs"></div>
-    <div class="strip" id="strip"></div>
-    <div class="loadlegend"><span><i class="lp"></i>Previst</span><span><i class="la"></i>Fet (alçada = càrrega TSS)</span><span><i class="zs"><b style="background:var(--z1)"></b><b style="background:var(--z2)"></b><b style="background:var(--z3)"></b><b style="background:var(--ss)"></b><b style="background:var(--z4)"></b><b style="background:var(--z5)"></b></i>Color = intensitat real, de suau a forta</span></div>
-    <div id="sel" style="margin-top:18px"></div>
-  </div></div>
-</section>
-
-<div class="g" style="margin-top:32px"><div class="col stack">
-  <div class="actions"><button class="btn primary" id="share" type="button">Envia el resum a Claude</button></div>
-  <details class="box" id="logBox"><summary>Canvis al pla</summary><ul class="log" id="log"></ul></details>
-  <details class="box"><summary>Zones de potència</summary>
-    <div class="tbl" style="margin-top:10px"><table class="zt"><thead><tr><th>Zona</th><th>% FTP</th><th>Watts</th></tr></thead><tbody id="zones"></tbody></table></div>
-  </details>
-  <details class="box" id="connBox"><summary>Connexió amb Strava</summary><div class="conn" id="conn"></div></details>
-  <p class="note">L'app mira Strava cada 5 minuts mentre està oberta i cada cop que hi tornes. Compara cada sessió amb l'activitat del mateix dia: durada, potència dels millors blocs de la durada de cada interval i cadència. <span id="ver"></span></p>
-</div></div>
-
-<footer class="endcover"><img src="media/group.webp" alt="Grup de ciclistes rodant sota la pluja"><div class="in g"><div class="col"><div class="big">Fet a Girona</div>Pluja, fang i watts.</div></div></footer>
 <div class="toast" id="toast" hidden><div id="toastMsg"></div></div>
-<script src="app.js?v=1.4.0"></script>
+<script src="app.js?v=1.5.0"></script>
 </body>
 </html>
