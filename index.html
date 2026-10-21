@@ -45,6 +45,20 @@
     <section class="card decide" id="decide" hidden></section>
     <section id="today" class="stack" style="gap:16px"></section>
 
+    <section class="card coach" id="coach" aria-label="El teu coach">
+      <div class="in">
+        <div><div class="kicker">Pregunta al coach</div><h3 style="margin-top:6px">Canviem alguna cosa?</h3></div>
+        <div class="msgs" id="msgs"></div>
+        <div id="coachKey"></div>
+        <form class="ask" id="askForm" autocomplete="off">
+          <label class="sr" for="askInput">Escriu la teva pregunta</label>
+          <textarea id="askInput" rows="2" placeholder="Ex: Demà no puc entrenar, què faig amb el sweet spot?"></textarea>
+          <button class="btn primary" id="askBtn" type="submit">Envia</button>
+        </form>
+        <div class="chips" id="chips"></div>
+      </div>
+    </section>
+
     <section class="stack" style="gap:16px">
       <div><div class="kicker">El camí</div><h2>Cap als 280</h2></div>
       <div class="spread">

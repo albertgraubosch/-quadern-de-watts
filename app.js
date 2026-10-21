@@ -1,12 +1,13 @@
 (function(){
 "use strict";
-const APP_VERSION="1.0.0";
+const APP_VERSION="1.1.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
 const CATNAMES={ss:"sweet spot",tempo:"tempo",force:"força-resistència"};
 const ZONES=[["Z1 Recuperació","z1",0,.55],["Z2 Resistència","z2",.56,.75],["Z3 Tempo","z3",.76,.90],["Sweet spot","ss",.88,.94],["Z4 Llindar","z4",.91,1.05],["Z5 VO2màx","z5",1.06,1.20],["Z6 Anaeròbica","z5",1.21,1.50],["Z7 Neuromuscular","z7",1.51,null]];
-const OVERLAY_KEYS=["d","status","k","adjNote","movedFrom","done","adjDone","replacedBy"];
+const OVERLAY_KEYS=["d","status","k","adjNote","movedFrom","done","adjDone","replacedBy","type","z","t","min","maxMin","steps","ints","band","cad","cat","fuel","note","key","coachEdit"];
+const COACH_MODEL="gemini-3.8-flash";
 
 /* ---------- Storage ---------- */
 function lsGet(k,def){try{const v=localStorage.getItem(k);return v==null?def:JSON.parse(v)}catch(e){return def}}
@@ -296,7 +297,8 @@ function sessionCard(p,kick){
   return '<article class="card feature" style="--zc:var(--'+esc(p.z)+')"><div class="zonebar"></div><div class="in">'+
     '<div class="feature-head"><div class="kicker">'+kick+(p.key?" · Sessió clau":"")+'</div><h2>'+esc(p.t)+'</h2>'+
     '<div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span>'+(p.cad?'<span>Cadència <b>'+p.cad[0]+'–'+p.cad[1]+' rpm</b></span>':'')+(kpct?'<span>Intensitat <b>'+(kpct>0?"+":"")+kpct+' %</b></span>':'')+'</div></div>'+
-    (active(p)?profileHTML(p):"")+stepsHTML(p)+resultHTML(p)+'</div></article>';
+    (active(p)?profileHTML(p):"")+stepsHTML(p)+resultHTML(p)+
+    (active(p)?'<div class="actions"><button class="btn ghost" type="button" data-askabout="'+esc(p.id)+'">Pregunta al coach sobre aquesta sessió</button></div>':'')+'</div></article>';
 }
 function renderCover(){
   const inp=document.getElementById("ftp");if(document.activeElement!==inp)inp.value=ftp();
@@ -330,7 +332,8 @@ function renderConn(){
   if(!strava.refreshToken){el.innerHTML='<div class="note">Encara no està connectat. Fes servir el formulari de dalt.</div>';return}
   el.innerHTML='<div>Connectat'+(strava.athlete?' com a <b>'+esc(strava.athlete)+'</b>':'')+'.</div>'+
     '<div class="note">Si l\'has connectat a Safari i l\'app de la pantalla d\'inici et torna a demanar la connexió, copia aquesta clau aquí i enganxa-la allà.</div>'+
-    '<div class="actions"><button class="btn ghost" type="button" id="exportBtn">Copia la clau de connexió</button><button class="btn danger" type="button" id="disconnect">Desconnecta</button></div>';
+    '<div class="actions"><button class="btn ghost" type="button" id="exportBtn">Copia la clau de connexió</button><button class="btn danger" type="button" id="disconnect">Desconnecta</button></div>'+
+    (coach.key?'<div class="actions"><button class="btn ghost" type="button" id="resetKey">Canvia la clau del coach</button></div>':'');
 }
 function renderDecide(){
   const el=document.getElementById("decide");
@@ -428,7 +431,7 @@ function renderStatus(){
   document.getElementById("refresh").disabled=!strava.refreshToken;
   document.getElementById("ver").textContent="Versió "+APP_VERSION+(plan&&plan.updated?" · pla del "+plan.updated:"")+".";
 }
-function render(){renderCover();renderStatus();renderSetup();renderLadder();renderDecide();renderToday();renderWeek();renderLog();renderZones();renderConn()}
+function render(){renderCover();renderStatus();renderSetup();renderLadder();renderDecide();renderToday();renderWeek();renderLog();renderZones();renderConn();renderCoachKey()}
 
 /* ---------- Progress sync ---------- */
 function syncDone(){
@@ -595,6 +598,187 @@ function copyText(text,okMsg){
   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(()=>toast(okMsg),fallback);else fallback();
 }
 
+/* ---------- Coach (Gemini) ---------- */
+let coach=lsGet("qw.coach",{key:"",msgs:[]});if(!Array.isArray(coach.msgs))coach.msgs=[];
+let coachBusy=false;
+function saveCoach(){coach.msgs=coach.msgs.slice(-40);lsSet("qw.coach",coach)}
+function plainW(txt,k){return String(txt||"").replace(/\{(\d+)(?:,(\d+))?\}/g,(_,a,b)=>(b?W(a/100,k)+"–"+W(b/100,k):W(a/100,k))+" W")}
+const COACH_RULES=`Ets el coach de ciclisme de l'Albert dins de la seva app "Quadern de Watts". El pla l'ha dissenyat el seu entrenador principal (Claude). La teva feina és respondre dubtes i fer AJUSTOS PETITS al pla, sempre coherents amb aquesta metodologia:
+
+ATLETA: Albert Grau, 23 anys, Girona. Ciclisme de carretera (també gravel). Pes 75 kg, objectiu 70 kg. FTP de referència a la secció ESTAT. Objectiu: 280 W a gener de 2027 (mínim realista ~265 W). Fa 1 any que roda regularment; entrena a l'hivern perquè a l'estiu treballa molt. Té potenciòmetre i rodet intel·ligent, ciclocomputador Wahoo, NO té banda de freqüència cardíaca: s'entrena per potència i sensacions (RPE). Cadència habitual 72–79 rpm: un objectiu clau és pujar-la a 85–90 rpm.
+
+MACROCICLE (12 setmanes des del 19-oct-2026): Base S1–S4 (S4 descàrrega + test FTP de 20′), Construcció S5–S8 (S8 descàrrega), Especificitat S9–S11, Tapering i test S12. Patró 3 setmanes de càrrega + 1 de descàrrega.
+
+ZONES COGGAN (% FTP): Z1 <55; Z2 56–75; Z3 76–90; Sweet spot 88–94; Z4 91–105; Z5 106–120; Z6 121–150; Z7 >150.
+
+REGLES QUE HAS DE RESPECTAR:
+- Mai dues sessions dures seguides (dures = sweet spot, tempo, força-resistència, intervals, fons llarg). Entre dures, descans o recuperació.
+- Mai més de 3 sessions dures en una setmana.
+- Si es perd una sessió clau (marcada "clau"), prioritza reprogramar-la; si es perd una de Z2 o recuperació, normalment s'elimina.
+- No compensis sessions perdudes acumulant volum: millor perdre-la que sobrecarregar.
+- Si diu que està cansat, que dorm malament o que té les cames carregades: baixa la intensitat o converteix en recuperació.
+- Si menciona DOLOR o lesió (genoll, esquena, etc.): recomana parar, no entrenar amb dolor i consultar un fisioterapeuta o metge. Mai donis diagnòstics.
+- Malaltia (febre, grip): descans complet; no entrenar fins 24–48 h sense símptomes.
+- Nutrició: dèficit de 300–500 kcal només els dies suaus o de descans; proteïna 1,8–2,2 g/kg; carbohidrats a la bici 30–40 g/h (tempo), 50–60 g/h (sweet spot), 60–80 g/h (fons llargs). No proposis dietes extremes ni pèrdues de més de 0,5 kg/setmana.
+- No pots canviar l'FTP: només es canvia amb el test de la Setmana 4. No pots crear setmanes noves ni canviar l'estructura del pla: per això, digues-li que ho demani a Claude al xat principal (també pot fer servir el botó "Envia el resum a Claude").
+
+CANVIS QUE POTS PROPOSAR (l'app els mostra i l'Albert els confirma):
+- {"action":"move","id":"<id>","to":"AAAA-MM-DD"}  moure una sessió (entre avui i 14 dies). Si el dia té descans o recuperació, la substitueix.
+- {"action":"remove","id":"<id>"}  eliminar una sessió.
+- {"action":"restore","id":"<id>"}  recuperar una sessió eliminada.
+- {"action":"easy","id":"<id>"}  convertir una sessió en recuperació de 40′ en Z1.
+- {"action":"intensity","id":"<id>","pct":<número de -5 a 5>}  ajustar els watts d'una sessió (%).
+- {"action":"duration","id":"<id>","min":<minuts>}  canviar la durada d'una sessió de Z2, recuperació o fons llarg (entre el 50 % i el 110 % de l'original).
+- {"action":"note","id":"<id>","text":"..."}  afegir una nota curta a una sessió.
+Fes servir només ids que apareguin a la llista de sessions. Proposa el mínim de canvis necessaris. Si no cal cap canvi, "changes": [].
+
+ESTIL: respon sempre en català, com un entrenador proper i directe, amb frases curtes. Màxim ~120 paraules. Fes servir els números reals (watts, minuts, dates) de les dades. Explica breument el perquè dels canvis.
+
+FORMAT DE RESPOSTA: retorna NOMÉS un objecte JSON vàlid, sense res més: {"reply":"text per a l'Albert","changes":[ ... ]}`;
+function sessionLine(s){
+  let st=!active(s)?(s.status==="removed"?"ELIMINADA":"substituïda"):"";
+  if(!st){
+    const act=actFor(s),d=act&&data[act.id];
+    if(act&&d&&!d.error){const a=analyze(s,act,d);st="FETA "+(a.level==="ok"?"bé":a.level==="warn"?"amb matisos":"incompleta")+" — "+fmtDur(act.moving_time||0)+(act.average_watts?", "+Math.round(act.average_watts)+" W mitjana":"")+". "+a.checks.map(c=>c.t).join(" ");}
+    else if(act)st="FETA (analitzant)";
+    else if(s.done)st="FETA (marcada a mà)";
+    else if(s.type==="rest")st="descans";
+    else if(s.d<todayStr)st="NO FETA";
+    else if(s.d===todayStr)st="AVUI, pendent";
+    else st="pendent";
+  }
+  const hard=["int","long"].includes(s.type)||["ss","tempo","force","long"].includes(s.cat);
+  let l="- id="+s.id+" | "+s.d+" ("+DAYS[parseD(s.d).getDay()]+") | S"+weekNo(s.d)+" | "+s.t+" | tipus="+s.type+(hard?" (dura)":"")+(s.key?" | CLAU":"")+" | "+fmtPlanDur(s)+((s.k||1)!==1?" | intensitat "+(s.k>1?"+":"")+Math.round((s.k-1)*100)+"%":"")+(s.movedFrom?" | moguda des de "+s.movedFrom:"")+" | ESTAT: "+st;
+  if(active(s)&&s.type!=="rest"&&s.d>=todayStr)l+="\n    Detall: "+steps(s).map(x=>x.l+": "+plainW(x.x,s.k)).join(" · ");
+  return l;
+}
+function coachContext(){
+  const dt=new Date();
+  const L=["ESTAT (ara: "+DAYNAMES[dt.getDay()]+" "+todayStr+" "+String(dt.getHours()).padStart(2,"0")+":"+String(dt.getMinutes()).padStart(2,"0")+", setmana "+weekNo(todayStr)+" del pla)",
+    "FTP actual: "+ftp()+" W ("+(ftp()/WEIGHT).toFixed(2)+" W/kg). FTP inicial "+FTP0+" W. Objectiu "+GOAL+" W.",
+    "Zones en watts: Z1 <"+W(.55)+"; Z2 "+W(.56)+"–"+W(.75)+"; Z3 "+W(.76)+"–"+W(.90)+"; SS "+W(.88)+"–"+W(.94)+"; Z4 "+W(.91)+"–"+W(1.05)+"; Z5 "+W(1.06)+"–"+W(1.20)+".","","SESSIONS DEL PLA:"];
+  all().forEach(s=>L.push(sessionLine(s)));
+  const acts14=(lsGet("qw.acts",[])||[]).filter(a=>a.start_local&&a.start_local.slice(0,10)>=addDays(todayStr,-21));
+  if(acts14.length){L.push("","ACTIVITATS DE STRAVA (últimes 3 setmanes):");acts14.forEach(a=>L.push("- "+a.start_local.slice(0,10)+" | "+(a.sport_type||"")+" | "+(a.name||"")+" | "+fmtDur(a.moving_time||0)+" | "+(a.distance?(a.distance/1000).toFixed(1)+" km":"")+(a.average_watts?" | "+Math.round(a.average_watts)+" W":"")+(a.average_cadence?" | "+Math.round(a.average_cadence)+" rpm":"")))}
+  else L.push("","ACTIVITATS DE STRAVA: "+(strava.refreshToken?"cap en les últimes 3 setmanes.":"Strava no està connectat."));
+  if(state.log.length){L.push("","CANVIS RECENTS AL PLA:");state.log.slice(-10).forEach(e=>L.push("- "+e.at.slice(0,10)+": "+e.txt))}
+  return L.join("\n");
+}
+function validateChange(c){
+  if(!c||typeof c!=="object")return {ok:false,txt:"Canvi no vàlid."};
+  const s=S[c.id];const a=c.action;
+  if(!s)return {ok:false,txt:"Sessió desconeguda ("+(c.id||"?")+")."};
+  const name="«"+s.t+"» ("+dayLabel(s.d)+")";
+  if(a==="move"){
+    const to=String(c.to||"");
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(to))return {ok:false,txt:"Moure "+name+": data no vàlida."};
+    if(to<todayStr||to>addDays(todayStr,14))return {ok:false,txt:"Moure "+name+" al "+to+": només es pot moure entre avui i d'aquí 14 dies."};
+    if(!active(s))return {ok:false,txt:name+" està eliminada; primer cal recuperar-la."};
+    if(s.done||actFor(s))return {ok:false,txt:name+" ja està feta."};
+    const block=sessionsOn(to).find(x=>x.id!==s.id&&x.type!=="rest"&&x.type!=="rec"&&!x.done);
+    if(block)return {ok:false,txt:"Moure "+name+" al "+dayLabel(to)+": aquell dia ja hi ha «"+block.t+"»."};
+    const hard=x=>["int","long"].includes(x.type);
+    if(hard(s)){const nb=[addDays(to,-1),addDays(to,1)].flatMap(d=>sessionsOn(d)).filter(x=>x.id!==s.id&&hard(x));if(nb.length)return {ok:false,txt:"Moure "+name+" al "+dayLabel(to)+" deixaria dues sessions dures seguides (amb «"+nb[0].t+"»)."}}
+    return {ok:true,txt:"Moure "+name+" al "+dayLabel(to)+".",apply:()=>{
+      const repl=sessionsOn(to).filter(x=>(x.type==="rest"||x.type==="rec")&&!x.done&&x.id!==s.id);
+      repl.forEach(x=>setOv(x.id,{status:"replaced",replacedBy:s.id}));
+      setOv(s.id,{d:to,movedFrom:s.movedFrom||s.d});return "«"+s.t+"» moguda al "+dayLabel(to)+(repl.length?", en lloc de «"+repl.map(x=>x.t).join(" + ")+"»":"")}};
+  }
+  if(a==="remove"){if(!active(s))return {ok:false,txt:name+" ja no és al pla."};if(s.done||actFor(s))return {ok:false,txt:name+" ja està feta."};
+    return {ok:true,txt:"Eliminar "+name+".",apply:()=>{setOv(s.id,{status:"removed"});return "«"+s.t+"» del "+dayLabel(s.d)+" eliminada"}}}
+  if(a==="restore"){if(active(s))return {ok:false,txt:name+" ja és al pla."};
+    return {ok:true,txt:"Recuperar "+name+".",apply:()=>{setOv(s.id,{status:"planned"});return "«"+s.t+"» del "+dayLabel(s.d)+" recuperada"}}}
+  if(a==="easy"){if(!active(s)||s.type==="rest"||s.type==="rec")return {ok:false,txt:name+" no es pot convertir en recuperació."};if(s.done||actFor(s))return {ok:false,txt:name+" ja està feta."};
+    return {ok:true,txt:"Convertir "+name+" en recuperació de 40′.",apply:()=>{const old=s.t;setOv(s.id,{type:"rec",z:"z1",cat:"rec",t:"Recuperació",min:40,maxMin:0,ints:[],key:false,cad:[88,92],fuel:"Aigua",steps:[{l:"Sessió",x:"40′ en Z1 a {45,53} i 90 rpm. Si estàs cansat, descans total"}],coachEdit:"Abans: «"+old+"»"});return "«"+old+"» del "+dayLabel(s.d)+" convertida en recuperació"}}}
+  if(a==="intensity"){const pct=Number(c.pct);if(!isFinite(pct)||pct===0||Math.abs(pct)>5)return {ok:false,txt:"Ajust d'intensitat de "+name+" fora del límit (±5 %)."};
+    if(!active(s)||s.type==="rest")return {ok:false,txt:name+" no té intensitat per ajustar."};
+    const nk=Math.round(Math.min(1.1,Math.max(0.9,(s.k||1)*(1+pct/100)))*1000)/1000;
+    return {ok:true,txt:(pct>0?"Pujar":"Baixar")+" un "+Math.abs(pct)+" % els watts de "+name+".",apply:()=>{setOv(s.id,{k:nk,adjNote:"Ajustada "+(pct>0?"+":"")+pct+" % pel coach."});return "Intensitat de «"+s.t+"» "+(pct>0?"+":"")+pct+" %"}}}
+  if(a==="duration"){const m=Math.round(Number(c.min));if(!["end","rec","long"].includes(s.type))return {ok:false,txt:"Només es pot canviar la durada de sessions de Z2, recuperació o fons llarg."};
+    const base=(plan.sessions.find(x=>x.id===s.id)||s).min||s.min;
+    if(!isFinite(m)||m<base*0.5||m>base*1.1)return {ok:false,txt:"Durada de "+name+" fora de límits ("+Math.round(base*0.5)+"–"+Math.round(base*1.1)+"′)."};
+    return {ok:true,txt:"Canviar la durada de "+name+" a "+fmtDur(m*60)+".",apply:()=>{setOv(s.id,{min:m,maxMin:0});return "Durada de «"+s.t+"» a "+fmtDur(m*60)}}}
+  if(a==="note"){const t=String(c.text||"").trim().slice(0,200);if(!t)return {ok:false,txt:"Nota buida."};
+    return {ok:true,txt:"Afegir una nota a "+name+": «"+t+"»",apply:()=>{setOv(s.id,{note:"Coach: "+t});return "Nota a «"+s.t+"»"}}}
+  return {ok:false,txt:"Acció desconeguda ("+esc(a)+")."};
+}
+function renderCoachKey(){
+  const el=document.getElementById("coachKey");if(!el)return;
+  if(coach.key){el.innerHTML="";return}
+  el.innerHTML='<div class="setup"><div class="note">Per activar el coach, crea una clau gratuïta de Google Gemini a <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a> (botó «Create API key») i enganxa-la aquí. Es queda només en aquest mòbil.</div>'+
+    '<div class="field"><label for="gkey">Clau de Gemini</label><input id="gkey" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="AIza…"></div>'+
+    '<div class="actions"><button class="btn primary" type="button" id="saveKey">Activa el coach</button></div></div>';
+}
+function renderMsgs(){
+  const el=document.getElementById("msgs");
+  let h="";
+  coach.msgs.forEach((m,i)=>{
+    if(m.role==="user"){h+='<div class="msg me">'+esc(m.text).replace(/\n/g,"<br>")+'</div>';return}
+    if(m.role==="error"){h+='<div class="msg err">'+esc(m.text)+'</div>';return}
+    h+='<div class="msg bot"><span class="who">Coach</span>'+esc(m.text).replace(/\n/g,"<br>");
+    if(m.changes&&m.changes.length){
+      h+='<div class="props">';
+      m.changes.forEach(c=>{h+='<div class="prop'+(c.ok?"":" bad")+'"><i>'+(c.ok?"→":"✕")+'</i><span>'+esc(c.txt)+'</span></div>'});
+      if(m.state==="applied")h+='<div class="state">✓ Canvis aplicats al pla</div>';
+      else if(m.state==="dismissed")h+='<div class="state">No aplicats</div>';
+      else if(m.changes.some(c=>c.ok))h+='<div class="actions"><button class="btn primary" type="button" data-applymsg="'+i+'">Aplica els canvis</button><button class="btn ghost" type="button" data-dismissmsg="'+i+'">No</button></div>';
+      h+='</div>';
+    }
+    h+='</div>';
+  });
+  if(coachBusy)h+='<div class="msg bot"><span class="who">Coach</span><span class="typing"><b></b><b></b><b></b></span></div>';
+  el.innerHTML=h;el.scrollTop=el.scrollHeight;
+  document.getElementById("askBtn").disabled=coachBusy;
+  const chips=["Avui no puc entrenar","Tinc les cames carregades","Què menjo abans del sweet spot?","Com vaig aquesta setmana?"];
+  document.getElementById("chips").innerHTML=coach.msgs.length>2?"":chips.map(c=>'<button type="button" data-chip="'+esc(c)+'">'+esc(c)+'</button>').join("");
+}
+function geminiErr(status,body){
+  const m=(body&&body.error&&body.error.message)||"";
+  if(status===400&&/API key/i.test(m))return "La clau de Gemini no és vàlida. Revisa-la a aistudio.google.com/apikey i torna-la a enganxar.";
+  if(status===400)return "El coach no ha entès la petició ("+m.slice(0,120)+").";
+  if(status===403)return "Google no permet aquesta clau. Comprova que l'API de Gemini estigui activada al teu compte.";
+  if(status===404)return "El model del coach no està disponible. Avisa en Claude perquè actualitzi l'app.";
+  if(status===429)return "Has arribat al límit gratuït de Gemini per ara. Torna-ho a provar d'aquí una estona.";
+  if(status>=500)return "Gemini no respon ara mateix. Torna-ho a provar en un minut.";
+  return "No s'ha pogut parlar amb el coach. Comprova la connexió.";
+}
+function parseCoach(text){
+  let t=String(text||"").trim().replace(/^```(?:json)?\s*/i,"").replace(/```\s*$/,"");
+  const a=t.indexOf("{"),b=t.lastIndexOf("}");if(a>=0&&b>a)t=t.slice(a,b+1);
+  try{const j=JSON.parse(t);return {reply:String(j.reply||""),changes:Array.isArray(j.changes)?j.changes:[]}}catch(e){return {reply:String(text||"").trim(),changes:[]}}
+}
+function askCoach(q){
+  q=String(q||"").trim();if(!q||coachBusy)return;
+  if(!coach.key){toast("Primer enganxa la clau de Gemini.");return}
+  coach.msgs.push({role:"user",text:q,at:new Date().toISOString()});saveCoach();
+  coachBusy=true;renderMsgs();
+  const hist=coach.msgs.filter(m=>m.role==="user"||m.role==="bot").slice(-12,-1).map(m=>({role:m.role==="user"?"user":"model",parts:[{text:m.role==="user"?m.text:JSON.stringify({reply:m.text,changes:(m.raw||[])})}]}));
+  const contents=hist.concat([{role:"user",parts:[{text:coachContext()+"\n\nPREGUNTA DE L'ALBERT:\n"+q}]}]);
+  const body={systemInstruction:{parts:[{text:COACH_RULES}]},contents,generationConfig:{temperature:0.4,responseMimeType:"application/json",maxOutputTokens:1200}};
+  fetch("https://generativelanguage.googleapis.com/v1beta/models/"+COACH_MODEL+":generateContent",{method:"POST",headers:{"Content-Type":"application/json","x-goog-api-key":coach.key},body:JSON.stringify(body)})
+  .then(r=>r.json().catch(()=>({})).then(j=>{if(!r.ok)throw {status:r.status,body:j};return j}))
+  .then(j=>{
+    const cand=j.candidates&&j.candidates[0];
+    const text=cand&&cand.content&&cand.content.parts?cand.content.parts.map(p=>p.text||"").join(""):"";
+    if(!text){coach.msgs.push({role:"error",text:"El coach no ha pogut respondre aquesta pregunta. Prova de formular-la d'una altra manera."});return}
+    const r=parseCoach(text);
+    const changes=r.changes.slice(0,6).map(c=>{const v=validateChange(c);return {ok:v.ok,txt:v.txt,raw:c}});
+    coach.msgs.push({role:"bot",text:r.reply||"Fet.",changes,raw:r.changes,state:changes.some(c=>c.ok)?"pending":null,at:new Date().toISOString()});
+  })
+  .catch(e=>{coach.msgs.push({role:"error",text:e&&e.status!=null?geminiErr(e.status,e.body):"No s'ha pogut parlar amb el coach. Comprova la connexió."})})
+  .then(()=>{coachBusy=false;saveCoach();renderMsgs()});
+}
+function applyMsg(i){
+  const m=coach.msgs[i];if(!m||m.state!=="pending")return;
+  const done=[];
+  (m.changes||[]).forEach(c=>{if(!c.ok)return;const v=validateChange(c.raw);if(v.ok){const t=v.apply();if(t)done.push(t)}else{c.ok=false;c.txt=v.txt}});
+  m.state="applied";saveCoach();
+  if(done.length){addLog("Coach: "+done.join("; ")+".");toast("Pla actualitzat ✓")}
+  memo.clear();render();renderMsgs();
+}
+document.getElementById("askForm").addEventListener("submit",e=>{e.preventDefault();const t=document.getElementById("askInput");const q=t.value;t.value="";askCoach(q)});
+document.getElementById("askInput").addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.metaKey||e.ctrlKey)){e.preventDefault();document.getElementById("askForm").requestSubmit()}});
+
 /* ---------- Events ---------- */
 document.getElementById("ftp").addEventListener("change",e=>{
   const v=parseInt(e.target.value,10);
@@ -615,7 +799,13 @@ document.addEventListener("click",e=>{
   }
   if(el.id==="exportBtn"){const k=btoa(unescape(encodeURIComponent(JSON.stringify({c:strava.clientId,s:strava.clientSecret,r:strava.refreshToken,a:strava.athlete||""}))));copyText(k,"Clau copiada. Enganxa-la a l'altra app.");return}
   if(el.id==="disconnect"){strava={clientId:strava.clientId,clientSecret:strava.clientSecret};saveStrava();acts={};data={};stravaState="idle";stravaMsg="Strava desconnectat.";render();return}
+  if(el.id==="resetKey"){coach.key="";saveCoach();render();document.getElementById("coach").scrollIntoView({behavior:"smooth"});return}
+  if(el.id==="saveKey"){const k=(document.getElementById("gkey").value||"").trim();if(k.length<20){toast("Aquesta clau sembla incompleta. Copia-la sencera.");return}coach.key=k;saveCoach();renderCoachKey();toast("Coach activat ✓");return}
   const ds=el.dataset;
+  if(ds.applymsg!=null){applyMsg(+ds.applymsg);return}
+  if(ds.dismissmsg!=null){const m=coach.msgs[+ds.dismissmsg];if(m){m.state="dismissed";saveCoach();renderMsgs()}return}
+  if(ds.chip){askCoach(ds.chip);return}
+  if(ds.askabout){const s=S[ds.askabout];if(!s)return;const t=document.getElementById("askInput");t.value="Sobre «"+s.t+"» del "+dayLabel(s.d)+": ";document.getElementById("coach").scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>{t.focus();t.setSelectionRange(t.value.length,t.value.length)},350);return}
   if(ds.week){weekSel=+ds.week;selId=null;renderWeek();return}
   if(ds.sel){selId=ds.sel;renderWeek();return}
   if(ds.retry){delete data[ds.retry];loadDetail(ds.retry);return}
@@ -655,7 +845,7 @@ try{const v=document.getElementById("heroVid");v.addEventListener("canplay",()=>
 /* ---------- Boot ---------- */
 if(plan){applyPlanMeta();S=buildSessions();planState="ready"}
 const cached=lsGet("qw.acts",null);if(Array.isArray(cached)){acts=indexActs(cached);if(strava.refreshToken){stravaState="on";stravaMsg="Carregant Strava…"}}
-render();
+render();renderMsgs();
 handleAuthReturn().then(()=>{render();return loadPlan()}).then(()=>{if(strava.refreshToken)loadActivities()});
 if("serviceWorker" in navigator&&location.protocol==="https:"){
   navigator.serviceWorker.register("sw.js").then(reg=>{reg.update().catch(()=>{})}).catch(()=>{});
