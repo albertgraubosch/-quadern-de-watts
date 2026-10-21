@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.2.0";
+const APP_VERSION="1.2.1";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -311,7 +311,7 @@ function renderLadder(){
   const mk=(v,cls,label,sub)=>'<div class="mk '+cls+'" style="bottom:'+pos(v)+'"><i></i><span><b>'+label+'</b><br><small>'+sub+'</small></span></div>';
   const prog=Math.max(0,Math.min(100,Math.round((F-FTP0)/(GOAL-FTP0)*100)));
   document.getElementById("ladder").innerHTML='<div class="fill" style="height:'+pos(F)+'"></div>'+
-    mk(GOAL,"goal",GOAL,"Objectiu gener")+(Math.abs(F-FTP0)>=12?mk(FTP0,"",FTP0,"Inici"):"")+mk(F,"now",F,"Ara · "+prog+" % del camí"+(Math.abs(F-FTP0)<12&&F!==FTP0?" (inici "+FTP0+")":""));
+    mk(GOAL,"goal",GOAL,"Objectiu gener")+(Math.abs(F-FTP0)>=12?mk(FTP0,"",FTP0,"Referència"):"")+mk(F,"now",F,F===FTP0?"Referència · test a la S4":"Ara · "+prog+" % del camí"+(Math.abs(F-FTP0)<12&&F!==FTP0?" (inici "+FTP0+")":""));
 }
 function renderSetup(){
   const el=document.getElementById("setup");
@@ -612,8 +612,11 @@ MACROCICLE (12 setmanes des del 19-oct-2026): Base S1–S4 (S4 descàrrega + tes
 ZONES COGGAN (% FTP): Z1 <55; Z2 56–75; Z3 76–90; Sweet spot 88–94; Z4 91–105; Z5 106–120; Z6 121–150; Z7 >150.
 
 REGLES QUE HAS DE RESPECTAR:
-- Mai dues sessions dures seguides (dures = sweet spot, tempo, força-resistència, intervals, fons llarg). Entre dures, descans o recuperació.
-- Mai més de 3 sessions dures en una setmana.
+- Mai dues sessions d'intervals en dies seguits (intervals = sweet spot, tempo, força-resistència, llindar, VO2màx). L'única excepció acceptada és el cap de setmana: intervals dissabte + fons llarg diumenge.
+- Màxim 3 sessions d'intervals per setmana, més un fons llarg.
+- Una sortida lliure que acabi sent intensa (molt temps en Z3–Z5) compta com a sessió dura: el dia següent ha de ser descans o recuperació.
+- Córrer o altres esports també sumen fatiga: tingues-ho en compte.
+- No comptis com a progrés de FTP cap valor que no surti d'un test.
 - Si es perd una sessió clau (marcada "clau"), prioritza reprogramar-la; si es perd una de Z2 o recuperació, normalment s'elimina.
 - No compensis sessions perdudes acumulant volum: millor perdre-la que sobrecarregar.
 - Si diu que està cansat, que dorm malament o que té les cames carregades: baixa la intensitat o converteix en recuperació.
