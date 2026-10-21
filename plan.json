@@ -1,6 +1,6 @@
 {
- "version": 2,
- "updated": "2026-10-21",
+ "version": 3,
+ "updated": "2026-10-21 (2)",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -165,42 +165,48 @@
    ],
    "cat": "ss",
    "d": "2026-10-24",
-   "fuel": "50–60 g/h de carbohidrats",
+   "fuel": "60–80 g/h de carbohidrats des del minut 30. Esmorzar ric en carbohidrats 2–3 h abans.",
    "ints": [
     {
+     "n": 3,
+     "s": 720,
+     "lo": 0.88,
+     "hi": 0.92,
      "cad": [
       85,
       95
      ],
-     "hi": 0.92,
-     "label": "Sweet spot 12′",
-     "lo": 0.88,
-     "n": 3,
-     "s": 720
+     "label": "Sweet spot 12′"
     }
    ],
    "k": 1,
    "key": true,
-   "min": 90,
+   "min": 165,
    "ord": 1,
    "steps": [
     {
      "l": "Escalfament",
-     "x": "15′ · 10′ en Z2 i 3 × 1′ a {94} amb 1′ suau entre repeticions"
+     "x": "20′ progressius en Z2 fins a {70}, amb 2 × 1′ a {94}"
     },
     {
-     "l": "Principal",
-     "x": "3 × 12′ a {88,92} · 85–95 rpm · 6′ a {57} entre sèries. Si l'última no surt, baixa 5 W però acaba-la"
+     "l": "Bloc clau",
+     "x": "3 × 12′ a {88,92} · 85–95 rpm · 6′ a {57} entre sèries. En pla o pujada suau i constant, mai en baixada"
+    },
+    {
+     "l": "Fons",
+     "x": "1h30–1h45 en Z2 a {61,73}. A les pujades, no passis de {75}: pinyó gran darrere"
     },
     {
      "l": "Calma",
-     "x": "15′ en Z1–Z2"
+     "x": "10′ suaus"
     }
    ],
-   "t": "Sweet spot",
+   "t": "Sweet spot + fons llarg",
    "type": "int",
    "z": "ss",
-   "id": "s20261024"
+   "id": "s20261024",
+   "maxMin": 180,
+   "note": "Fusiona el sweet spot de dissabte i el fons llarg de diumenge. Fes els blocs a la primera hora, quan estàs fresc; després, Z2 suau."
   },
   {
    "band": [
@@ -232,24 +238,43 @@
    "type": "long",
    "z": "z2",
    "id": "s20261025",
-   "note": "Z2 estricte de principi a final: a les pujades, pinyó gran darrere i no passis de 184 W. És entrenament, no una sortida per apretar."
+   "note": "Diumenge no pots entrenar: el fons llarg passa a dissabte, juntament amb el sweet spot.",
+   "status": "removed"
   },
   {
-   "cat": "rest",
+   "cat": "end",
    "d": "2026-10-26",
    "k": 1,
-   "min": 0,
+   "min": 60,
    "ord": 1,
    "steps": [
     {
-     "l": "Avui",
-     "x": "Descans. Opcional: 30–40′ de força (esquat, pes mort romanès, gambes, core)"
+     "l": "Escalfament",
+     "x": "10′ progressius fins a {61}"
+    },
+    {
+     "l": "Principal",
+     "x": "40′ en Z2 a {63,72} · cada 10′, 1′ a 105–110 rpm sense canviar els watts"
+    },
+    {
+     "l": "Calma",
+     "x": "10′ en Z1"
     }
    ],
-   "t": "Descans",
-   "type": "rest",
-   "z": "z1",
-   "id": "s20261026"
+   "t": "Z2 i cadència",
+   "type": "end",
+   "z": "z2",
+   "id": "s20261026",
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    90
+   ],
+   "fuel": "Aigua amb electròlits",
+   "note": "Abans era descans. Com que diumenge no rodes, recuperem aquí una mica de volum suau."
   },
   {
    "cad": null,
