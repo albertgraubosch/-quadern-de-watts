@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.3.0";
+const APP_VERSION="1.4.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -373,6 +373,23 @@ function renderToday(){
   }
   el.innerHTML=list.map(p=>sessionCard(p,label)).join("");
 }
+const loadCache=new Map();
+function actualLoad(a){
+  const d=data[a.id],F=ftp(),key=a.id+"|"+F+"|"+(d&&d.w?d.w.length:0);
+  if(loadCache.has(key))return loadCache.get(key);
+  let np=0;const w=d&&!d.error&&d.w?d.w:null;
+  if(w&&w.length>=60){let sum=0,acc=0,n=0;for(let i=0;i<w.length;i++){sum+=w[i];if(i>=30)sum-=w[i-30];if(i>=29){const r=sum/30;acc+=r*r*r*r;n++}}np=Math.pow(acc/n,0.25)}
+  else if(a.average_watts)np=a.average_watts*1.05;
+  const sec=a.moving_time||0,IF=np?np/F:0.6;
+  const tss=np?sec*np*IF/(F*3600)*100:sec/3600*36;
+  const r={tss,IF,np,estimated:!(w&&w.length>=60)};
+  loadCache.set(key,r);return r;
+}
+function plannedLoad(p){
+  if(!p||!active(p)||p.type==="rest")return 0;
+  return profileSegs(p).reduce((m,x)=>m+x.min/60*x.pct*x.pct*100,0);
+}
+function ifZone(IF){return IF<.6?"z1":IF<.76?"z2":IF<.86?"z3":IF<.95?"ss":IF<1.05?"z4":"z5"}
 function weekStats(ws,we){
   const inWeek=all().filter(s=>s.d>=ws&&s.d<=we&&active(s)&&s.type!=="rest");
   let planMin=0,doneMin=0,doneN=0;
@@ -390,26 +407,42 @@ function renderWeek(){
   const img=wk.img||"media/peloton.webp",wi=document.getElementById("weekimg");if(wi.getAttribute("src")!==img)wi.setAttribute("src",img);
   document.getElementById("weekhead").innerHTML='<div class="kicker">Setmana '+weekSel+' · '+esc(dayLabel(ws))+' – '+esc(dayLabel(we))+'</div><h2>'+esc(wk.name||("Setmana "+weekSel))+'</h2>'+
     '<div class="wkprog"><div><div class="k">Hores</div><div class="v">'+hrs(st.doneMin)+' / '+hrs(st.planMin)+'</div><div class="bar"><i style="width:'+Math.min(100,st.planMin?st.doneMin/st.planMin*100:0).toFixed(0)+'%"></i></div></div>'+
-    '<div><div class="k">Sessions</div><div class="v">'+st.doneN+' / '+st.totN+'</div><div class="bar"><i style="width:'+(st.totN?st.doneN/st.totN*100:0).toFixed(0)+'%"></i></div></div></div>';
+    '<div><div class="k">Sessions</div><div class="v">'+st.doneN+' / '+st.totN+'</div><div class="bar"><i style="width:'+(st.totN?st.doneN/st.totN*100:0).toFixed(0)+'%"></i></div></div><div id="wkload"></div></div>';
   tabs.innerHTML=weeks.map(w=>'<button type="button" role="tab" data-week="'+w+'" aria-selected="'+(w===weekSel)+'">S'+w+'</button>').join("");
   const days=[];for(let i=0;i<7;i++)days.push(addDays(ws,i));
   const weekSessions=all().filter(s=>s.d>=ws&&s.d<=we);
   const maxMin=Math.max(60,...weekSessions.map(s=>s.maxMin||s.min||0));
   if(!selId||!weekSessions.some(s=>s.id===selId)){const t=weekSessions.find(s=>s.d===todayStr&&active(s))||weekSessions.find(s=>active(s)&&s.d>=todayStr&&s.type!=="rest")||weekSessions[0];selId=t?t.id:null}
-  strip.innerHTML=days.map(d=>{
-    const on=weekSessions.filter(s=>s.d===d);const p=on.find(active)||on[0];const dd=parseD(d);
-    if(!p)return '<div class="daybtn" aria-hidden="true"><div class="col2"></div><div class="dl"><small>'+DAYS[dd.getDay()]+'</small><b>'+dd.getDate()+'</b></div></div>';
-    const act=actFor(p),dat=act&&data[act.id];
+  const dayInfo=days.map(d=>{
+    const on=weekSessions.filter(s=>s.d===d);const p=on.find(active)||on[0]||null;
+    const act=acts[d]||null;
+    const pl=p?plannedLoad(p):0,al=act?actualLoad(act):null;
+    return {d,p,act,pl,al};
+  });
+  const scale=Math.max(80,...dayInfo.map(x=>Math.max(x.pl,x.al?x.al.tss:0)))*1.12;
+  strip.innerHTML=dayInfo.map(({d,p,act,pl,al})=>{
+    const dd=parseD(d),dl='<div class="dl"><small>'+DAYS[dd.getDay()]+'</small><b>'+dd.getDate()+'</b>'+(al?'<i class="tss">'+Math.round(al.tss)+'</i>':'<i class="tss"> </i>')+'</div>';
+    if(!p&&!act)return '<div class="daybtn" aria-hidden="true"><div class="col2"></div>'+dl+'</div>';
+    const ph=p?(p.type==="rest"||!active(p)?14:Math.max(8,pl/scale*100)):0;
+    const ah=al?Math.max(6,al.tss/scale*100):0;
     let tick="";
-    if(active(p)&&p.type!=="rest"){
-      if(act&&dat&&!dat.error&&!loading[act.id]){const lv=analyze(p,act,dat).level;tick='<span class="tick '+lv+'">'+(lv==="bad"?"!":"✓")+'</span>'}
-      else if(act||p.done)tick='<span class="tick">✓</span>';
+    if(p&&active(p)&&p.type!=="rest"){
+      const pa=actFor(p),dat=pa&&data[pa.id];
+      if(pa&&dat&&!dat.error&&!loading[pa.id]){const lv=analyze(p,pa,dat).level;tick='<span class="tick '+lv+'">'+(lv==="bad"?"!":"✓")+'</span>'}
+      else if(pa||p.done)tick='<span class="tick">✓</span>';
       else if(isMissed(p))tick='<span class="tick miss">?</span>';
-    }
-    const h=p.type==="rest"?18:Math.max(10,((p.maxMin||p.min||0)/maxMin)*100);
-    const cls="daybtn"+(p.type==="rest"?" rest":"")+(!active(p)?" gone":"")+(d===todayStr?" today":"");
-    return '<button type="button" class="'+cls+'" data-sel="'+esc(p.id)+'" aria-pressed="'+(p.id===selId)+'" style="--zc:var(--'+esc(p.z)+')" aria-label="'+esc(dayLabel(d)+": "+p.t)+'"><div class="col2"><div class="b" style="height:'+h.toFixed(0)+'%">'+tick+'</div></div><div class="dl"><small>'+DAYS[dd.getDay()]+'</small><b>'+dd.getDate()+'</b></div></button>';
+    } else if(act&&al)tick='<span class="tick extra">+</span>';
+    const top=Math.max(ph,ah);
+    const pcls="pb"+(p&&p.type==="rest"?" rest":"")+(p&&!active(p)?" gone":"");
+    const cls="daybtn"+(d===todayStr?" today":"");
+    const label=dayLabel(d)+": "+(p?p.t:"sense sessió")+(al?". Fet: "+Math.round(al.tss)+" TSS, intensitat "+al.IF.toFixed(2):"");
+    const target=p?p.id:"";
+    return '<button type="button" class="'+cls+'"'+(target?' data-sel="'+esc(target)+'"':'')+' aria-pressed="'+(p&&p.id===selId)+'" style="--zc:var(--'+esc(p?p.z:"z1")+')'+(al?';--ac:var(--'+ifZone(al.IF)+')':'')+'" aria-label="'+esc(label)+'"><div class="col2">'+
+      (p?'<div class="'+pcls+'" style="height:'+ph.toFixed(0)+'%"></div>':'')+(al?'<div class="ab" style="height:'+ah.toFixed(0)+'%"></div>':'')+
+      (tick?'<div class="tickwrap" style="bottom:'+top.toFixed(0)+'%">'+tick+'</div>':'')+'</div>'+dl+'</button>';
   }).join("");
+  const wkPlan=dayInfo.reduce((m,x)=>m+x.pl,0),wkDone=dayInfo.reduce((m,x)=>m+(x.al?x.al.tss:0),0);
+  document.getElementById("wkload").innerHTML='<div class="k">Càrrega (TSS)</div><div class="v">'+Math.round(wkDone)+' / '+Math.round(wkPlan)+'</div><div class="bar"><i style="width:'+Math.min(100,wkPlan?wkDone/wkPlan*100:0).toFixed(0)+'%"></i></div>';
   const p=S[selId];
   sel.innerHTML=p?sessionCard(p,esc(dayLabel(p.d))+(p.d===todayStr?" · Avui":"")):"";
 }
