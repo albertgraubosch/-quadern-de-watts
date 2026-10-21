@@ -205,27 +205,3 @@ body{margin:0;padding-bottom:calc(96px + env(safe-area-inset-bottom,0px));-webki
 .conn{display:flex;flex-direction:column;gap:12px;margin-top:12px;font-size:.9rem}
 [hidden]{display:none!important}
 .tile .cap{top:10px;bottom:auto;text-shadow:0 1px 8px rgba(0,0,0,.6)}
-
-/* Coach chat */
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.coach .in{gap:14px}
-.msgs{display:flex;flex-direction:column;gap:10px;max-height:60vh;overflow-y:auto;overscroll-behavior:contain}
-.msgs:empty{display:none}
-.msg{max-width:88%;padding:10px 12px;border-radius:14px;font-size:.93rem;line-height:1.45;overflow-wrap:anywhere}
-.msg.me{align-self:flex-end;background:var(--accent);color:var(--accent-ink);border-bottom-right-radius:4px}
-.msg.bot{align-self:flex-start;background:var(--chip);border-bottom-left-radius:4px}
-.msg.err{align-self:stretch;max-width:100%;background:var(--bad-bg);color:var(--bad)}
-.msg .who{display:block;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;opacity:.7;margin-bottom:2px}
-.props{display:flex;flex-direction:column;gap:8px;margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
-.prop{display:flex;gap:8px;align-items:flex-start;font-size:.88rem}
-.prop i{flex:none;font-style:normal;font-weight:700;color:var(--accent)}
-.prop.bad i{color:var(--bad)} .prop.bad span{color:var(--muted);text-decoration:line-through}
-.props .state{font-size:.8rem;color:var(--muted)}
-.ask{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:end}
-.ask textarea{font:inherit;font-size:16px;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);resize:none;min-height:46px;max-height:140px;width:100%}
-.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
-.chips button{flex:none;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:6px 11px;font-size:.8rem;white-space:nowrap}
-.typing{display:inline-flex;gap:4px}
-.typing b{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:bl 1s infinite}
-.typing b:nth-child(2){animation-delay:.15s}.typing b:nth-child(3){animation-delay:.3s}
-@keyframes bl{0%,100%{opacity:.25}50%{opacity:1}}
