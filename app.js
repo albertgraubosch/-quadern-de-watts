@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.2.1";
+const APP_VERSION="1.2.2";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -8,6 +8,7 @@ const CATNAMES={ss:"sweet spot",tempo:"tempo",force:"força-resistència"};
 const ZONES=[["Z1 Recuperació","z1",0,.55],["Z2 Resistència","z2",.56,.75],["Z3 Tempo","z3",.76,.90],["Sweet spot","ss",.88,.94],["Z4 Llindar","z4",.91,1.05],["Z5 VO2màx","z5",1.06,1.20],["Z6 Anaeròbica","z5",1.21,1.50],["Z7 Neuromuscular","z7",1.51,null]];
 const OVERLAY_KEYS=["d","status","k","adjNote","movedFrom","done","adjDone","replacedBy","type","z","t","min","maxMin","steps","ints","band","cad","cat","fuel","note","key","coachEdit"];
 const COACH_MODEL="gemini-3.8-flash";
+const COACH_FALLBACKS=["gemini-3.6-flash","gemini-flash-latest","gemini-3.5-flash-lite"];
 
 /* ---------- Storage ---------- */
 function lsGet(k,def){try{const v=localStorage.getItem(k);return v==null?def:JSON.parse(v)}catch(e){return def}}
@@ -717,7 +718,7 @@ function renderMsgs(){
   let h="";
   coach.msgs.forEach((m,i)=>{
     if(m.role==="user"){h+='<div class="msg me">'+esc(m.text).replace(/\n/g,"<br>")+'</div>';return}
-    if(m.role==="error"){h+='<div class="msg err">'+esc(m.text)+'</div>';return}
+    if(m.role==="error"){h+='<div class="msg err">'+esc(m.text).replace(/\n/g,"<br>")+'</div>';return}
     h+='<div class="msg bot"><span class="who">Coach</span>'+esc(m.text).replace(/\n/g,"<br>");
     if(m.changes&&m.changes.length){
       h+='<div class="props">';
@@ -737,13 +738,15 @@ function renderMsgs(){
 }
 function geminiErr(status,body){
   const m=(body&&body.error&&body.error.message)||"";
-  if(status===400&&/API key/i.test(m))return "La clau de Gemini no és vàlida. Revisa-la a aistudio.google.com/apikey i torna-la a enganxar.";
-  if(status===400)return "El coach no ha entès la petició ("+m.slice(0,120)+").";
-  if(status===403)return "Google no permet aquesta clau. Comprova que l'API de Gemini estigui activada al teu compte.";
-  if(status===404)return "El model del coach no està disponible. Avisa en Claude perquè actualitzi l'app.";
-  if(status===429)return "Has arribat al límit gratuït de Gemini per ara. Torna-ho a provar d'aquí una estona.";
-  if(status>=500)return "Gemini no respon ara mateix. Torna-ho a provar en un minut.";
-  return "No s'ha pogut parlar amb el coach. Comprova la connexió.";
+  let t;
+  if(status===400&&/API key/i.test(m))t="La clau de Gemini no és vàlida. Revisa-la a aistudio.google.com/apikey i torna-la a enganxar (a «Connexió amb Strava» → «Canvia la clau del coach»).";
+  else if(status===400)t="Google ha rebutjat la petició.";
+  else if(status===403)t="Google no permet aquesta clau. Comprova que l'API de Gemini estigui activada al teu compte.";
+  else if(status===404)t="Cap model de Gemini disponible amb aquesta clau.";
+  else if(status===429)t="Has arribat al límit gratuït de Gemini per ara. Torna-ho a provar d'aquí una estona.";
+  else if(status>=500)t="Gemini no respon ara mateix. Torna-ho a provar en un minut.";
+  else t="No s'ha pogut parlar amb el coach.";
+  return t+"\nDetall tècnic: HTTP "+status+(m?" — "+m.slice(0,220):"");
 }
 function parseCoach(text){
   let t=String(text||"").trim().replace(/^```(?:json)?\s*/i,"").replace(/```\s*$/,"");
@@ -755,23 +758,35 @@ function askCoach(q){
   if(!coach.key){toast("Primer enganxa la clau de Gemini.");return}
   coach.msgs.push({role:"user",text:q,at:new Date().toISOString()});saveCoach();
   coachBusy=true;renderMsgs();
-  const hist=coach.msgs.filter(m=>m.role==="user"||m.role==="bot").slice(-12,-1).map(m=>({role:m.role==="user"?"user":"model",parts:[{text:m.role==="user"?m.text:JSON.stringify({reply:m.text,changes:(m.raw||[])})}]}));
+  const hist=[];
+  coach.msgs.filter(m=>m.role==="user"||m.role==="bot").slice(-13,-1).forEach(m=>{
+    const role=m.role==="user"?"user":"model",text=m.role==="user"?m.text:JSON.stringify({reply:m.text,changes:(m.raw||[])});
+    const last=hist[hist.length-1];
+    if(last&&last.role===role)last.parts[0].text+="\n"+text;else hist.push({role,parts:[{text}]});
+  });
+  while(hist.length&&hist[0].role!=="user")hist.shift();
+  if(hist.length&&hist[hist.length-1].role==="user")hist.pop();
   const contents=hist.concat([{role:"user",parts:[{text:coachContext()+"\n\nPREGUNTA DE L'ALBERT:\n"+q}]}]);
   const body={systemInstruction:{parts:[{text:COACH_RULES}]},contents,generationConfig:{temperature:0.4,responseMimeType:"application/json",maxOutputTokens:8192}};
-  const ctl=new AbortController(),tmr=setTimeout(()=>ctl.abort(),90000);
-  fetch("https://generativelanguage.googleapis.com/v1beta/models/"+COACH_MODEL+":generateContent",{method:"POST",signal:ctl.signal,headers:{"Content-Type":"application/json","x-goog-api-key":coach.key},body:JSON.stringify(body)})
-  .then(r=>r.json().catch(()=>({})).then(j=>{if(!r.ok)throw {status:r.status,body:j};return j}))
+  const models=[COACH_MODEL].concat(COACH_FALLBACKS.filter(m=>m!==COACH_MODEL));
+  const tryModel=i=>{
+    const ctl=new AbortController(),tmr=setTimeout(()=>ctl.abort(),90000);
+    return fetch("https://generativelanguage.googleapis.com/v1beta/models/"+models[i]+":generateContent?key="+encodeURIComponent(coach.key),{method:"POST",signal:ctl.signal,headers:{"Content-Type":"application/json"},body:JSON.stringify(body)})
+      .then(r=>r.json().catch(()=>({})).then(j=>{clearTimeout(tmr);if(!r.ok)throw {status:r.status,body:j};return j}),e=>{clearTimeout(tmr);throw e})
+      .catch(e=>{if(e&&e.status===404&&i+1<models.length)return tryModel(i+1);throw e});
+  };
+  tryModel(0)
   .then(j=>{
     const cand=j.candidates&&j.candidates[0];
-    const text=cand&&cand.content&&cand.content.parts?cand.content.parts.map(p=>p.text||"").join(""):"";
+    const text=cand&&cand.content&&cand.content.parts?cand.content.parts.filter(p=>!p.thought).map(p=>p.text||"").join(""):"";
     if(!text){const fr=cand&&cand.finishReason,bl=j.promptFeedback&&j.promptFeedback.blockReason;
-      coach.msgs.push({role:"error",text:fr==="MAX_TOKENS"?"El coach s'ha quedat sense espai per respondre. Torna-ho a provar amb una pregunta més curta.":(bl||fr==="SAFETY")?"Google ha bloquejat aquesta resposta. Prova de dir-ho d'una altra manera.":"El coach no ha pogut respondre ("+(fr||"sense resposta")+"). Torna-ho a provar."});return}
+      coach.msgs.push({role:"error",text:(fr==="MAX_TOKENS"?"El coach s'ha quedat sense espai per respondre.":(bl||fr==="SAFETY")?"Google ha bloquejat aquesta resposta.":"El coach no ha pogut respondre.")+"\nDetall tècnic: "+(fr||bl||"resposta buida")});return}
     const r=parseCoach(text);
     const changes=r.changes.slice(0,6).map(c=>{const v=validateChange(c);return {ok:v.ok,txt:v.txt,raw:c}});
     coach.msgs.push({role:"bot",text:r.reply||"Fet.",changes,raw:r.changes,state:changes.some(c=>c.ok)?"pending":null,at:new Date().toISOString()});
   })
-  .catch(e=>{coach.msgs.push({role:"error",text:e&&e.status!=null?geminiErr(e.status,e.body):(e&&e.name==="AbortError"?"El coach ha trigat massa a respondre. Torna-ho a provar.":"No s'ha pogut parlar amb el coach. Comprova la connexió.")})})
-  .then(()=>{clearTimeout(tmr);coachBusy=false;saveCoach();renderMsgs()});
+  .catch(e=>{coach.msgs.push({role:"error",text:e&&e.status!=null?geminiErr(e.status,e.body):(e&&e.name==="AbortError"?"El coach ha trigat massa a respondre (90 s). Torna-ho a provar.":"No s'ha pogut connectar amb Gemini.\nDetall tècnic: "+((e&&(e.name+": "+e.message))||"error de xarxa"))})})
+  .then(()=>{coachBusy=false;saveCoach();renderMsgs()});
 }
 function applyMsg(i){
   const m=coach.msgs[i];if(!m||m.state!=="pending")return;
