@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.1.1";
+const APP_VERSION="1.2.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -788,7 +788,7 @@ document.getElementById("ftp").addEventListener("change",e=>{
   if(v===ftp())return;
   const old=ftp();state.ftp=v;saveState();addLog("FTP canviat de "+old+" W a "+v+" W.");memo.clear();syncDone();render();
 });
-document.getElementById("refresh").addEventListener("click",()=>{loadPlan();loadActivities()});
+document.getElementById("refresh").addEventListener("click",()=>{loadPlan();loadActivities();checkAppUpdate()});
 document.getElementById("share").addEventListener("click",shareSummary);
 document.addEventListener("click",e=>{
   const el=e.target.closest("button");if(!el)return;
@@ -849,8 +849,13 @@ if(plan){applyPlanMeta();S=buildSessions();planState="ready"}
 const cached=lsGet("qw.acts",null);if(Array.isArray(cached)){acts=indexActs(cached);if(strava.refreshToken){stravaState="on";stravaMsg="Carregant Strava…"}}
 render();renderMsgs();
 handleAuthReturn().then(()=>{render();return loadPlan()}).then(()=>{if(strava.refreshToken)loadActivities()});
+function checkAppUpdate(){
+  if(!("serviceWorker" in navigator))return;
+  navigator.serviceWorker.getRegistration().then(reg=>{if(reg)reg.update().catch(()=>{})}).catch(()=>{});
+}
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkAppUpdate()});
 if("serviceWorker" in navigator&&location.protocol==="https:"){
-  navigator.serviceWorker.register("sw.js").then(reg=>{reg.update().catch(()=>{})}).catch(()=>{});
+  navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(reg=>{reg.update().catch(()=>{})}).catch(()=>{});
   const hadCtrl=!!navigator.serviceWorker.controller;let reloaded=false;
   navigator.serviceWorker.addEventListener("controllerchange",()=>{if(!hadCtrl||reloaded)return;reloaded=true;location.reload()});
 }
