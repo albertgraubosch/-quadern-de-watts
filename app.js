@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.5.0";
+const APP_VERSION="1.6.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -296,7 +296,8 @@ function sessionCard(p,kick){
   return '<article class="card feature" style="--zc:var(--'+esc(p.z)+')"><div class="zonebar"></div><div class="in">'+
     '<div class="feature-head"><div class="kicker">'+kick+(p.key?" · Sessió clau":"")+'</div><h2>'+esc(p.t)+'</h2>'+
     '<div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span>'+(p.cad?'<span>Cadència <b>'+p.cad[0]+'–'+p.cad[1]+' rpm</b></span>':'')+(kpct?'<span>Intensitat <b>'+(kpct>0?"+":"")+kpct+' %</b></span>':'')+'</div></div>'+
-    (active(p)?profileHTML(p):"")+stepsHTML(p)+resultHTML(p)+'</div></article>';
+    (active(p)?profileHTML(p):"")+stepsHTML(p)+resultHTML(p)+
+    (active(p)&&!p.done&&!actFor(p)?'<div class="actions"><button class="btn ghost" type="button" data-copywo="'+esc(p.id)+'">Copia per a intervals.icu</button></div>':'')+'</div></article>';
 }
 function mainTarget(p){
   const k=p.k||1;
@@ -465,7 +466,7 @@ function renderStatus(){
   document.getElementById("refresh").disabled=!strava.refreshToken;
   document.getElementById("ver").textContent="Versió "+APP_VERSION+(plan&&plan.updated?" · pla del "+plan.updated:"")+".";
 }
-function render(){renderHero();renderStatus();renderSetup();renderDecide();renderWeek();renderProgress();renderLog();renderZones();renderConn()}
+function render(){renderHero();renderStatus();renderSetup();renderDecide();renderWeek();renderProgress();renderLog();renderZones();renderConn();renderWahoo();icuSchedule()}
 
 /* ---------- Progress sync ---------- */
 function syncDone(){
@@ -632,6 +633,76 @@ function copyText(text,okMsg){
   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(()=>toast(okMsg),fallback);else fallback();
 }
 
+/* ---------- Wahoo (via intervals.icu) ---------- */
+let icu=lsGet("qw.icu",{key:"",last:null,lastHash:"",err:""});
+function saveIcu(){lsSet("qw.icu",icu)}
+function durTxt(sec){sec=Math.round(sec);if(sec<60)return sec+"s";const m=Math.floor(sec/60),r=sec%60;return r?m+"m"+r+"s":m+"m"}
+function pctTxt(lo,hi,k){const a=Math.round(lo*k*100);if(hi==null)return a+"%";const b=Math.round(hi*k*100);return a===b?a+"%":a+"-"+b+"%"}
+function cadTxt(c){return c?" "+c[0]+"-"+c[1]+"rpm":""}
+function workoutText(p){
+  const k=p.k||1,L=[];
+  if(p.type==="rec"){L.push("- "+durTxt(p.min*60)+" "+pctTxt(.45,.55,k)+cadTxt(p.cad||[88,92]));return L.join("\n")}
+  const total=(p.maxMin?(p.min+p.maxMin)/2:p.min)*60;
+  if(!p.ints||!p.ints.length){
+    const b=p.band||[.56,.75];
+    L.push("Escalfament","- 10m ramp "+pctTxt(.45,b[0]+.05,k)+cadTxt(p.cad),"","Principal","- "+durTxt(Math.max(5*60,total-20*60))+" "+pctTxt(b[0]+.04,b[1]-.02,k)+cadTxt(p.cad),"","Calma","- 10m "+pctTxt(.45,.55,k));
+    return L.join("\n");
+  }
+  const warm=p.type==="long"||(p.maxMin&&p.maxMin>=150)?20:15;
+  L.push("Escalfament","- "+warm+"m ramp "+pctTxt(.5,.7,k)+cadTxt(p.cad),"");
+  let body=0;
+  p.ints.forEach((sp,i)=>{
+    const rec=sp.s<=30?170:sp.s>=1200?480:sp.s>=720?360:sp.s>=600?300:240;
+    if(i>0){L.push("Transició","- 10m "+pctTxt(.6,.7,k),"");body+=600}
+    L.push(sp.label||"Intervals",sp.n+"x","- "+durTxt(sp.s)+" "+(sp.hi==null?pctTxt(sp.lo,null,k):pctTxt(sp.lo,sp.hi,k))+cadTxt(sp.cad),"- "+durTxt(rec)+" "+pctTxt(.55,.6,k)+" 90rpm","");
+    body+=sp.n*(sp.s+rec);
+  });
+  const rest=total-warm*60-body-600;
+  if(rest>=300){const b=p.band||[.61,.73],fill=["Fons","- "+durTxt(Math.round(rest/60)*60)+" "+pctTxt(Math.max(.6,b[0]),Math.min(.73,b[1]),k)+" 85-90rpm",""];
+    if(p.type==="long"){const at=L.indexOf("",L.indexOf("Escalfament"))+1;L.splice(at,0,...fill)}else L.push(...fill)}
+  L.push("Calma","- 10m "+pctTxt(.45,.55,k));
+  return L.join("\n");
+}
+function icuEvents(){
+  const from=todayStr,to=addDays(todayStr,13),ev=[];
+  all().filter(s=>s.d>=from&&s.d<=to&&s.type!=="rest").forEach(s=>{
+    const live=active(s)&&!s.done&&!actFor(s);
+    if(!live&&!(active(s)===false))return; // done sessions are left as they are
+    ev.push(live?{category:"WORKOUT",type:"Ride",start_date_local:s.d+"T00:00:00",name:s.t+(s.key?" ★":""),description:workoutText(s),external_id:"qw-"+s.id}
+               :{category:"NOTE",start_date_local:s.d+"T00:00:00",name:"Cancel·lada: "+s.t,description:"Sessió treta del pla al Quadern de Watts.",external_id:"qw-"+s.id});
+  });
+  return ev;
+}
+function icuHash(ev){return JSON.stringify(ev.map(e=>[e.external_id,e.category,e.start_date_local,e.description]))+"|"+ftp()}
+let icuBusy=false,icuTimer=0;
+function icuPush(manual){
+  if(!icu.key||icuBusy)return Promise.resolve();
+  const ev=icuEvents(),h=icuHash(ev);
+  if(!manual&&h===icu.lastHash)return Promise.resolve();
+  if(!ev.length){if(manual)toast("No hi ha sessions pendents en els propers 14 dies.");return Promise.resolve()}
+  icuBusy=true;renderWahoo();
+  return fetch("https://intervals.icu/api/v1/athlete/0/events/bulk?upsert=true",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Basic "+btoa("API_KEY:"+icu.key)},body:JSON.stringify(ev)})
+  .then(r=>r.text().then(t=>{if(!r.ok)throw {status:r.status,body:t.slice(0,200)};return t}))
+  .then(()=>{icu.last=new Date().toISOString();icu.lastHash=h;icu.err="";saveIcu();if(manual)toast("Enviat a intervals.icu ✓ Wahoo el rebrà en sincronitzar.")})
+  .catch(e=>{icu.err=e&&e.status?(e.status===401||e.status===403?"intervals.icu no accepta la clau. Revisa-la (Settings → Developer Settings).":"intervals.icu ha donat un error ("+e.status+")."):"No s'ha pogut connectar amb intervals.icu des de l'app. Fes servir «Copia per a intervals.icu» a cada sessió.";saveIcu();if(manual)toast(icu.err)})
+  .then(()=>{icuBusy=false;renderWahoo()});
+}
+function icuSchedule(){if(!icu.key)return;clearTimeout(icuTimer);icuTimer=setTimeout(()=>icuPush(false),2500)}
+function renderWahoo(){
+  const el=document.getElementById("wahoo");if(!el)return;
+  if(!icu.key){
+    el.innerHTML='<div class="in setup"><div><div class="kicker">Wahoo</div><h3 style="margin-top:6px">Envia els entrenaments al Wahoo</h3></div>'+
+      '<div class="note">Les sessions passen per intervals.icu, i d\'allà a la teva app de Wahoo («My plan») i a l\'ELEMNT o el KICKR. Enganxa la teva API key d\'intervals.icu (Settings → Developer Settings). Es queda només en aquest mòbil.</div>'+
+      '<div class="field"><label for="icuKey">API key d\'intervals.icu</label><input id="icuKey" autocomplete="off" autocapitalize="off" spellcheck="false"></div>'+
+      '<div class="actions"><button class="btn primary" type="button" id="icuSave">Connecta i envia</button></div></div>';
+    return;
+  }
+  const last=icu.last?new Date(icu.last):null;
+  el.innerHTML='<div class="in" style="gap:12px"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h3>Wahoo</h3><span class="note">via intervals.icu</span></div>'+
+    '<div class="note">'+(icuBusy?"Enviant…":icu.err?'<span style="color:var(--bad)">'+esc(icu.err)+'</span>':last?"Últim enviament: "+last.getDate()+" "+MONTHS[last.getMonth()]+" a les "+String(last.getHours()).padStart(2,"0")+":"+String(last.getMinutes()).padStart(2,"0")+". Els canvis del pla s'envien sols.":"Encara no s'ha enviat res.")+'</div>'+
+    '<div class="actions"><button class="btn primary" type="button" id="icuPush"'+(icuBusy?" disabled":"")+'>Envia els propers 14 dies</button><button class="btn ghost" type="button" id="icuForget">Treu la clau</button></div></div>';
+}
+
 /* ---------- Events ---------- */
 document.getElementById("ftp").addEventListener("change",e=>{
   const v=parseInt(e.target.value,10);
@@ -644,6 +715,10 @@ document.getElementById("share").addEventListener("click",shareSummary);
 document.addEventListener("click",e=>{
   const el=e.target.closest("button");if(!el)return;
   if(el.id==="wkPrev"||el.id==="wkNext"){weekSel=(weekSel||1)+(el.id==="wkNext"?1:-1);selId=null;renderWeek();return}
+  if(el.id==="icuSave"){const k=(document.getElementById("icuKey").value||"").trim();if(k.length<10){toast("La clau sembla incompleta. Copia-la sencera.");return}icu.key=k;icu.lastHash="";icu.err="";saveIcu();renderWahoo();icuPush(true);return}
+  if(el.id==="icuPush"){icuPush(true);return}
+  if(el.id==="icuForget"){icu={key:"",last:null,lastHash:"",err:""};saveIcu();renderWahoo();return}
+  if(el.dataset&&el.dataset.copywo){const s0=S[el.dataset.copywo];if(s0)copyText(workoutText(s0),"Copiat. A intervals.icu: calendari → dia → Add Workout → enganxa-ho a la descripció.");return}
   if(el.id==="connect"){startAuth();return}
   if(el.id==="importBtn"){
     try{const raw=(document.getElementById("importKey").value||"").trim();const j=JSON.parse(decodeURIComponent(escape(atob(raw))));
