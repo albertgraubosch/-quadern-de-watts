@@ -1,6 +1,6 @@
 {
- "version": 6,
- "updated": "2026-10-26",
+ "version": 7,
+ "updated": "2026-10-26 (2)",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -342,54 +342,57 @@
    "type": "int",
    "z": "z3",
    "id": "s20261029",
-   "note": "Ordre de la setmana revisat perquè mai hi hagi dues sessions d'intervals seguides."
+   "note": "Aquesta setmana no hi cap: dimarts fas fons llarg i dijous i dissabte tens els dos sweet spots. Torna a la setmana 3.",
+   "status": "removed"
   },
   {
-   "id": "s20261027g",
+   "band": [
+    0.56,
+    0.8
+   ],
+   "cad": [
+    85,
+    90
+   ],
+   "cat": "long",
    "d": "2026-10-27",
-   "ord": 2,
-   "type": "gym",
-   "z": "z7",
-   "cat": "gym",
-   "t": "Gimnàs A: full body",
-   "min": 45,
+   "fuel": "60–80 g/h de carbohidrats",
+   "ints": [
+    {
+     "cad": [
+      85,
+      90
+     ],
+     "hi": 0.82,
+     "label": "Tempo 15′",
+     "lo": 0.78,
+     "n": 2,
+     "s": 900
+    }
+   ],
    "k": 1,
-   "rpe": "RPE 6",
-   "note": "Fes-lo després de la força-resistència en bici: millor 3–6 h més tard, o just després si no pots. Les dues primeres setmanes són d'adaptació: tècnica i tendons, res al límit.",
+   "maxMin": 190,
+   "min": 170,
+   "ord": 1,
    "steps": [
     {
-     "l": "Escalfament",
-     "x": "8′: 5′ de bici o rem suau + 10 ponts de glutis + 10 gat-camell + 6 obertures de maluc per cama"
+     "l": "Primeres 2h",
+     "x": "Z2 a {61,73}"
     },
     {
-     "l": "Goblet squat",
-     "x": "2 × 10 amb una manuella lleugera. Baixa en 3″, puja normal. Han de sobrar-te 4 repeticions"
+     "l": "Darrera hora",
+     "x": "2 × 15′ a {78,82} amb 10′ en Z2 entre els dos blocs"
     },
     {
-     "l": "Pes mort romanès",
-     "x": "2 × 10 amb manuelles. Esquena neutra, malucs enrere, notes els isquiotibials"
-    },
-    {
-     "l": "Esquat búlgar",
-     "x": "2 × 8 per cama, només amb el pes del cos aquesta setmana"
-    },
-    {
-     "l": "Flexions",
-     "x": "2 × 8–12. Si costa, amb els genolls a terra"
-    },
-    {
-     "l": "Rem amb manuella",
-     "x": "2 × 10 per braç, recolzat en un banc"
-    },
-    {
-     "l": "Core",
-     "x": "Dead bug 2 × 8 per costat · planxa lateral 2 × 20″ per costat"
-    },
-    {
-     "l": "Descans",
-     "x": "60–90″ entre sèries"
+     "l": "Final",
+     "x": "10′ suaus"
     }
-   ]
+   ],
+   "t": "Fons llarg amb tempo",
+   "type": "long",
+   "z": "z3",
+   "id": "s20261101",
+   "note": "Avançada a dimarts a petició teva. Z2 estricte les primeres 2 h: el tempo de l'última hora és l'única part dura. Avui (dilluns) ja has rodat gairebé 2 h, així que ni una punxada fora de lloc."
   },
   {
    "band": [
@@ -404,7 +407,7 @@
    "d": "2026-10-28",
    "fuel": "Aigua amb electròlits",
    "k": 1,
-   "min": 75,
+   "min": 60,
    "ord": 1,
    "steps": [
     {
@@ -424,7 +427,7 @@
    "type": "end",
    "z": "z2",
    "id": "s20261027",
-   "note": "Ordre de la setmana revisat perquè mai hi hagi dues sessions d'intervals seguides."
+   "note": "Dia fàcil entre el fons llarg i el sweet spot de dijous. Si estàs cansat, fes 45′."
   },
   {
    "cad": [
@@ -470,6 +473,53 @@
    "z": "ss",
    "id": "s20261028",
    "note": "Ordre de la setmana revisat perquè mai hi hagi dues sessions d'intervals seguides."
+  },
+  {
+   "id": "s20261027g",
+   "d": "2026-10-29",
+   "ord": 2,
+   "type": "gym",
+   "z": "z7",
+   "cat": "gym",
+   "t": "Gimnàs A: full body",
+   "min": 45,
+   "k": 1,
+   "rpe": "RPE 6",
+   "note": "Després del sweet spot llarg, millor 3–6 h més tard. Primera sessió de gimnàs: tot suau, han de sobrar-te 4 repeticions.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "8′: 5′ de bici o rem suau + 10 ponts de glutis + 10 gat-camell + 6 obertures de maluc per cama"
+    },
+    {
+     "l": "Goblet squat",
+     "x": "2 × 10 amb una manuella lleugera. Baixa en 3″, puja normal. Han de sobrar-te 4 repeticions"
+    },
+    {
+     "l": "Pes mort romanès",
+     "x": "2 × 10 amb manuelles. Esquena neutra, malucs enrere, notes els isquiotibials"
+    },
+    {
+     "l": "Esquat búlgar",
+     "x": "2 × 8 per cama, només amb el pes del cos aquesta setmana"
+    },
+    {
+     "l": "Flexions",
+     "x": "2 × 8–12. Si costa, amb els genolls a terra"
+    },
+    {
+     "l": "Rem amb manuella",
+     "x": "2 × 10 per braç, recolzat en un banc"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug 2 × 8 per costat · planxa lateral 2 × 20″ per costat"
+    },
+    {
+     "l": "Descans",
+     "x": "60–90″ entre sèries"
+    }
+   ]
   },
   {
    "cad": [
@@ -593,52 +643,31 @@
    "id": "s20261031"
   },
   {
+   "id": "s20261101b",
+   "d": "2026-11-01",
+   "ord": 1,
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Z2 suau (opcional)",
+   "min": 90,
    "band": [
     0.56,
-    0.8
+    0.7
    ],
    "cad": [
     85,
     90
    ],
-   "cat": "long",
-   "d": "2026-11-01",
-   "fuel": "60–80 g/h de carbohidrats",
-   "ints": [
-    {
-     "cad": [
-      85,
-      90
-     ],
-     "hi": 0.82,
-     "label": "Tempo 15′",
-     "lo": 0.78,
-     "n": 2,
-     "s": 900
-    }
-   ],
    "k": 1,
-   "maxMin": 190,
-   "min": 170,
-   "ord": 1,
+   "fuel": "Aigua amb electròlits i 30–40 g/h",
+   "note": "Opcional. Si dissabte has fet bé el sweet spot i et ve de gust rodar, Z2 suau. Si no, descans.",
    "steps": [
     {
-     "l": "Primeres 2h",
-     "x": "Z2 a {61,73}"
-    },
-    {
-     "l": "Darrera hora",
-     "x": "2 × 15′ a {78,82} amb 10′ en Z2 entre els dos blocs"
-    },
-    {
-     "l": "Final",
-     "x": "10′ suaus"
+     "l": "Sessió",
+     "x": "1h30 entre {56} i {70}, 85–90 rpm, sense apretar a les pujades (màxim {75})"
     }
-   ],
-   "t": "Fons llarg amb tempo",
-   "type": "long",
-   "z": "z3",
-   "id": "s20261101"
+   ]
   }
  ]
 }
