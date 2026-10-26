@@ -1,6 +1,6 @@
 {
- "version": 7,
- "updated": "2026-10-26 (2)",
+ "version": 8,
+ "updated": "2026-10-26 (3)",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -356,7 +356,7 @@
    ],
    "cat": "long",
    "d": "2026-10-27",
-   "fuel": "60–80 g/h de carbohidrats",
+   "fuel": "Uns 260–300 g de carbohidrats en total: 70 g/h des del minut 30 (una barreta o un gel cada 30–40′ i beguda isotònica). Dos bidons i omplir-los a mig camí.",
    "ints": [
     {
      "cad": [
@@ -371,28 +371,28 @@
     }
    ],
    "k": 1,
-   "maxMin": 190,
-   "min": 170,
+   "maxMin": 240,
+   "min": 215,
    "ord": 1,
    "steps": [
     {
-     "l": "Primeres 2h",
-     "x": "Z2 a {61,73}"
+     "l": "Km 0–70",
+     "x": "Z2 a {61,73}. A les pujades, mai per sobre de {75}: pinyó gran i cadència alta"
     },
     {
-     "l": "Darrera hora",
-     "x": "2 × 15′ a {78,82} amb 10′ en Z2 entre els dos blocs"
+     "l": "Km 70–95",
+     "x": "2 × 15′ a {78,82} en tram pla o pujada constant, 85–90 rpm · 10′ en Z2 entre els dos blocs"
     },
     {
      "l": "Final",
-     "x": "10′ suaus"
+     "x": "Els últims 10 km, suaus, en Z1–Z2"
     }
    ],
-   "t": "Fons llarg amb tempo",
+   "t": "Fons llarg amb tempo (Salt, 105 km)",
    "type": "long",
    "z": "z3",
    "id": "s20261101",
-   "note": "Avançada a dimarts a petició teva. Z2 estricte les primeres 2 h: el tempo de l'última hora és l'única part dura. Avui (dilluns) ja has rodat gairebé 2 h, així que ni una punxada fora de lloc."
+   "note": "Ruta de 105 km: a 150–180 W són unes 3h40–4h, més del previst. Z2 estricte fins al km 70. El tempo, només si arribes bé al km 70; si no, tot en Z2 i ja és una gran sessió."
   },
   {
    "band": [
