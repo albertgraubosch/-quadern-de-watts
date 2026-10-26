@@ -189,3 +189,5 @@ main{padding-top:6px}
 .hero .kick,.hero h1,.hero .sub{text-shadow:0 1px 14px rgba(0,0,0,.55)}
 .hero .kick{color:#ff7ab8}
 .wkbar .nm{letter-spacing:.06em}
+.daybtn .gymb{margin-top:3px;font-size:.5rem;font-weight:800;letter-spacing:.06em;padding:1px 4px;border-radius:4px;border:1px solid var(--z7);color:var(--z7)}
+.daybtn .gymb.done{background:var(--z7);color:#0b0b0c}

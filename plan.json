@@ -1,6 +1,6 @@
 {
- "version": 5,
- "updated": "2026-10-21 (4)",
+ "version": 6,
+ "updated": "2026-10-26",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -345,6 +345,53 @@
    "note": "Ordre de la setmana revisat perquè mai hi hagi dues sessions d'intervals seguides."
   },
   {
+   "id": "s20261027g",
+   "d": "2026-10-27",
+   "ord": 2,
+   "type": "gym",
+   "z": "z7",
+   "cat": "gym",
+   "t": "Gimnàs A: full body",
+   "min": 45,
+   "k": 1,
+   "rpe": "RPE 6",
+   "note": "Fes-lo després de la força-resistència en bici: millor 3–6 h més tard, o just després si no pots. Les dues primeres setmanes són d'adaptació: tècnica i tendons, res al límit.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "8′: 5′ de bici o rem suau + 10 ponts de glutis + 10 gat-camell + 6 obertures de maluc per cama"
+    },
+    {
+     "l": "Goblet squat",
+     "x": "2 × 10 amb una manuella lleugera. Baixa en 3″, puja normal. Han de sobrar-te 4 repeticions"
+    },
+    {
+     "l": "Pes mort romanès",
+     "x": "2 × 10 amb manuelles. Esquena neutra, malucs enrere, notes els isquiotibials"
+    },
+    {
+     "l": "Esquat búlgar",
+     "x": "2 × 8 per cama, només amb el pes del cos aquesta setmana"
+    },
+    {
+     "l": "Flexions",
+     "x": "2 × 8–12. Si costa, amb els genolls a terra"
+    },
+    {
+     "l": "Rem amb manuella",
+     "x": "2 × 10 per braç, recolzat en un banc"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug 2 × 8 per costat · planxa lateral 2 × 20″ per costat"
+    },
+    {
+     "l": "Descans",
+     "x": "60–90″ entre sèries"
+    }
+   ]
+  },
+  {
    "band": [
     0.56,
     0.75
@@ -445,6 +492,53 @@
    "type": "rec",
    "z": "z1",
    "id": "s20261030"
+  },
+  {
+   "id": "s20261030g",
+   "d": "2026-10-30",
+   "ord": 2,
+   "type": "gym",
+   "z": "z7",
+   "cat": "gym",
+   "t": "Gimnàs B: core i estabilitat",
+   "min": 40,
+   "k": 1,
+   "rpe": "RPE 5–6",
+   "note": "Poca càrrega de cames a propòsit: demà tens sweet spot i esprints. Fes-lo després de la recuperació en bici.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "8′: 5′ de bici o rem suau + 10 ponts de glutis + 10 gat-camell + 6 obertures de maluc per cama"
+    },
+    {
+     "l": "Pont de glutis a una cama",
+     "x": "2 × 10 per cama, pausa d'1″ a dalt"
+    },
+    {
+     "l": "Bessons a una cama",
+     "x": "2 × 12 per cama, lent"
+    },
+    {
+     "l": "Equilibri a una cama",
+     "x": "2 × 6 abasts per cama (en Y), lent i controlat"
+    },
+    {
+     "l": "Jalón al pit",
+     "x": "2 × 10 (màquina de politja)"
+    },
+    {
+     "l": "Press d'espatlles",
+     "x": "2 × 8 amb manuelles, assegut"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press 2 × 10 per costat · bird dog 2 × 8 per costat · planxa 2 × 30″"
+    },
+    {
+     "l": "Mobilitat",
+     "x": "5′: flexors de maluc, isquiotibials i columna toràcica"
+    }
+   ]
   },
   {
    "cad": [
