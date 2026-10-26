@@ -1,6 +1,6 @@
 {
- "version": 8,
- "updated": "2026-10-26 (3)",
+ "version": 9,
+ "updated": "2026-10-26 (4)",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -356,7 +356,7 @@
    ],
    "cat": "long",
    "d": "2026-10-27",
-   "fuel": "Uns 260–300 g de carbohidrats en total: 70 g/h des del minut 30 (una barreta o un gel cada 30–40′ i beguda isotònica). Dos bidons i omplir-los a mig camí.",
+   "fuel": "70 g/h de carbohidrats des del minut 30 (barreta o gel cada 30–40′ + isotònica). Omple bidons a baix, després de Santa Pellaia, o a Platja d'Aro / Calonge abans de la Ganga.",
    "ints": [
     {
      "cad": [
@@ -376,23 +376,35 @@
    "ord": 1,
    "steps": [
     {
-     "l": "Km 0–70",
-     "x": "Z2 a {61,73}. A les pujades, mai per sobre de {75}: pinyó gran i cadència alta"
+     "l": "Girona → Cassà",
+     "x": "Escalfament i Z2 a {61,73}, 85–90 rpm"
     },
     {
-     "l": "Km 70–95",
-     "x": "2 × 15′ a {78,82} en tram pla o pujada constant, 85–90 rpm · 10′ en Z2 entre els dos blocs"
+     "l": "Santa Pellaia",
+     "x": "Bloc 1: 15′ a {78,82} des del peu. Si la pujada dura més, la resta fins a dalt a {70,75}"
     },
     {
-     "l": "Final",
-     "x": "Els últims 10 km, suaus, en Z1–Z2"
+     "l": "Baixada i pla",
+     "x": "Z2 suau a {56,70}. Menja i beu. Baixa amb calma"
+    },
+    {
+     "l": "La Ganga",
+     "x": "Bloc 2: 15′ a {78,82}. Si al peu notes les cames carregades, fes-la en Z2 ({75} màxim)"
+    },
+    {
+     "l": "Romanyà (petit)",
+     "x": "Z2, sense apretar: màxim {75}"
+    },
+    {
+     "l": "Tornada a Girona",
+     "x": "Z2 a {56,70}; els últims 10′, suaus"
     }
    ],
-   "t": "Fons llarg amb tempo (Salt, 105 km)",
+   "t": "Fons llarg: Santa Pellaia, la Ganga i Romanyà",
    "type": "long",
    "z": "z3",
    "id": "s20261101",
-   "note": "Ruta de 105 km: a 150–180 W són unes 3h40–4h, més del previst. Z2 estricte fins al km 70. El tempo, només si arribes bé al km 70; si no, tot en Z2 i ja és una gran sessió."
+   "note": "Els dos blocs de tempo es fan a les dues pujades llargues; tota la resta, Z2. Si a la Ganga ja vas tocat, fes-la en Z2 i prou."
   },
   {
    "band": [
