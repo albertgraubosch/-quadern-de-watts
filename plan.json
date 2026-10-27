@@ -1,6 +1,6 @@
 {
- "version": 10,
- "updated": "2026-10-27",
+ "version": 11,
+ "updated": "2026-10-27 (2)",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -382,38 +382,30 @@
   },
   {
    "band": [
-    0.56,
-    0.75
+    0.45,
+    0.55
    ],
    "cad": [
-    85,
-    90
+    88,
+    92
    ],
-   "cat": "end",
+   "cat": "rec",
    "d": "2026-10-28",
-   "fuel": "Aigua amb electròlits",
+   "fuel": "Aigua",
    "k": 1,
-   "min": 60,
+   "min": 45,
    "ord": 1,
    "steps": [
     {
-     "l": "Escalfament",
-     "x": "10′ progressiu fins a Z2"
-    },
-    {
-     "l": "Principal",
-     "x": "55′ en Z2 a {63,72}, amb 4 blocs de 5′ a 95 rpm + 3′ a 105 rpm"
-    },
-    {
-     "l": "Calma",
-     "x": "10′ en Z1"
+     "l": "Sessió",
+     "x": "45′ en Z1 a {45,55}, terreny pla, 90 rpm. Cap pujada forta, cap esprint"
     }
    ],
-   "t": "Z2 i tècnica de cadència",
-   "type": "end",
-   "z": "z2",
+   "t": "Recuperació",
+   "type": "rec",
+   "z": "z1",
    "id": "s20261027",
-   "note": "Dia fàcil entre el fons llarg i el sweet spot de dijous. Si estàs cansat, fes 45′."
+   "note": "Avui havia de ser Z2 i va acabar amb 12 esforços per sobre de l'FTP i 14 esprints de més de 500 W (IF 0,80). Demà, recuperació de veritat per arribar fresc al sweet spot de dijous."
   },
   {
    "cad": [

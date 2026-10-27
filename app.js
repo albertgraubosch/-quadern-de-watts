@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.7.0";
+const APP_VERSION="1.8.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -227,6 +227,45 @@ function profileHTML(p){
     '<line x1="0" x2="'+tot.toFixed(2)+'" y1="'+fy.toFixed(2)+'" y2="'+fy.toFixed(2)+'" stroke="var(--ink)" stroke-width="1" stroke-dasharray="4 3" vector-effect="non-scaling-stroke"/></svg>'+
     '<span class="ftpl" style="top:'+(fy/100*110).toFixed(1)+'px">FTP '+ftp()+' W</span></div><div class="axis"><span>0′</span><span>'+Math.round(tot/2)+'′</span><span>'+Math.round(tot)+'′</span></div></div>';
 }
+const deepCache=new Map();
+function rideDeep(act,d){
+  const F=ftp(),key=act.id+"|"+F;if(deepCache.has(key))return deepCache.get(key);
+  const w=d.w||[],c=d.c||[],n=w.length;if(n<120)return null;
+  let sum=0,acc=0,cnt=0;for(let i=0;i<n;i++){sum+=w[i];if(i>=30)sum-=w[i-30];if(i>=29){const r=sum/30;acc+=r*r*r*r;cnt++}}
+  const NP=Math.pow(acc/cnt,.25),avg=w.reduce((a,b)=>a+b,0)/n,IF=NP/F,sec=act.moving_time||n;
+  const ZB=[[0,.55,"z1","Z1"],[.55,.75,"z2","Z2"],[.75,.90,"z3","Z3"],[.90,1.05,"z4","Z4"],[1.05,1.20,"z5","Z5"],[1.20,99,"z7","Z6+"]];
+  const zt=ZB.map(z=>({z:z[2],l:z[3],s:w.filter(x=>x>=z[0]*F&&x<z[1]*F).length}));
+  const pre=new Float64Array(n+1);for(let i=0;i<n;i++)pre[i+1]=pre[i]+w[i];
+  const peak=L=>{if(n<L)return null;let b=0,bi=0;for(let i=0;i+L<=n;i++){const v=pre[i+L]-pre[i];if(v>b){b=v;bi=i}}return {w:b/L,at:bi}};
+  const peaks=[[5,"5″"],[60,"1′"],[300,"5′"],[1200,"20′"],[3600,"60′"]].map(([L,l])=>({L,l,p:peak(L)})).filter(x=>x.p);
+  const sm=new Float64Array(n);{let s2=0;for(let i=0;i<n;i++){s2+=w[i];if(i>=10)s2-=w[i-10];sm[i]=s2/Math.min(10,i+1)}}
+  const eff=[];for(let i=0;i<n;){if(sm[i]>F*1.05){let j=i;while(j<n&&sm[j]>F*.95)j++;if(j-i>=20)eff.push({at:i,len:j-i,w:(pre[j]-pre[i])/(j-i)});i=j}else i++}
+  let spr=0;for(let i=5;i<n;i++){const a5=(pre[i]-pre[i-5])/5,b5=i>=10?(pre[i-5]-pre[i-10])/5:0;if(a5>F*2&&b5<=F*2)spr++}
+  const cz=c.filter(x=>x>20),cad85=cz.length?cz.filter(x=>x>=85).length/cz.length:0;
+  const h=Math.floor(n/2),a1=(pre[h]-pre[0])/h,a2=(pre[n]-pre[h])/(n-h);
+  const r={NP,avg,IF,VI:NP/avg,TSS:sec*NP*IF/(F*36),kJ:pre[n]/1000,zt,peaks,eff,spr,cad85,a1,a2,n};
+  deepCache.set(key,r);return r;
+}
+function bestBefore(act,L){
+  let b=0;Object.values(acts).forEach(a=>{if(a.id===act.id||a.start_local>=act.start_local)return;const d=data[a.id];if(!d||d.error||!d.w)return;const r=rideDeep(a,d);if(!r)return;const pk=r.peaks.find(x=>x.L===L);if(pk&&pk.p.w>b)b=pk.p.w});
+  return b;
+}
+function deepHTML(p,act,d){
+  const r=rideDeep(act,d);if(!r)return "";
+  const F=ftp(),mm=s=>Math.floor(s/60)+"′"+String(s%60).padStart(2,"0")+"″";
+  let h='<details class="deep" open><summary>Anàlisi detallada</summary><div class="deepin">';
+  h+='<div class="stats">'+[["NP",Math.round(r.NP)+" W"],["IF",r.IF.toFixed(2)],["TSS",Math.round(r.TSS)],["VI",r.VI.toFixed(2)],["kJ",Math.round(r.kJ)],["PR Strava",act.pr_count!=null?act.pr_count:"—"]].map(x=>'<div class="stat"><div class="k">'+x[0]+'</div><div class="v">'+x[1]+'</div></div>').join("")+'</div>';
+  h+='<div class="label">Temps per zones</div><div class="zbar">'+r.zt.map(z=>z.s?'<i style="flex:'+z.s+';background:var(--'+z.z+')" title="'+z.l+'"></i>':'').join("")+'</div><div class="zleg">'+r.zt.map(z=>'<span><b style="background:var(--'+z.z+')"></b>'+z.l+' '+Math.round(z.s/60)+'′</span>').join("")+'</div>';
+  h+='<div class="label">Pics de potència</div><div class="tbl"><table><thead><tr><th>Durada</th><th>Watts</th><th>% FTP</th><th>W/kg</th><th>Millor anterior</th></tr></thead><tbody>'+
+    r.peaks.map(x=>{const prev=bestBefore(act,x.L),isBest=prev&&x.p.w>prev;return '<tr><td>'+x.l+'</td><td'+(isBest?' class="s-ok"':'')+'>'+Math.round(x.p.w)+(isBest?' ★':'')+'</td><td>'+Math.round(x.p.w/F*100)+'</td><td>'+(x.p.w/WEIGHT).toFixed(2).replace(".",",")+'</td><td>'+(prev?Math.round(prev):"—")+'</td></tr>'}).join("")+'</tbody></table></div>';
+  h+='<div class="note">★ = millor que qualsevol sortida anterior que l\'app té carregada.</div>';
+  const top=r.eff.slice().sort((a,b)=>b.len*b.w-a.len*a.w).slice(0,5);
+  h+='<div class="label">Esforços per sobre de l\'FTP</div><div class="note">'+r.eff.length+' esforços de més de 20″ · '+r.spr+' esprints de més de '+(F*2)+' W</div>';
+  if(top.length)h+='<ul class="checks">'+top.map(e=>'<li><span class="m warn">↑</span><span>Minut '+Math.floor(e.at/60)+': '+mm(e.len)+' a '+Math.round(e.w)+' W ('+Math.round(e.w/F*100)+' %)</span></li>').join("")+'</ul>';
+  h+='<div class="note">Cadència: '+Math.round(r.cad85*100)+' % del temps a 85 rpm o més · Primera meitat '+Math.round(r.a1)+' W, segona '+Math.round(r.a2)+' W.</div>';
+  if((p.type==="end"||p.type==="long"||p.type==="rec")&&(r.IF>0.78||r.eff.length>=5))h+='<div class="adj">Per ser una sessió suau, has fet massa intensitat: '+r.eff.length+' esforços per sobre de l\'FTP i IF '+r.IF.toFixed(2)+'. Aquests pics cansen i no fan pujar l\'FTP en aquesta fase.</div>';
+  return h+'</div></details>';
+}
 function powerChartHTML(p,d,a){
   const w=d.w||[];if(w.length<120)return "";
   const B=Math.max(15,Math.round(w.length/160)),pts=[];
@@ -277,6 +316,7 @@ function resultHTML(p){
   let h='<div class="result"><div class="verdict '+a.level+'"><span class="ic">'+v[0]+'</span><div>'+v[1]+'<small>'+esc(act.name||"Activitat")+' · '+esc(v[2])+'</small></div></div>';
   h+='<div class="stats">'+a.stats.map(s=>'<div class="stat"><div class="k">'+s[0]+'</div><div class="v">'+s[1]+'</div></div>').join("")+'</div>';
   h+=powerChartHTML(p,d,a);
+  h+=deepHTML(p,act,d);
   h+='<ul class="checks">'+a.checks.map(c=>'<li><span class="m '+c.l+'">'+(c.l==="ok"?"✓":c.l==="warn"?"!":"✕")+'</span><span>'+esc(c.t)+'</span></li>').join("")+'</ul>';
   a.tables.forEach(t=>{
     if(!t.rows.length)return;
@@ -542,7 +582,7 @@ function errMsg(e){
   }
 }
 function planRange(){const ds=all().map(s=>s.d).concat([START,todayStr]).sort();return [ds[0],ds[ds.length-1]>todayStr?ds[ds.length-1]:todayStr]}
-function normAct(a){return {id:String(a.id),name:a.name,sport_type:a.sport_type||a.type,start_local:a.start_date_local,moving_time:a.moving_time,distance:a.distance,average_watts:a.average_watts,device_watts:a.device_watts,average_cadence:a.average_cadence,kilojoules:a.kilojoules}}
+function normAct(a){return {id:String(a.id),name:a.name,sport_type:a.sport_type||a.type,start_local:a.start_date_local,moving_time:a.moving_time,distance:a.distance,average_watts:a.average_watts,device_watts:a.device_watts,average_cadence:a.average_cadence,kilojoules:a.kilojoules,max_watts:a.max_watts,pr_count:a.pr_count,achievement_count:a.achievement_count,total_elevation_gain:a.total_elevation_gain}}
 function indexActs(list){
   const next={};
   list.forEach(a=>{
