@@ -1,6 +1,6 @@
 {
- "version": 12,
- "updated": "2026-10-27 (3)",
+ "version": 13,
+ "updated": "2026-10-27 (4)",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -381,35 +381,22 @@
    ]
   },
   {
-   "band": [
-    0.45,
-    0.6
-   ],
-   "cad": [
-    88,
-    92
-   ],
-   "cat": "rec",
+   "cat": "rest",
    "d": "2026-10-28",
-   "fuel": "Aigua",
    "k": 1,
-   "min": 90,
+   "min": 0,
    "ord": 1,
    "steps": [
     {
-     "l": "Sessió",
-     "x": "1h30 en Z1 alta / Z2 baixa a {45,60}, pla, 90 rpm"
-    },
-    {
-     "l": "Pujades",
-     "x": "Si n'hi ha, a {60} com a màxim"
+     "l": "Avui",
+     "x": "Descans total. 15′ de mobilitat si et ve de gust."
     }
    ],
-   "t": "Recuperació",
-   "type": "rec",
+   "t": "Descans",
+   "type": "rest",
    "z": "z1",
    "id": "s20261027",
-   "note": "Recuperació llarga però molt suau: 1h30 sense passar de 147 W. Si et lleves cansat, descans total. Res d'esprints ni segments: dijous tens el sweet spot llarg."
+   "note": "Avui (dimarts) ja has fet 104 TSS amb molts esforços. Descans complet per arribar fresc al sweet spot de dijous."
   },
   {
    "cad": [
@@ -508,35 +495,22 @@
    ]
   },
   {
-   "cad": [
-    88,
-    92
-   ],
-   "cat": "rec",
+   "cat": "rest",
    "d": "2026-10-30",
-   "fuel": "Aigua",
    "k": 1,
-   "min": 90,
+   "min": 0,
    "ord": 1,
    "steps": [
     {
-     "l": "Sessió",
-     "x": "1h30 a {45,60}, pla, 90 rpm, sense cap esforç"
-    },
-    {
-     "l": "Opcional",
-     "x": "Al final, 3 × 10″ a 110 rpm sense força"
+     "l": "Avui",
+     "x": "Sense bici. Només el gimnàs B."
     }
    ],
-   "t": "Recuperació",
-   "type": "rec",
+   "t": "Descans",
+   "type": "rest",
    "z": "z1",
    "id": "s20261030",
-   "band": [
-    0.45,
-    0.6
-   ],
-   "note": "Opcional: o descans total, o 1h30 molt suau. Mai res entremig a ritme alegre: dissabte tens sweet spot i esprints."
+   "note": "Descans de bici. A la tarda, gimnàs B (core i tren superior)."
   },
   {
    "id": "s20261030g",
@@ -702,6 +676,567 @@
     }
    ],
    "status": "removed"
+  },
+  {
+   "id": "s20261102",
+   "d": "2026-11-02",
+   "type": "rest",
+   "z": "z1",
+   "cat": "rest",
+   "t": "Descans",
+   "min": 0,
+   "steps": [
+    {
+     "l": "Avui",
+     "x": "Descans total. Comença la setmana de més càrrega del bloc."
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261103",
+   "d": "2026-11-03",
+   "type": "int",
+   "z": "ss",
+   "cat": "ss",
+   "key": true,
+   "t": "Sweet spot 3 × 15′",
+   "min": 100,
+   "cad": [
+    85,
+    95
+   ],
+   "ints": [
+    {
+     "n": 3,
+     "s": 900,
+     "lo": 0.88,
+     "hi": 0.93,
+     "cad": [
+      85,
+      95
+     ],
+     "label": "Sweet spot 15′"
+    }
+   ],
+   "fuel": "50–60 g/h de carbohidrats",
+   "note": "Progressió del sweet spot: més temps total que la setmana passada (45′ vs 40′).",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ · 10′ en Z2 i 3 × 1′ a {95} amb 1′ suau"
+    },
+    {
+     "l": "Principal",
+     "x": "3 × 15′ a {88,93} · 85–95 rpm · 5′ a {57} entre sèries"
+    },
+    {
+     "l": "Fons",
+     "x": "15′ en Z2 a {61,70}"
+    },
+    {
+     "l": "Calma",
+     "x": "10′ en Z1"
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261103g",
+   "d": "2026-11-03",
+   "ord": 2,
+   "type": "gym",
+   "z": "z7",
+   "cat": "gym",
+   "t": "Gimnàs A: full body",
+   "min": 50,
+   "rpe": "RPE 7",
+   "note": "Setmana 3 de gimnàs: passem a 3 sèries i una mica més de pes. Després de la bici, millor 3–6 h més tard.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "8′: 5′ de bici o rem suau + 10 ponts de glutis + 10 gat-camell + 6 obertures de maluc per cama"
+    },
+    {
+     "l": "Goblet squat",
+     "x": "3 × 10, una mica més de pes que la setmana passada. Han de sobrar-te 2–3 repeticions"
+    },
+    {
+     "l": "Pes mort romanès",
+     "x": "3 × 10 amb manuelles"
+    },
+    {
+     "l": "Esquat búlgar",
+     "x": "3 × 8 per cama, amb manuelles lleugeres"
+    },
+    {
+     "l": "Flexions",
+     "x": "3 × 10–12"
+    },
+    {
+     "l": "Rem amb manuella",
+     "x": "3 × 10 per braç"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug 3 × 8 per costat · planxa lateral 3 × 25″ per costat"
+    },
+    {
+     "l": "Descans",
+     "x": "90″ entre sèries"
+    }
+   ],
+   "k": 1
+  },
+  {
+   "id": "s20261104",
+   "d": "2026-11-04",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Z2 i cadència",
+   "min": 105,
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua amb electròlits i 30–40 g/h",
+   "note": "Z2 de veritat: cap esforç per sobre de 184 W, ni a les pujades ni als segments.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "10′ progressius fins a {61}"
+    },
+    {
+     "l": "Principal",
+     "x": "1h25 en Z2 a {63,73} · cada 15′, 2′ a 100–105 rpm sense canviar els watts"
+    },
+    {
+     "l": "Calma",
+     "x": "10′ en Z1"
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261105",
+   "d": "2026-11-05",
+   "type": "int",
+   "z": "z3",
+   "cat": "force",
+   "key": true,
+   "t": "Força-resistència 5 × 6′",
+   "min": 95,
+   "ints": [
+    {
+     "n": 5,
+     "s": 360,
+     "lo": 0.82,
+     "hi": 0.87,
+     "cad": [
+      60,
+      65
+     ],
+     "label": "Força 6′"
+    }
+   ],
+   "fuel": "40–50 g/h de carbohidrats",
+   "note": "Treball de força específica a la bici. Busca una pujada constant del 4–6 % o fes-ho al rodet. Si et molesten els genolls, puja a 70–75 rpm.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ progressius en Z2"
+    },
+    {
+     "l": "Principal",
+     "x": "5 × 6′ a {82,87} a 60–65 rpm, assegut, tronc quiet · 4′ a {57} i 95 rpm entre sèries"
+    },
+    {
+     "l": "Fons",
+     "x": "15′ en Z2 a {61,70}"
+    },
+    {
+     "l": "Calma",
+     "x": "10′ en Z1"
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261106",
+   "d": "2026-11-06",
+   "type": "rest",
+   "z": "z1",
+   "cat": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans de bici. A la tarda, gimnàs B.",
+   "steps": [
+    {
+     "l": "Avui",
+     "x": "Sense bici. Només el gimnàs B."
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261106g",
+   "d": "2026-11-06",
+   "ord": 2,
+   "type": "gym",
+   "z": "z7",
+   "cat": "gym",
+   "t": "Gimnàs B: core i estabilitat",
+   "min": 40,
+   "rpe": "RPE 6",
+   "note": "Poques cames: demà tens el fons llarg.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "8′: 5′ de bici o rem suau + 10 ponts de glutis + 10 gat-camell + 6 obertures de maluc per cama"
+    },
+    {
+     "l": "Pont de glutis a una cama",
+     "x": "3 × 10 per cama"
+    },
+    {
+     "l": "Bessons a una cama",
+     "x": "3 × 12 per cama"
+    },
+    {
+     "l": "Equilibri a una cama",
+     "x": "2 × 6 abasts per cama"
+    },
+    {
+     "l": "Jalón al pit",
+     "x": "3 × 10"
+    },
+    {
+     "l": "Press d'espatlles",
+     "x": "3 × 8"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press 3 × 10 per costat · bird dog 3 × 8 per costat · planxa 3 × 30″"
+    },
+    {
+     "l": "Mobilitat",
+     "x": "5′ de maluc, isquios i columna"
+    }
+   ],
+   "k": 1
+  },
+  {
+   "id": "s20261107",
+   "d": "2026-11-07",
+   "type": "long",
+   "z": "z3",
+   "cat": "long",
+   "key": true,
+   "t": "Fons llarg amb tempo",
+   "min": 210,
+   "maxMin": 240,
+   "band": [
+    0.56,
+    0.8
+   ],
+   "cad": [
+    85,
+    90
+   ],
+   "ints": [
+    {
+     "n": 2,
+     "s": 1200,
+     "lo": 0.78,
+     "hi": 0.83,
+     "cad": [
+      85,
+      90
+     ],
+     "label": "Tempo 20′"
+    }
+   ],
+   "fuel": "70 g/h de carbohidrats des del minut 30. Esmorzar fort 2–3 h abans.",
+   "note": "La sortida més llarga del bloc. Els dos blocs de tempo, a la segona meitat: fan que aguantis el ritme amb fatiga, que és el que et falta a 20′.",
+   "steps": [
+    {
+     "l": "Primera meitat",
+     "x": "Z2 a {61,73}, pujades com a màxim a {75}"
+    },
+    {
+     "l": "Segona meitat",
+     "x": "2 × 20′ a {78,83} · 10′ en Z2 entre blocs · en pla o pujada constant"
+    },
+    {
+     "l": "Final",
+     "x": "Z2 suau fins a casa"
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261108",
+   "d": "2026-11-08",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Z2 suau (opcional)",
+   "min": 90,
+   "band": [
+    0.56,
+    0.7
+   ],
+   "cad": [
+    85,
+    90
+   ],
+   "fuel": "Aigua i 30 g/h",
+   "note": "Opcional. Si dissabte has acabat molt cansat, descans.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "1h30 a {56,70}, sense apretar enlloc (màxim {75})"
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261109",
+   "d": "2026-11-09",
+   "type": "rest",
+   "z": "z1",
+   "cat": "rest",
+   "t": "Descans",
+   "min": 0,
+   "steps": [
+    {
+     "l": "Avui",
+     "x": "Comença la setmana de descàrrega: menys volum, mateixa qualitat, i dissabte el test."
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261110",
+   "d": "2026-11-10",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Z2 amb activacions",
+   "min": 90,
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30 g/h",
+   "note": "Setmana de descàrrega: el cos assimila la feina de les setmanes 1–3.",
+   "steps": [
+    {
+     "l": "Principal",
+     "x": "1h20 en Z2 a {61,72}"
+    },
+    {
+     "l": "Activacions",
+     "x": "Al minut 60: 4 × 30″ a {120} amb 2′30″ suaus entre cadascun"
+    },
+    {
+     "l": "Calma",
+     "x": "10′ suaus"
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261111",
+   "d": "2026-11-11",
+   "type": "rest",
+   "z": "z1",
+   "cat": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Gimnàs suau a la tarda. Res de cames pesades: dissabte és el test.",
+   "steps": [
+    {
+     "l": "Avui",
+     "x": "Sense bici."
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261111g",
+   "d": "2026-11-11",
+   "ord": 2,
+   "type": "gym",
+   "z": "z7",
+   "cat": "gym",
+   "t": "Gimnàs suau: core i mobilitat",
+   "min": 35,
+   "rpe": "RPE 5",
+   "note": "Descàrrega: 2 sèries i poc pes. Últim dia de gimnàs abans del test (72 h).",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "8′: 5′ de bici o rem suau + 10 ponts de glutis + 10 gat-camell + 6 obertures de maluc per cama"
+    },
+    {
+     "l": "Goblet squat",
+     "x": "2 × 8, lleuger"
+    },
+    {
+     "l": "Pont de glutis",
+     "x": "2 × 12"
+    },
+    {
+     "l": "Rem amb manuella",
+     "x": "2 × 10 per braç"
+    },
+    {
+     "l": "Flexions",
+     "x": "2 × 10"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug 2 × 8 · planxa 2 × 30″"
+    },
+    {
+     "l": "Mobilitat",
+     "x": "10′ de maluc i columna"
+    }
+   ],
+   "k": 1
+  },
+  {
+   "id": "s20261112",
+   "d": "2026-11-12",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Z2 suau",
+   "min": 90,
+   "band": [
+    0.56,
+    0.7
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30 g/h",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "1h30 a {56,70}, 85–92 rpm, sense cap esforç"
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261113",
+   "d": "2026-11-13",
+   "type": "rest",
+   "z": "z1",
+   "cat": "rest",
+   "t": "Descans pre-test",
+   "min": 0,
+   "note": "Sopa ric en carbohidrats (pasta o arròs) i dorm 8 h. Res de festa la nit abans del test.",
+   "steps": [
+    {
+     "l": "Avui",
+     "x": "Descans total. Prepara la bici, el ciclocomputador i el lloc del test."
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261114",
+   "d": "2026-11-14",
+   "type": "int",
+   "z": "z4",
+   "cat": "test",
+   "key": true,
+   "t": "TEST d'FTP (20′)",
+   "min": 90,
+   "ints": [
+    {
+     "n": 1,
+     "s": 1200,
+     "lo": 1.0,
+     "hi": 1.12,
+     "cad": null,
+     "label": "Test 20′"
+    }
+   ],
+   "fuel": "Esmorzar 3 h abans. Durant el test, només aigua.",
+   "note": "El teu nou FTP = 95 % de la potència mitjana dels 20′. Busca una pujada llarga i constant (20′+) o fes-lo al rodet. Passa'm el resultat i recalculo totes les zones.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "25′: 10′ en Z2 · 3 × 1′ a {82} i 110 rpm · 5′ a fons (RPE 9) · 10′ molt suau"
+    },
+    {
+     "l": "Test",
+     "x": "20′ al màxim sostenible. Comença a {100}–{104} i no surtis fort; als 10′ decideix si apuges; els últims 3′, a fons"
+    },
+    {
+     "l": "Calma",
+     "x": "15′ en Z1"
+    },
+    {
+     "l": "Després",
+     "x": "Si et queden ganes, 20–30′ en Z2 suau fins a completar 1h30"
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261115",
+   "d": "2026-11-15",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Z2 suau (opcional)",
+   "min": 90,
+   "band": [
+    0.56,
+    0.7
+   ],
+   "cad": [
+    85,
+    90
+   ],
+   "fuel": "Aigua i 30 g/h",
+   "note": "Opcional. Amb l'FTP nou, la setmana que ve comença la fase de construcció.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "1h30–2h a {56,70}"
+    }
+   ],
+   "ord": 1,
+   "k": 1
   }
  ],
  "rules": {
