@@ -1,6 +1,6 @@
 {
- "version": 11,
- "updated": "2026-10-27 (2)",
+ "version": 12,
+ "updated": "2026-10-27 (3)",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -383,7 +383,7 @@
   {
    "band": [
     0.45,
-    0.55
+    0.6
    ],
    "cad": [
     88,
@@ -393,19 +393,23 @@
    "d": "2026-10-28",
    "fuel": "Aigua",
    "k": 1,
-   "min": 45,
+   "min": 90,
    "ord": 1,
    "steps": [
     {
      "l": "Sessió",
-     "x": "45′ en Z1 a {45,55}, terreny pla, 90 rpm. Cap pujada forta, cap esprint"
+     "x": "1h30 en Z1 alta / Z2 baixa a {45,60}, pla, 90 rpm"
+    },
+    {
+     "l": "Pujades",
+     "x": "Si n'hi ha, a {60} com a màxim"
     }
    ],
    "t": "Recuperació",
    "type": "rec",
    "z": "z1",
    "id": "s20261027",
-   "note": "Avui havia de ser Z2 i va acabar amb 12 esforços per sobre de l'FTP i 14 esprints de més de 500 W (IF 0,80). Demà, recuperació de veritat per arribar fresc al sweet spot de dijous."
+   "note": "Recuperació llarga però molt suau: 1h30 sense passar de 147 W. Si et lleves cansat, descans total. Res d'esprints ni segments: dijous tens el sweet spot llarg."
   },
   {
    "cad": [
@@ -430,7 +434,7 @@
    ],
    "k": 1,
    "key": true,
-   "min": 80,
+   "min": 95,
    "ord": 1,
    "steps": [
     {
@@ -440,6 +444,10 @@
     {
      "l": "Principal",
      "x": "2 × 20′ a {88,92} · 88–92 rpm · 8′ a {57} entre sèries"
+    },
+    {
+     "l": "Fons",
+     "x": "15′ en Z2 a {61,70}"
     },
     {
      "l": "Calma",
@@ -508,18 +516,27 @@
    "d": "2026-10-30",
    "fuel": "Aigua",
    "k": 1,
-   "min": 40,
+   "min": 90,
    "ord": 1,
    "steps": [
     {
      "l": "Sessió",
-     "x": "40′ en Z1 a {45,53}, o descans total"
+     "x": "1h30 a {45,60}, pla, 90 rpm, sense cap esforç"
+    },
+    {
+     "l": "Opcional",
+     "x": "Al final, 3 × 10″ a 110 rpm sense força"
     }
    ],
    "t": "Recuperació",
    "type": "rec",
    "z": "z1",
-   "id": "s20261030"
+   "id": "s20261030",
+   "band": [
+    0.45,
+    0.6
+   ],
+   "note": "Opcional: o descans total, o 1h30 molt suau. Mai res entremig a ritme alegre: dissabte tens sweet spot i esprints."
   },
   {
    "id": "s20261030g",
@@ -686,5 +703,8 @@
    ],
    "status": "removed"
   }
- ]
+ ],
+ "rules": {
+  "minRideMin": 90
+ }
 }
