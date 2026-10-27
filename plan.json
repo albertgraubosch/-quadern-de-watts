@@ -1,6 +1,6 @@
 {
- "version": 9,
- "updated": "2026-10-26 (4)",
+ "version": 10,
+ "updated": "2026-10-27",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -346,65 +346,39 @@
    "status": "removed"
   },
   {
+   "id": "s20261027b",
+   "d": "2026-10-27",
+   "ord": 1,
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Z2 de 2 h",
+   "min": 120,
    "band": [
     0.56,
-    0.8
+    0.75
    ],
    "cad": [
     85,
     90
    ],
-   "cat": "long",
-   "d": "2026-10-27",
-   "fuel": "70 g/h de carbohidrats des del minut 30 (barreta o gel cada 30–40′ + isotònica). Omple bidons a baix, després de Santa Pellaia, o a Platja d'Aro / Calonge abans de la Ganga.",
-   "ints": [
-    {
-     "cad": [
-      85,
-      90
-     ],
-     "hi": 0.82,
-     "label": "Tempo 15′",
-     "lo": 0.78,
-     "n": 2,
-     "s": 900
-    }
-   ],
    "k": 1,
-   "maxMin": 240,
-   "min": 215,
-   "ord": 1,
+   "fuel": "Aigua amb electròlits i 40–60 g/h de carbohidrats",
+   "note": "Avui en lloc del fons llarg, que passa a diumenge. Ahir ja vas rodar gairebé 2 h amb molts pics: avui, Z2 de veritat. Dijous tens el sweet spot llarg.",
    "steps": [
     {
-     "l": "Girona → Cassà",
-     "x": "Escalfament i Z2 a {61,73}, 85–90 rpm"
+     "l": "Escalfament",
+     "x": "10′ progressius fins a {61}"
     },
     {
-     "l": "Santa Pellaia",
-     "x": "Bloc 1: 15′ a {78,82} des del peu. Si la pujada dura més, la resta fins a dalt a {70,75}"
+     "l": "Principal",
+     "x": "1h40 en Z2 a {61,73}, 85–90 rpm. A les pujades, màxim {75}"
     },
     {
-     "l": "Baixada i pla",
-     "x": "Z2 suau a {56,70}. Menja i beu. Baixa amb calma"
-    },
-    {
-     "l": "La Ganga",
-     "x": "Bloc 2: 15′ a {78,82}. Si al peu notes les cames carregades, fes-la en Z2 ({75} màxim)"
-    },
-    {
-     "l": "Romanyà (petit)",
-     "x": "Z2, sense apretar: màxim {75}"
-    },
-    {
-     "l": "Tornada a Girona",
-     "x": "Z2 a {56,70}; els últims 10′, suaus"
+     "l": "Calma",
+     "x": "10′ suaus"
     }
-   ],
-   "t": "Fons llarg: Santa Pellaia, la Ganga i Romanyà",
-   "type": "long",
-   "z": "z3",
-   "id": "s20261101",
-   "note": "Els dos blocs de tempo es fan a les dues pujades llargues; tota la resta, Z2. Si a la Ganga ja vas tocat, fes-la en Z2 i prou."
+   ]
   },
   {
    "band": [
@@ -655,6 +629,44 @@
    "id": "s20261031"
   },
   {
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    90
+   ],
+   "cat": "long",
+   "d": "2026-11-01",
+   "fuel": "70 g/h de carbohidrats des del minut 30 (barreta o gel cada 30–40′ + isotònica). Omple bidons a baix, després de Santa Pellaia, o a Platja d'Aro / Calonge abans de la Ganga.",
+   "ints": [],
+   "k": 1,
+   "maxMin": 240,
+   "min": 210,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Tota la ruta",
+     "x": "Z2 a {61,73}, 85–90 rpm"
+    },
+    {
+     "l": "Pujades",
+     "x": "Santa Pellaia, la Ganga i Romanyà a {70,75} com a màxim: pinyó gran i 80–85 rpm"
+    },
+    {
+     "l": "Final",
+     "x": "Els últims 10′, suaus"
+    }
+   ],
+   "t": "Fons llarg (Santa Pellaia, la Ganga i Romanyà)",
+   "type": "long",
+   "z": "z3",
+   "id": "s20261101",
+   "note": "Passa a diumenge, l'endemà del sweet spot de dissabte: per això és tot en Z2, sense blocs de tempo. Si dissabte acabes molt cansat, fes-ne 2h30.",
+   "key": true
+  },
+  {
    "id": "s20261101b",
    "d": "2026-11-01",
    "ord": 1,
@@ -673,13 +685,14 @@
    ],
    "k": 1,
    "fuel": "Aigua amb electròlits i 30–40 g/h",
-   "note": "Opcional. Si dissabte has fet bé el sweet spot i et ve de gust rodar, Z2 suau. Si no, descans.",
+   "note": "Substituïda pel fons llarg.",
    "steps": [
     {
      "l": "Sessió",
      "x": "1h30 entre {56} i {70}, 85–90 rpm, sense apretar a les pujades (màxim {75})"
     }
-   ]
+   ],
+   "status": "removed"
   }
  ]
 }
