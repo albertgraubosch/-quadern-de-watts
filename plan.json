@@ -1,6 +1,6 @@
 {
- "version": 14,
- "updated": "2026-10-28",
+ "version": 15,
+ "updated": "2026-10-28 (2)",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -571,9 +571,9 @@
       85,
       95
      ],
-     "hi": 0.93,
+     "hi": 0.96,
      "label": "Sweet spot 10′",
-     "lo": 0.9,
+     "lo": 0.93,
      "n": 4,
      "s": 600
     },
@@ -593,21 +593,26 @@
    "steps": [
     {
      "l": "Escalfament",
-     "x": "15′ · 10′ en Z2 i 3 × 1′ a {94}"
+     "x": "15–20′ en Z2 fins al lloc de les sèries, amb 3 × 1′ a {96}"
     },
     {
      "l": "Principal",
-     "x": "4 × 10′ a {90,93} amb 5′ a {57} · 10′ en Z2 · 4 × 10″ d'esprint assegut, a fons i a +110 rpm, amb 2′50″ suau"
+     "x": "4 × 10′ a {93,96} · 85–95 rpm · 5′ a {57} entre sèries"
     },
     {
-     "l": "Calma",
-     "x": "10′ en Z1"
+     "l": "Esprints",
+     "x": "Després, 10′ en Z2 i 4 × 10″ d'esprint assegut, a fons i a més de 110 rpm, amb 2′50″ suaus"
+    },
+    {
+     "l": "Resta",
+     "x": "Z2 a {61,73} fins a casa"
     }
    ],
-   "t": "Sweet spot i esprints",
+   "t": "Sweet spot alt 4 × 10′ i esprints",
    "type": "int",
    "z": "ss",
-   "id": "s20261031"
+   "id": "s20261031",
+   "note": "Pujat respecte al pla inicial (abans 221–228 W): dimecres vas fer 3 × 10′ a 235–245 W amb bones sensacions. Si avui també et trobes bé, la setmana que ve allarguem els blocs."
   },
   {
    "band": [
@@ -1238,6 +1243,13 @@
   }
  ],
  "rules": {
-  "minRideMin": 90
- }
+  "minRideMin": 90,
+  "coachMd": "COACH.md"
+ },
+ "coachNotes": [
+  {
+   "date": "2026-10-28",
+   "text": "Dimecres: 3 × 10′ a 235, 235 i 245 W en pujada del 8 %, molt constants i amb l'última com la més forta. Per això dissabte pujo els blocs a 228–235 W (4 × 10′). Si et tornes a trobar bé, la setmana 3 passarem a blocs més llargs. Dijous, descans de veritat."
+  }
+ ]
 }

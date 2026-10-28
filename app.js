@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.8.0";
+const APP_VERSION="1.9.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -103,9 +103,11 @@ function bestWindows(w,cad,L,n){
   }
   return res.sort((a,b)=>a.start-b.start);
 }
-const RANK={ok:0,warn:1,bad:2};
+const RANK={ok:0,up:1,warn:2,bad:3};
 const worst=(a,b)=>RANK[a]>=RANK[b]?a:b;
 const memo=new Map();
+// The verdict judges the work that was planned (blocks, intensity), never the clock:
+// a longer ride (getting to the climb, riding home) is information, not a fault.
 function analyze(p,act,d){
   const key=act.id+"|"+ftp()+"|"+(p.k||1)+"|"+p.id+"|"+p.d;
   if(memo.has(key))return memo.get(key);
@@ -114,87 +116,66 @@ function analyze(p,act,d){
   const mov=act.moving_time||0;
   const w=d.w||[],c=d.c||[],hasW=act.device_watts!==false&&w.length>0;
   const pedalW=meanNZ(w),pedalC=c.length?meanNZ(c):(act.average_cadence||0);
-  const add=(l,t)=>{checks.push({l,t});level=worst(level,l)};
-  if(p.type==="rest"){add("warn","Avui tocava descans. Una sortida suau no passa res, però el descans també fa pujar l'FTP.")}
+  const add=(l,t)=>{checks.push({l,t});if(l!=="info")level=worst(level,l)};
+  const hasInts=p.ints&&p.ints.length;
+  if(p.type==="rest"){add("up","Avui tocava descans i has rodat. El coach ho comptarà com a càrrega extra.")}
   else{
-    const r=(mov/60)/p.min;
-    if(r>=0.85&&(p.maxMin||r<=1.35))add("ok","Durada correcta: "+fmtDur(mov)+" de "+fmtPlanDur(p)+" previstos.");
-    else if(r>1.35)add("warn","Has fet "+fmtDur(mov)+", força més del previst ("+fmtPlanDur(p)+"). Vigila no acumular fatiga.");
-    else if(r>=0.65)add("warn","Una mica curt: "+fmtDur(mov)+" de "+fmtPlanDur(p)+" previstos.");
-    else add("bad","Massa curt: "+fmtDur(mov)+" de "+fmtPlanDur(p)+" previstos.");
+    const planned=p.maxMin?(p.min+p.maxMin)/2:p.min,r=planned?(mov/60)/planned:1;
+    if(!hasInts&&r<0.6)add("warn","Més curta del previst: "+fmtDur(mov)+" de "+fmtPlanDur(p)+".");
+    else add("info","Durada: "+fmtDur(mov)+" (previst "+fmtPlanDur(p)+")."+(r>1.15?" El temps extra no compta en contra: es valora el treball fet.":""));
   }
-  if(!hasW){add("warn","Aquesta activitat no té dades de potenciòmetre, així que no puc comprovar els watts.")}
+  if(!hasW){add("info","Aquesta activitat no té dades de potenciòmetre, així que no puc valorar els watts.")}
   else if(p.type!=="rest"){
     const pct=pedalW/F;
-    if((p.type==="end"||p.type==="long")&&p.band){
+    if((p.type==="end"||p.type==="long")&&p.band&&!hasInts){
       const lo=p.band[0]*k,hi=p.band[1]*k;
-      if(pct>=lo-0.04&&pct<=hi+0.03)add("ok","Intensitat de resistència ben controlada: "+Math.round(pedalW)+" W de mitjana pedalant ("+Math.round(pct*100)+" % FTP).");
-      else if(pct>hi+0.03)add(pct>hi+0.10?"bad":"warn","Massa intens per ser Z2: "+Math.round(pedalW)+" W de mitjana ("+Math.round(pct*100)+" % FTP). L'objectiu era "+Math.round(lo*F)+"–"+Math.round(hi*F)+" W.");
-      else add("warn","Una mica fluix: "+Math.round(pedalW)+" W de mitjana ("+Math.round(pct*100)+" % FTP). Apunta a "+Math.round((lo+0.05)*F)+"–"+Math.round(hi*F)+" W.");
-      if(!p.ints||!p.ints.length){
-        let above=0,ped=0;for(const v of w){if(v>0){ped++;if(v>0.90*F)above++}}
-        const fr=ped?above/ped:0,lim=p.type==="long"?0.15:0.10;
-        if(fr>lim)add("warn",Math.round(fr*100)+" % del temps pedalant per sobre de "+Math.round(0.9*F)+" W. En Z2 hauria de ser menys del "+Math.round(lim*100)+" %.");
-      }
+      let above=0,ped=0;for(const v of w){if(v>0){ped++;if(v>0.90*F)above++}}
+      const fr=ped?above/ped:0,lim=p.type==="long"?0.15:0.10;
+      if(pct>hi+0.03||fr>lim)add("up","Més intens del previst per ser Z2: "+Math.round(pedalW)+" W de mitjana pedalant ("+Math.round(pct*100)+" % FTP) i "+Math.round(fr*100)+" % del temps per sobre de "+Math.round(0.9*F)+" W.");
+      else if(pct<lo-0.04)add("info","Molt suau: "+Math.round(pedalW)+" W de mitjana pedalant. Per a un Z2, pots anar a "+Math.round(lo*F)+"–"+Math.round(hi*F)+" W.");
+      else add("ok","Z2 ben controlat: "+Math.round(pedalW)+" W de mitjana pedalant ("+Math.round(pct*100)+" % FTP).");
     } else if(p.type==="rec"){
-      if(pct<=0.60)add("ok","Recuperació de veritat: "+Math.round(pedalW)+" W de mitjana ("+Math.round(pct*100)+" % FTP).");
-      else if(pct<=0.68)add("warn","Una mica alt per ser recuperació: "+Math.round(pedalW)+" W. Mantén-te per sota de "+Math.round(0.55*F)+" W.");
-      else add("bad","Això no ha estat una recuperació: "+Math.round(pedalW)+" W de mitjana ("+Math.round(pct*100)+" % FTP).");
+      if(pct>0.68)add("up","Més intens del previst per ser recuperació: "+Math.round(pedalW)+" W de mitjana ("+Math.round(pct*100)+" % FTP).");
+      else add("ok","Recuperació ben feta: "+Math.round(pedalW)+" W de mitjana ("+Math.round(pct*100)+" % FTP).");
     }
     (p.ints||[]).forEach(spec=>{
       const lo=spec.lo*k,hi=spec.hi==null?null:spec.hi*k;
-      const win=bestWindows(w,c,spec.s,spec.n),rows=[];let okN=0,badN=0,missing=0;
+      const win=bestWindows(w,c,spec.s,spec.n),rows=[];let okN=0,upN=0,lowN=0,missing=0;
       win.forEach((x,idx)=>{
-        const q=x.avg/F;let s;
-        if(hi==null)s=q>=lo?"ok":(q>=lo-0.2?"warn":"bad");
-        else if(q>=lo-0.03&&q<=hi+0.03)s="ok";
-        else if(q>hi+0.03)s="warn";
-        else if(q>=lo-0.06)s="warn";
-        else s="bad";
-        if(hi!=null&&q<lo*0.8)missing++;
+        const q=x.avg/F;let st;
+        if(hi==null)st=q>=lo?"ok":(q>=lo-0.2?"warn":"bad");
+        else if(q>hi+0.03)st="up";
+        else if(q>=lo-0.03)st="ok";
+        else if(q>=lo-0.06)st="warn";
+        else st="bad";
+        if(hi!=null&&q<lo*0.8){missing++;st="bad"}
         let cs=null;if(spec.cad&&x.cad!=null)cs=(x.cad>=spec.cad[0]-5&&x.cad<=spec.cad[1]+5)?"ok":"warn";
-        if(s==="ok")okN++;if(s==="bad")badN++;
-        rows.push({i:idx+1,start:x.start,len:spec.s,w:Math.round(x.avg),pct:Math.round(q*100),cad:x.cad!=null?Math.round(x.cad):null,s,cs});
+        if(st==="ok")okN++;else if(st==="up")upN++;else lowN++;
+        rows.push({i:idx+1,start:x.start,len:spec.s,w:Math.round(x.avg),pct:Math.round(q*100),cad:x.cad!=null?Math.round(x.cad):null,s:st,cs});
       });
-      for(let j=win.length;j<spec.n;j++){badN++;missing++}
+      for(let j=win.length;j<spec.n;j++){missing++;lowN++}
       const tgt=hi==null?"més de "+Math.round(lo*F)+" W":Math.round(lo*F)+"–"+Math.round(hi*F)+" W";
+      const done=spec.n-missing,avgW=rows.length?Math.round(rows.reduce((m,r)=>m+r.w,0)/rows.length):0;
       if(missing>=spec.n)add("bad","No es detecten els blocs de "+spec.label+" ("+spec.n+" × a "+tgt+").");
-      else if(okN===spec.n)add("ok","Tots els blocs de "+spec.label+" dins l'objectiu ("+tgt+").");
-      else if(badN===0)add("warn",okN+" de "+spec.n+" blocs de "+spec.label+" exactes. Mira la taula per veure quins se t'han escapat.");
-      else add("bad","Només "+okN+" de "+spec.n+" blocs de "+spec.label+" a l'objectiu ("+tgt+").");
-      if(spec.cad){const cb=rows.filter(r=>r.cs==="warn").length;if(cb)add("warn","Cadència fora de "+spec.cad[0]+"–"+spec.cad[1]+" rpm en "+cb+" dels blocs de "+spec.label+".")}
-      tables.push({spec,rows,tgt,lo,hi,hiPct:hi==null?null:hi*100,missing,badN,okN});
+      else if(lowN===0&&upN>0)add("up","Blocs de "+spec.label+" fets per sobre de l'objectiu: "+avgW+" W de mitjana (objectiu "+tgt+"). Si et vas trobar bé, és senyal per pujar.");
+      else if(lowN===0)add("ok","Tots els blocs de "+spec.label+" dins l'objectiu ("+tgt+"), "+avgW+" W de mitjana.");
+      else if(done>=Math.ceil(spec.n/2))add("warn",(okN+upN)+" de "+spec.n+" blocs de "+spec.label+" a l'objectiu ("+tgt+"); la resta, per sota.");
+      else add("bad","Només "+(okN+upN)+" de "+spec.n+" blocs de "+spec.label+" a l'objectiu ("+tgt+").");
+      if(spec.cad){const cb=rows.filter(r=>r.cs==="warn").length;if(cb)add("info","Cadència fora de "+spec.cad[0]+"–"+spec.cad[1]+" rpm en "+cb+" dels blocs de "+spec.label+".")}
+      tables.push({spec,rows,tgt,lo,hi,hiPct:hi==null?null:hi*100,missing,okN,upN,lowN});
     });
   }
-  if(p.cad&&pedalC){
-    const cl=p.cad[0];
-    if(pedalC>=cl-2)add("ok","Cadència mitjana de "+Math.round(pedalC)+" rpm. Objectiu complert.");
-    else add("warn","Cadència mitjana de "+Math.round(pedalC)+" rpm. L'objectiu és "+p.cad[0]+"–"+p.cad[1]+" rpm"+(pedalC>=cl-7?": vas pel bon camí.":": treu un pinyó i fes girar més les cames."));
-  }
+  if(p.cad&&pedalC&&!hasInts)add("info","Cadència mitjana de "+Math.round(pedalC)+" rpm (objectiu "+p.cad[0]+"–"+p.cad[1]+").");
   const stats=[["Temps",fmtDur(mov)],["Km",act.distance?(act.distance/1000).toFixed(1).replace(".",","):"—"],
     ["Watts",act.average_watts?Math.round(act.average_watts):(hasW?Math.round(pedalW):"—")],["Rpm",pedalC?Math.round(pedalC):"—"],["kJ",act.kilojoules?Math.round(act.kilojoules):"—"]];
   const res={level,checks,tables,stats,hasW};
   memo.set(key,res);
   return res;
 }
-function suggestFor(s,a){
-  if(!a||s.adjDone||!s.cat||!CATNAMES[s.cat])return null;
-  const t=a.tables.find(x=>x.hiPct!=null);if(!t||!t.rows.length)return null;
-  const next=all().find(x=>x.d>s.d&&active(x)&&!x.done&&x.cat===s.cat);
-  if(!next)return null;
-  const mean=t.rows.reduce((m,r)=>m+r.pct,0)/t.rows.length;
-  const allOk=t.okN===t.spec.n,overs=t.rows.filter(r=>r.pct>t.hiPct+3).length;
-  let f=0,why="";
-  if(allOk&&mean>=t.hiPct-1){f=0.02;why="Has fet tots els blocs a la part alta del rang ("+Math.round(mean)+" % FTP de mitjana)."}
-  else if(t.badN===0&&overs>0){f=0.02;why="Has anat per sobre de l'objectiu en "+overs+" blocs sense que cap se t'escapés."}
-  else if(a.level==="bad"&&(t.missing>0||t.badN>=2)){f=-0.03;why="No has pogut mantenir els watts en "+t.badN+" blocs."}
-  if(!f)return null;
-  const curK=next.k||1,nk=Math.round((curK+f)*1000)/1000;
-  const ex=(next.ints&&next.ints[0])||null;
-  const range=ex&&ex.hi!=null?" ("+W(ex.lo,nk)+"–"+W(ex.hi,nk)+" W en lloc de "+W(ex.lo,curK)+"–"+W(ex.hi,curK)+" W)":"";
-  return {next,f,nk,why,txt:(f>0?"Puja un "+Math.round(f*100)+" %":"Baixa un "+Math.round(-f*100)+" %")+" la intensitat de «"+next.t+"» del "+dayLabel(next.d)+range+"."};
-}
-const VERDICT={ok:["✓","Entreno ben fet","Has complert la sessió tal com estava planificada."],warn:["!","Fet, amb matisos","La sessió està feta, però hi ha punts a ajustar."],bad:["✕","No s'ha complert","La sessió no s'ha fet com estava prevista."]};
+// Progression is decided by the coach (daily review), not suggested in the app.
+function suggestFor(){return null}
+const VERDICT={ok:["✓","Objectiu complert","Has fet el treball previst."],up:["↑","Complert, més fort del previst","Has fet la feina amb més intensitat de la prevista. El coach ho tindrà en compte per a les properes sessions."],warn:["!","Complert en part","Part del treball principal ha quedat per sota de l'objectiu."],bad:["✕","Incomplet","El treball principal no s'ha pogut fer."]};
+const MARK={ok:"✓",up:"↑",warn:"!",bad:"✕",info:"·"};
 
 /* ---------- Charts ---------- */
 function profileSegs(p){
@@ -317,7 +298,7 @@ function resultHTML(p){
   h+='<div class="stats">'+a.stats.map(s=>'<div class="stat"><div class="k">'+s[0]+'</div><div class="v">'+s[1]+'</div></div>').join("")+'</div>';
   h+=powerChartHTML(p,d,a);
   h+=deepHTML(p,act,d);
-  h+='<ul class="checks">'+a.checks.map(c=>'<li><span class="m '+c.l+'">'+(c.l==="ok"?"✓":c.l==="warn"?"!":"✕")+'</span><span>'+esc(c.t)+'</span></li>').join("")+'</ul>';
+  h+='<ul class="checks">'+a.checks.map(c=>'<li><span class="m '+c.l+'">'+MARK[c.l]+'</span><span>'+esc(c.t)+'</span></li>').join("")+'</ul>';
   a.tables.forEach(t=>{
     if(!t.rows.length)return;
     h+='<div class="tbl"><table><thead><tr><th>'+esc(t.spec.label)+'</th><th>Watts</th><th>% FTP</th><th>Rpm</th></tr></thead><tbody>';
@@ -368,9 +349,56 @@ function renderHero(){
   const act=actFor(p),d=act&&data[act.id];
   if(act&&d&&!d.error&&!loading[act.id]){
     const a=analyze(p,act,d);
-    ver.hidden=false;ver.innerHTML='<span class="vpill '+a.level+'"><i>'+(a.level==="bad"?"!":"✓")+'</i>'+(a.level==="ok"?"Ben fet":a.level==="warn"?"Fet, amb matisos":"No s'ha complert")+' · '+fmtDur(act.moving_time||0)+(act.average_watts?" · "+Math.round(act.average_watts)+" W":"")+'</span>';
+    ver.hidden=false;ver.innerHTML='<span class="vpill '+a.level+'"><i>'+MARK[a.level]+'</i>'+VERDICT[a.level][1]+' · '+fmtDur(act.moving_time||0)+(act.average_watts?" · "+Math.round(act.average_watts)+" W":"")+'</span>';
   } else if(act){ver.hidden=false;ver.innerHTML='<span class="vpill"><i>✓</i>Feta · analitzant…</span>'}
   else if(p.done){ver.hidden=false;ver.innerHTML='<span class="vpill"><i>✓</i>Marcada com a feta</span>'}
+}
+function actTSS(a){
+  const F=ftp(),sec=a.moving_time||0,st=String(a.sport_type||"");
+  if(/Ride|Cycl|Bike/i.test(st)){
+    const d=data[a.id];if(d&&!d.error&&d.w&&d.w.length>=60)return actualLoad(a).tss;
+    const np=a.weighted_average_watts||(a.average_watts?a.average_watts*1.05:0);
+    if(np){const IF=np/F;return sec*np*IF/(F*36)}
+    return sec/3600*45;
+  }
+  if(/Run/i.test(st))return sec/3600*65;
+  if(/WeightTraining|Workout|Crossfit/i.test(st))return sec/3600*35;
+  return sec/3600*30;
+}
+function loadModel(){
+  const list=lsGet("qw.acts",[])||[];if(!list.length)return null;
+  const daily={};list.forEach(a=>{if(!a.start_local)return;const d=a.start_local.slice(0,10);daily[d]=(daily[d]||0)+actTSS(a)});
+  const days=Object.keys(daily).sort();if(!days.length)return null;
+  let d=days[0],ctl=0,atl=0;const series=[];
+  while(d<=todayStr){const t=daily[d]||0;ctl+=(t-ctl)/42;atl+=(t-atl)/7;series.push({d,t,ctl,atl});d=addDays(d,1)}
+  const last=series[series.length-1],prev=series[series.length-2]||last;
+  const tsb=prev.ctl-prev.atl; // form going into today
+  const wk=series.slice(-7).reduce((m,x)=>m+x.t,0);
+  return {ctl:last.ctl,atl:last.atl,tsb,wk,series,firstDay:days[0]};
+}
+function renderState(){
+  const el=document.getElementById("state");if(!el)return;
+  const m=loadModel();
+  if(!m){el.innerHTML='<div class="in"><h3>Estat</h3><div class="note">Quan Strava estigui connectat, aquí veuràs la forma, la fatiga i la càrrega.</div></div>';return}
+  const t=m.tsb;let lab,col,txt;
+  if(t>5){lab="Fresc";col="ok";txt="Bon moment per a una sessió clau o un test."}
+  else if(t>-10){lab="Equilibrat";col="ok";txt="Carregues i recuperes al ritme adequat."}
+  else if(t>-25){lab="Carregat";col="warn";txt="Normal en setmanes de càrrega. Els dies suaus, suaus de veritat."}
+  else{lab="Massa fatiga";col="bad";txt="Cal descansar: el coach rebaixarà els propers dies."}
+  const ser=m.series.slice(-42),mx=Math.max(10,...ser.map(x=>Math.max(x.ctl,x.atl)));
+  const pts=k=>ser.map((x,i)=>(i/(ser.length-1)*100).toFixed(1)+","+(40-x[k]/mx*38).toFixed(1)).join(" ");
+  el.innerHTML='<div class="in" style="gap:12px"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h3>Estat</h3><span class="spill '+col+'">'+lab+'</span></div>'+
+    '<div class="stats"><div class="stat"><div class="k">Forma (CTL)</div><div class="v">'+Math.round(m.ctl)+'</div></div><div class="stat"><div class="k">Fatiga (ATL)</div><div class="v">'+Math.round(m.atl)+'</div></div><div class="stat"><div class="k">Balanç (TSB)</div><div class="v">'+(t>0?"+":"")+Math.round(t)+'</div></div><div class="stat"><div class="k">TSS 7 dies</div><div class="v">'+Math.round(m.wk)+'</div></div></div>'+
+    '<svg class="spark" viewBox="0 0 100 42" preserveAspectRatio="none" role="img" aria-label="Forma i fatiga de les últimes 6 setmanes"><polyline points="'+pts("atl")+'" fill="none" stroke="var(--z5)" stroke-width="1.5" vector-effect="non-scaling-stroke"/><polyline points="'+pts("ctl")+'" fill="none" stroke="var(--z2)" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>'+
+    '<div class="legend2" style="opacity:1;color:var(--muted)"><span><i style="width:10px;height:2px;background:var(--z2)"></i>Forma</span><span><i style="width:10px;height:2px;background:var(--z5)"></i>Fatiga</span><span>Últimes 6 setmanes</span></div>'+
+    '<div class="note">'+txt+(m.firstDay>addDays(todayStr,-60)?" Amb menys de 2 mesos d'historial, la forma és orientativa.":"")+'</div></div>';
+}
+function renderCoachNotes(){
+  const el=document.getElementById("coachNotes");if(!el)return;
+  const notes=(plan&&Array.isArray(plan.coachNotes)?plan.coachNotes:[]).slice().sort((a,b)=>a.date<b.date?1:-1).slice(0,3);
+  if(!notes.length){el.hidden=true;el.innerHTML="";return}
+  el.hidden=false;
+  el.innerHTML='<div class="in" style="gap:10px"><div class="kicker">Nota del coach</div>'+notes.map((n,i)=>'<div class="cnote'+(i?" old":"")+'"><time>'+esc(dayLabel(n.date))+'</time><div>'+esc(n.text)+'</div></div>').join("")+'</div>';
 }
 function renderProgress(){
   const el=document.getElementById("progress"),F=ftp();
@@ -480,7 +508,7 @@ function renderWeek(){
     let tick="";
     if(p&&active(p)&&p.type!=="rest"){
       const pa=actFor(p),dat=pa&&data[pa.id];
-      if(pa&&dat&&!dat.error&&!loading[pa.id]){const lv=analyze(p,pa,dat).level;tick='<span class="tick '+lv+'">'+(lv==="bad"?"!":"✓")+'</span>'}
+      if(pa&&dat&&!dat.error&&!loading[pa.id]){const lv=analyze(p,pa,dat).level;tick='<span class="tick '+lv+'">'+MARK[lv]+'</span>'}
       else if(pa||p.done)tick='<span class="tick">✓</span>';
       else if(isMissed(p))tick='<span class="tick miss">?</span>';
     } else if(act&&al)tick='<span class="tick extra">+</span>';
@@ -511,7 +539,7 @@ function renderStatus(){
   document.getElementById("refresh").disabled=!strava.refreshToken;
   document.getElementById("ver").textContent="Versió "+APP_VERSION+(plan&&plan.updated?" · pla del "+plan.updated:"")+".";
 }
-function render(){renderHero();renderStatus();renderSetup();renderDecide();renderWeek();renderProgress();renderLog();renderZones();renderConn();renderWahoo();icuSchedule()}
+function render(){renderHero();renderStatus();renderSetup();renderDecide();renderWeek();renderProgress();renderLog();renderZones();renderConn();renderWahoo();renderState();renderCoachNotes();icuSchedule()}
 
 /* ---------- Progress sync ---------- */
 function syncDone(){
@@ -582,7 +610,7 @@ function errMsg(e){
   }
 }
 function planRange(){const ds=all().map(s=>s.d).concat([START,todayStr]).sort();return [ds[0],ds[ds.length-1]>todayStr?ds[ds.length-1]:todayStr]}
-function normAct(a){return {id:String(a.id),name:a.name,sport_type:a.sport_type||a.type,start_local:a.start_date_local,moving_time:a.moving_time,distance:a.distance,average_watts:a.average_watts,device_watts:a.device_watts,average_cadence:a.average_cadence,kilojoules:a.kilojoules,max_watts:a.max_watts,pr_count:a.pr_count,achievement_count:a.achievement_count,total_elevation_gain:a.total_elevation_gain}}
+function normAct(a){return {id:String(a.id),name:a.name,sport_type:a.sport_type||a.type,start_local:a.start_date_local,moving_time:a.moving_time,distance:a.distance,average_watts:a.average_watts,device_watts:a.device_watts,average_cadence:a.average_cadence,kilojoules:a.kilojoules,max_watts:a.max_watts,weighted_average_watts:a.weighted_average_watts,pr_count:a.pr_count,achievement_count:a.achievement_count,total_elevation_gain:a.total_elevation_gain}}
 function indexActs(list){
   const next={};
   list.forEach(a=>{
@@ -597,9 +625,9 @@ function loadActivities(){
   if(!strava.refreshToken||busy)return;
   busy=true;lastLoad=Date.now();
   if(stravaState!=="on"){stravaState="loading";stravaMsg="Llegint les teves activitats de Strava…";renderStatus()}
-  const r=planRange();
-  const after=Math.floor(parseD(r[0]).getTime()/1000)-86400,before=Math.floor(parseD(r[1]).getTime()/1000)+2*86400;
-  api("/athlete/activities?after="+after+"&before="+before+"&per_page=100")
+  const r=planRange(),from=addDays(todayStr,-120)<r[0]?addDays(todayStr,-120):r[0];
+  const after=Math.floor(parseD(from).getTime()/1000)-86400,before=Math.floor(parseD(r[1]).getTime()/1000)+2*86400;
+  api("/athlete/activities?after="+after+"&before="+before+"&per_page=200")
   .then(list=>{
     const norm=(Array.isArray(list)?list:[]).map(normAct);
     lsSet("qw.acts",norm);
@@ -653,8 +681,8 @@ function summaryText(){
     else if(s.type==="rest")line+=" — descans";
     else{
       const act=actFor(s),d=act&&data[act.id];
-      if(act&&d&&!d.error){const a=analyze(s,act,d);line+=" — "+(a.level==="ok"?"BEN FETA":a.level==="warn"?"AMB MATISOS":"INCOMPLETA")+" ("+fmtDur(act.moving_time||0)+(act.average_watts?", "+Math.round(act.average_watts)+" W":"")+")";
-        a.checks.forEach(c=>{line+="\n   "+(c.l==="ok"?"✓":c.l==="warn"?"!":"✕")+" "+c.t});
+      if(act&&d&&!d.error){const a=analyze(s,act,d);line+=" — "+VERDICT[a.level][1].toUpperCase()+" ("+fmtDur(act.moving_time||0)+(act.average_watts?", "+Math.round(act.average_watts)+" W":"")+")";
+        a.checks.forEach(c=>{line+="\n   "+MARK[c.l]+" "+c.t});
         a.tables.forEach(t=>{if(t.rows.length)line+="\n   "+t.spec.label+": "+t.rows.map(r=>r.w+" W/"+(r.cad!=null?r.cad:"–")+" rpm").join(" · ")});
       }
       else if(s.done)line+=" — feta (marcada a mà)";
