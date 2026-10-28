@@ -258,7 +258,7 @@ function powerChartHTML(p,d,a){
   let bands="",wins="";
   a.tables.forEach(t=>{
     if(t.hi!=null)bands+='<rect x="0" width="'+T+'" y="'+y(t.hi*F)+'" height="'+((t.hi-t.lo)*F/top*100).toFixed(2)+'" fill="var(--accent)" opacity=".14"/>';
-    t.rows.forEach(r=>{wins+='<rect x="'+r.start+'" width="'+r.len+'" y="0" height="100" fill="var(--'+(r.s==="ok"?"ok":r.s==="warn"?"warn":"bad")+')" opacity=".18"/>'});
+    t.rows.forEach(r=>{wins+='<rect x="'+r.start+'" width="'+r.len+'" y="0" height="100" fill="var(--'+(r.s==="ok"?"ok":r.s==="up"?"up":r.s==="warn"?"warn":"bad")+')" opacity=".18"/>'});
   });
   const fy=+y(F),mins=Math.round(T/60);
   return '<div class="pc"><div class="label" style="margin-bottom:6px">La teva potència</div><div style="position:relative"><svg viewBox="0 0 '+T+' 100" preserveAspectRatio="none" aria-label="Gràfic de potència de l\'activitat">'+bands+wins+
