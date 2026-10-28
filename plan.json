@@ -1,6 +1,6 @@
 {
- "version": 15,
- "updated": "2026-10-28 (2)",
+ "version": 16,
+ "updated": "2026-10-28 20:50",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -483,14 +483,14 @@
    "steps": [
     {
      "l": "Avui",
-     "x": "Descans. Opcional: 1h30 a {56,70}, sense cap esforç"
+     "x": "Descans total, sense bici. 15′ de mobilitat suau si et ve de gust."
     }
    ],
-   "t": "Descans (o Z2 suau opcional)",
+   "t": "Descans total",
    "type": "rest",
    "z": "z1",
    "id": "s20261028",
-   "note": "Ahir vas fer el sweet spot amb el col·lega. Avui descans; si et ve molt de gust rodar, 1h30 a 137–172 W i res més."
+   "note": "Canviat a descans total: ahir el Z2 va sortir a IF 0,80 amb pics de 400 W, avui sweet spot + 2 esprints, i la fatiga és alta (TSB ≈ −21). Dissabte toca sweet spot alt: arriba-hi fresc."
   },
   {
    "cat": "rest",
@@ -1250,6 +1250,10 @@
   {
    "date": "2026-10-28",
    "text": "Dimecres: 3 × 10′ a 235, 235 i 245 W en pujada del 8 %, molt constants i amb l'última com la més forta. Per això dissabte pujo els blocs a 228–235 W (4 × 10′). Si et tornes a trobar bé, la setmana 3 passarem a blocs més llargs. Dijous, descans de veritat."
+  },
+  {
+   "date": "2026-10-28",
+   "text": "Blocs: 3 × 10′ a 235, 235 i 245 W (objectiu 216–225), a 79–82 rpm. Sortida: NP 199 W, IF 0,81, TSS 135. Però després vas fer 2 × 1′ a 385 i 363 W, i ahir el «Z2» va acabar a IF 0,80 amb 1′ a 402 W. Fatiga alta: 441 TSS en 7 dies, TSB ≈ −21. Dijous, descans total, sense Z2 opcional. Dissabte es manté a 228–235 W. Als blocs, puja la cadència a 85+."
   }
  ]
 }
