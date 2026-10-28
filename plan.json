@@ -1,6 +1,6 @@
 {
- "version": 13,
- "updated": "2026-10-27 (4)",
+ "version": 14,
+ "updated": "2026-10-28",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -381,75 +381,53 @@
    ]
   },
   {
-   "cat": "rest",
+   "cat": "ss",
    "d": "2026-10-28",
    "k": 1,
-   "min": 0,
-   "ord": 1,
-   "steps": [
-    {
-     "l": "Avui",
-     "x": "Descans total. 15′ de mobilitat si et ve de gust."
-    }
-   ],
-   "t": "Descans",
-   "type": "rest",
-   "z": "z1",
-   "id": "s20261027",
-   "note": "Avui (dimarts) ja has fet 104 TSS amb molts esforços. Descans complet per arribar fresc al sweet spot de dijous."
-  },
-  {
-   "cad": [
-    88,
-    92
-   ],
-   "cat": "ss",
-   "d": "2026-10-29",
-   "fuel": "50–60 g/h de carbohidrats",
-   "ints": [
-    {
-     "cad": [
-      88,
-      92
-     ],
-     "hi": 0.92,
-     "label": "Sweet spot 20′",
-     "lo": 0.88,
-     "n": 2,
-     "s": 1200
-    }
-   ],
-   "k": 1,
-   "key": true,
-   "min": 95,
+   "min": 90,
    "ord": 1,
    "steps": [
     {
      "l": "Escalfament",
-     "x": "15′ · 10′ en Z2 i 2 × 1′ a {95}"
+     "x": "15–20′ progressius en Z2 amb 2 × 1′ a {94}"
     },
     {
      "l": "Principal",
-     "x": "2 × 20′ a {88,92} · 88–92 rpm · 8′ a {57} entre sèries"
+     "x": "3 × 10′ a {88,92} · 85–95 rpm · 5′ a {57} entre sèries"
     },
     {
-     "l": "Fons",
-     "x": "15′ en Z2 a {61,70}"
-    },
-    {
-     "l": "Calma",
-     "x": "10′ en Z1"
+     "l": "Resta",
+     "x": "Z2 a {61,73} fins a completar 1h30 com a mínim"
     }
    ],
-   "t": "Sweet spot llarg",
+   "t": "Sweet spot 3 × 10′ (amb un col·lega)",
    "type": "int",
    "z": "ss",
-   "id": "s20261028",
-   "note": "Ordre de la setmana revisat perquè mai hi hagi dues sessions d'intervals seguides."
+   "id": "s20261027",
+   "note": "Sessió clau d'avui. Encara que el col·lega tiri més, no passis de 230 W als blocs. Res d'esprints entre sèries.",
+   "key": true,
+   "cad": [
+    85,
+    95
+   ],
+   "ints": [
+    {
+     "n": 3,
+     "s": 600,
+     "lo": 0.88,
+     "hi": 0.92,
+     "cad": [
+      85,
+      95
+     ],
+     "label": "Sweet spot 10′"
+    }
+   ],
+   "fuel": "50–60 g/h de carbohidrats"
   },
   {
    "id": "s20261027g",
-   "d": "2026-10-29",
+   "d": "2026-10-28",
    "ord": 2,
    "type": "gym",
    "z": "z7",
@@ -458,7 +436,7 @@
    "min": 45,
    "k": 1,
    "rpe": "RPE 6",
-   "note": "Després del sweet spot llarg, millor 3–6 h més tard. Primera sessió de gimnàs: tot suau, han de sobrar-te 4 repeticions.",
+   "note": "A la tarda, 3–6 h després de la bici. Primera sessió de gimnàs: tot suau, han de sobrar-te 4 repeticions. Si no hi arribes avui, fes-lo demà.",
    "steps": [
     {
      "l": "Escalfament",
@@ -493,6 +471,26 @@
      "x": "60–90″ entre sèries"
     }
    ]
+  },
+  {
+   "cat": "rest",
+   "d": "2026-10-29",
+   "ints": [],
+   "k": 1,
+   "key": false,
+   "min": 0,
+   "ord": 1,
+   "steps": [
+    {
+     "l": "Avui",
+     "x": "Descans. Opcional: 1h30 a {56,70}, sense cap esforç"
+    }
+   ],
+   "t": "Descans (o Z2 suau opcional)",
+   "type": "rest",
+   "z": "z1",
+   "id": "s20261028",
+   "note": "Ahir vas fer el sweet spot amb el col·lega. Avui descans; si et ve molt de gust rodar, 1h30 a 137–172 W i res més."
   },
   {
    "cat": "rest",
