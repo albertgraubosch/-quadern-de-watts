@@ -1,6 +1,6 @@
 {
- "version": 16,
- "updated": "2026-10-28 20:50",
+ "version": 17,
+ "updated": "2026-10-28 22:15",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -473,42 +473,87 @@
    ]
   },
   {
-   "cat": "rest",
+   "cat": "long",
    "d": "2026-10-29",
    "ints": [],
    "k": 1,
-   "key": false,
-   "min": 0,
+   "key": true,
+   "min": 180,
    "ord": 1,
    "steps": [
     {
-     "l": "Avui",
-     "x": "Descans total, sense bici. 15′ de mobilitat suau si et ve de gust."
+     "l": "Tota la sortida",
+     "x": "Z2 a {61,73}, 85–90 rpm"
+    },
+    {
+     "l": "Pujades",
+     "x": "Com a màxim {75}: pinyó gran i deixa anar qui tibi"
+    },
+    {
+     "l": "Prohibit",
+     "x": "Esprints, segments i relleus forts"
     }
    ],
-   "t": "Descans total",
-   "type": "rest",
-   "z": "z1",
+   "t": "Fons llarg 3 h amb la colla (Z2)",
+   "type": "long",
+   "z": "z2",
    "id": "s20261028",
-   "note": "Canviat a descans total: ahir el Z2 va sortir a IF 0,80 amb pics de 400 W, avui sweet spot + 2 esprints, i la fatiga és alta (TSB ≈ −21). Dissabte toca sweet spot alt: arriba-hi fresc."
+   "note": "Vens carregat (441 TSS en 7 dies, TSB ≈ −21). Avui només funciona si és Z2 de veritat: si la colla tira, deixa-la anar. Si a mitja sortida tens les cames buides, torna a casa a les 2 h.",
+   "maxMin": 0,
+   "band": [
+    0.56,
+    0.73
+   ],
+   "cad": [
+    85,
+    90
+   ],
+   "fuel": "60–70 g/h de carbohidrats des del minut 30. Dos bidons."
   },
   {
-   "cat": "rest",
+   "cat": "ss",
    "d": "2026-10-30",
    "k": 1,
-   "min": 0,
+   "min": 90,
    "ord": 1,
    "steps": [
     {
-     "l": "Avui",
-     "x": "Sense bici. Només el gimnàs B."
+     "l": "Escalfament",
+     "x": "15–20′ en Z2 fins al lloc de les sèries, amb 2 × 1′ a {96}"
+    },
+    {
+     "l": "Principal",
+     "x": "3 × 10′ a {93,96} · 85–95 rpm · 5′ a {57} entre sèries (opcional: una 4a)"
+    },
+    {
+     "l": "Resta",
+     "x": "Z2 a {61,73} fins a completar 1h30. Cap esforç extra després de les sèries"
     }
    ],
-   "t": "Descans",
-   "type": "rest",
-   "z": "z1",
+   "t": "Sweet spot alt 3 × 10′",
+   "type": "int",
+   "z": "ss",
    "id": "s20261030",
-   "note": "Descans de bici. A la tarda, gimnàs B (core i tren superior)."
+   "note": "La sessió clau abans de les festes. Si et lleves cansat o dijous la sortida va ser intensa, fes només 1h30 de Z2 suau. Si les dues primeres sèries surten fàcils, en pots fer una quarta.",
+   "key": true,
+   "cad": [
+    85,
+    95
+   ],
+   "ints": [
+    {
+     "n": 3,
+     "s": 600,
+     "lo": 0.93,
+     "hi": 0.96,
+     "cad": [
+      85,
+      95
+     ],
+     "label": "Sweet spot 10′"
+    }
+   ],
+   "fuel": "50–60 g/h de carbohidrats"
   },
   {
    "id": "s20261030g",
@@ -521,7 +566,7 @@
    "min": 40,
    "k": 1,
    "rpe": "RPE 5–6",
-   "note": "Poca càrrega de cames a propòsit: demà tens sweet spot i esprints. Fes-lo després de la recuperació en bici.",
+   "note": "Fora aquesta setmana: massa càrrega acumulada. Torna la setmana 3.",
    "steps": [
     {
      "l": "Escalfament",
@@ -555,64 +600,28 @@
      "l": "Mobilitat",
      "x": "5′: flexors de maluc, isquiotibials i columna toràcica"
     }
-   ]
+   ],
+   "status": "removed"
   },
   {
-   "cad": [
-    85,
-    95
-   ],
-   "cat": "ss",
+   "cat": "rest",
    "d": "2026-10-31",
-   "fuel": "50–60 g/h de carbohidrats",
-   "ints": [
-    {
-     "cad": [
-      85,
-      95
-     ],
-     "hi": 0.96,
-     "label": "Sweet spot 10′",
-     "lo": 0.93,
-     "n": 4,
-     "s": 600
-    },
-    {
-     "cad": null,
-     "hi": null,
-     "label": "Esprint 10″",
-     "lo": 1.5,
-     "n": 4,
-     "s": 10
-    }
-   ],
+   "ints": [],
    "k": 1,
-   "key": true,
-   "min": 100,
+   "key": false,
+   "min": 0,
    "ord": 1,
    "steps": [
     {
-     "l": "Escalfament",
-     "x": "15–20′ en Z2 fins al lloc de les sèries, amb 3 × 1′ a {96}"
-    },
-    {
-     "l": "Principal",
-     "x": "4 × 10′ a {93,96} · 85–95 rpm · 5′ a {57} entre sèries"
-    },
-    {
-     "l": "Esprints",
-     "x": "Després, 10′ en Z2 i 4 × 10″ d'esprint assegut, a fons i a més de 110 rpm, amb 2′50″ suaus"
-    },
-    {
-     "l": "Resta",
-     "x": "Z2 a {61,73} fins a casa"
+     "l": "Avui",
+     "x": "Descans."
     }
    ],
-   "t": "Sweet spot alt 4 × 10′ i esprints",
-   "type": "int",
-   "z": "ss",
+   "t": "Descans (festes)",
+   "type": "rest",
+   "z": "z1",
    "id": "s20261031",
-   "note": "Pujat respecte al pla inicial (abans 221–228 W): dimecres vas fer 3 × 10′ a 235–245 W amb bones sensacions. Si avui també et trobes bé, la setmana que ve allarguem els blocs."
+   "note": "Festes de Girona. Descans total. Si surts la nit abans, beu aigua entre copa i copa."
   },
   {
    "band": [
@@ -649,8 +658,9 @@
    "type": "long",
    "z": "z3",
    "id": "s20261101",
-   "note": "Passa a diumenge, l'endemà del sweet spot de dissabte: per això és tot en Z2, sense blocs de tempo. Si dissabte acabes molt cansat, fes-ne 2h30.",
-   "key": true
+   "note": "El fons llarg d'aquesta setmana ja és el de dijous. El del dissabte 7 es manté.",
+   "key": true,
+   "status": "removed"
   },
   {
    "id": "s20261101b",
@@ -671,14 +681,14 @@
    ],
    "k": 1,
    "fuel": "Aigua amb electròlits i 30–40 g/h",
-   "note": "Substituïda pel fons llarg.",
+   "note": "Opcional: només si has dormit 7 h o més. Si no, descans.",
    "steps": [
     {
      "l": "Sessió",
      "x": "1h30 entre {56} i {70}, 85–90 rpm, sense apretar a les pujades (màxim {75})"
     }
    ],
-   "status": "removed"
+   "status": "planned"
   },
   {
    "id": "s20261102",
@@ -1254,6 +1264,10 @@
   {
    "date": "2026-10-28",
    "text": "Blocs: 3 × 10′ a 235, 235 i 245 W (objectiu 216–225), a 79–82 rpm. Sortida: NP 199 W, IF 0,81, TSS 135. Però després vas fer 2 × 1′ a 385 i 363 W, i ahir el «Z2» va acabar a IF 0,80 amb 1′ a 402 W. Fatiga alta: 441 TSS en 7 dies, TSB ≈ −21. Dijous, descans total, sense Z2 opcional. Dissabte es manté a 228–235 W. Als blocs, puja la cadència a 85+."
+  },
+  {
+   "date": "2026-10-28",
+   "text": "Canvi per les festes: dijous fons llarg de 3 h amb la colla (Z2 estricte, màxim 184 W), divendres sweet spot 3 × 10′ a 228–235 W, dissabte descans i diumenge Z2 opcional. Vens carregat (TSB ≈ −21): si dijous es complica, divendres només Z2. El gimnàs torna la setmana 3."
   }
  ]
 }
