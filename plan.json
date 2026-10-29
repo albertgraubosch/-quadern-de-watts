@@ -1,6 +1,6 @@
 {
- "version": 17,
- "updated": "2026-10-28 22:15",
+ "version": 18,
+ "updated": "2026-10-29 20:50",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -523,18 +523,18 @@
     },
     {
      "l": "Principal",
-     "x": "3 × 10′ a {93,96} · 85–95 rpm · 5′ a {57} entre sèries (opcional: una 4a)"
+     "x": "2 × 10′ a {93,96} · 85–95 rpm · 5′ a {57} entre sèries. Sense quarta ni tercera"
     },
     {
      "l": "Resta",
-     "x": "Z2 a {61,73} fins a completar 1h30. Cap esforç extra després de les sèries"
+     "x": "Z2 a {61,70} fins a completar 1h30. Cap esforç extra després de les sèries"
     }
    ],
-   "t": "Sweet spot alt 3 × 10′",
+   "t": "Sweet spot alt 2 × 10′",
    "type": "int",
    "z": "ss",
    "id": "s20261030",
-   "note": "La sessió clau abans de les festes. Si et lleves cansat o dijous la sortida va ser intensa, fes només 1h30 de Z2 suau. Si les dues primeres sèries surten fàcils, en pots fer una quarta.",
+   "note": "Un bloc menys per fatiga: 5 dies seguits rodant i TSB ≈ −30. Mantenim els watts (228–235 W) per posar-los a prova. Si et lleves amb les cames pesades, només 1h30 de Z2 suau.",
    "key": true,
    "cad": [
     85,
@@ -542,7 +542,7 @@
    ],
    "ints": [
     {
-     "n": 3,
+     "n": 2,
      "s": 600,
      "lo": 0.93,
      "hi": 0.96,
@@ -666,26 +666,17 @@
    "id": "s20261101b",
    "d": "2026-11-01",
    "ord": 1,
-   "type": "end",
-   "z": "z2",
-   "cat": "end",
-   "t": "Z2 suau (opcional)",
-   "min": 90,
-   "band": [
-    0.56,
-    0.7
-   ],
-   "cad": [
-    85,
-    90
-   ],
+   "type": "rest",
+   "z": "z1",
+   "cat": "rest",
+   "t": "Descans",
+   "min": 0,
    "k": 1,
-   "fuel": "Aigua amb electròlits i 30–40 g/h",
-   "note": "Opcional: només si has dormit 7 h o més. Si no, descans.",
+   "note": "Abans era Z2 opcional. El trec per acumulació de càrrega: necessites arribar fresc al 3 × 15′ de dimarts.",
    "steps": [
     {
-     "l": "Sessió",
-     "x": "1h30 entre {56} i {70}, 85–90 rpm, sense apretar a les pujades (màxim {75})"
+     "l": "Avui",
+     "x": "Descans total. Dilluns també: dimarts arrenca la setmana més dura del bloc."
     }
    ],
    "status": "planned"
@@ -1268,6 +1259,10 @@
   {
    "date": "2026-10-28",
    "text": "Canvi per les festes: dijous fons llarg de 3 h amb la colla (Z2 estricte, màxim 184 W), divendres sweet spot 3 × 10′ a 228–235 W, dissabte descans i diumenge Z2 opcional. Vens carregat (TSB ≈ −21): si dijous es complica, divendres només Z2. El gimnàs torna la setmana 3."
+  },
+  {
+   "date": "2026-10-29",
+   "text": "Fons llarg tallat a 1h57 (51 km), 145 W de mitjana, NP ≈ 175 W, IF ≈ 0,71, TSS ≈ 99. Ben fet tornar a les 2 h. Però Les Serres 20′ a 192 W (límit 184) i pics de 521 W en 5″ i 310 W en 1′: tercer dia seguit amb esprints. 7 dies: ≈ 450 TSS, TSB ≈ −30. Divendres, 2 × 10′ a 228–235 W (un bloc menys); diumenge, descans en lloc del Z2."
   }
  ]
 }
