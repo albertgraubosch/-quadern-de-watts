@@ -1,6 +1,6 @@
 {
- "version": 18,
- "updated": "2026-10-29 20:50",
+ "version": 19,
+ "updated": "2026-10-30 20:49",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -534,7 +534,7 @@
    "type": "int",
    "z": "ss",
    "id": "s20261030",
-   "note": "Un bloc menys per fatiga: 5 dies seguits rodant i TSB ≈ −30. Mantenim els watts (228–235 W) per posar-los a prova. Si et lleves amb les cames pesades, només 1h30 de Z2 suau.",
+   "note": "No feta: avui només 1h07 de trajecte (millors 10′ a 171 W). No es recupera: ja tens el sweet spot de dimecres i el fons llarg de dijous aquesta setmana.",
    "key": true,
    "cad": [
     85,
@@ -553,7 +553,8 @@
      "label": "Sweet spot 10′"
     }
    ],
-   "fuel": "50–60 g/h de carbohidrats"
+   "fuel": "50–60 g/h de carbohidrats",
+   "status": "removed"
   },
   {
    "id": "s20261030g",
@@ -725,7 +726,7 @@
     }
    ],
    "fuel": "50–60 g/h de carbohidrats",
-   "note": "Progressió del sweet spot: més temps total que la setmana passada (45′ vs 40′).",
+   "note": "Primera clau de la setmana 3. Arribes amb 3 dies de descans: 3 × 15′ a 216–228 W, constants i a 85+ rpm. Si l'últim bloc surt fàcil, a la propera pugem.",
    "steps": [
     {
      "l": "Escalfament",
@@ -1263,6 +1264,10 @@
   {
    "date": "2026-10-29",
    "text": "Fons llarg tallat a 1h57 (51 km), 145 W de mitjana, NP ≈ 175 W, IF ≈ 0,71, TSS ≈ 99. Ben fet tornar a les 2 h. Però Les Serres 20′ a 192 W (límit 184) i pics de 521 W en 5″ i 310 W en 1′: tercer dia seguit amb esprints. 7 dies: ≈ 450 TSS, TSB ≈ −30. Divendres, 2 × 10′ a 228–235 W (un bloc menys); diumenge, descans en lloc del Z2."
+  },
+  {
+   "date": "2026-10-30",
+   "text": "Avui no hi ha hagut sweet spot: 27 km i 1h07 en moviment (fitxar i tornar), 144 W de mitjana, NP ≈ 175 W, IF ≈ 0,71, TSS ≈ 58. Millors 10′ a 171 W i, tot i així, pics de 504 W en 5″. Segons la regla, la sessió clau no es recupera: ja n'has fet dues aquesta setmana. Dissabte, diumenge i dilluns, descans. Dimarts, 3 × 15′ a 216–228 W ben fresc."
   }
  ]
 }
