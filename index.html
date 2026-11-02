@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
-<link rel="stylesheet" href="app.css?v=1.9.0">
+<link rel="stylesheet" href="app.css?v=1.10.0">
 </head>
 <body>
 <header class="hero" id="hero">
@@ -62,7 +62,11 @@
     <p class="note">L'app mira Strava cada 5 minuts mentre està oberta i cada cop que hi tornes. <span id="ver"></span></p>
   </div>
 </main>
+<section class="sheet" id="notesView" hidden aria-label="Diari del coach">
+  <div class="sheethead g"><div class="col" style="display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%"><h2>Diari del coach</h2><button class="btn ghost" type="button" id="closeNotes">Tanca</button></div></div>
+  <div class="g"><div class="col" id="notesList"></div></div>
+</section>
 <div class="toast" id="toast" hidden><div id="toastMsg"></div></div>
-<script src="app.js?v=1.9.0"></script>
+<script src="app.js?v=1.10.0"></script>
 </body>
 </html>

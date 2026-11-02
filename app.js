@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.9.0";
+const APP_VERSION="1.10.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -393,13 +393,30 @@ function renderState(){
     '<div class="legend2" style="opacity:1;color:var(--muted)"><span><i style="width:10px;height:2px;background:var(--z2)"></i>Forma</span><span><i style="width:10px;height:2px;background:var(--z5)"></i>Fatiga</span><span>Últimes 6 setmanes</span></div>'+
     '<div class="note">'+txt+(m.firstDay>addDays(todayStr,-60)?" Amb menys de 2 mesos d'historial, la forma és orientativa.":"")+'</div></div>';
 }
+function allNotes(){return (plan&&Array.isArray(plan.coachNotes)?plan.coachNotes:[]).map((n,i)=>Object.assign({i},n)).sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:b.i-a.i)}
 function renderCoachNotes(){
   const el=document.getElementById("coachNotes");if(!el)return;
-  const notes=(plan&&Array.isArray(plan.coachNotes)?plan.coachNotes:[]).slice().sort((a,b)=>a.date<b.date?1:-1).slice(0,3);
+  const notes=allNotes(),today=notes.filter(n=>n.date===todayStr);
   if(!notes.length){el.hidden=true;el.innerHTML="";return}
   el.hidden=false;
-  el.innerHTML='<div class="in" style="gap:10px"><div class="kicker">Nota del coach</div>'+notes.map((n,i)=>'<div class="cnote'+(i?" old":"")+'"><time>'+esc(dayLabel(n.date))+'</time><div>'+esc(n.text)+'</div></div>').join("")+'</div>';
+  const btn='<button class="btn ghost" type="button" id="openNotes">Diari del coach · '+notes.length+(notes.length===1?" nota":" notes")+'</button>';
+  if(!today.length){el.classList.add("compact");el.innerHTML='<div class="in" style="gap:8px;flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap"><span class="note">Avui encara no hi ha nota del coach.</span>'+btn+'</div>';return}
+  el.classList.remove("compact");
+  el.innerHTML='<div class="in" style="gap:10px"><div class="kicker">Nota del coach · avui</div>'+today.map(n=>'<div class="cnote"><div>'+esc(n.text)+'</div></div>').join("")+'<div class="actions">'+btn+'</div></div>';
 }
+function renderNotesView(){
+  const el=document.getElementById("notesList");if(!el)return;
+  const notes=allNotes();
+  if(!notes.length){el.innerHTML='<p class="note">Encara no hi ha cap nota. El coach n\'escriu una cada vespre després de revisar la sortida.</p>';return}
+  let h="",last="";
+  notes.forEach(n=>{
+    if(n.date!==last){const d=parseD(n.date);h+=(last?'</div>':'')+'<div class="nday"><h3>'+DAYNAMES[d.getDay()]+' '+d.getDate()+' '+MONTHS[d.getMonth()]+'</h3><span class="note">Setmana '+weekNo(n.date)+'</span>';last=n.date}
+    h+='<p class="ntext">'+esc(n.text)+'</p>';
+  });
+  el.innerHTML=h+'</div>';
+}
+function openNotes(){renderNotesView();const v=document.getElementById("notesView");v.hidden=false;document.body.classList.add("noscroll");v.scrollTop=0;try{history.replaceState(null,"","#notes")}catch(e){}}
+function closeNotes(){document.getElementById("notesView").hidden=true;document.body.classList.remove("noscroll");try{history.replaceState(null,"",location.pathname)}catch(e){}}
 function renderProgress(){
   const el=document.getElementById("progress"),F=ftp();
   const prog=Math.max(0,Math.min(100,(F-FTP0)/(GOAL-FTP0)*100));
@@ -789,6 +806,8 @@ document.getElementById("refresh").addEventListener("click",()=>{loadPlan();load
 document.getElementById("share").addEventListener("click",shareSummary);
 document.addEventListener("click",e=>{
   const el=e.target.closest("button");if(!el)return;
+  if(el.id==="openNotes"){openNotes();return}
+  if(el.id==="closeNotes"){closeNotes();return}
   if(el.id==="wkPrev"||el.id==="wkNext"){weekSel=(weekSel||1)+(el.id==="wkNext"?1:-1);selId=null;renderWeek();return}
   if(el.id==="icuSave"){const k=(document.getElementById("icuKey").value||"").trim();if(k.length<10){toast("La clau sembla incompleta. Copia-la sencera.");return}icu.key=k;icu.lastHash="";icu.err="";saveIcu();renderWahoo();icuPush(true);return}
   if(el.id==="icuPush"){icuPush(true);return}
@@ -843,7 +862,7 @@ document.addEventListener("visibilitychange",()=>{if(document.visibilityState===
 if(plan){applyPlanMeta();S=buildSessions();planState="ready"}
 const cached=lsGet("qw.acts",null);if(Array.isArray(cached)){acts=indexActs(cached);if(strava.refreshToken){stravaState="on";stravaMsg="Carregant Strava…"}}
 try{localStorage.removeItem("qw.coach")}catch(e){}
-render();
+render();if(location.hash==="#notes")openNotes();
 handleAuthReturn().then(()=>{render();return loadPlan()}).then(()=>{if(strava.refreshToken)loadActivities()});
 function checkAppUpdate(){
   if(!("serviceWorker" in navigator))return;

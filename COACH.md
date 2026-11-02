@@ -75,7 +75,8 @@ Fons llarg: 3 h → 3h30 → 4 h; tempo 2×15′ → 2×20′ → 3×15′ a 78�
 ## Com aplicar canvis
 - Edita només `plan.json`: sessions futures (mai les passades), `updated` (data i hora), `version` +1.
 - Afegeix una entrada a `coachNotes` (`{"date":"AAAA-MM-DD","text":"..."}`) explicant què has vist i què has canviat.
-  Màxim ~80 paraules, en català. Conserva les notes anteriors (fins a 10).
+  Màxim ~80 paraules, en català. **Conserva totes les notes anteriors** (mai n'esborris cap): l'app les mostra
+  al "Diari del coach". La pantalla principal només ensenya la nota del dia, així que posa la data correcta.
 - No toquis `app.js`, `index.html` ni res més sense parlar-ho amb l'Albert.
 - Watts als passos amb placeholders `{lo,hi}` en % de l'FTP (p. ex. `{88,92}`), mai en watts fixos.
 - Fes commit i push a `main`. L'app i el Wahoo (via intervals.icu) s'actualitzen quan l'Albert obre l'app.
