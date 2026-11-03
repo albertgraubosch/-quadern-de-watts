@@ -80,3 +80,9 @@ Fons llarg: 3 h → 3h30 → 4 h; tempo 2×15′ → 2×20′ → 3×15′ a 78�
 - No toquis `app.js`, `index.html` ni res més sense parlar-ho amb l'Albert.
 - Watts als passos amb placeholders `{lo,hi}` en % de l'FTP (p. ex. `{88,92}`), mai en watts fixos.
 - Fes commit i push a `main`. L'app i el Wahoo (via intervals.icu) s'actualitzen quan l'Albert obre l'app.
+
+## Títols per a Strava (`titles.json`)
+- L'app proposa 5 títols per a cada activitat nova a partir de `titles.json`. L'Albert en tria un i l'enganxa a Strava.
+- To: en català, curt (una línia), sec, amb doble sentit pícar però mai explícit ni que faci vergonya aliena. Sense emojis ni explicar l'acudit. No cal que parli de ciclisme.
+- A la revisió diària pots afegir 0–2 frases d'actualitat a `topical` (`{"t","from","to","tags"}`), amb `to` com a màxim 7 dies després: partits del Girona o del Barça, el temps, festius, coses del dia a dia. **Només amb fets comprovats** (cerca web); si no n'estàs segur, no n'afegeixis.
+- Etiquetes possibles: ride, run, gym, long, short, hard, easy, climb, morning, night, weekend, sunday, monday, weekday, rest, group, solo, pr. Esborra les `topical` caducades de fa més de 30 dies.

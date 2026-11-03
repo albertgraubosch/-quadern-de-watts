@@ -1,6 +1,6 @@
 {
  "version": 20,
- "updated": "2026-11-03 10:15",
+ "updated": "2026-11-03 10:20",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -790,8 +790,8 @@
     {
      "n": 3,
      "s": 480,
-     "lo": 0.95,
-     "hi": 1.0,
+     "lo": 0.98,
+     "hi": 1.02,
      "cad": [
       85,
       95
@@ -800,7 +800,7 @@
     }
    ],
    "fuel": "50–60 g/h de carbohidrats",
-   "note": "Les 3 × 8′ del company, a 233–245 W. Recuperació de 4′ entre sèries. Si al primer bloc les cames no hi són, passa a sweet spot: blocs de 15′ a 216–228 W, els que surtin bé (màxim 3). Sortida mínima d'1h30: allarga en Z2 la tornada.",
+   "note": "Les 3 × 8′ del company a 240–250 W, 4′ suaus entre sèries. El 28/10 vas fer 3 × 10′ a 235–245 W i bé: blocs més curts i cames fresques, així que pugem. Si l'últim surt fàcil, pots acabar-lo a 255 W. En pla costa més que en pujada: allà, part baixa. Si al primer bloc no hi ets, passa a sweet spot (15′ a 216–228 W, màxim 3). Tornada en Z2 fins a 1h30–1h45.",
    "steps": [
     {
      "l": "Escalfament",
@@ -808,7 +808,7 @@
     },
     {
      "l": "Principal",
-     "x": "3 × 8′ a {95,100} · 85–95 rpm · 4′ a {55} entre sèries"
+     "x": "3 × 8′ a {98,102} · 85–95 rpm · 4′ a {55} entre sèries · l'últim, si va sol, fins a {104}"
     },
     {
      "l": "Pla B",
@@ -1257,7 +1257,7 @@
   },
   {
    "date": "2026-11-03",
-   "text": "Bici punxada. Canvi de setmana: avui Z2 corrent (55′ suaus a 5:05–5:25/km). Dimecres, sèries amb el company: 3 × 8′ a 233–245 W; si no hi ets, sweet spot de 15′ a 216–228 W. Gimnàs A passa a dimecres a la tarda. Dijous, Z2 1h45 en lloc de la força (no dos dies seguits d'intervals). Dissabte, igual: fons llarg amb 2 × 20′ de tempo."
+   "text": "Bici punxada. Canvi de setmana: avui Z2 corrent (55′ suaus a 5:05–5:25/km). Dimecres, sèries amb el company: 3 × 8′ a 240–250 W (el 28/10 vas fer 3 × 10′ a 235–245 W i bé, així que pugem); si no hi ets, sweet spot de 15′ a 216–228 W. Gimnàs A passa a dimecres a la tarda. Dijous, Z2 1h45 en lloc de la força (no dos dies seguits d'intervals). Dissabte, igual: fons llarg amb 2 × 20′ de tempo."
   }
  ]
 }
