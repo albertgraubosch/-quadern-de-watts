@@ -1,6 +1,6 @@
 {
- "version": 20,
- "updated": "2026-11-03 10:20",
+ "version": 21,
+ "updated": "2026-11-03 12:10",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -702,7 +702,7 @@
   {
    "id": "s20261103",
    "d": "2026-11-03",
-   "type": "end",
+   "type": "run",
    "z": "z2",
    "cat": "run",
    "t": "Córrer suau (Z2)",
@@ -724,7 +724,12 @@
     }
    ],
    "ord": 1,
-   "k": 1
+   "k": 1,
+   "pace": [
+    305,
+    325
+   ],
+   "tssH": 55
   },
   {
    "id": "s20261103g",

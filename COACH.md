@@ -41,6 +41,12 @@ Regles fixes:
 - Patró 3 setmanes de càrrega + 1 de descàrrega. Setmana 4 (9–15 nov): descàrrega + test d'FTP de 20′ (dissabte 14).
 - Fases: Base S1–S4 · Construcció S5–S8 · Especificitat S9–S11 · Tapering i test S12.
 
+## Córrer
+- L'Albert farà sortides de córrer suaus alguns dies (i, des de gener, el bloc de la mitja marató del 28/02/2027).
+- Sessió de córrer a `plan.json`: `"type":"run"`, `"z":"z2"`, `min`, `pace` en segons per km (p. ex. `[305,325]` = 5:05–5:25/km), `tssH` (≈55 suau, 70 ritme), `steps` en text (sense placeholders de watts).
+- L'app marca la sessió com a feta quan troba una cursa a Strava aquell dia, i mostra les curses fora del pla a la setmana (etiqueta RUN). Compten per a la càrrega: ≈ 65 TSS/h (o `tssH`).
+- A la revisió diària, llegeix també les curses (`list_activities`): temps, distància, ritme i desnivell. Si una cursa "suau" va més ràpida de 5:00/km, avisa-ho a la nota. Una cursa suau no és sessió de qualitat, però sí fatiga: tingues-la en compte per a l'endemà.
+
 ## Zones (Coggan, % FTP)
 Z1 <55 · Z2 56–75 · Z3 76–90 · Sweet spot 88–94 · Z4 91–105 · Z5 106–120 · Z6 121–150 · Z7 >150.
 

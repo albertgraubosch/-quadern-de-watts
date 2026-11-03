@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.11.0";
+const APP_VERSION="1.12.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -22,7 +22,7 @@ let START="2026-10-19",WEIGHT=75,FTP0=240,GOAL=280;
 let S={};
 let planState="loading",planMsg="";
 let stravaState="idle",stravaMsg="";
-let allList=[],titles=lsGet("qw.titles",null),titleOff={},gymActs={},acts={},data={},loading={},seenActs=null,lastLoad=0;
+let runActs={},allList=[],titles=lsGet("qw.titles",null),titleOff={},gymActs={},acts={},data={},loading={},seenActs=null,lastLoad=0;
 let chooser=null,weekSel=null,selId=null;
 let todayStr=localDate(new Date());
 
@@ -41,8 +41,15 @@ function active(s){return s.status!=="removed"&&s.status!=="replaced"}
 function byOrder(a,b){return a.d<b.d?-1:a.d>b.d?1:(a.ord||0)-(b.ord||0)}
 function all(){return Object.values(S).sort(byOrder)}
 function sessionsOn(d){return all().filter(s=>s.d===d&&active(s))}
-function actFor(s){if(s.type==="gym")return null;const a=acts[s.d];if(!a||!active(s))return null;if(s.type==="rest"&&sessionsOn(s.d).some(x=>x.type!=="rest"))return null;return a}
-function isMissed(s){return active(s)&&s.type!=="rest"&&s.type!=="gym"&&s.d<todayStr&&!s.done&&!actFor(s)&&stravaState==="on"}
+const RUN_RE=/Run/i;
+function isRun(a){return RUN_RE.test(String(a&&a.sport_type||""))}
+function indexRuns(list){const r={};(list||[]).forEach(a=>{if(a&&a.start_local&&isRun(a)){const d=a.start_local.slice(0,10);(r[d]=r[d]||[]).push(a)}});Object.values(r).forEach(x=>x.sort((a,b)=>(b.moving_time||0)-(a.moving_time||0)));return r}
+function runFor(s){if(s.type!=="run"||!active(s))return null;const l=runActs[s.d];return l&&l.length?l[0]:null}
+function extraRuns(d){const l=runActs[d]||[];const planned=all().filter(s=>s.d===d&&s.type==="run"&&active(s)).length;return l.slice(planned)}
+function paceTxt(sec){sec=Math.round(sec);return Math.floor(sec/60)+":"+String(sec%60).padStart(2,"0")}
+function runStats(a){const km=(a.distance||0)/1000,t=a.moving_time||0;return [["Temps",fmtDur(t)],["Distància",km?km.toFixed(1).replace(".",",")+" km":"—"],["Ritme",km?paceTxt(t/km):"—"]]}
+function actFor(s){if(s.type==="gym"||s.type==="run")return null;const a=acts[s.d];if(!a||!active(s))return null;if(s.type==="rest"&&sessionsOn(s.d).some(x=>x.type!=="rest"))return null;return a}
+function isMissed(s){return active(s)&&s.type!=="rest"&&s.type!=="gym"&&s.d<todayStr&&!s.done&&!actFor(s)&&!runFor(s)&&stravaState==="on"}
 function steps(s){return (s.steps||[]).map(x=>Array.isArray(x)?{l:x[0],x:x[1]}:x)}
 function zoneOf(p){return p<.56?"z1":p<.76?"z2":p<.88?"z3":p<.95?"ss":p<1.06?"z4":p<1.21?"z5":"z7"}
 let toastT=0;
@@ -280,7 +287,31 @@ function stepsHTML(p){
   if(p.fuel&&p.type!=="rest")h+='<div class="fuel"><img src="media/watermelon.webp" alt=""><div><div class="label">Combustible</div>'+esc(p.fuel)+'</div></div>';
   return h;
 }
+function runResultHTML(p){
+  const a=runFor(p),isPast=p.d<todayStr,isToday=p.d===todayStr;
+  if(!a){
+    if(p.done&&p.done.by==="manual")return '<div class="result"><div class="verdict ok"><span class="ic">✓</span><div>Marcada com a feta<small>No hi ha cap cursa a Strava aquest dia.</small></div></div><div class="actions"><button class="btn ghost" type="button" data-undone="'+esc(p.id)+'">Desfés</button></div></div>';
+    let h="";
+    if(stravaState==="on"&&isToday)h+='<div class="empty">Encara no hi ha cap cursa d\'avui a Strava. La detectaré sola quan la pugis.</div>';
+    if(isPast||isToday)h+='<div class="actions"><button class="btn ghost" type="button" data-done="'+esc(p.id)+'">Marca-la com a feta</button></div>';
+    return h;
+  }
+  const km=(a.distance||0)/1000,pace=km?(a.moving_time||0)/km:0,checks=[];
+  if(p.min&&(a.moving_time||0)<p.min*60*0.7)checks.push({l:"info",t:"Més curta del previst ("+fmtDur(a.moving_time||0)+" de "+fmtDur(p.min*60)+")."});
+  if(p.pace&&pace){if(pace<p.pace[0]-10)checks.push({l:"warn",t:"Ritme de "+paceTxt(pace)+"/km: més ràpid del previst ("+paceTxt(p.pace[0])+"–"+paceTxt(p.pace[1])+"). Els dies suaus, suaus de veritat."});else checks.push({l:"ok",t:"Ritme de "+paceTxt(pace)+"/km, dins del que tocava."})}
+  checks.push({l:"info",t:Math.round(a.total_elevation_gain||0)+" m de desnivell · càrrega estimada ≈ "+Math.round(actTSS(a))+" TSS."});
+  const lv=checks.some(c=>c.l==="warn")?"warn":"ok";
+  return '<div class="result"><div class="verdict '+lv+'"><span class="ic">'+(lv==="ok"?"✓":"!")+'</span><div>'+(lv==="ok"?"Cursa feta":"Feta, però massa ràpida")+'<small>'+esc(a.name||"Cursa")+'</small></div></div>'+
+    '<div class="stats">'+runStats(a).map(x=>'<div class="stat"><div class="k">'+x[0]+'</div><div class="v">'+x[1]+'</div></div>').join("")+'</div>'+
+    '<ul class="checks">'+checks.map(c=>'<li><span class="m '+c.l+'">'+MARK[c.l]+'</span><span>'+esc(c.t)+'</span></li>').join("")+'</ul></div>';
+}
+function extraCard(d){
+  const l=extraRuns(d);if(!l.length)return "";
+  return l.map(a=>'<article class="card feature runcard" style="--zc:var(--z2)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+esc(dayLabel(d))+' · Fora del pla · Córrer</div><h2>'+esc(a.name||"Cursa")+'</h2></div>'+
+    '<div class="stats">'+runStats(a).map(x=>'<div class="stat"><div class="k">'+x[0]+'</div><div class="v">'+x[1]+'</div></div>').join("")+'</div><div class="note">'+Math.round(a.total_elevation_gain||0)+' m de desnivell · càrrega estimada ≈ '+Math.round(actTSS(a))+' TSS. Compta per a la fatiga i la forma.</div></div></article>').join('<div style="height:14px"></div>');
+}
 function resultHTML(p){
+  if(p.type==="run"&&active(p))return runResultHTML(p);
   const act=actFor(p),isPast=p.d<todayStr,isToday=p.d===todayStr;
   if(!active(p))return '<div class="actions" style="align-items:center"><span class="note" style="flex:1">'+(p.status==="removed"?"Has eliminat aquesta sessió del pla.":"Substituïda per una sessió reprogramada.")+'</span>'+(p.status==="removed"?'<button class="btn" type="button" data-restore="'+esc(p.id)+'">Recupera-la</button>':'')+'</div>';
   if(!act){
@@ -312,6 +343,9 @@ function resultHTML(p){
   return h+"</div>";
 }
 function sessionCard(p,kick){
+  if(p.type==="run"){
+    return '<article class="card feature runcard" style="--zc:var(--z2)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+kick+' · Córrer</div><h2>'+esc(p.t)+'</h2><div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span>'+(p.pace?'<span>Ritme <b>'+paceTxt(p.pace[0])+'–'+paceTxt(p.pace[1])+'/km</b></span>':'')+'</div></div>'+stepsHTML(p)+resultHTML(p)+'</div></article>';
+  }
   if(p.type==="gym"){
     return '<article class="card feature gymcard" style="--zc:var(--z7)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+kick+' · Gimnàs</div><h2>'+esc(p.t)+'</h2><div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span><span>Esforç <b>'+esc(p.rpe||"RPE 6")+'</b></span></div></div>'+stepsHTML(p)+resultHTML(p)+'</div></article>';
   }
@@ -346,6 +380,13 @@ function renderHero(){
   title.textContent=p.t;
   if(p.key){kick.textContent+=" · Sessió clau"}
   if(gym){sub.hidden=false;sub.textContent="+ "+gym.t+" ("+fmtPlanDur(gym)+")"+(gym.done?" ✓":", després de la bici")}
+  if(p.type==="run"){
+    tiles.innerHTML=[["Durada",fmtPlanDur(p)],["Ritme",p.pace?paceTxt(p.pace[0])+"–"+paceTxt(p.pace[1]):"suau"],["Esforç","suau"]].map(x=>'<div class="tile2"><span class="k">'+x[0]+'</span><span class="v">'+esc(x[1])+'</span></div>').join("");
+    const ra=runFor(p);
+    if(ra){const km=(ra.distance||0)/1000;ver.hidden=false;ver.innerHTML='<span class="vpill ok"><i>✓</i>Cursa feta · '+fmtDur(ra.moving_time||0)+(km?" · "+km.toFixed(1).replace(".",",")+" km":"")+'</span>'}
+    else if(p.done){ver.hidden=false;ver.innerHTML='<span class="vpill"><i>✓</i>Marcada com a feta</span>'}
+    return;
+  }
   const t=p.type==="gym"?[["Durada",fmtPlanDur(p)],["Exercicis",String(steps(p).length)],["Esforç",p.rpe||"RPE 6"]]:[["Durada",fmtPlanDur(p)],["Watts",mainTarget(p)],["Rpm",p.cad?p.cad[0]+"–"+p.cad[1]:"lliure"]];
   tiles.innerHTML=t.map(x=>'<div class="tile2"><span class="k">'+x[0]+'</span><span class="v">'+esc(x[1])+'</span></div>').join("");
   const act=actFor(p),d=act&&data[act.id];
@@ -490,13 +531,14 @@ function actualLoad(a){
 }
 function plannedLoad(p){
   if(!p||!active(p)||p.type==="rest"||p.type==="gym")return 0;
+  if(p.type==="run")return (p.min||0)/60*(p.tssH||60);
   return profileSegs(p).reduce((m,x)=>m+x.min/60*x.pct*x.pct*100,0);
 }
 function ifZone(IF){return IF<.6?"z1":IF<.76?"z2":IF<.86?"z3":IF<.95?"ss":IF<1.05?"z4":"z5"}
 function weekStats(ws,we){
   const inWeek=all().filter(s=>s.d>=ws&&s.d<=we&&active(s)&&s.type!=="rest");
   let planMin=0,doneMin=0,doneN=0;
-  inWeek.forEach(s=>{const pm=s.type==="gym"?0:(s.maxMin?(s.min+s.maxMin)/2:s.min||0);planMin+=pm;const a=actFor(s);if(a){doneN++;doneMin+=(a.moving_time||0)/60}else if(s.done){doneN++;doneMin+=pm}});
+  inWeek.forEach(s=>{const pm=s.type==="gym"?0:(s.maxMin?(s.min+s.maxMin)/2:s.min||0);planMin+=pm;const a=actFor(s)||runFor(s);if(a){doneN++;doneMin+=(a.moving_time||0)/60}else if(s.done){doneN++;doneMin+=pm}});
   return {planMin,doneMin,doneN,totN:inWeek.length};
 }
 function hrs(m){return (Math.round(m/6)/10).toString().replace(".",",")+" h"}
@@ -512,36 +554,41 @@ function renderWeek(){
   document.getElementById("wkNext").disabled=weekSel>=weeks[weeks.length-1];
   const days=[];for(let i=0;i<7;i++)days.push(addDays(ws,i));
   const weekSessions=all().filter(s=>s.d>=ws&&s.d<=we);
-  if(!selId||!weekSessions.some(s=>s.id===selId)){const t=weekSessions.find(s=>s.d===todayStr&&active(s))||weekSessions.find(s=>active(s)&&s.d>=todayStr&&s.type!=="rest")||weekSessions.find(active)||weekSessions[0];selId=t?t.id:null}
+  if(!selId||!(weekSessions.some(s=>s.id===selId)||(selId.startsWith("day:")&&selId.slice(4)>=ws&&selId.slice(4)<=we))){const t=weekSessions.find(s=>s.d===todayStr&&active(s))||weekSessions.find(s=>active(s)&&s.d>=todayStr&&s.type!=="rest")||weekSessions.find(active)||weekSessions[0];selId=t?t.id:null}
   const dayInfo=days.map(d=>{
     const on=weekSessions.filter(s=>s.d===d);const p=on.find(x=>active(x)&&x.type!=="gym")||on.find(active)||on[0]||null;const g=on.find(x=>x.type==="gym"&&active(x));
-    const act=acts[d]||null;
-    return {d,p,g,act,pl:p?plannedLoad(p):0,al:act?actualLoad(act):null};
+    const ride=acts[d]||null,runs=runActs[d]||[];
+    let al=ride?Object.assign({},actualLoad(ride)):null;
+    if(runs.length){const rt=runs.reduce((m,a)=>m+actTSS(a),0);al=al?Object.assign(al,{tss:al.tss+rt}):{tss:rt,IF:.7,run:true}}
+    const act=ride||runs[0]||null,rn=on.some(x=>x.type==="run"&&active(x))||runs.length>0;
+    return {d,p,g,act,rn,runDone:runs.length>0,pl:p?plannedLoad(p):0,al};
   });
   const scale=Math.max(80,...dayInfo.map(x=>Math.max(x.pl,x.al?x.al.tss:0)))*1.12;
-  strip.innerHTML=dayInfo.map(({d,p,g,act,pl,al})=>{
-    const dd=parseD(d),dl='<div class="dl"><small>'+DAYS[dd.getDay()]+'</small><b>'+dd.getDate()+'</b><i class="tss">'+(al?Math.round(al.tss):" ")+'</i>'+(g?'<span class="gymb'+(g.done?" done":"")+'" title="Gimnàs">GYM</span>':'')+'</div>';
+  strip.innerHTML=dayInfo.map(({d,p,g,act,rn,runDone,pl,al})=>{
+    const dd=parseD(d),dl='<div class="dl"><small>'+DAYS[dd.getDay()]+'</small><b>'+dd.getDate()+'</b><i class="tss">'+(al?Math.round(al.tss):" ")+'</i>'+(g?'<span class="gymb'+(g.done?" done":"")+'" title="Gimnàs">GYM</span>':'')+(rn&&!(p&&p.type==="run")?'<span class="runb'+(runDone?" done":"")+'" title="Córrer">RUN</span>':'')+'</div>';
     if(!p&&!act)return '<div class="daybtn" aria-hidden="true"><div class="col2"></div>'+dl+'</div>';
     const ph=p?(p.type==="rest"||!active(p)?12:Math.max(8,pl/scale*100)):0;
     const ah=al?Math.max(6,al.tss/scale*100):0;
     let tick="";
     if(p&&active(p)&&p.type!=="rest"){
       const pa=actFor(p),dat=pa&&data[pa.id];
-      if(pa&&dat&&!dat.error&&!loading[pa.id]){const lv=analyze(p,pa,dat).level;tick='<span class="tick '+lv+'">'+MARK[lv]+'</span>'}
+      if(p.type==="run"&&(runFor(p)||p.done))tick='<span class="tick ok">✓</span>';
+      else if(pa&&dat&&!dat.error&&!loading[pa.id]){const lv=analyze(p,pa,dat).level;tick='<span class="tick '+lv+'">'+MARK[lv]+'</span>'}
       else if(pa||p.done)tick='<span class="tick">✓</span>';
       else if(isMissed(p))tick='<span class="tick miss">?</span>';
     } else if(act&&al)tick='<span class="tick extra">+</span>';
     const top=Math.max(ph,ah);
     const pcls="pb"+(p&&p.type==="rest"?" rest":"")+(p&&!active(p)?" gone":"");
     const label=dayLabel(d)+": "+(p?p.t:"sense sessió")+(al?". Fet: "+Math.round(al.tss)+" TSS":"");
-    return '<button type="button" class="daybtn'+(d===todayStr?" today":"")+'"'+(p?' data-sel="'+esc(p.id)+'"':'')+' aria-pressed="'+(!!p&&p.id===selId)+'" style="--zc:var(--'+esc(p?p.z:"z1")+')'+(al?';--ac:var(--'+ifZone(al.IF)+')':'')+'" aria-label="'+esc(label)+'"><div class="col2">'+
+    return '<button type="button" class="daybtn'+(d===todayStr?" today":"")+'"'+' data-sel="'+esc(p?p.id:"day:"+d)+'" aria-pressed="'+(p?p.id===selId:selId==="day:"+d)+'" style="--zc:var(--'+esc(p?p.z:"z1")+')'+(al?';--ac:var(--'+ifZone(al.IF)+')':'')+'" aria-label="'+esc(label)+'"><div class="col2">'+
       (p?'<div class="'+pcls+'" style="height:'+ph.toFixed(0)+'%"></div>':'')+(al?'<div class="ab" style="height:'+ah.toFixed(0)+'%"></div>':'')+
       (tick?'<div class="tickwrap" style="bottom:'+top.toFixed(0)+'%">'+tick+'</div>':'')+'</div>'+dl+'</button>';
   }).join("");
   const wkPlan=dayInfo.reduce((m,x)=>m+x.pl,0),wkDone=dayInfo.reduce((m,x)=>m+(x.al?x.al.tss:0),0);
   document.getElementById("wkLoad").textContent=Math.round(wkDone)+" / "+Math.round(wkPlan)+" TSS";
+  if(selId&&selId.startsWith("day:")){sel.innerHTML=extraCard(selId.slice(4));return}
   const p=S[selId];
-  sel.innerHTML=p?all().filter(x=>x.d===p.d&&(x.id===p.id||active(x))).sort((a,b)=>(a.type==="gym")-(b.type==="gym")).map(x=>sessionCard(x,esc(dayLabel(x.d))+(x.d===todayStr?" · Avui":""))).join('<div style="height:14px"></div>'):"";
+  sel.innerHTML=(p?all().filter(x=>x.d===p.d&&(x.id===p.id||active(x))).sort((a,b)=>(a.type==="gym")-(b.type==="gym")).map(x=>sessionCard(x,esc(dayLabel(x.d))+(x.d===todayStr?" · Avui":""))).join('<div style="height:14px"></div>'):"")+(p&&extraRuns(p.d).length?'<div style="height:14px"></div>'+extraCard(p.d):"");
 }
 function renderLog(){
   document.getElementById("logBox").hidden=!state.log.length;
@@ -614,6 +661,7 @@ function renderTitles(){
 
 /* ---------- Progress sync ---------- */
 function syncDone(){
+  all().forEach(s=>{const r=runFor(s);if(r&&!(s.done&&s.done.activityId===String(r.id)))setOv(s.id,{done:{by:"strava",activityId:String(r.id),name:r.name||"Cursa",movingMin:Math.round((r.moving_time||0)/60),km:Math.round((r.distance||0)/100)/10,at:new Date().toISOString()}})});
   all().forEach(s=>{if(s.type==="gym"&&active(s)&&!s.done&&gymActs[s.d]){setOv(s.id,{done:{by:"strava",name:gymActs[s.d].name||"Gimnàs",movingMin:Math.round((gymActs[s.d].moving_time||0)/60),at:new Date().toISOString()}})}});
   all().forEach(s=>{
     const act=actFor(s);if(!act)return;const d=data[act.id];if(!d||d.error||loading[act.id])return;
@@ -703,11 +751,11 @@ function loadActivities(){
     const norm=(Array.isArray(list)?list:[]).map(normAct);
     lsSet("qw.acts",norm);allList=norm;
     const next=indexActs(norm);
-    if(seenActs){const nw=Object.values(next).filter(a=>!seenActs.has(a.id));if(nw.length)toast("Nova activitat de Strava: «"+(nw[0].name||"sortida")+"». L'estic analitzant.")}
-    seenActs=new Set(Object.values(next).map(a=>a.id));
-    acts=next;gymActs={};norm.forEach(a=>{if(a.start_local&&/WeightTraining|Workout|Crossfit|Yoga|Pilates/i.test(String(a.sport_type||"")))gymActs[a.start_local.slice(0,10)]=a});stravaState="on";
+    if(seenActs){const nw=norm.filter(a=>(/Ride|Cycl|Bike/i.test(String(a.sport_type||""))||isRun(a))&&a.start_local&&a.start_local.slice(0,10)>=addDays(todayStr,-1)&&!seenActs.has(a.id));if(nw.length)toast("Nova activitat de Strava: «"+(nw[0].name||"sortida")+"». L'estic analitzant.")}
+    seenActs=new Set(norm.map(a=>a.id));
+    acts=next;runActs=indexRuns(norm);gymActs={};norm.forEach(a=>{if(a.start_local&&/WeightTraining|Workout|Crossfit|Yoga|Pilates/i.test(String(a.sport_type||"")))gymActs[a.start_local.slice(0,10)]=a});stravaState="on";
     const t=new Date();stravaMsg="Strava connectat · "+String(t.getHours()).padStart(2,"0")+":"+String(t.getMinutes()).padStart(2,"0");
-    render();analyzeAll();
+    syncDone();render();analyzeAll();
   })
   .catch(e=>{stravaState=e&&e.code==="net"&&Object.keys(acts).length?"on":"err";stravaMsg=errMsg(e);render()})
   .then(()=>{busy=false});
@@ -813,6 +861,7 @@ function icuEvents(){
   all().filter(s=>s.d>=from&&s.d<=to&&s.type!=="rest").forEach(s=>{
     const live=active(s)&&!s.done&&!actFor(s);
     if(!live&&!(active(s)===false))return; // done sessions are left as they are
+    if(s.type==="run"){if(active(s))ev.push({category:"NOTE",start_date_local:s.d+"T00:00:00",name:"Córrer: "+s.t,description:steps(s).map(x=>x.l+": "+x.x).join("\n"),external_id:"qw-"+s.id});return}
     if(s.type==="gym"){if(active(s))ev.push({category:"NOTE",start_date_local:s.d+"T00:00:00",name:"Gimnàs: "+s.t,description:steps(s).map(x=>x.l+": "+x.x).join("\n"),external_id:"qw-"+s.id});return}
     ev.push(live?{category:"WORKOUT",type:"Ride",start_date_local:s.d+"T00:00:00",name:s.t+(s.key?" ★":""),description:workoutText(s),external_id:"qw-"+s.id}
                :{category:"NOTE",start_date_local:s.d+"T00:00:00",name:"Cancel·lada: "+s.t,description:"Sessió treta del pla al Quadern de Watts.",external_id:"qw-"+s.id});
@@ -916,7 +965,7 @@ document.addEventListener("visibilitychange",()=>{if(document.visibilityState===
 
 /* ---------- Boot ---------- */
 if(plan){applyPlanMeta();S=buildSessions();planState="ready"}
-const cached=lsGet("qw.acts",null);if(Array.isArray(cached)){allList=cached;acts=indexActs(cached);if(strava.refreshToken){stravaState="on";stravaMsg="Carregant Strava…"}}
+const cached=lsGet("qw.acts",null);if(Array.isArray(cached)){allList=cached;acts=indexActs(cached);runActs=indexRuns(cached);if(strava.refreshToken){stravaState="on";stravaMsg="Carregant Strava…"}}
 try{localStorage.removeItem("qw.coach")}catch(e){}
 render();if(location.hash==="#notes")openNotes();
 handleAuthReturn().then(()=>{render();return loadPlan()}).then(()=>{if(strava.refreshToken)loadActivities()});
