@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.12.0";
+const APP_VERSION="1.13.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -641,9 +641,10 @@ function titleOptions(a){
   (titles.phrases||[]).forEach(p=>pool.push({t:p.t,tags:p.tags||[],top:false}));
   (titles.topical||[]).forEach(p=>{if((!p.from||day>=p.from)&&(!p.to||day<=p.to))pool.push({t:p.t,tags:p.tags||[],top:true})});
   const rnd=seeded(String(a.id));
-  return pool.filter(p=>p.tags.every(x=>tags.has(x))&&!used.has(normT(p.t)))
+  const own=((titles.byDay||{})[day]||[]).filter(t=>!used.has(normT(t)));
+  return own.concat(pool.filter(p=>!own.some(o=>normT(o)===normT(p.t))).filter(p=>p.tags.every(x=>tags.has(x))&&!used.has(normT(p.t)))
     .map(p=>({t:p.t,k:p.tags.length*1.2+(p.top?1.4:0)+rnd()*2.2}))
-    .sort((x,y)=>y.k-x.k).map(p=>p.t);
+    .sort((x,y)=>y.k-x.k).map(p=>p.t));
 }
 function renderTitles(){
   const el=document.getElementById("titles");if(!el)return;

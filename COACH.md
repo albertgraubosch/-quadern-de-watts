@@ -88,7 +88,7 @@ Fons llarg: 3 h → 3h30 → 4 h; tempo 2×15′ → 2×20′ → 3×15′ a 78�
 - Fes commit i push a `main`. L'app i el Wahoo (via intervals.icu) s'actualitzen quan l'Albert obre l'app.
 
 ## Títols per a Strava (`titles.json`)
-- L'app proposa 5 títols per a cada activitat nova a partir de `titles.json`. L'Albert en tria un i l'enganxa a Strava.
-- To: en català, curt (una línia), sec, amb doble sentit pícar però mai explícit ni que faci vergonya aliena. Sense emojis ni explicar l'acudit. No cal que parli de ciclisme.
-- A la revisió diària pots afegir 0–2 frases d'actualitat a `topical` (`{"t","from","to","tags"}`), amb `to` com a màxim 7 dies després: partits del Girona o del Barça, el temps, festius, coses del dia a dia. **Només amb fets comprovats** (cerca web); si no n'estàs segur, no n'afegeixis.
-- Etiquetes possibles: ride, run, gym, long, short, hard, easy, climb, morning, night, weekend, sunday, monday, weekday, rest, group, solo, pr. Esborra les `topical` caducades de fa més de 30 dies.
+- L'app mostra 5 títols per a cada activitat nova. L'Albert en tria un i l'enganxa a Strava.
+- **El que vol:** frases amb segones intencions, canalla i amb gràcia, que relacionin l'activitat amb l'actualitat del món (política, economia, futbol, Girona, Catalunya, xarxes) o amb coses de col·legues. Res de frases genèriques o buides. En català, una línia, sense emojis, sense explicar l'acudit.
+- **Cada vespre, a la revisió:** per a cada activitat del dia, escriu 5 frases a mida a `byDay["AAAA-MM-DD"]`. Abans, fes 2–3 cerques web d'actualitat d'aquell dia (portades, esports, Girona) i busca connexions creatives amb el que ha fet (punxada, sèries, col·lega, pujades, pluja, hores…). **Només fets comprovats.** Esborra les entrades de `byDay` de fa més de 14 dies.
+- `phrases` és el banc de reserva (amb etiquetes: ride, run, gym, long, short, hard, easy, climb, morning, night, weekend, sunday, monday, weekday, rest, group, solo, pr). Hi pots afegir les bones que surtin. `topical` per a dates concretes (`from`/`to`).
