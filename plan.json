@@ -1,6 +1,6 @@
 {
- "version": 21,
- "updated": "2026-11-03 12:10",
+ "version": 22,
+ "updated": "2026-11-03 20:49",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -741,7 +741,7 @@
    "t": "Gimnàs A: full body",
    "min": 50,
    "rpe": "RPE 7",
-   "note": "Mogut a dimecres: cames el mateix dia que les sèries, 3–6 h després de la bici. Setmana 3: 3 sèries i una mica més de pes.",
+   "note": "A la tarda, 3–6 h després de la bici. Avui cames a 2 sèries (vens de córrer 1h11 i de les sèries); la resta, a 3.",
    "steps": [
     {
      "l": "Escalfament",
@@ -749,15 +749,15 @@
     },
     {
      "l": "Goblet squat",
-     "x": "3 × 10, una mica més de pes que la setmana passada. Han de sobrar-te 2–3 repeticions"
+     "x": "2 × 10, una mica més de pes que la setmana passada. Han de sobrar-te 3 repeticions"
     },
     {
      "l": "Pes mort romanès",
-     "x": "3 × 10 amb manuelles"
+     "x": "2 × 10 amb manuelles"
     },
     {
      "l": "Esquat búlgar",
-     "x": "3 × 8 per cama, amb manuelles lleugeres"
+     "x": "2 × 8 per cama, amb manuelles lleugeres"
     },
     {
      "l": "Flexions",
@@ -805,7 +805,7 @@
     }
    ],
    "fuel": "50–60 g/h de carbohidrats",
-   "note": "Les 3 × 8′ del company a 240–250 W, 4′ suaus entre sèries. El 28/10 vas fer 3 × 10′ a 235–245 W i bé: blocs més curts i cames fresques, així que pugem. Si l'últim surt fàcil, pots acabar-lo a 255 W. En pla costa més que en pujada: allà, part baixa. Si al primer bloc no hi ets, passa a sweet spot (15′ a 216–228 W, màxim 3). Tornada en Z2 fins a 1h30–1h45.",
+   "note": "Les 3 × 8′ del company a 240–250 W, 4′ suaus entre sèries. Avui has corregut 14,4 km a 4:58/km: les cames poden anar carregades. Primer bloc a 240 W i, si va bé, els altres a 245–250. Aquesta vegada, res de 255 W a l'últim. Si al primer bloc no hi ets, passa a sweet spot (15′ a 216–228 W, màxim 3). Tornada en Z2 fins a 1h30–1h45.",
    "steps": [
     {
      "l": "Escalfament",
@@ -813,7 +813,7 @@
     },
     {
      "l": "Principal",
-     "x": "3 × 8′ a {98,102} · 85–95 rpm · 4′ a {55} entre sèries · l'últim, si va sol, fins a {104}"
+     "x": "3 × 8′ a {98,102} · 85–95 rpm · 4′ a {55} entre sèries · el primer, a la part baixa"
     },
     {
      "l": "Pla B",
@@ -1263,6 +1263,10 @@
   {
    "date": "2026-11-03",
    "text": "Bici punxada. Canvi de setmana: avui Z2 corrent (55′ suaus a 5:05–5:25/km). Dimecres, sèries amb el company: 3 × 8′ a 240–250 W (el 28/10 vas fer 3 × 10′ a 235–245 W i bé, així que pugem); si no hi ets, sweet spot de 15′ a 216–228 W. Gimnàs A passa a dimecres a la tarda. Dijous, Z2 1h45 en lloc de la força (no dos dies seguits d'intervals). Dissabte, igual: fons llarg amb 2 × 20′ de tempo."
+  },
+  {
+   "date": "2026-11-03",
+   "text": "Cursa: 14,4 km en 1h11 a 4:58/km (previst 55′ a 5:05–5:25), esforç 6/10. Massa ràpid i llarg per a un dia suau: compte, que aquesta cursa també suma fatiga (≈ 77 TSS). Càrrega bé: 369 TSS en 7 dies, TSB ≈ −15. Dimecres, 3 × 8′ es manté a 240–250 W, però el primer a 240 i sense l'opció de 255 W. Gimnàs A: cames a 2 sèries."
   }
  ]
 }
