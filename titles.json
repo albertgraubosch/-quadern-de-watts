@@ -1,0 +1,99 @@
+{
+  "updated": "2026-11-02",
+  "about": "Títols per a Strava. Etiquetes: ride, run, gym, long, short, hard, easy, climb, morning, night, weekend, sunday, monday, weekday, rest, group, solo, pr. Una frase només surt si l'activitat compleix TOTES les seves etiquetes. 'topical' són frases d'actualitat amb dates (from/to).",
+  "phrases": [
+    {"t": "Li vaig dir que seria l'última.", "tags": []},
+    {"t": "Millor no preguntis.", "tags": []},
+    {"t": "Ningú m'hi ha obligat.", "tags": []},
+    {"t": "Diguem que ha estat intens.", "tags": []},
+    {"t": "No era la idea, però aquí estem.", "tags": []},
+    {"t": "Avui he estat bo. Més o menys.", "tags": []},
+    {"t": "Coses que no s'expliquen a casa.", "tags": []},
+    {"t": "Sempre hi acabo caient.", "tags": []},
+    {"t": "Sense plans, que és com millor surten.", "tags": []},
+    {"t": "M'ho va demanar si us plau.", "tags": []},
+    {"t": "Repetiria.", "tags": []},
+    {"t": "Discreció, sobretot.", "tags": []},
+    {"t": "No hi havia ganes. Després sí.", "tags": []},
+    {"t": "Que no se n'assabenti la mare.", "tags": []},
+    {"t": "Dels que no surten a les stories.", "tags": []},
+    {"t": "Massa per explicar, massa poc per penedir-me'n.", "tags": []},
+    {"t": "Ja no tinc edat per això. Ho he fet igual.", "tags": []},
+    {"t": "Ha començat suau. Com sempre.", "tags": []},
+    {"t": "Jo només passava per allà.", "tags": []},
+    {"t": "Tenia altres plans. Els he canviat.", "tags": []},
+    {"t": "Una cosa porta a l'altra.", "tags": []},
+    {"t": "Ho necessitava. I ho sabia.", "tags": []},
+    {"t": "Sense fer soroll.", "tags": []},
+    {"t": "Com Rodalies: tard, però he arribat.", "tags": []},
+    {"t": "Fora de joc, però ha pujat al marcador.", "tags": []},
+    {"t": "Ni el VAR ho hauria vist.", "tags": []},
+    {"t": "El que passa a les Gavarres es queda a les Gavarres.", "tags": ["ride"]},
+    {"t": "Hauria d'estar fent una altra cosa.", "tags": ["weekday"]},
+
+    {"t": "Anava a ser una estona.", "tags": ["long"]},
+    {"t": "Temps afegit. Sempre hi ha temps afegit.", "tags": ["long"]},
+    {"t": "Quan començo, ja no paro.", "tags": ["long"]},
+    {"t": "Ningú ha dit que fos ràpid.", "tags": ["long"]},
+    {"t": "M'he allargat. Passa.", "tags": ["long"]},
+    {"t": "Hores i hores. I encara en volia més.", "tags": ["long"]},
+    {"t": "Selló, et dec una disculpa.", "tags": ["ride", "long"]},
+
+    {"t": "Curt però intens. Com m'agrada.", "tags": ["short"]},
+    {"t": "Una d'aquelles ràpides.", "tags": ["short"]},
+    {"t": "Ràpid i sense compromís.", "tags": ["short"]},
+
+    {"t": "Ha fet mal. Del bo.", "tags": ["hard"]},
+    {"t": "Al final ja no podia ni parlar.", "tags": ["hard"]},
+    {"t": "M'ha deixat tremolant.", "tags": ["hard"]},
+    {"t": "He acabat estirat a terra. Literal.", "tags": ["hard"]},
+    {"t": "Una altra i una altra. I encara respiro.", "tags": ["hard"]},
+    {"t": "Suant com si no hi hagués demà.", "tags": ["hard"]},
+
+    {"t": "A poc a poc i amb bon ritme.", "tags": ["easy"]},
+    {"t": "Sense presses. Gaudint del camí.", "tags": ["easy"]},
+    {"t": "Avui suau, que demà toca dur.", "tags": ["easy"]},
+    {"t": "Tranquil, que hi ha temps.", "tags": ["easy"]},
+
+    {"t": "Amunt i avall. No em queixo.", "tags": ["climb"]},
+    {"t": "Pujar costa. Baixar té la seva gràcia.", "tags": ["climb"]},
+    {"t": "M'ha costat pujar-hi, però ha valgut la pena.", "tags": ["climb"]},
+
+    {"t": "Matinant per vici.", "tags": ["morning"]},
+    {"t": "Abans que ningú es llevés.", "tags": ["morning"]},
+    {"t": "De nit tot és més interessant.", "tags": ["night"]},
+    {"t": "Nocturna. Ja m'enteneu.", "tags": ["night"]},
+
+    {"t": "Diumenge, sense presses i fins al final.", "tags": ["sunday"]},
+    {"t": "Cap de setmana. Res a declarar.", "tags": ["weekend"]},
+    {"t": "Dilluns. Ja m'enteneu.", "tags": ["monday"]},
+    {"t": "El dilluns també té coses bones.", "tags": ["monday"]},
+
+    {"t": "Avui no tocava. Però ha tocat.", "tags": ["rest"]},
+    {"t": "Era dia de descans. Teòricament.", "tags": ["rest"]},
+
+    {"t": "A roda tot el dia i sense vergonya.", "tags": ["ride", "group"]},
+    {"t": "Ell tirava, jo empenyia.", "tags": ["group"]},
+    {"t": "En grup sempre és més divertit.", "tags": ["group"]},
+    {"t": "Sol. A vegades és el millor pla.", "tags": ["solo"]},
+
+    {"t": "Millor que l'última vegada. Ho diuen les dades.", "tags": ["pr"]},
+    {"t": "Rècord personal. No en faré gaire soroll.", "tags": ["pr"]},
+
+    {"t": "Avui a pèl: sense selló i sense canvis.", "tags": ["run"]},
+    {"t": "Les cames deien que no. Jo, que sí.", "tags": ["run"]},
+    {"t": "Córrer per no pensar.", "tags": ["run"]},
+
+    {"t": "Dia de cames. Demà no em demanis que m'assegui.", "tags": ["gym"]},
+    {"t": "Suar en interior també compta.", "tags": ["gym"]},
+    {"t": "Pesos, miralls i cap vergonya.", "tags": ["gym"]}
+  ],
+  "topical": [
+    {"t": "Temporada de bolets. N'he trobat.", "from": "2026-11-01", "to": "2026-11-30", "tags": []},
+    {"t": "Canvi d'hora: més fosc, més interessant.", "from": "2026-11-01", "to": "2026-11-15", "tags": []},
+    {"t": "Black Friday: tot rebaixat menys les ganes.", "from": "2026-11-23", "to": "2026-11-30", "tags": []},
+    {"t": "Loteria de Nadal: a mi ja m'ha tocat.", "from": "2026-12-14", "to": "2026-12-22", "tags": []},
+    {"t": "Torrons, cava i aquesta sortida.", "from": "2026-12-20", "to": "2026-12-31", "tags": []},
+    {"t": "Propòsit d'any nou complert el primer dia.", "from": "2027-01-01", "to": "2027-01-06", "tags": []}
+  ]
+}

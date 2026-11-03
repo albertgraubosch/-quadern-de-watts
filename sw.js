@@ -1,9 +1,9 @@
 // Quadern de Watts service worker.
 // App files (html, js, css, plan) are network-first so a new release shows up on the next open;
 // the cache is only a fallback for when there is no connection. Images are cache-first.
-const VERSION = "qw-1.10.0";
+const VERSION = "qw-1.11.0";
 const SHELL = [
-  "./", "index.html", "app.css", "app.js", "manifest.webmanifest", "plan.json",
+  "./", "index.html", "app.css", "app.js", "manifest.webmanifest", "plan.json", "titles.json",
   "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png",
   "media/hero-poster.jpg", "media/nomercy-poster.jpg", "media/gravel.webp", "media/mud.webp",
   "media/portrait.webp", "media/watermelon.webp", "media/group.webp", "media/mano.webp", "media/peloton.webp"

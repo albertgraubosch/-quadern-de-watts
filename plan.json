@@ -1,6 +1,6 @@
 {
- "version": 19,
- "updated": "2026-10-30 20:49",
+ "version": 20,
+ "updated": "2026-11-03 10:15",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -702,47 +702,25 @@
   {
    "id": "s20261103",
    "d": "2026-11-03",
-   "type": "int",
-   "z": "ss",
-   "cat": "ss",
-   "key": true,
-   "t": "Sweet spot 3 × 15′",
-   "min": 100,
-   "cad": [
-    85,
-    95
-   ],
-   "ints": [
-    {
-     "n": 3,
-     "s": 900,
-     "lo": 0.88,
-     "hi": 0.93,
-     "cad": [
-      85,
-      95
-     ],
-     "label": "Sweet spot 15′"
-    }
-   ],
-   "fuel": "50–60 g/h de carbohidrats",
-   "note": "Primera clau de la setmana 3. Arribes amb 3 dies de descans: 3 × 15′ a 216–228 W, constants i a 85+ rpm. Si l'últim bloc surt fàcil, a la propera pugem.",
+   "type": "end",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau (Z2)",
+   "min": 55,
+   "fuel": "Només aigua",
+   "note": "Bici punxada: avui la Z2 es fa corrent. Ritme de conversa, sense mirar el rellotge. Demà sèries amb el company, així que res de canviar de ritme ni fer-ne un test.",
    "steps": [
     {
      "l": "Escalfament",
-     "x": "15′ · 10′ en Z2 i 3 × 1′ a {95} amb 1′ suau"
+     "x": "10′ molt suau, a 5:40–6:00/km"
     },
     {
      "l": "Principal",
-     "x": "3 × 15′ a {88,93} · 85–95 rpm · 5′ a {57} entre sèries"
+     "x": "35–40′ a 5:05–5:25/km, respiració còmoda: has de poder parlar"
     },
     {
-     "l": "Fons",
-     "x": "15′ en Z2 a {61,70}"
-    },
-    {
-     "l": "Calma",
-     "x": "10′ en Z1"
+     "l": "Final",
+     "x": "5′ caminant + 5′ de mobilitat de maluc i bessons"
     }
    ],
    "ord": 1,
@@ -750,7 +728,7 @@
   },
   {
    "id": "s20261103g",
-   "d": "2026-11-03",
+   "d": "2026-11-04",
    "ord": 2,
    "type": "gym",
    "z": "z7",
@@ -758,7 +736,7 @@
    "t": "Gimnàs A: full body",
    "min": 50,
    "rpe": "RPE 7",
-   "note": "Setmana 3 de gimnàs: passem a 3 sèries i una mica més de pes. Després de la bici, millor 3–6 h més tard.",
+   "note": "Mogut a dimecres: cames el mateix dia que les sèries, 3–6 h després de la bici. Setmana 3: 3 sèries i una mica més de pes.",
    "steps": [
     {
      "l": "Escalfament",
@@ -798,6 +776,59 @@
   {
    "id": "s20261104",
    "d": "2026-11-04",
+   "type": "int",
+   "z": "z4",
+   "cat": "thr",
+   "key": true,
+   "t": "Llindar 3 × 8′ amb el company",
+   "min": 105,
+   "cad": [
+    85,
+    95
+   ],
+   "ints": [
+    {
+     "n": 3,
+     "s": 480,
+     "lo": 0.95,
+     "hi": 1.0,
+     "cad": [
+      85,
+      95
+     ],
+     "label": "Llindar 8′"
+    }
+   ],
+   "fuel": "50–60 g/h de carbohidrats",
+   "note": "Les 3 × 8′ del company, a 233–245 W. Recuperació de 4′ entre sèries. Si al primer bloc les cames no hi són, passa a sweet spot: blocs de 15′ a 216–228 W, els que surtin bé (màxim 3). Sortida mínima d'1h30: allarga en Z2 la tornada.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15–20′ en Z2 fins al lloc de les sèries + 2 × 1′ a {100} amb 1′ suau"
+    },
+    {
+     "l": "Principal",
+     "x": "3 × 8′ a {95,100} · 85–95 rpm · 4′ a {55} entre sèries"
+    },
+    {
+     "l": "Pla B",
+     "x": "Si no hi ets: blocs de 15′ a {88,93} amb 5′ suau, màxim 3"
+    },
+    {
+     "l": "Fons",
+     "x": "Z2 a {61,72} fins a completar 1h30–1h45"
+    },
+    {
+     "l": "Calma",
+     "x": "10′ en Z1"
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261105",
+   "d": "2026-11-05",
    "type": "end",
    "z": "z2",
    "cat": "end",
@@ -812,7 +843,7 @@
     92
    ],
    "fuel": "Aigua amb electròlits i 30–40 g/h",
-   "note": "Z2 de veritat: cap esforç per sobre de 184 W, ni a les pujades ni als segments.",
+   "note": "Dijous no toca força: serien dos dies seguits d'intervals. La força-resistència d'aquesta setmana cau; dissabte, el fons llarg amb tempo. Z2 de veritat: res per sobre de 184 W.",
    "steps": [
     {
      "l": "Escalfament",
@@ -821,51 +852,6 @@
     {
      "l": "Principal",
      "x": "1h25 en Z2 a {63,73} · cada 15′, 2′ a 100–105 rpm sense canviar els watts"
-    },
-    {
-     "l": "Calma",
-     "x": "10′ en Z1"
-    }
-   ],
-   "ord": 1,
-   "k": 1
-  },
-  {
-   "id": "s20261105",
-   "d": "2026-11-05",
-   "type": "int",
-   "z": "z3",
-   "cat": "force",
-   "key": true,
-   "t": "Força-resistència 5 × 6′",
-   "min": 95,
-   "ints": [
-    {
-     "n": 5,
-     "s": 360,
-     "lo": 0.82,
-     "hi": 0.87,
-     "cad": [
-      60,
-      65
-     ],
-     "label": "Força 6′"
-    }
-   ],
-   "fuel": "40–50 g/h de carbohidrats",
-   "note": "Treball de força específica a la bici. Busca una pujada constant del 4–6 % o fes-ho al rodet. Si et molesten els genolls, puja a 70–75 rpm.",
-   "steps": [
-    {
-     "l": "Escalfament",
-     "x": "15′ progressius en Z2"
-    },
-    {
-     "l": "Principal",
-     "x": "5 × 6′ a {82,87} a 60–65 rpm, assegut, tronc quiet · 4′ a {57} i 95 rpm entre sèries"
-    },
-    {
-     "l": "Fons",
-     "x": "15′ en Z2 a {61,70}"
     },
     {
      "l": "Calma",
@@ -1268,6 +1254,10 @@
   {
    "date": "2026-10-30",
    "text": "Avui no hi ha hagut sweet spot: 27 km i 1h07 en moviment (fitxar i tornar), 144 W de mitjana, NP ≈ 175 W, IF ≈ 0,71, TSS ≈ 58. Millors 10′ a 171 W i, tot i així, pics de 504 W en 5″. Segons la regla, la sessió clau no es recupera: ja n'has fet dues aquesta setmana. Dissabte, diumenge i dilluns, descans. Dimarts, 3 × 15′ a 216–228 W ben fresc."
+  },
+  {
+   "date": "2026-11-03",
+   "text": "Bici punxada. Canvi de setmana: avui Z2 corrent (55′ suaus a 5:05–5:25/km). Dimecres, sèries amb el company: 3 × 8′ a 233–245 W; si no hi ets, sweet spot de 15′ a 216–228 W. Gimnàs A passa a dimecres a la tarda. Dijous, Z2 1h45 en lloc de la força (no dos dies seguits d'intervals). Dissabte, igual: fons llarg amb 2 × 20′ de tempo."
   }
  ]
 }

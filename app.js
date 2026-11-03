@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.10.0";
+const APP_VERSION="1.11.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -22,7 +22,7 @@ let START="2026-10-19",WEIGHT=75,FTP0=240,GOAL=280;
 let S={};
 let planState="loading",planMsg="";
 let stravaState="idle",stravaMsg="";
-let gymActs={},acts={},data={},loading={},seenActs=null,lastLoad=0;
+let allList=[],titles=lsGet("qw.titles",null),titleOff={},gymActs={},acts={},data={},loading={},seenActs=null,lastLoad=0;
 let chooser=null,weekSel=null,selId=null;
 let todayStr=localDate(new Date());
 
@@ -70,7 +70,9 @@ function setOv(id,patch){
   state.ov[id]=cur;S[id]=Object.assign({},S[id],patch);saveState();
 }
 function addLog(txt){state.log=state.log.concat([{at:new Date().toISOString(),txt}]).slice(-60);saveState()}
+function loadTitles(){return fetch("titles.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(t=>{if(t&&Array.isArray(t.phrases)){titles=t;lsSet("qw.titles",t);renderTitles()}}).catch(()=>{})}
 function loadPlan(){
+  loadTitles();
   return fetch("plan.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw new Error("http "+r.status);return r.json()})
   .then(p=>{
     const changed=!plan||plan.updated!==p.updated||plan.version!==p.version;
@@ -556,7 +558,59 @@ function renderStatus(){
   document.getElementById("refresh").disabled=!strava.refreshToken;
   document.getElementById("ver").textContent="Versió "+APP_VERSION+(plan&&plan.updated?" · pla del "+plan.updated:"")+".";
 }
-function render(){renderHero();renderStatus();renderSetup();renderDecide();renderWeek();renderProgress();renderLog();renderZones();renderConn();renderWahoo();renderState();renderCoachNotes();icuSchedule()}
+function render(){renderHero();renderStatus();renderSetup();renderDecide();renderWeek();renderProgress();renderLog();renderZones();renderConn();renderWahoo();renderState();renderCoachNotes();renderTitles();icuSchedule()}
+
+/* ---------- Títols per a Strava ---------- */
+function normT(x){return String(x||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g," ").trim()}
+function recentAct(){
+  const from=addDays(todayStr,-1);let best=null;
+  allList.forEach(a=>{if(a&&a.start_local&&a.start_local.slice(0,10)>=from&&(!best||a.start_local>best.start_local))best=a});
+  return best;
+}
+function actTags(a){
+  const st=String(a.sport_type||""),ride=/Ride|Cycl|Bike/i.test(st),run=/Run/i.test(st),gym=/WeightTraining|Workout|Crossfit/i.test(st);
+  const h=(a.moving_time||0)/3600,day=a.start_local.slice(0,10),hr=parseInt(a.start_local.slice(11,13),10),wd=parseD(day).getDay();
+  const t=new Set();
+  if(ride)t.add("ride");if(run)t.add("run");if(gym)t.add("gym");
+  if((ride&&h>=3)||(run&&h>=1.5))t.add("long");
+  if((ride&&h<1.25)||(run&&h<.6))t.add("short");
+  const w=a.weighted_average_watts||(a.device_watts?a.average_watts:null),IF=ride&&w?w/ftp():null;
+  if(IF&&IF>=.85)t.add("hard");if(IF&&IF<.70)t.add("easy");
+  const km=(a.distance||0)/1000,el=a.total_elevation_gain||0;
+  if(km>0&&el>=300&&el/km>=(run?20:12))t.add("climb");
+  if(hr<9)t.add("morning");if(hr>=19)t.add("night");
+  if(wd===0)t.add("sunday");if(wd===0||wd===6)t.add("weekend");if(wd===1)t.add("monday");if(wd>=1&&wd<=5)t.add("weekday");
+  const ses=sessionsOn(day);if(ses.length&&ses.every(x=>x.type==="rest"||x.type==="gym")&&!gym)t.add("rest");
+  if(a.athlete_count>1)t.add("group");else if(a.athlete_count===1)t.add("solo");
+  if(a.pr_count>0)t.add("pr");
+  return t;
+}
+function seeded(str){let h=2166136261;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)}return()=>{h^=h<<13;h^=h>>>17;h^=h<<5;return((h>>>0)%10000)/10000}}
+function titleOptions(a){
+  if(!titles)return [];
+  const tags=actTags(a),day=a.start_local.slice(0,10);
+  const used=new Set(allList.filter(x=>x.id!==a.id).map(x=>normT(x.name)));
+  const pool=[];
+  (titles.phrases||[]).forEach(p=>pool.push({t:p.t,tags:p.tags||[],top:false}));
+  (titles.topical||[]).forEach(p=>{if((!p.from||day>=p.from)&&(!p.to||day<=p.to))pool.push({t:p.t,tags:p.tags||[],top:true})});
+  const rnd=seeded(String(a.id));
+  return pool.filter(p=>p.tags.every(x=>tags.has(x))&&!used.has(normT(p.t)))
+    .map(p=>({t:p.t,k:p.tags.length*1.2+(p.top?1.4:0)+rnd()*2.2}))
+    .sort((x,y)=>y.k-x.k).map(p=>p.t);
+}
+function renderTitles(){
+  const el=document.getElementById("titles");if(!el)return;
+  const a=recentAct(),opts=a?titleOptions(a):[];
+  if(!a||!opts.length){el.hidden=true;el.innerHTML="";return}
+  const n=Math.ceil(opts.length/5),off=(titleOff[a.id]||0)%n,page=opts.slice(off*5,off*5+5);
+  const cur=normT(a.name),chosen=opts.concat((titles.phrases||[]).map(p=>p.t)).find(t=>normT(t)===cur);
+  const when=a.start_local.slice(0,10)===todayStr?"avui":"ahir";
+  el.hidden=false;
+  el.innerHTML='<div class="in" style="gap:10px"><div class="kicker">Títol per a Strava · '+when+'</div>'+
+    '<div class="note">'+(chosen?'Ja hi has posat «'+esc(a.name)+'» ✓':'Ara es diu «'+esc(a.name||"activitat")+'». Toca\'n un i es copia.')+'</div>'+
+    '<div class="tlist">'+page.map(t=>'<button class="topt" type="button" data-title="'+esc(t)+'">'+esc(t)+'</button>').join("")+'</div>'+
+    '<div class="actions">'+(n>1?'<button class="btn ghost" type="button" data-tmore="'+esc(a.id)+'">Altres 5</button>':'')+'</div></div>';
+}
 
 /* ---------- Progress sync ---------- */
 function syncDone(){
@@ -627,7 +681,7 @@ function errMsg(e){
   }
 }
 function planRange(){const ds=all().map(s=>s.d).concat([START,todayStr]).sort();return [ds[0],ds[ds.length-1]>todayStr?ds[ds.length-1]:todayStr]}
-function normAct(a){return {id:String(a.id),name:a.name,sport_type:a.sport_type||a.type,start_local:a.start_date_local,moving_time:a.moving_time,distance:a.distance,average_watts:a.average_watts,device_watts:a.device_watts,average_cadence:a.average_cadence,kilojoules:a.kilojoules,max_watts:a.max_watts,weighted_average_watts:a.weighted_average_watts,pr_count:a.pr_count,achievement_count:a.achievement_count,total_elevation_gain:a.total_elevation_gain}}
+function normAct(a){return {id:String(a.id),name:a.name,sport_type:a.sport_type||a.type,start_local:a.start_date_local,moving_time:a.moving_time,distance:a.distance,average_watts:a.average_watts,device_watts:a.device_watts,average_cadence:a.average_cadence,kilojoules:a.kilojoules,max_watts:a.max_watts,weighted_average_watts:a.weighted_average_watts,pr_count:a.pr_count,achievement_count:a.achievement_count,total_elevation_gain:a.total_elevation_gain,athlete_count:a.athlete_count}}
 function indexActs(list){
   const next={};
   list.forEach(a=>{
@@ -647,7 +701,7 @@ function loadActivities(){
   api("/athlete/activities?after="+after+"&before="+before+"&per_page=200")
   .then(list=>{
     const norm=(Array.isArray(list)?list:[]).map(normAct);
-    lsSet("qw.acts",norm);
+    lsSet("qw.acts",norm);allList=norm;
     const next=indexActs(norm);
     if(seenActs){const nw=Object.values(next).filter(a=>!seenActs.has(a.id));if(nw.length)toast("Nova activitat de Strava: «"+(nw[0].name||"sortida")+"». L'estic analitzant.")}
     seenActs=new Set(Object.values(next).map(a=>a.id));
@@ -806,6 +860,8 @@ document.getElementById("refresh").addEventListener("click",()=>{loadPlan();load
 document.getElementById("share").addEventListener("click",shareSummary);
 document.addEventListener("click",e=>{
   const el=e.target.closest("button");if(!el)return;
+  if(el.dataset&&el.dataset.title){copyText(el.dataset.title,"Copiat. Ara enganxa'l com a títol a Strava.");return}
+  if(el.dataset&&el.dataset.tmore){titleOff[el.dataset.tmore]=(titleOff[el.dataset.tmore]||0)+1;renderTitles();return}
   if(el.id==="openNotes"){openNotes();return}
   if(el.id==="closeNotes"){closeNotes();return}
   if(el.id==="wkPrev"||el.id==="wkNext"){weekSel=(weekSel||1)+(el.id==="wkNext"?1:-1);selId=null;renderWeek();return}
@@ -860,7 +916,7 @@ document.addEventListener("visibilitychange",()=>{if(document.visibilityState===
 
 /* ---------- Boot ---------- */
 if(plan){applyPlanMeta();S=buildSessions();planState="ready"}
-const cached=lsGet("qw.acts",null);if(Array.isArray(cached)){acts=indexActs(cached);if(strava.refreshToken){stravaState="on";stravaMsg="Carregant Strava…"}}
+const cached=lsGet("qw.acts",null);if(Array.isArray(cached)){allList=cached;acts=indexActs(cached);if(strava.refreshToken){stravaState="on";stravaMsg="Carregant Strava…"}}
 try{localStorage.removeItem("qw.coach")}catch(e){}
 render();if(location.hash==="#notes")openNotes();
 handleAuthReturn().then(()=>{render();return loadPlan()}).then(()=>{if(strava.refreshToken)loadActivities()});
