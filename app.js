@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.15.1";
+const APP_VERSION="1.16.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -770,11 +770,22 @@ function bestCurve(from,to){
   Object.entries(curves).forEach(([id,v])=>{if(v.d<from||v.d>to)return;Object.keys(v.b).forEach(L=>{if(!b[L]||v.b[L]>b[L]){b[L]=v.b[L];src[L]=v.d}})});
   return {b,src};
 }
-const EFTP_F={480:.90,600:.92,1200:.95,1800:.97,3600:1.0};
+// FTP estimat: diversos mètodes sobre la corba de potència dels últims 90 dies.
+// Els esforços que no són a tope només poden subestimar, així que el resultat és la mitjana
+// dels dos mètodes més alts i el rang va del segon al primer.
+const EFTP_M=[
+  {L:180,f:.75,t:"3′ a tope × 0,75 (relació habitual entre VO2màx i llindar)"},
+  {L:300,f:.82,t:"5′ × 0,82"},
+  {L:480,f:.90,t:"8′ × 0,90 (protocol de 2 × 8′)"},
+  {L:1200,f:.95,t:"20′ × 0,95 (test clàssic)"},
+  {L:3600,f:1,t:"60′ × 1"}
+];
 function eftp(asOf){
-  const to=asOf||todayStr,{b,src}=bestCurve(addDays(to,-42),to);let best=0,from=null;
-  Object.keys(EFTP_F).forEach(L=>{if(b[L]){const v=b[L]*EFTP_F[L];if(v>best){best=v;from={L:+L,w:b[L],d:src[L]}}}});
-  return best?{v:Math.round(best),from}:null;
+  const to=asOf||todayStr,{b,src}=bestCurve(addDays(to,-90),to);
+  const m=EFTP_M.filter(x=>b[x.L]).map(x=>({L:x.L,t:x.t,w:b[x.L],d:src[x.L],v:Math.round(b[x.L]*x.f)})).sort((x,y)=>y.v-x.v);
+  if(!m.length)return null;
+  const top=m.slice(0,2),v=Math.round(top.reduce((a,x)=>a+x.v,0)/top.length);
+  return {v,lo:top[top.length-1].v,hi:top[0].v,from:top[0],methods:m};
 }
 function curveQueue(){
   const from=addDays(todayStr,-120);
@@ -816,29 +827,33 @@ function daysTo(d){return Math.round((parseD(d)-parseD(todayStr))/864e5)}
 function mondayOf(d){const x=parseD(d),wd=(x.getDay()+6)%7;return addDays(d,-wd)}
 function weekSummary(ws){
   const we=addDays(ws,6),list=allList.filter(a=>a&&a.start_local&&a.start_local.slice(0,10)>=ws&&a.start_local.slice(0,10)<=we);
-  const isRide=a=>/Ride|Cycl|Bike/i.test(String(a.sport_type||""));
-  let sec=0,km=0,el=0,tss=0,rides=0,runs=0;
-  list.forEach(a=>{if(!isRide(a)&&!isRun(a)&&!/Weight|Workout/i.test(String(a.sport_type||"")))return;sec+=a.moving_time||0;if(isRide(a)||isRun(a)){km+=(a.distance||0)/1000;el+=a.total_elevation_gain||0}tss+=actTSS(a);if(isRide(a))rides++;if(isRun(a))runs++});
+  const isRide=a=>/Ride|Cycl|Bike/i.test(String(a.sport_type||"")),isGym=a=>/WeightTraining|Workout|Crossfit|Yoga|Pilates/i.test(String(a.sport_type||""));
+  const agg=f=>{const l=list.filter(f);return {n:l.length,sec:l.reduce((m,a)=>m+(a.moving_time||0),0),km:l.reduce((m,a)=>m+(a.distance||0)/1000,0),el:l.reduce((m,a)=>m+(a.total_elevation_gain||0),0),tss:l.reduce((m,a)=>m+actTSS(a),0)}};
+  const bike=agg(isRide),run=agg(isRun),gym=agg(isGym);
+  const gymPlanned=all().filter(s=>s.d>=ws&&s.d<=we&&active(s)&&s.type==="gym"),gymDone=gymPlanned.filter(s=>s.done).length;
   const ses=all().filter(s=>s.d>=ws&&s.d<=we&&active(s)&&s.type!=="rest");
   const done=ses.filter(s=>s.done||actFor(s)||runFor(s)).length,keys=ses.filter(s=>s.key),keysDone=keys.filter(s=>s.done||actFor(s)).length;
   const recs=list.reduce((m,a)=>m+recordsFor(String(a.id)).length,0);
   const cks=Object.values(state.checkins||{}).filter(c=>c.d>=ws&&c.d<=we);
   const avg=k=>cks.length?(cks.reduce((m,c)=>m+c[k],0)/cks.length):null;
   const planned=ses.reduce((m,s)=>m+plannedLoad(s),0);
-  return {ws,we,sec,km,el,tss,planned,rides,runs,done,tot:ses.length,keys:keys.length,keysDone,recs,legs:avg("legs"),rpe:avg("rpe"),n:list.length};
+  return {ws,we,bike,run,gym,gymN:Math.max(gym.n,gymDone),gymP:gymPlanned.length,tss:bike.tss+run.tss+gym.tss,planned,done,tot:ses.length,keys:keys.length,keysDone,recs,legs:avg("legs"),rpe:avg("rpe")};
 }
+
 function weekSummaryHTML(ws,title){
   const r=weekSummary(ws),nx=all().filter(s=>s.d>addDays(ws,6)&&s.d<=addDays(ws,13)&&active(s)&&s.key);
-  const f1=x=>x.toFixed(1).replace(".",",");
-  let h='<div class="in" style="gap:12px"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h3>'+esc(title)+'</h3><span class="note">'+esc(dayLabel(r.ws))+' – '+esc(dayLabel(r.we))+'</span></div>';
-  h+='<div class="stats">'+[["Hores",hrs(r.sec/60)],["Km",Math.round(r.km)],["Desnivell",Math.round(r.el)+" m"],["TSS",Math.round(r.tss)+(r.planned?" / "+Math.round(r.planned):"")]].map(x=>'<div class="stat"><div class="k">'+x[0]+'</div><div class="v">'+x[1]+'</div></div>').join("")+'</div>';
+  const f1=x=>x.toFixed(1).replace(".",","),st=a=>'<div class="stats">'+a.map(x=>'<div class="stat"><div class="k">'+x[0]+'</div><div class="v">'+x[1]+'</div></div>').join("")+'</div>';
+  let h='<div class="in" style="gap:14px"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h3>'+esc(title)+'</h3><span class="note">'+esc(dayLabel(r.ws))+' – '+esc(dayLabel(r.we))+'</span></div>';
+  h+='<div class="note">Total: '+hrs((r.bike.sec+r.run.sec+r.gym.sec)/60)+' · '+Math.round(r.tss)+(r.planned?" de "+Math.round(r.planned):"")+' TSS</div>';
+  h+='<div class="sport"><div class="sph"><span class="dotc" style="background:var(--z4)"></span>Ciclisme<span class="note">'+r.bike.n+(r.bike.n===1?" sortida":" sortides")+'</span></div>'+(r.bike.n?st([["Hores",hrs(r.bike.sec/60)],["Km",Math.round(r.bike.km)],["Desnivell",Math.round(r.bike.el)+" m"],["TSS",Math.round(r.bike.tss)]]):'<div class="note">Cap sortida.</div>')+'</div>';
+  if(r.run.n)h+='<div class="sport"><div class="sph"><span class="dotc" style="background:var(--z2)"></span>Running<span class="note">'+r.run.n+(r.run.n===1?" cursa":" curses")+'</span></div>'+st([["Hores",hrs(r.run.sec/60)],["Km",f1(r.run.km)],["Ritme /km",r.run.km?paceTxt(r.run.sec/r.run.km):"—"],["TSS",Math.round(r.run.tss)]])+'</div>';
+  if(r.gymN||r.gymP)h+='<div class="sport"><div class="sph"><span class="dotc" style="background:var(--z7)"></span>Gimnàs<span class="note">'+r.gymN+(r.gymP?" de "+r.gymP:"")+((r.gymP||r.gymN)===1?" sessió":" sessions")+'</span></div>'+(r.gym.sec?st([["Hores",hrs(r.gym.sec/60)],["TSS",Math.round(r.gym.tss)]]):'')+'</div>';
   const L=[];
-  L.push({l:r.done>=r.tot?"ok":"info",t:"Sessions fetes: "+r.done+" de "+r.tot+(r.keys?" · claus: "+r.keysDone+" de "+r.keys:"")+"."});
-  if(r.runs)L.push({l:"info",t:r.runs+(r.runs===1?" cursa":" curses")+" i "+r.rides+(r.rides===1?" sortida":" sortides")+" en bici."});
-  if(r.recs)L.push({l:"up",t:r.recs+(r.recs===1?" rècord de potència":" rècords de potència")+" aquesta setmana."});
+  L.push({l:r.done>=r.tot?"ok":"info",t:"Sessions del pla fetes: "+r.done+" de "+r.tot+(r.keys?" · claus: "+r.keysDone+" de "+r.keys:"")+"."});
+  if(r.recs)L.push({l:"up",t:r.recs+(r.recs===1?" rècord de potència":" rècords de potència")+"."});
   if(r.legs!=null)L.push({l:"info",t:"Cames de mitjana "+f1(r.legs)+"/5 · esforç "+f1(r.rpe)+"/10."});
-  if(nx.length)L.push({l:"info",t:"La setmana que ve: "+nx.map(s=>s.t+" ("+DAYS[parseD(s.d).getDay()]+")").join(", ")+"."});
-  h+='<ul class="checks">'+L.map(c=>'<li><span class="m '+c.l+'">'+MARK[c.l==="up"?"up":c.l]+'</span><span>'+esc(c.t)+'</span></li>').join("")+'</ul></div>';
+  if(nx.length)L.push({l:"info",t:"La setmana següent: "+nx.map(s=>s.t+" ("+DAYS[parseD(s.d).getDay()]+")").join(", ")+"."});
+  h+='<ul class="checks">'+L.map(c=>'<li><span class="m '+c.l+'">'+MARK[c.l]+'</span><span>'+esc(c.t)+'</span></li>').join("")+'</ul></div>';
   return h;
 }
 
@@ -1093,9 +1108,10 @@ function renderPerf(){
   const nC=Object.keys(curves).length;
   h+='<section class="card"><div class="in" style="gap:12px"><div class="kicker">FTP</div><div class="stats">'+
     '<div class="stat"><div class="k">FTP oficial</div><div class="v">'+F+' W</div></div>'+
-    '<div class="stat"><div class="k">Estimat ara</div><div class="v">'+(e?e.v+" W":"—")+'</div></div>'+
+    '<div class="stat"><div class="k">Estimat ara</div><div class="v">'+(e?e.v+" W":"—")+'</div>'+(e&&e.hi!==e.lo?'<div class="note">'+e.lo+'–'+e.hi+' W</div>':'')+'</div>'+
     '<div class="stat"><div class="k">W/kg</div><div class="v">'+f2(F/kg)+'</div></div></div>'+
-    '<div class="note">'+(e?"L'estimat surt dels teus millors esforços de les últimes 6 setmanes ("+DLAB[e.from.L]+" a "+e.from.w+" W el "+dayLabel(e.from.d)+"). És prudent: només puja quan vas a tope. L'oficial el fixa el test.":nC?"Encara no hi ha esforços prou llargs per estimar-lo.":"Llegint les teves sortides de Strava…")+'</div>';
+    '<div class="note">'+(e?"Calculat amb les teves millors marques dels últims 90 dies per diversos mètodes. Com que els esforços que no són a tope només poden tirar-lo avall, faig servir els dos més alts. L'oficial el fixa el test.":nC?"Encara no hi ha prou dades per estimar-lo.":"Llegint les teves sortides de Strava…")+'</div>'+
+    (e?'<details class="deep"><summary>Com el calculo</summary><div class="tbl" style="margin-top:8px"><table><thead><tr><th>Mètode</th><th>Marca</th><th>FTP</th></tr></thead><tbody>'+e.methods.map((x,i)=>'<tr><td style="font-family:var(--f-body);white-space:normal">'+esc(x.t)+'<div class="note">'+esc(dayLabel(x.d))+'</div></td><td>'+x.w+' W</td><td'+(i<2?' class="s-ok"':'')+'>'+x.v+'</td></tr>').join("")+'</tbody></table></div></details>':'');
   const tp=all().find(s=>s.cat==="test"&&s.d<=todayStr&&acts[s.d]&&curves[String(acts[s.d].id)]&&s.d>=addDays(todayStr,-7));
   if(tp){const c=curves[String(acts[tp.d].id)].b,v=c[1200]?Math.round(c[1200]*0.95):null;if(v&&v!==F)h+='<div class="suggest"><div class="kicker">Resultat del test</div><div>20′ a '+c[1200]+' W → FTP = '+v+' W ('+f2(v/kg)+' W/kg).</div><div class="actions"><button class="btn primary" type="button" data-setftp="'+v+'">Fes-lo servir com a FTP</button></div></div>'}
   const rec=[];Object.keys(curves).filter(id=>curves[id].d>=addDays(todayStr,-30)).forEach(id=>recordsFor(id).forEach(r=>rec.push(Object.assign({d:curves[id].d},r))));
