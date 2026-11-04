@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.13.0";
+const APP_VERSION="1.13.1";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -565,7 +565,7 @@ function renderWeek(){
   });
   const scale=Math.max(80,...dayInfo.map(x=>Math.max(x.pl,x.al?x.al.tss:0)))*1.12;
   strip.innerHTML=dayInfo.map(({d,p,g,act,rn,runDone,pl,al})=>{
-    const dd=parseD(d),dl='<div class="dl"><small>'+DAYS[dd.getDay()]+'</small><b>'+dd.getDate()+'</b><i class="tss">'+(al?Math.round(al.tss):" ")+'</i>'+(g?'<span class="gymb'+(g.done?" done":"")+'" title="Gimnàs">GYM</span>':'')+(rn&&!(p&&p.type==="run")?'<span class="runb'+(runDone?" done":"")+'" title="Córrer">RUN</span>':'')+'</div>';
+    const dd=parseD(d),dl='<div class="dl"><small>'+DAYS[dd.getDay()]+'</small><b>'+dd.getDate()+'</b><i class="tss">'+(al?Math.round(al.tss):" ")+'</i>'+(g?'<span class="gymb'+(g.done?" done":"")+'" title="Gimnàs">GYM</span>':'')+(rn?'<span class="runb'+(runDone?" done":"")+'" title="Córrer">RUN</span>':'')+'</div>';
     if(!p&&!act)return '<div class="daybtn" aria-hidden="true"><div class="col2"></div>'+dl+'</div>';
     const ph=p?(p.type==="rest"||!active(p)?12:Math.max(8,pl/scale*100)):0;
     const ah=al?Math.max(6,al.tss/scale*100):0;
