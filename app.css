@@ -277,3 +277,5 @@ body.noscroll{overflow:hidden}
 .goal .bar2 i{display:block;height:100%;background:var(--accent)}
 
 select{font:inherit;font-size:.9rem;background:var(--bg);color:var(--ink);border:1.5px solid var(--line);border-radius:8px;padding:8px 10px}
+.tabbar button{position:relative}
+.tabbar button.dot::after{content:"";position:absolute;top:7px;left:calc(50% + 8px);width:8px;height:8px;border-radius:50%;background:var(--accent)}

@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.15.0";
+const APP_VERSION="1.15.1";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -446,16 +446,9 @@ function renderState(){
 function allNotes(){return (plan&&Array.isArray(plan.coachNotes)?plan.coachNotes:[]).map((n,i)=>Object.assign({i},n)).sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:b.i-a.i)}
 function noteKey(n){return n.date+"|"+String(n.text||"").slice(0,48)}
 function renderCoachNotes(){
-  const el=document.getElementById("coachNotes");if(!el)return;
-  const notes=allNotes(),read=state.notesRead||[];
-  const fresh=notes.filter(n=>n.date>=addDays(todayStr,-2)&&!read.includes(noteKey(n))).slice(0,2);
-  if(!notes.length){el.hidden=true;el.innerHTML="";return}
-  el.hidden=false;
-  const btn='<button class="btn ghost" type="button" id="openNotes">Diari · '+notes.length+(notes.length===1?" nota":" notes")+'</button>';
-  if(!fresh.length){el.classList.add("compact");el.innerHTML='<div class="in" style="gap:8px;flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap"><span class="note">Cap nota nova del coach.</span>'+btn+'</div>';return}
-  el.classList.remove("compact");
-  const when=d=>d===todayStr?"avui":d===addDays(todayStr,-1)?"ahir":dayLabel(d);
-  el.innerHTML='<div class="in" style="gap:10px"><div class="kicker">Nota del coach · '+esc(when(fresh[0].date))+'</div>'+fresh.map((n,i)=>(i?'<div class="label">'+esc(when(n.date))+'</div>':'')+'<div class="cnote"><div>'+esc(n.text)+'</div></div>').join("")+'<div class="actions"><button class="btn primary" type="button" data-noteok="1">Llegida ✓</button>'+btn+'</div></div>';
+  const el=document.getElementById("coachNotes");if(el){el.hidden=true;el.innerHTML=""}
+  const read=state.notesRead||[],fresh=allNotes().filter(n=>n.date>=addDays(todayStr,-2)&&!read.includes(noteKey(n)));
+  const b=document.querySelector('#nav [data-page="diari"]');if(b)b.classList.toggle("dot",fresh.length>0);
 }
 function renderNotesView(){
   const el=document.getElementById("notesList");if(!el)return;
@@ -1141,6 +1134,8 @@ function renderPerf(){
 
 /* ---------- Diari ---------- */
 function renderDiary(){
+  const fr=allNotes().filter(n=>n.date>=addDays(todayStr,-2));state.notesRead=[...new Set((state.notesRead||[]).concat(fr.map(noteKey)))].slice(-80);saveState();
+  const nb=document.querySelector('#nav [data-page="diari"]');if(nb)nb.classList.remove("dot");
   const el=document.getElementById("notesList");if(!el)return;
   const notes=allNotes(),cks=Object.entries(state.checkins||{}).map(([id,c])=>Object.assign({id},c));
   const dates=[...new Set(notes.map(n=>n.date).concat(cks.map(c=>c.d)))].sort().reverse();
