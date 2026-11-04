@@ -1,6 +1,6 @@
 {
- "version": 24,
- "updated": "2026-11-04 20:49",
+ "version": 25,
+ "updated": "2026-11-04 23:12",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1151,8 +1151,8 @@
    "z": "z4",
    "cat": "test",
    "key": true,
-   "t": "TEST d'FTP (20′)",
-   "min": 90,
+   "t": "TEST d'FTP (20′) · Sant Martí Sacalm",
+   "min": 150,
    "ints": [
     {
      "n": 1,
@@ -1163,28 +1163,29 @@
      "label": "Test 20′"
     }
    ],
-   "fuel": "Esmorzar 3 h abans. Durant el test, només aigua.",
-   "note": "El teu nou FTP = 95 % de la potència mitjana dels 20′. Busca una pujada llarga i constant (20′+) o fes-lo al rodet. Passa'm el resultat i recalculo totes les zones.",
+   "fuel": "Esmorzar fort 3 h abans. Anada: 30–40 g/h. Durant el test, només aigua. Porta jaqueta per a la baixada.",
+   "note": "Test a Sant Martí Sacalm des d'Amer (8,2 km al 7,3 %): a 260 W la pujada et dura uns 36′, així que els 20′ hi caben de sobres. Compta per temps, no fins dalt. FTP nou = 95 % de la mitjana dels 20′. Per a 250 W calen 263 W.",
    "steps": [
     {
-     "l": "Escalfament",
-     "x": "25′: 10′ en Z2 · 3 × 1′ a {82} i 110 rpm · 5′ a fons (RPE 9) · 10′ molt suau"
+     "l": "Anada",
+     "x": "Girona → Amer en Z2 a {61,70} (uns 45′). És l'escalfament de base."
+    },
+    {
+     "l": "Activació",
+     "x": "Abans d'Amer: 3 × 1′ a {82} i 105 rpm · 1 × 3′ a {100} · 5′ molt suau"
     },
     {
      "l": "Test",
-     "x": "20′ al màxim sostenible. Comença a {100}–{104} i no surtis fort; als 10′ decideix si apuges; els últims 3′, a fons"
-    },
-    {
-     "l": "Calma",
-     "x": "15′ en Z1"
+     "x": "Comença a l'inici de la pujada, a la sortida d'Amer. 20′ per temps: 0–5′ a {104}–{106}, 5–15′ a {107}–{108}, últims 5′ el que quedi i l'últim minut a fons"
     },
     {
      "l": "Després",
-     "x": "Si et queden ganes, 20–30′ en Z2 suau fins a completar 1h30"
+     "x": "Acaba la pujada suau o gira, baixa amb la jaqueta posada i torna a Girona en Z1–Z2"
     }
    ],
    "ord": 1,
-   "k": 1
+   "k": 1,
+   "maxMin": 180
   },
   {
    "id": "s20261115",
