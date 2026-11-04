@@ -1,6 +1,6 @@
 {
- "version": 22,
- "updated": "2026-11-03 20:49",
+ "version": 23,
+ "updated": "2026-11-04 08:25",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -738,26 +738,14 @@
    "type": "gym",
    "z": "z7",
    "cat": "gym",
-   "t": "Gimnàs A: full body",
+   "t": "Gimnàs A: tren superior i core",
    "min": 50,
    "rpe": "RPE 7",
-   "note": "A la tarda, 3–6 h després de la bici. Avui cames a 2 sèries (vens de córrer 1h11 i de les sèries); la resta, a 3.",
+   "note": "Avui sense cames: ja estan tocades de la cursa i de les sèries. Les cames tornen al gimnàs la setmana vinent.",
    "steps": [
     {
      "l": "Escalfament",
      "x": "8′: 5′ de bici o rem suau + 10 ponts de glutis + 10 gat-camell + 6 obertures de maluc per cama"
-    },
-    {
-     "l": "Goblet squat",
-     "x": "2 × 10, una mica més de pes que la setmana passada. Han de sobrar-te 3 repeticions"
-    },
-    {
-     "l": "Pes mort romanès",
-     "x": "2 × 10 amb manuelles"
-    },
-    {
-     "l": "Esquat búlgar",
-     "x": "2 × 8 per cama, amb manuelles lleugeres"
     },
     {
      "l": "Flexions",
@@ -795,8 +783,8 @@
     {
      "n": 3,
      "s": 480,
-     "lo": 0.98,
-     "hi": 1.02,
+     "lo": 0.95,
+     "hi": 0.99,
      "cad": [
       85,
       95
@@ -805,7 +793,7 @@
     }
    ],
    "fuel": "50–60 g/h de carbohidrats",
-   "note": "Les 3 × 8′ del company a 240–250 W, 4′ suaus entre sèries. Avui has corregut 14,4 km a 4:58/km: les cames poden anar carregades. Primer bloc a 240 W i, si va bé, els altres a 245–250. Aquesta vegada, res de 255 W a l'últim. Si al primer bloc no hi ets, passa a sweet spot (15′ a 216–228 W, màxim 3). Tornada en Z2 fins a 1h30–1h45.",
+   "note": "Agulletes de la cursa d'ahir (14,4 km a 4:58/km). Avui 3 × 8′ a 233–243 W, no més: amb les cames carregades, el llindar ja costarà. A l'escalfament, 2 × 1′ a 245 W: si et costa molt arribar-hi, directament pla B (blocs de 15′ a 216–228 W, màxim 3). Cadència alta (90+), que carrega menys el múscul. Tornada en Z2 fins a 1h30–1h45.",
    "steps": [
     {
      "l": "Escalfament",
@@ -813,7 +801,7 @@
     },
     {
      "l": "Principal",
-     "x": "3 × 8′ a {98,102} · 85–95 rpm · 4′ a {55} entre sèries · el primer, a la part baixa"
+     "x": "3 × 8′ a {95,99} · 90–95 rpm · 4′ a {55} entre sèries"
     },
     {
      "l": "Pla B",
@@ -1267,6 +1255,10 @@
   {
    "date": "2026-11-03",
    "text": "Cursa: 14,4 km en 1h11 a 4:58/km (previst 55′ a 5:05–5:25), esforç 6/10. Massa ràpid i llarg per a un dia suau: compte, que aquesta cursa també suma fatiga (≈ 77 TSS). Càrrega bé: 369 TSS en 7 dies, TSB ≈ −15. Dimecres, 3 × 8′ es manté a 240–250 W, però el primer a 240 i sense l'opció de 255 W. Gimnàs A: cames a 2 sèries."
+  },
+  {
+   "date": "2026-11-04",
+   "text": "Et lleves amb agulletes: normal, ahir vas córrer 14,4 km a 4:58/km quan feia setmanes que no corries, i l'impacte carrega quàdriceps i bessons. Les sèries es fan, però a 233–243 W i amb cadència alta. Si a l'escalfament no hi ets, pla B sense pensar-hi. Gimnàs d'avui sense cames. Pròximes curses suaus: el temps i el ritme previstos, no més."
   }
  ]
 }
