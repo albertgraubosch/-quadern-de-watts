@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.14.1";
+const APP_VERSION="1.15.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -444,15 +444,18 @@ function renderState(){
     '<div class="note">'+txt+(m.firstDay>addDays(todayStr,-60)?" Amb menys de 2 mesos d'historial, la forma és orientativa.":"")+'</div></div>';
 }
 function allNotes(){return (plan&&Array.isArray(plan.coachNotes)?plan.coachNotes:[]).map((n,i)=>Object.assign({i},n)).sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:b.i-a.i)}
+function noteKey(n){return n.date+"|"+String(n.text||"").slice(0,48)}
 function renderCoachNotes(){
   const el=document.getElementById("coachNotes");if(!el)return;
-  const notes=allNotes(),today=notes.filter(n=>n.date===todayStr);
+  const notes=allNotes(),read=state.notesRead||[];
+  const fresh=notes.filter(n=>n.date>=addDays(todayStr,-2)&&!read.includes(noteKey(n))).slice(0,2);
   if(!notes.length){el.hidden=true;el.innerHTML="";return}
   el.hidden=false;
-  const btn='<button class="btn ghost" type="button" id="openNotes">Diari del coach · '+notes.length+(notes.length===1?" nota":" notes")+'</button>';
-  if(!today.length){el.classList.add("compact");el.innerHTML='<div class="in" style="gap:8px;flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap"><span class="note">Avui encara no hi ha nota del coach.</span>'+btn+'</div>';return}
+  const btn='<button class="btn ghost" type="button" id="openNotes">Diari · '+notes.length+(notes.length===1?" nota":" notes")+'</button>';
+  if(!fresh.length){el.classList.add("compact");el.innerHTML='<div class="in" style="gap:8px;flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap"><span class="note">Cap nota nova del coach.</span>'+btn+'</div>';return}
   el.classList.remove("compact");
-  el.innerHTML='<div class="in" style="gap:10px"><div class="kicker">Nota del coach · avui</div>'+today.map(n=>'<div class="cnote"><div>'+esc(n.text)+'</div></div>').join("")+'<div class="actions">'+btn+'</div></div>';
+  const when=d=>d===todayStr?"avui":d===addDays(todayStr,-1)?"ahir":dayLabel(d);
+  el.innerHTML='<div class="in" style="gap:10px"><div class="kicker">Nota del coach · '+esc(when(fresh[0].date))+'</div>'+fresh.map((n,i)=>(i?'<div class="label">'+esc(when(n.date))+'</div>':'')+'<div class="cnote"><div>'+esc(n.text)+'</div></div>').join("")+'<div class="actions"><button class="btn primary" type="button" data-noteok="1">Llegida ✓</button>'+btn+'</div></div>';
 }
 function renderNotesView(){
   const el=document.getElementById("notesList");if(!el)return;
@@ -592,9 +595,10 @@ function renderWeek(){
   }).join("");
   const wkPlan=dayInfo.reduce((m,x)=>m+x.pl,0),wkDone=dayInfo.reduce((m,x)=>m+(x.al?x.al.tss:0),0);
   document.getElementById("wkLoad").textContent=Math.round(wkDone)+" / "+Math.round(wkPlan)+" TSS";
-  if(selId&&selId.startsWith("day:")){sel.innerHTML=extraCard(selId.slice(4));return}
+  if(selId&&selId.startsWith("day:")){sel.innerHTML=extraCard(selId.slice(4));renderFood();return}
   const p=S[selId];
   sel.innerHTML=(p?all().filter(x=>x.d===p.d&&(x.id===p.id||active(x))).sort((a,b)=>(a.type==="gym")-(b.type==="gym")).map(x=>sessionCard(x,esc(dayLabel(x.d))+(x.d===todayStr?" · Avui":""))).join('<div style="height:14px"></div>'):"")+(p&&extraRuns(p.d).length?'<div style="height:14px"></div>'+extraCard(p.d):"");
+  renderFood();
 }
 function renderLog(){
   document.getElementById("logBox").hidden=!state.log.length;
@@ -618,7 +622,7 @@ function weighDue(){const l=state.weights||[],last=l.length?l[l.length-1].d:null
 function weighCfgHTML(){const c=weighCfg();return '<div class="row2" style="align-items:center;flex-wrap:wrap"><span class="note">Recordatori a l\'app:</span><select id="wDay" aria-label="Dia">'+DAYNAMES.map((n,i)=>'<option value="'+i+'"'+(i===c.day?" selected":"")+'>'+n+'</option>').join("")+'</select><select id="wHour" aria-label="Hora">'+Array.from({length:17},(_,i)=>i+5).map(h=>'<option value="'+h+'"'+(h===c.hour?" selected":"")+'>'+h+':00</option>').join("")+'</select></div>'}
 function renderAvuiExtras(){
   const wp=document.getElementById("wPrompt");if(wp){if(weighDue()){const l=state.weights||[];wp.hidden=false;wp.innerHTML='<div class="in" style="gap:10px"><div class="kicker">Toca pesar-te</div><div class="note">En dejú, després d\'anar al lavabo i abans d\'esmorzar.'+(l.length?' L\'últim: '+String(l[l.length-1].kg).replace(".",",")+' kg ('+dayLabel(l[l.length-1].d)+').':'')+' Cada '+DAYNAMES[weighCfg().day].toLowerCase()+' a les '+weighCfg().hour+':00 (ho canvies a Rendiment → Pes).</div><div class="row2"><div class="field" style="flex:1"><label for="wkg2">Pes (kg)</label><input id="wkg2" type="number" inputmode="decimal" step="0.1" min="40" max="150" placeholder="'+String(curWeight()).replace(".",",")+'"></div><button class="btn primary" type="button" id="wSave2">Desa</button></div></div>'}else{wp.hidden=true;wp.innerHTML=""}}
-  const f=document.getElementById("food");if(f){f.innerHTML=foodHTML()}
+  renderFood();
   const w=document.getElementById("wkSum");if(w){const wd=parseD(todayStr).getDay();if(wd===0||wd===1){w.hidden=false;w.innerHTML=weekSummaryHTML(wd===0?mondayOf(todayStr):addDays(mondayOf(todayStr),-7),wd===0?"Resum de la setmana":"Resum de la setmana passada")}else{w.hidden=true;w.innerHTML=""}}
 }
 function render(){renderHero();renderStatus();renderSetup();renderDecide();renderWeek();renderLog();renderZones();renderConn();renderWahoo();renderCoachNotes();renderTitles();renderWeather();renderAvuiExtras();renderPage();icuSchedule()}
@@ -703,25 +707,28 @@ const CK={
   sleep:{l:"Son",n:5,t:["Fatal","Malament","Normal","Bé","Molt bé"]},
   legs:{l:"Cames",n:5,t:["Mortes","Carregades","Normals","Bé","Fresques"]},
   mood:{l:"Ganes",n:5,t:["Cap","Poques","Normals","Moltes","A tope"]},
-  rpe:{l:"Esforç de la sessió",n:10,t:["Molt suau","Molt suau","Suau","Suau","Moderat","Moderat","Dur","Dur","Molt dur","Màxim"]}
+  blocs:{l:"Esforç de les sèries",n:10,t:["Molt suau","Molt suau","Suau","Suau","Moderat","Moderat","Dur","Dur","Molt dur","Màxim"]},
+  rpe:{l:"Esforç de la sortida, en general",n:10,t:["Molt suau","Molt suau","Suau","Suau","Moderat","Moderat","Dur","Dur","Molt dur","Màxim"]}
 };
 let ckDraft={},ckEdit=null;
 function ckOf(id){return (state.checkins||{})[String(id)]||null}
-function ckSummary(c){return ["sleep","legs","mood"].map(k=>CK[k].l+" "+c[k]+"/5").join(" · ")+" · Esforç "+c.rpe+"/10"}
+function ckSummary(c){return (c.blocs?"Sèries "+c.blocs+"/10 · ":"")+"Sortida "+c.rpe+"/10 · "+["legs","sleep","mood"].map(k=>CK[k].l+" "+c[k]+"/5").join(" · ")}
+function hasBlocks(act){const d=act&&act.start_local?act.start_local.slice(0,10):null;if(!d)return false;return all().some(s=>s.d===d&&active(s)&&s.ints&&s.ints.length&&(actFor(s)===act))}
 function checkinHTML(act){
   if(!act)return "";
   const id=String(act.id),c=ckOf(id);
   if(c&&ckEdit!==id)return '<div class="ckdone"><div><div class="label">Com et vas trobar</div><div>'+esc(ckSummary(c))+'</div>'+(c.note?'<div class="note">«'+esc(c.note)+'»</div>':'')+'</div><button class="btn ghost" type="button" data-ckedit="'+esc(id)+'">Edita</button></div>';
-  const d=ckDraft[id]||(c?Object.assign({},c):{});ckDraft[id]=d;
-  let h='<div class="ck"><div><div class="kicker">Com t\'has trobat?</div><div class="note">10 segons. El coach ho llegeix cada vespre per decidir si puja o baixa.</div></div>';
-  ["rpe","legs","sleep","mood"].forEach(k=>{
+  const d=ckDraft[id]||(c?Object.assign({},c):{});ckDraft[id]=d;const blk=hasBlocks(act);
+  let h='<div class="ck"><div><div class="kicker">Com t\'has trobat?</div><div class="note">10 segons.'+(blk?' Valora les sèries per una banda i la sortida sencera (amb tot el que hi hagis afegit) per l\'altra.':'')+'</div></div>';
+  (blk?["blocs","rpe","legs","sleep","mood"]:["rpe","legs","sleep","mood"]).forEach(k=>{
     const s=CK[k],v=d[k];
-    h+='<div class="ckrow"><div class="ckl"><span>'+s.l+'</span><b>'+(v?esc(s.t[v-1])+(k==="rpe"?" · "+v+"/10":""):"")+'</b></div><div class="ckb ck'+s.n+'">';
+    const lab=k==="rpe"&&!blk?"Esforç de la sessió":s.l;
+    h+='<div class="ckrow"><div class="ckl"><span>'+lab+'</span><b>'+(v?esc(s.t[v-1])+(s.n===10?" · "+v+"/10":""):"")+'</b></div><div class="ckb ck'+s.n+'">';
     for(let i=1;i<=s.n;i++)h+='<button type="button" class="'+(v===i?"on":"")+'" data-ck="'+esc(id)+'|'+k+'|'+i+'" aria-label="'+s.l+' '+i+'">'+i+'</button>';
     h+='</div></div>';
   });
   h+='<div class="field"><label for="cknote-'+esc(id)+'">Alguna cosa més? (opcional)</label><input id="cknote-'+esc(id)+'" data-cknote="'+esc(id)+'" value="'+esc(d.note||"")+'" placeholder="Ex.: m\'ha costat arrencar, al final bé" autocomplete="off"></div>';
-  const ready=d.rpe&&d.legs&&d.sleep&&d.mood;
+  const ready=d.rpe&&d.legs&&d.sleep&&d.mood&&(!blk||d.blocs);
   h+='<div class="actions"><button class="btn primary" type="button" data-cksave="'+esc(id)+'"'+(ready?"":" disabled")+'>Desa</button>'+(c?'<button class="btn ghost" type="button" data-ckcancel="'+esc(id)+'">Cancel·la</button>':'')+'</div></div>';
   return h;
 }
@@ -730,7 +737,7 @@ function saveCheckin(id){
   const a=allList.find(x=>String(x.id)===id);
   const inp=document.querySelector('[data-cknote="'+id+'"]');if(inp)d.note=inp.value.trim().slice(0,300);
   state.checkins=state.checkins||{};
-  state.checkins[id]={d:a&&a.start_local?a.start_local.slice(0,10):todayStr,name:a?a.name:"",sport:a?a.sport_type:"",sleep:d.sleep,legs:d.legs,mood:d.mood,rpe:d.rpe,note:d.note||"",at:new Date().toISOString()};
+  state.checkins[id]={d:a&&a.start_local?a.start_local.slice(0,10):todayStr,name:a?a.name:"",sport:a?a.sport_type:"",sleep:d.sleep,legs:d.legs,mood:d.mood,rpe:d.rpe,blocs:d.blocs||null,note:d.note||"",at:new Date().toISOString()};
   saveState();delete ckDraft[id];ckEdit=null;queueSync();
   toast(sync.token?"Desat. El coach ho veurà aquest vespre.":"Desat.");render();
 }
@@ -1022,25 +1029,34 @@ function dayKind(d){
   return "easy";
 }
 const CARB={rest:[3,4],easy:[4,5],key:[5,7],long:[7,9]};
-function foodHTML(){
-  const kg=curWeight(),k=dayKind(todayStr),tk=dayKind(addDays(todayStr,1));
-  const p=sessionsOn(todayStr).find(x=>x.type!=="gym"&&x.type!=="rest");
+function foodHTML(d){
+  d=d||todayStr;
+  const kg=curWeight(),k=dayKind(d),nd=addDays(d,1),tk=dayKind(nd),isToday=d===todayStr;
+  const p=sessionsOn(d).find(x=>x.type!=="gym"&&x.type!=="rest");
+  const done=p&&(p.done||actFor(p)||runFor(p));
   let lo=CARB[k][0],hi=CARB[k][1];if(tk==="long"||tk==="key"){lo+=1;hi+=1}
   const g=x=>Math.round(x*kg/10)*10;
-  const L=[];
-  L.push({h:"Avui en total",t:"Uns "+g(lo)+"–"+g(hi)+" g d'hidrats ("+lo+"–"+hi+" g/kg) i "+Math.round(1.6*kg)+"–"+Math.round(2*kg)+" g de proteïna repartida en 4 àpats."+(k==="rest"||k==="easy"?" Dia tranquil: és on pots menjar una mica menys per baixar de pes.":" Dia de feina: avui no és dia de passar gana.")});
-  if(p&&!p.done&&!actFor(p)&&!runFor(p)){
-    const durH=((p.maxMin?(p.min+p.maxMin)/2:p.min)||60)/60,pre=Math.round((k==="easy"?1:1.5)*kg/10)*10;
-    L.push({h:"2–3 h abans",t:"Uns "+pre+" g d'hidrats: civada amb llet i plàtan, o torrades amb mel i un parell d'ous. Si surts d'hora i no hi ha temps, un plàtan i un iogurt 45′ abans."});
-    const fm=p.fuel?String(p.fuel).match(/(\d+)\D+(\d+)\s*g\/h/):null;
-    const gh=durH<1.25?0:fm?(+fm[1]+ +fm[2])/2:durH>2.5?70:k==="key"?55:35;
-    if(gh){const tot=Math.round(gh*durH/5)*5,gels=Math.round(tot/25);L.push({h:"A la bici",t:gh+" g/h · "+tot+" g en total ≈ "+gels+" gels de 25 g (o barretes i plàtans equivalents). Comença al minut 30 i menja cada 30–40′. Aigua amb sals."})}
-    else L.push({h:"A la bici",t:"Sessió curta: aigua i prou."});
-    L.push({h:"En acabar",t:"20–30 g de proteïna i "+(k==="key"||k==="long"?Math.round(kg/10)*10:Math.round(kg/20)*10)+" g d'hidrats en la primera hora: iogurt grec amb fruita i civada, o entrepà de pernil o pollastre."});
+  const L=[],dn=isToday?"Avui":dayLabel(d),post="20–30 g de proteïna i "+(k==="key"||k==="long"?Math.round(kg/10)*10:Math.round(kg/20)*10)+" g d'hidrats en la primera hora: iogurt grec amb fruita i civada, o entrepà de pernil o pollastre.";
+  if(done){
+    L.push({h:"Ara, per recuperar",t:post+" Després, àpats normals amb hidrats i proteïna."});
+  } else {
+    L.push({h:dn+" en total",t:"Uns "+g(lo)+"–"+g(hi)+" g d'hidrats ("+lo+"–"+hi+" g/kg) i "+Math.round(1.6*kg)+"–"+Math.round(2*kg)+" g de proteïna repartida en 4 àpats."+(k==="rest"||k==="easy"?" Dia tranquil: és on pots menjar una mica menys per baixar de pes.":" Dia de feina: no és dia de passar gana.")});
+    if(p){
+      const durH=((p.maxMin?(p.min+p.maxMin)/2:p.min)||60)/60,pre=Math.round((k==="easy"?1:1.5)*kg/10)*10;
+      L.push({h:"2–3 h abans",t:"Uns "+pre+" g d'hidrats: civada amb llet i plàtan, o torrades amb mel i un parell d'ous. Si surts d'hora i no hi ha temps, un plàtan i un iogurt 45′ abans."});
+      const fm=p.fuel?String(p.fuel).match(/(\d+)\D+(\d+)\s*g\/h/):null;
+      const gh=p.type==="run"?0:durH<1.25?0:fm?(+fm[1]+ +fm[2])/2:durH>2.5?70:k==="key"?55:35;
+      if(gh){const tot=Math.round(gh*durH/5)*5,gels=Math.round(tot/25);L.push({h:"A la bici",t:gh+" g/h · "+tot+" g en total ≈ "+gels+" gels de 25 g (o barretes i plàtans equivalents). Comença al minut 30 i menja cada 30–40′. Aigua amb sals."})}
+      else L.push({h:p.type==="run"?"Corrent":"A la bici",t:"Sessió curta: aigua i prou."});
+      L.push({h:"En acabar",t:post});
+    }
   }
-  if(tk==="long"||tk==="key")L.push({h:"Per a demà",t:"Demà toca «"+(sessionsOn(addDays(todayStr,1)).find(x=>x.type!=="gym")||{}).t+"»: sopar amb arròs, pasta o patata generós, i proteïna."});
-  return '<div class="in" style="gap:12px"><div><div class="kicker">Què menjar</div><h3 style="margin-top:6px">'+{rest:"Dia de descans",easy:"Dia suau",key:"Dia de sessió clau",long:"Dia de fons llarg"}[k]+'</h3></div><dl class="steps">'+L.map(x=>'<dt>'+esc(x.h)+'</dt><dd>'+esc(x.t)+'</dd>').join("")+'</dl><div class="note">Calculat per a '+String(kg).replace(".",",")+' kg. Orientatiu: si tens gana de veritat, menja.</div></div>';
+  if(tk==="long"||tk==="key")L.push({h:isToday?"Per a demà":"Per a l'endemà",t:(isToday?"Demà":"L'endemà")+" toca «"+(sessionsOn(nd).find(x=>x.type!=="gym")||{}).t+"»: sopar amb arròs, pasta o patata generós, i proteïna."});
+  const title=done?"Recupera bé":{rest:"Dia de descans",easy:"Dia suau",key:"Dia de sessió clau",long:"Dia de fons llarg"}[k];
+  return '<div class="in" style="gap:12px"><div><div class="kicker">Què menjar · '+esc(isToday?"avui":dayLabel(d))+'</div><h3 style="margin-top:6px">'+title+'</h3></div><dl class="steps">'+L.map(x=>'<dt>'+esc(x.h)+'</dt><dd>'+esc(x.t)+'</dd>').join("")+'</dl><div class="note">Calculat per a '+String(kg).replace(".",",")+' kg. Orientatiu: si tens gana de veritat, menja.</div></div>';
 }
+function selDay(){if(!selId)return todayStr;if(selId.startsWith("day:"))return selId.slice(4);return S[selId]?S[selId].d:todayStr}
+function renderFood(){const f=document.getElementById("food");if(!f)return;const d=selDay();if(d<todayStr){f.hidden=true;f.innerHTML="";return}f.hidden=false;f.innerHTML=foodHTML(d)}
 
 /* ---------- Sincronització amb el coach (repositori privat) ---------- */
 let sync=lsGet("qw.sync",{token:"",repo:"albertgraubosch/quadern-privat",last:null,err:""});
@@ -1414,6 +1430,7 @@ document.addEventListener("click",e=>{
   const el=e.target.closest("button");if(!el)return;
   if(el.dataset&&el.dataset.title){const ra=recentAct();if(canWrite()&&ra)setStravaTitle(ra.id,el.dataset.title);else copyText(el.dataset.title,"Copiat. Ara enganxa'l com a títol a Strava.");return}
   if(el.dataset&&el.dataset.page){setPage(el.dataset.page);return}
+  if(el.dataset&&el.dataset.noteok){const fresh=allNotes().filter(n=>n.date>=addDays(todayStr,-2));state.notesRead=(state.notesRead||[]).concat(fresh.map(noteKey)).slice(-80);saveState();renderCoachNotes();return}
   if(el.dataset&&el.dataset.ck){const [id,k,v]=el.dataset.ck.split("|");ckDraft[id]=ckDraft[id]||{};ckDraft[id][k]=+v;const inp=document.querySelector('[data-cknote="'+id+'"]');if(inp)ckDraft[id].note=inp.value;renderWeek();return}
   if(el.dataset&&el.dataset.cksave){saveCheckin(el.dataset.cksave);return}
   if(el.dataset&&el.dataset.ckedit){ckEdit=el.dataset.ckedit;renderWeek();return}
