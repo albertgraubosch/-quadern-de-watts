@@ -275,3 +275,5 @@ body.noscroll{overflow:hidden}
 .gn{font-family:var(--f-display);font-weight:900;font-size:2rem;line-height:1}
 .goal .bar2{height:6px;background:var(--chip);border-radius:3px;overflow:hidden}
 .goal .bar2 i{display:block;height:100%;background:var(--accent)}
+
+select{font:inherit;font-size:.9rem;background:var(--bg);color:var(--ink);border:1.5px solid var(--line);border-radius:8px;padding:8px 10px}

@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.14.0";
+const APP_VERSION="1.14.1";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -611,7 +611,13 @@ function renderStatus(){
   document.getElementById("refresh").disabled=!strava.refreshToken;
   document.getElementById("ver").textContent="Versió "+APP_VERSION+(plan&&plan.updated?" · pla del "+plan.updated:"")+".";
 }
+function weighCfg(){return {day:state.weighDay==null?1:state.weighDay,hour:state.weighHour==null?8:state.weighHour}}
+function weighDue(){const l=state.weights||[],last=l.length?l[l.length-1].d:null;if(last===todayStr)return false;const c=weighCfg(),now=new Date(),wd=now.getDay();
+  if(wd===c.day&&now.getHours()>=c.hour)return true;
+  return !!last&&last<addDays(todayStr,-7)||(!last&&wd===c.day)}
+function weighCfgHTML(){const c=weighCfg();return '<div class="row2" style="align-items:center;flex-wrap:wrap"><span class="note">Recordatori a l\'app:</span><select id="wDay" aria-label="Dia">'+DAYNAMES.map((n,i)=>'<option value="'+i+'"'+(i===c.day?" selected":"")+'>'+n+'</option>').join("")+'</select><select id="wHour" aria-label="Hora">'+Array.from({length:17},(_,i)=>i+5).map(h=>'<option value="'+h+'"'+(h===c.hour?" selected":"")+'>'+h+':00</option>').join("")+'</select></div>'}
 function renderAvuiExtras(){
+  const wp=document.getElementById("wPrompt");if(wp){if(weighDue()){const l=state.weights||[];wp.hidden=false;wp.innerHTML='<div class="in" style="gap:10px"><div class="kicker">Toca pesar-te</div><div class="note">En dejú, després d\'anar al lavabo i abans d\'esmorzar.'+(l.length?' L\'últim: '+String(l[l.length-1].kg).replace(".",",")+' kg ('+dayLabel(l[l.length-1].d)+').':'')+' Cada '+DAYNAMES[weighCfg().day].toLowerCase()+' a les '+weighCfg().hour+':00 (ho canvies a Rendiment → Pes).</div><div class="row2"><div class="field" style="flex:1"><label for="wkg2">Pes (kg)</label><input id="wkg2" type="number" inputmode="decimal" step="0.1" min="40" max="150" placeholder="'+String(curWeight()).replace(".",",")+'"></div><button class="btn primary" type="button" id="wSave2">Desa</button></div></div>'}else{wp.hidden=true;wp.innerHTML=""}}
   const f=document.getElementById("food");if(f){f.innerHTML=foodHTML()}
   const w=document.getElementById("wkSum");if(w){const wd=parseD(todayStr).getDay();if(wd===0||wd===1){w.hidden=false;w.innerHTML=weekSummaryHTML(wd===0?mondayOf(todayStr):addDays(mondayOf(todayStr),-7),wd===0?"Resum de la setmana":"Resum de la setmana passada")}else{w.hidden=true;w.innerHTML=""}}
 }
@@ -1103,7 +1109,7 @@ function renderPerf(){
   if(ws.length>1){const v=ws.slice(-12),mn=Math.min(70,...v.map(x=>x.kg))-0.5,mx=Math.max(...v.map(x=>x.kg))+0.5,yy=x=>(40-(x-mn)/(mx-mn)*38).toFixed(1);
     h+='<svg class="spark" viewBox="0 0 100 42" preserveAspectRatio="none" role="img" aria-label="Evolució del pes"><line x1="0" x2="100" y1="'+yy(70)+'" y2="'+yy(70)+'" stroke="var(--ok)" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/><polyline points="'+v.map((x,i)=>(i/(v.length-1)*100).toFixed(1)+","+yy(x.kg)).join(" ")+'" fill="none" stroke="var(--accent)" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>'}
   h+='<div class="row2"><div class="field" style="flex:1"><label for="wkg">Pes d\'avui (kg)</label><input id="wkg" type="number" inputmode="decimal" step="0.1" min="40" max="150" placeholder="'+String(kg).replace(".",",")+'"></div><button class="btn primary" type="button" id="wSave">Desa</button></div>';
-  h+='<div class="note">Amb el mateix FTP, a 70 kg series a '+f2(F/70)+' W/kg (ara '+f2(F/kg)+'). Pesa\'t un cop per setmana, al matí i en dejú.</div>'+(ws.length?'<div class="note">Últims: '+ws.slice(-4).reverse().map(x=>dayLabel(x.d)+" "+String(x.kg).replace(".",",")).join(" · ")+'</div>':'')+'</div></section>';
+  h+='<div class="note">Amb el mateix FTP, a 70 kg series a '+f2(F/70)+' W/kg (ara '+f2(F/kg)+'). Pesa\'t un cop per setmana, al matí i en dejú.</div>'+weighCfgHTML()+(ws.length?'<div class="note">Últims: '+ws.slice(-4).reverse().map(x=>dayLabel(x.d)+" "+String(x.kg).replace(".",",")).join(" · ")+'</div>':'')+'</div></section>';
   // Objectius
   const G=goals();
   if(G.length)h+='<section class="card"><div class="in" style="gap:12px"><div class="kicker">Objectius</div>'+G.map(g=>{
@@ -1418,7 +1424,7 @@ document.addEventListener("click",e=>{
   if(el.dataset&&el.dataset.undoadj){undoAdj(el.dataset.undoadj);return}
   if(el.dataset&&el.dataset.dep){state.depHour=Math.max(5,Math.min(20,(state.depHour==null?10:state.depHour)+(+el.dataset.dep)));saveState();renderWeather();return}
   if(el.dataset&&el.dataset.setftp){const v=+el.dataset.setftp,old=ftp();state.ftp=v;state.ftpTests=(state.ftpTests||[]).concat([{d:todayStr,ftp:v,old}]);saveState();addLog("FTP del test: de "+old+" W a "+v+" W.");memo.clear();queueSync();toast("FTP actualitzat a "+v+" W.");render();return}
-  if(el.id==="wSave"){const v=parseFloat(String(document.getElementById("wkg").value).replace(",","."));if(!(v>=40&&v<=150)){toast("Escriu el pes en kg, per exemple 74,6.");return}state.weights=(state.weights||[]).filter(x=>x.d!==todayStr).concat([{d:todayStr,kg:Math.round(v*10)/10}]);saveState();applyWeight();queueSync();toast("Pes desat.");render();return}
+  if(el.id==="wSave"||el.id==="wSave2"){const v=parseFloat(String(document.getElementById(el.id==="wSave"?"wkg":"wkg2").value).replace(",","."));if(!(v>=40&&v<=150)){toast("Escriu el pes en kg, per exemple 74,6.");return}state.weights=(state.weights||[]).filter(x=>x.d!==todayStr).concat([{d:todayStr,kg:Math.round(v*10)/10}]);saveState();applyWeight();queueSync();toast("Pes desat.");render();return}
   if(el.id==="syncSave"){const t=(document.getElementById("syncTok").value||"").trim(),r=(document.getElementById("syncRepo").value||"").trim();if(t.length<20){toast("El token sembla incomplet.");return}if(!/^[\w.-]+\/[\w.-]+$/.test(r)){toast("El repositori ha de ser usuari/nom.");return}sync.token=t;sync.repo=r;sync.err="";saveSync();renderSettings();pushInbox().then(()=>toast(sync.err||"Connectat amb el coach ✓"));return}
   if(el.id==="syncNow"){pushInbox().then(()=>toast(sync.err||"Enviat ✓"));renderSettings();return}
   if(el.id==="syncForget"){sync={token:"",repo:sync.repo,last:null,err:""};saveSync();renderSettings();return}
@@ -1467,6 +1473,7 @@ document.addEventListener("click",e=>{
     setOv(s.id,{adjDone:ds.apply?"applied":"dismissed"});memo.clear();render();return;
   }
 });
+document.addEventListener("change",e=>{const t=e.target;if(t&&(t.id==="wDay"||t.id==="wHour")){if(t.id==="wDay")state.weighDay=+t.value;else state.weighHour=+t.value;saveState();const c=weighCfg();toast("Et recordaré de pesar-te cada "+DAYNAMES[c.day].toLowerCase()+" a les "+c.hour+":00.");renderAvuiExtras()}});
 document.addEventListener("input",e=>{const t=e.target;if(t&&t.dataset&&t.dataset.cknote){const id=t.dataset.cknote;ckDraft[id]=ckDraft[id]||{};ckDraft[id].note=t.value}});
 function tick(){
   const t=localDate(new Date());
