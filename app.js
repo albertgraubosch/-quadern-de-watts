@@ -1,19 +1,19 @@
 (function(){
 "use strict";
-const APP_VERSION="1.13.1";
+const APP_VERSION="1.14.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
 const CATNAMES={ss:"sweet spot",tempo:"tempo",force:"força-resistència"};
 const ZONES=[["Z1 Recuperació","z1",0,.55],["Z2 Resistència","z2",.56,.75],["Z3 Tempo","z3",.76,.90],["Sweet spot","ss",.88,.94],["Z4 Llindar","z4",.91,1.05],["Z5 VO2màx","z5",1.06,1.20],["Z6 Anaeròbica","z5",1.21,1.50],["Z7 Neuromuscular","z7",1.51,null]];
-const OVERLAY_KEYS=["d","status","k","adjNote","movedFrom","done","adjDone","replacedBy","type","z","t","min","maxMin","steps","ints","band","cad","cat","fuel","note","key","coachEdit"];
+const OVERLAY_KEYS=["d","status","k","adjNote","movedFrom","done","adjDone","replacedBy","type","z","t","min","maxMin","steps","ints","band","cad","cat","fuel","note","key","coachEdit","userAdj"];
 
 /* ---------- Storage ---------- */
 function lsGet(k,def){try{const v=localStorage.getItem(k);return v==null?def:JSON.parse(v)}catch(e){return def}}
 function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}
 let plan=lsGet("qw.plan",null);
 let state=lsGet("qw.state",{ftp:null,ov:{},log:[]});
-if(!state.ov)state.ov={};if(!state.log)state.log=[];
+if(!state.ov)state.ov={};if(!state.log)state.log=[];if(!state.checkins)state.checkins={};if(!state.weights)state.weights=[];
 let strava=lsGet("qw.strava",{});
 function saveState(){lsSet("qw.state",state)}
 function saveStrava(){lsSet("qw.strava",strava)}
@@ -69,7 +69,7 @@ function buildSessions(){
 function applyPlanMeta(){
   if(!plan)return;
   START=plan.start||START;
-  const a=plan.athlete||{};WEIGHT=a.weight||WEIGHT;FTP0=a.ftpStart||FTP0;GOAL=a.goalFtp||GOAL;
+  const a=plan.athlete||{};WEIGHT=a.weight||WEIGHT;FTP0=a.ftpStart||FTP0;GOAL=a.goalFtp||GOAL;applyWeight();
 }
 function setOv(id,patch){
   const cur=Object.assign({},state.ov[id]||{});
@@ -303,19 +303,23 @@ function runResultHTML(p){
   const lv=checks.some(c=>c.l==="warn")?"warn":"ok";
   return '<div class="result"><div class="verdict '+lv+'"><span class="ic">'+(lv==="ok"?"✓":"!")+'</span><div>'+(lv==="ok"?"Cursa feta":"Feta, però massa ràpida")+'<small>'+esc(a.name||"Cursa")+'</small></div></div>'+
     '<div class="stats">'+runStats(a).map(x=>'<div class="stat"><div class="k">'+x[0]+'</div><div class="v">'+x[1]+'</div></div>').join("")+'</div>'+
-    '<ul class="checks">'+checks.map(c=>'<li><span class="m '+c.l+'">'+MARK[c.l]+'</span><span>'+esc(c.t)+'</span></li>').join("")+'</ul></div>';
+    '<ul class="checks">'+checks.map(c=>'<li><span class="m '+c.l+'">'+MARK[c.l]+'</span><span>'+esc(c.t)+'</span></li>').join("")+'</ul>'+checkinHTML(a)+'</div>';
 }
 function extraCard(d){
-  const l=extraRuns(d);if(!l.length)return "";
-  return l.map(a=>'<article class="card feature runcard" style="--zc:var(--z2)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+esc(dayLabel(d))+' · Fora del pla · Córrer</div><h2>'+esc(a.name||"Cursa")+'</h2></div>'+
-    '<div class="stats">'+runStats(a).map(x=>'<div class="stat"><div class="k">'+x[0]+'</div><div class="v">'+x[1]+'</div></div>').join("")+'</div><div class="note">'+Math.round(a.total_elevation_gain||0)+' m de desnivell · càrrega estimada ≈ '+Math.round(actTSS(a))+' TSS. Compta per a la fatiga i la forma.</div></div></article>').join('<div style="height:14px"></div>');
+  const l=extraRuns(d);
+  const ride=acts[d]&&!all().some(s=>s.d===d&&active(s)&&s.type!=="gym"&&s.type!=="run"&&s.type!=="rest")?acts[d]:null;
+  let rh="";
+  if(ride){const km=(ride.distance||0)/1000;rh='<article class="card feature" style="--zc:var(--z2)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+esc(dayLabel(d))+' · Fora del pla · Bici</div><h2>'+esc(ride.name||"Sortida")+'</h2></div><div class="stats">'+[["Temps",fmtDur(ride.moving_time||0)],["Km",km.toFixed(1).replace(".",",")],["Watts",ride.average_watts?Math.round(ride.average_watts):"—"]].map(x=>'<div class="stat"><div class="k">'+x[0]+'</div><div class="v">'+x[1]+'</div></div>').join("")+'</div><div class="note">Càrrega estimada ≈ '+Math.round(actTSS(ride))+' TSS.</div>'+checkinHTML(ride)+'</div></article>'+(l.length?'<div style="height:14px"></div>':'')}
+  if(!l.length)return rh;
+  return rh+l.map(a=>'<article class="card feature runcard" style="--zc:var(--z2)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+esc(dayLabel(d))+' · Fora del pla · Córrer</div><h2>'+esc(a.name||"Cursa")+'</h2></div>'+
+    '<div class="stats">'+runStats(a).map(x=>'<div class="stat"><div class="k">'+x[0]+'</div><div class="v">'+x[1]+'</div></div>').join("")+'</div><div class="note">'+Math.round(a.total_elevation_gain||0)+' m de desnivell · càrrega estimada ≈ '+Math.round(actTSS(a))+' TSS. Compta per a la fatiga i la forma.</div>'+checkinHTML(a)+'</div></article>').join('<div style="height:14px"></div>');
 }
 function resultHTML(p){
   if(p.type==="run"&&active(p))return runResultHTML(p);
   const act=actFor(p),isPast=p.d<todayStr,isToday=p.d===todayStr;
   if(!active(p))return '<div class="actions" style="align-items:center"><span class="note" style="flex:1">'+(p.status==="removed"?"Has eliminat aquesta sessió del pla.":"Substituïda per una sessió reprogramada.")+'</span>'+(p.status==="removed"?'<button class="btn" type="button" data-restore="'+esc(p.id)+'">Recupera-la</button>':'')+'</div>';
   if(!act){
-    if(p.done&&p.type==="gym")return '<div class="result"><div class="verdict ok"><span class="ic">✓</span><div>Gimnàs fet<small>'+(p.done.by==="strava"?esc(p.done.name||"Activitat de Strava"):"Marcat a mà")+'</small></div></div>'+(p.done.by==="manual"?'<div class="actions"><button class="btn ghost" type="button" data-undone="'+esc(p.id)+'">Desfés</button></div>':'')+'</div>';
+    if(p.done&&p.type==="gym")return '<div class="result"><div class="verdict ok"><span class="ic">✓</span><div>Gimnàs fet<small>'+(p.done.by==="strava"?esc(p.done.name||"Activitat de Strava"):"Marcat a mà")+'</small></div></div>'+(p.done.by==="manual"?'<div class="actions"><button class="btn ghost" type="button" data-undone="'+esc(p.id)+'">Desfés</button></div>':'')+(gymActs[p.d]?checkinHTML(gymActs[p.d]):'')+'</div>';
     if(p.done&&p.done.by==="manual")return '<div class="result"><div class="verdict ok"><span class="ic">✓</span><div>Marcada com a feta<small>No hi ha activitat a Strava, així que no puc analitzar-la.</small></div></div><div class="actions"><button class="btn ghost" type="button" data-undone="'+esc(p.id)+'">Desfés</button></div></div>';
     if(p.type==="rest")return "";
     let h="";
@@ -331,7 +335,9 @@ function resultHTML(p){
   h+='<div class="stats">'+a.stats.map(s=>'<div class="stat"><div class="k">'+s[0]+'</div><div class="v">'+s[1]+'</div></div>').join("")+'</div>';
   h+=powerChartHTML(p,d,a);
   h+=deepHTML(p,act,d);
-  h+='<ul class="checks">'+a.checks.map(c=>'<li><span class="m '+c.l+'">'+MARK[c.l]+'</span><span>'+esc(c.t)+'</span></li>').join("")+'</ul>';
+  const recs=recordsFor(String(act.id));
+  if(recs.length)a.checks.concat([]);
+  h+='<ul class="checks">'+a.checks.map(c=>'<li><span class="m '+c.l+'">'+MARK[c.l]+'</span><span>'+esc(c.t)+'</span></li>').join("")+(recs.length?'<li><span class="m up">★</span><span>Rècord: '+recs.sort((x,y)=>x.L-y.L).map(r=>DLAB[r.L]+" a "+r.w+" W (abans "+r.prev+")").join(" · ")+'.</span></li>':'')+'</ul>';
   a.tables.forEach(t=>{
     if(!t.rows.length)return;
     h+='<div class="tbl"><table><thead><tr><th>'+esc(t.spec.label)+'</th><th>Watts</th><th>% FTP</th><th>Rpm</th></tr></thead><tbody>';
@@ -339,12 +345,13 @@ function resultHTML(p){
     h+='</tbody></table></div><div class="note">Objectiu: '+t.tgt+'. Són els '+t.spec.n+' millors blocs de '+(t.spec.s>=60?t.spec.s/60+"′":t.spec.s+"″")+' de l\'activitat.</div>';
   });
   const sg=suggestFor(p,a);
+  h+=checkinHTML(act);
   if(sg)h+='<div class="suggest"><div class="kicker">Ajust suggerit</div><div>'+esc(sg.why)+' '+esc(sg.txt)+'</div><div class="actions"><button class="btn primary" type="button" data-apply="'+esc(p.id)+'">Aplica l\'ajust</button><button class="btn ghost" type="button" data-dismiss="'+esc(p.id)+'">Deixa-ho igual</button></div></div>';
   return h+"</div>";
 }
 function sessionCard(p,kick){
   if(p.type==="run"){
-    return '<article class="card feature runcard" style="--zc:var(--z2)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+kick+' · Córrer</div><h2>'+esc(p.t)+'</h2><div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span>'+(p.pace?'<span>Ritme <b>'+paceTxt(p.pace[0])+'–'+paceTxt(p.pace[1])+'/km</b></span>':'')+'</div></div>'+stepsHTML(p)+resultHTML(p)+'</div></article>';
+    return '<article class="card feature runcard" style="--zc:var(--z2)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+kick+' · Córrer</div><h2>'+esc(p.t)+'</h2><div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span>'+(p.pace?'<span>Ritme <b>'+paceTxt(p.pace[0])+'–'+paceTxt(p.pace[1])+'/km</b></span>':'')+'</div></div>'+stepsHTML(p)+changeHTML(p)+resultHTML(p)+'</div></article>';
   }
   if(p.type==="gym"){
     return '<article class="card feature gymcard" style="--zc:var(--z7)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+kick+' · Gimnàs</div><h2>'+esc(p.t)+'</h2><div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span><span>Esforç <b>'+esc(p.rpe||"RPE 6")+'</b></span></div></div>'+stepsHTML(p)+resultHTML(p)+'</div></article>';
@@ -357,7 +364,7 @@ function sessionCard(p,kick){
   return '<article class="card feature" style="--zc:var(--'+esc(p.z)+')"><div class="zonebar"></div><div class="in">'+
     '<div class="feature-head"><div class="kicker">'+kick+(p.key?" · Sessió clau":"")+'</div><h2>'+esc(p.t)+'</h2>'+
     '<div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span>'+(p.cad?'<span>Cadència <b>'+p.cad[0]+'–'+p.cad[1]+' rpm</b></span>':'')+(kpct?'<span>Intensitat <b>'+(kpct>0?"+":"")+kpct+' %</b></span>':'')+'</div></div>'+
-    (active(p)?profileHTML(p):"")+stepsHTML(p)+resultHTML(p)+
+    (active(p)?profileHTML(p):"")+stepsHTML(p)+whereHTML(p)+changeHTML(p)+resultHTML(p)+
     (active(p)&&!p.done&&!actFor(p)?'<div class="actions"><button class="btn ghost" type="button" data-copywo="'+esc(p.id)+'">Copia per a intervals.icu</button></div>':'')+'</div></article>';
 }
 function mainTarget(p){
@@ -458,8 +465,7 @@ function renderNotesView(){
   });
   el.innerHTML=h+'</div>';
 }
-function openNotes(){renderNotesView();const v=document.getElementById("notesView");v.hidden=false;document.body.classList.add("noscroll");v.scrollTop=0;try{history.replaceState(null,"","#notes")}catch(e){}}
-function closeNotes(){document.getElementById("notesView").hidden=true;document.body.classList.remove("noscroll");try{history.replaceState(null,"",location.pathname)}catch(e){}}
+function openNotes(){setPage("diari")}
 function renderProgress(){
   const el=document.getElementById("progress"),F=ftp();
   const prog=Math.max(0,Math.min(100,(F-FTP0)/(GOAL-FTP0)*100));
@@ -605,7 +611,11 @@ function renderStatus(){
   document.getElementById("refresh").disabled=!strava.refreshToken;
   document.getElementById("ver").textContent="Versió "+APP_VERSION+(plan&&plan.updated?" · pla del "+plan.updated:"")+".";
 }
-function render(){renderHero();renderStatus();renderSetup();renderDecide();renderWeek();renderProgress();renderLog();renderZones();renderConn();renderWahoo();renderState();renderCoachNotes();renderTitles();icuSchedule()}
+function renderAvuiExtras(){
+  const f=document.getElementById("food");if(f){f.innerHTML=foodHTML()}
+  const w=document.getElementById("wkSum");if(w){const wd=parseD(todayStr).getDay();if(wd===0||wd===1){w.hidden=false;w.innerHTML=weekSummaryHTML(wd===0?mondayOf(todayStr):addDays(mondayOf(todayStr),-7),wd===0?"Resum de la setmana":"Resum de la setmana passada")}else{w.hidden=true;w.innerHTML=""}}
+}
+function render(){renderHero();renderStatus();renderSetup();renderDecide();renderWeek();renderLog();renderZones();renderConn();renderWahoo();renderCoachNotes();renderTitles();renderWeather();renderAvuiExtras();renderPage();icuSchedule()}
 
 /* ---------- Títols per a Strava ---------- */
 function normT(x){return String(x||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g," ").trim()}
@@ -660,6 +670,488 @@ function renderTitles(){
     '<div class="actions">'+(n>1?'<button class="btn ghost" type="button" data-tmore="'+esc(a.id)+'">Altres 5</button>':'')+'</div></div>';
 }
 
+/* ---------- Pàgines ---------- */
+const PAGES=["avui","rendiment","diari","ajustos"];
+let page="avui";
+function setPage(p,keepScroll){
+  if(!PAGES.includes(p))p="avui";
+  page=p;
+  document.querySelectorAll(".page").forEach(el=>{el.hidden=el.dataset.page!==p});
+  document.querySelectorAll("#nav button").forEach(b=>b.setAttribute("aria-current",b.dataset.page===p?"page":"false"));
+  try{history.replaceState(null,"",p==="avui"?location.pathname:"#"+p)}catch(e){}
+  renderPage();
+  if(!keepScroll)window.scrollTo(0,0);
+}
+function renderPage(){
+  if(page==="rendiment")renderPerf();
+  else if(page==="diari")renderDiary();
+  else if(page==="ajustos")renderSettings();
+}
+
+/* ---------- Pes ---------- */
+function curWeight(){const l=state.weights||[];return l.length?l[l.length-1].kg:((plan&&plan.athlete&&plan.athlete.weight)||75)}
+function applyWeight(){WEIGHT=curWeight()}
+
+/* ---------- Com et trobes (check-in) ---------- */
+const CK={
+  sleep:{l:"Son",n:5,t:["Fatal","Malament","Normal","Bé","Molt bé"]},
+  legs:{l:"Cames",n:5,t:["Mortes","Carregades","Normals","Bé","Fresques"]},
+  mood:{l:"Ganes",n:5,t:["Cap","Poques","Normals","Moltes","A tope"]},
+  rpe:{l:"Esforç de la sessió",n:10,t:["Molt suau","Molt suau","Suau","Suau","Moderat","Moderat","Dur","Dur","Molt dur","Màxim"]}
+};
+let ckDraft={},ckEdit=null;
+function ckOf(id){return (state.checkins||{})[String(id)]||null}
+function ckSummary(c){return ["sleep","legs","mood"].map(k=>CK[k].l+" "+c[k]+"/5").join(" · ")+" · Esforç "+c.rpe+"/10"}
+function checkinHTML(act){
+  if(!act)return "";
+  const id=String(act.id),c=ckOf(id);
+  if(c&&ckEdit!==id)return '<div class="ckdone"><div><div class="label">Com et vas trobar</div><div>'+esc(ckSummary(c))+'</div>'+(c.note?'<div class="note">«'+esc(c.note)+'»</div>':'')+'</div><button class="btn ghost" type="button" data-ckedit="'+esc(id)+'">Edita</button></div>';
+  const d=ckDraft[id]||(c?Object.assign({},c):{});ckDraft[id]=d;
+  let h='<div class="ck"><div><div class="kicker">Com t\'has trobat?</div><div class="note">10 segons. El coach ho llegeix cada vespre per decidir si puja o baixa.</div></div>';
+  ["rpe","legs","sleep","mood"].forEach(k=>{
+    const s=CK[k],v=d[k];
+    h+='<div class="ckrow"><div class="ckl"><span>'+s.l+'</span><b>'+(v?esc(s.t[v-1])+(k==="rpe"?" · "+v+"/10":""):"")+'</b></div><div class="ckb ck'+s.n+'">';
+    for(let i=1;i<=s.n;i++)h+='<button type="button" class="'+(v===i?"on":"")+'" data-ck="'+esc(id)+'|'+k+'|'+i+'" aria-label="'+s.l+' '+i+'">'+i+'</button>';
+    h+='</div></div>';
+  });
+  h+='<div class="field"><label for="cknote-'+esc(id)+'">Alguna cosa més? (opcional)</label><input id="cknote-'+esc(id)+'" data-cknote="'+esc(id)+'" value="'+esc(d.note||"")+'" placeholder="Ex.: m\'ha costat arrencar, al final bé" autocomplete="off"></div>';
+  const ready=d.rpe&&d.legs&&d.sleep&&d.mood;
+  h+='<div class="actions"><button class="btn primary" type="button" data-cksave="'+esc(id)+'"'+(ready?"":" disabled")+'>Desa</button>'+(c?'<button class="btn ghost" type="button" data-ckcancel="'+esc(id)+'">Cancel·la</button>':'')+'</div></div>';
+  return h;
+}
+function saveCheckin(id){
+  const d=ckDraft[id];if(!d||!(d.rpe&&d.legs&&d.sleep&&d.mood))return;
+  const a=allList.find(x=>String(x.id)===id);
+  const inp=document.querySelector('[data-cknote="'+id+'"]');if(inp)d.note=inp.value.trim().slice(0,300);
+  state.checkins=state.checkins||{};
+  state.checkins[id]={d:a&&a.start_local?a.start_local.slice(0,10):todayStr,name:a?a.name:"",sport:a?a.sport_type:"",sleep:d.sleep,legs:d.legs,mood:d.mood,rpe:d.rpe,note:d.note||"",at:new Date().toISOString()};
+  saveState();delete ckDraft[id];ckEdit=null;queueSync();
+  toast(sync.token?"Desat. El coach ho veurà aquest vespre.":"Desat.");render();
+}
+
+/* ---------- Corba de potència, rècords i FTP estimat ---------- */
+const CURVE_D=[5,15,30,60,120,180,300,480,600,1200,1800,3600];
+const DLAB={5:"5″",15:"15″",30:"30″",60:"1′",120:"2′",180:"3′",300:"5′",480:"8′",600:"10′",1200:"20′",1800:"30′",3600:"60′"};
+let curves=lsGet("qw.curve",{});
+let recSeen=lsGet("qw.recSeen",[]);
+function computeCurve(w){
+  const n=w.length,pre=new Float64Array(n+1);for(let i=0;i<n;i++)pre[i+1]=pre[i]+w[i];
+  const b={};CURVE_D.forEach(L=>{if(n<L)return;let m=0;for(let i=0;i+L<=n;i++){const v=pre[i+L]-pre[i];if(v>m)m=v}b[L]=Math.round(m/L)});
+  return b;
+}
+function storeCurve(a,w){
+  if(!a||!w||w.length<60)return;
+  const id=String(a.id);if(curves[id])return;
+  curves[id]={d:a.start_local.slice(0,10),t:a.start_local,b:computeCurve(w)};
+  lsSet("qw.curve",curves);
+  const recs=recordsFor(id);
+  if(recs.length&&curves[id].d>=addDays(todayStr,-2)&&!recSeen.includes(id)){
+    recSeen=recSeen.concat([id]).slice(-60);lsSet("qw.recSeen",recSeen);
+    const top=recs.sort((x,y)=>y.L-x.L)[0];
+    toast("Rècord nou: "+DLAB[top.L]+" a "+top.w+" W"+(recs.length>1?" (i "+(recs.length-1)+" més)":"")+".");
+  }
+}
+function recordsFor(id){
+  const c=curves[id];if(!c)return [];
+  const before=Object.entries(curves).filter(([k,v])=>k!==id&&v.t<c.t);
+  if(before.length<3)return [];
+  const out=[];
+  Object.keys(c.b).forEach(L=>{const prev=Math.max(0,...before.map(([,v])=>v.b[L]||0));if(prev&&c.b[L]>prev)out.push({L:+L,w:c.b[L],prev})});
+  return out;
+}
+function bestCurve(from,to){
+  const b={},src={};
+  Object.entries(curves).forEach(([id,v])=>{if(v.d<from||v.d>to)return;Object.keys(v.b).forEach(L=>{if(!b[L]||v.b[L]>b[L]){b[L]=v.b[L];src[L]=v.d}})});
+  return {b,src};
+}
+const EFTP_F={480:.90,600:.92,1200:.95,1800:.97,3600:1.0};
+function eftp(asOf){
+  const to=asOf||todayStr,{b,src}=bestCurve(addDays(to,-42),to);let best=0,from=null;
+  Object.keys(EFTP_F).forEach(L=>{if(b[L]){const v=b[L]*EFTP_F[L];if(v>best){best=v;from={L:+L,w:b[L],d:src[L]}}}});
+  return best?{v:Math.round(best),from}:null;
+}
+function curveQueue(){
+  const from=addDays(todayStr,-120);
+  allList.filter(a=>a&&a.start_local&&a.start_local.slice(0,10)>=from&&/Ride|Cycl|Bike/i.test(String(a.sport_type||""))&&a.device_watts!==false&&!curves[String(a.id)])
+    .sort((x,y)=>x.start_local<y.start_local?1:-1).slice(0,60)
+    .forEach(a=>{const id=String(a.id);if(loading[id])return;chain=chain.then(()=>data[id]&&data[id].w?storeCurve(a,data[id].w):loadDetail(id,true)).then(()=>new Promise(r=>setTimeout(r,350)))});
+}
+
+/* ---------- Perfil de potència (escala aproximada de Coggan, homes) ---------- */
+const LV=["Inicial","Bàsic","Mitjà","Bo","Molt bo","Excel·lent","Excepcional","Professional"];
+const TH={5:[0,11.27,13.44,15.61,17.78,19.95,22.12,24.29],60:[0,5.87,6.79,7.71,8.63,9.55,10.47,11.39],300:[0,2.55,3.37,4.19,5.01,5.83,6.65,7.47],ftp:[0,2.05,2.76,3.47,4.18,4.89,5.6,6.31]};
+function lvl(key,wkg){const t=TH[key];let i=0;while(i+1<t.length&&wkg>=t[i+1])i++;const nx=t[i+1]||t[i]+1;return {i,f:i+Math.min(1,Math.max(0,(wkg-t[i])/(nx-t[i]))),name:LV[i]}}
+function profileData(){
+  const {b,src}=bestCurve(addDays(todayStr,-120),todayStr),kg=curWeight(),F=ftp(),e=eftp();
+  const rows=[[5,"Sprint · 5″",b[5],src[5]],[60,"Anaeròbic · 1′",b[60],src[60]],[300,"VO2màx · 5′",b[300],src[300]],["ftp","Llindar · FTP",F,null]];
+  return rows.filter(r=>r[2]).map(r=>{const wkg=r[2]/kg;return {key:r[0],label:r[1],w:r[2],d:r[3],wkg,lv:lvl(r[0],wkg)}}).concat([]).map(x=>Object.assign(x,{eftp:e}));
+}
+function profileType(rows){
+  if(rows.length<4)return null;
+  const f=k=>rows.find(r=>r.key===k).lv.f;
+  const sp=(f(5)+f(60))/2,ae=(f(300)+f("ftp"))/2;
+  if(ae-sp>0.8)return ["Rodador / escalador d'esforços llargs","El teu punt fort són el 5′ i el llindar; l'esprint i el minut queden per sota. Rendeixes en pujades llargues i ritmes sostinguts."];
+  if(sp-ae>0.8)return ["Explosiu / esprintador","Destaques en esforços curts. El llindar és el que més marge té."];
+  if(f(60)>f("ftp")+0.6&&f(300)>f("ftp")+0.3)return ["Puncheur","Bo en pujades curtes i canvis de ritme de 1–5′."];
+  return ["Tot terreny","Perfil equilibrat entre esforços curts i llargs."];
+}
+
+/* ---------- Objectius ---------- */
+function goals(){
+  return (plan&&Array.isArray(plan.goals)&&plan.goals.length?plan.goals:[
+    {t:"Test d'FTP (20′)",d:"2026-11-14",kind:"test"},
+    {t:"FTP 280 W",d:"2026-12-25",kind:"ftp",target:280},
+    {t:"Mitja Marató de Girona",d:"2027-02-28",kind:"race",target:"Sota 1:30 · 4:15/km"}
+  ]).filter(g=>g.d>=todayStr);
+}
+function daysTo(d){return Math.round((parseD(d)-parseD(todayStr))/864e5)}
+
+/* ---------- Resum setmanal ---------- */
+function mondayOf(d){const x=parseD(d),wd=(x.getDay()+6)%7;return addDays(d,-wd)}
+function weekSummary(ws){
+  const we=addDays(ws,6),list=allList.filter(a=>a&&a.start_local&&a.start_local.slice(0,10)>=ws&&a.start_local.slice(0,10)<=we);
+  const isRide=a=>/Ride|Cycl|Bike/i.test(String(a.sport_type||""));
+  let sec=0,km=0,el=0,tss=0,rides=0,runs=0;
+  list.forEach(a=>{if(!isRide(a)&&!isRun(a)&&!/Weight|Workout/i.test(String(a.sport_type||"")))return;sec+=a.moving_time||0;if(isRide(a)||isRun(a)){km+=(a.distance||0)/1000;el+=a.total_elevation_gain||0}tss+=actTSS(a);if(isRide(a))rides++;if(isRun(a))runs++});
+  const ses=all().filter(s=>s.d>=ws&&s.d<=we&&active(s)&&s.type!=="rest");
+  const done=ses.filter(s=>s.done||actFor(s)||runFor(s)).length,keys=ses.filter(s=>s.key),keysDone=keys.filter(s=>s.done||actFor(s)).length;
+  const recs=list.reduce((m,a)=>m+recordsFor(String(a.id)).length,0);
+  const cks=Object.values(state.checkins||{}).filter(c=>c.d>=ws&&c.d<=we);
+  const avg=k=>cks.length?(cks.reduce((m,c)=>m+c[k],0)/cks.length):null;
+  const planned=ses.reduce((m,s)=>m+plannedLoad(s),0);
+  return {ws,we,sec,km,el,tss,planned,rides,runs,done,tot:ses.length,keys:keys.length,keysDone,recs,legs:avg("legs"),rpe:avg("rpe"),n:list.length};
+}
+function weekSummaryHTML(ws,title){
+  const r=weekSummary(ws),nx=all().filter(s=>s.d>addDays(ws,6)&&s.d<=addDays(ws,13)&&active(s)&&s.key);
+  const f1=x=>x.toFixed(1).replace(".",",");
+  let h='<div class="in" style="gap:12px"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h3>'+esc(title)+'</h3><span class="note">'+esc(dayLabel(r.ws))+' – '+esc(dayLabel(r.we))+'</span></div>';
+  h+='<div class="stats">'+[["Hores",hrs(r.sec/60)],["Km",Math.round(r.km)],["Desnivell",Math.round(r.el)+" m"],["TSS",Math.round(r.tss)+(r.planned?" / "+Math.round(r.planned):"")]].map(x=>'<div class="stat"><div class="k">'+x[0]+'</div><div class="v">'+x[1]+'</div></div>').join("")+'</div>';
+  const L=[];
+  L.push({l:r.done>=r.tot?"ok":"info",t:"Sessions fetes: "+r.done+" de "+r.tot+(r.keys?" · claus: "+r.keysDone+" de "+r.keys:"")+"."});
+  if(r.runs)L.push({l:"info",t:r.runs+(r.runs===1?" cursa":" curses")+" i "+r.rides+(r.rides===1?" sortida":" sortides")+" en bici."});
+  if(r.recs)L.push({l:"up",t:r.recs+(r.recs===1?" rècord de potència":" rècords de potència")+" aquesta setmana."});
+  if(r.legs!=null)L.push({l:"info",t:"Cames de mitjana "+f1(r.legs)+"/5 · esforç "+f1(r.rpe)+"/10."});
+  if(nx.length)L.push({l:"info",t:"La setmana que ve: "+nx.map(s=>s.t+" ("+DAYS[parseD(s.d).getDay()]+")").join(", ")+"."});
+  h+='<ul class="checks">'+L.map(c=>'<li><span class="m '+c.l+'">'+MARK[c.l==="up"?"up":c.l]+'</span><span>'+esc(c.t)+'</span></li>').join("")+'</ul></div>';
+  return h;
+}
+
+/* ---------- Avui no puc / estic cansat ---------- */
+let chg=null;
+const ADJ_KEYS=["type","z","t","min","maxMin","ints","band","cad","k","steps","note","key","fuel"];
+function canChange(p){return p&&active(p)&&p.type!=="rest"&&p.type!=="gym"&&p.d>=todayStr&&!p.done&&!actFor(p)&&!runFor(p)}
+function adjOptions(p){
+  const o=[];
+  if(p.type==="int"){
+    const n=p.ints&&p.ints[0]?p.ints[0].n:0;
+    o.push({id:"soft",g:"cansat",t:"Versió suau",d:(n>1?"Un bloc menys i ":"")+"els watts un 5 % més baixos."});
+    o.push({id:"short",g:"temps",t:"Versió curta d'1h",d:"Els mateixos blocs, amb 10′ d'escalfament i tornada curta."});
+  }
+  if(p.type==="long"){
+    o.push({id:"soft",g:"cansat",t:"Versió suau",d:"Fins a 2h30 en Z2, sense blocs de tempo."});
+    o.push({id:"short",g:"temps",t:"Versió de 2 h",d:"2 h en Z2"+(p.ints&&p.ints.length?" amb un sol bloc de tempo":"")+"."});
+  }
+  if(p.type==="end"||p.type==="rec"){
+    o.push({id:"soft",g:"cansat",t:"Més suau",d:"Z1–Z2 baix, sense passar de "+W(.68)+" W."});
+    o.push({id:"short",g:"temps",t:"Versió d'1 h",d:"1 h en Z2."});
+  }
+  if(p.type==="run"){
+    o.push({id:"soft",g:"cansat",t:"Més suau i curta",d:"35′ molt suaus o caminar ràpid."});
+  }
+  if(p.type!=="end"&&p.type!=="rec"&&p.type!=="run")o.push({id:"z2",g:"cansat",t:"Canvia-la per Z2 1h30",d:"Res d'intensitat. Si és clau, el coach la recol·loca."});
+  o.push({id:"rest",g:"cansat",t:"Descans",d:"Avui res. El coach reorganitzarà la setmana aquest vespre."});
+  return o;
+}
+function adjPatch(p,kind){
+  const k=p.k||1,P={};
+  if(kind==="soft"){
+    if(p.type==="int"){P.ints=(p.ints||[]).map((x,i)=>i===0?Object.assign({},x,{n:Math.max(1,x.n-1)}):x);P.k=Math.round(k*0.95*100)/100;P.t=p.t+" (suau)"}
+    else if(p.type==="long"){P.ints=[];P.min=Math.min(p.min||150,120);P.maxMin=150;P.band=[.56,.72];P.t="Fons suau en Z2";P.z="z2";P.steps=[{l:"Sessió",x:"2h–2h30 en Z2 a {58,70}, pujades com a màxim a {75}"}]}
+    else if(p.type==="run"){P.min=35;P.t="Córrer molt suau 35′";P.steps=[{l:"Sessió",x:"35′ molt suaus (5:40–6:00/km) o caminar ràpid"}]}
+    else{P.band=[.5,.68];P.t=p.t+" (suau)";P.steps=[{l:"Sessió",x:fmtDur((p.min||90)*60)+" a {50,68}, sense apretar a les pujades"}]}
+  } else if(kind==="short"){
+    if(p.type==="int"){P.min=60;P.maxMin=null;P.t=p.t+" (1 h)";P.steps=[{l:"Escalfament",x:"10′ progressius + 1′ a {100}"}].concat(steps(p).filter(s=>/Principal|Pla B/.test(s.l))).concat([{l:"Calma",x:"Fins a 1 h, en Z1–Z2"}])}
+    else if(p.type==="long"){P.min=120;P.maxMin=null;P.ints=p.ints&&p.ints.length?[Object.assign({},p.ints[0],{n:1})]:[];P.t="Fons de 2 h";P.steps=[{l:"Sessió",x:"2 h en Z2 a {61,73}"+(P.ints.length?" · 1 bloc de tempo a la segona hora":"")}]}
+    else{P.min=60;P.maxMin=null;P.t="Z2 d'1 h";P.steps=[{l:"Sessió",x:"1 h en Z2 a {61,73}"}]}
+  } else if(kind==="z2"){
+    Object.assign(P,{type:"end",z:"z2",t:"Z2 suau 1h30",min:90,maxMin:null,ints:[],band:[.56,.72],cad:[85,92],key:false,steps:[{l:"Sessió",x:"1h30 en Z2 a {58,72}, sense passar de {75}"}],fuel:"Aigua i 30 g/h"});
+  }
+  return P;
+}
+function applyAdj(id,kind){
+  const p=S[id];if(!p)return;
+  if(kind==="rest"){setOv(id,{status:"removed",userAdj:{kind,at:new Date().toISOString(),keys:[]}});addLog("Avui no: «"+p.t+"» del "+dayLabel(p.d)+" eliminada.");toast("Fet. Avui descans; el coach ho reorganitza aquest vespre.");chg=null;queueSync();render();return}
+  const P=adjPatch(p,kind),keys=Object.keys(P),label={soft:"versió suau",short:"versió curta",z2:"Z2 1h30"}[kind];
+  P.adjNote="Canvi teu ("+label+"). El coach en té constància i ajustarà la resta de la setmana.";
+  P.userAdj={kind,at:new Date().toISOString(),keys:keys.concat(["adjNote"]),from:p.t};
+  setOv(id,P);S=buildSessions();memo.clear();addLog("«"+P.userAdj.from+"» del "+dayLabel(p.d)+": "+label+".");chg=null;queueSync();toast("Fet: "+label+".");render();
+}
+function undoAdj(id){
+  const p=S[id];if(!p||!p.userAdj)return;
+  const patch={userAdj:null,status:p.userAdj.kind==="rest"?"planned":undefined};
+  (p.userAdj.keys||[]).forEach(k=>{patch[k]=null});
+  if(patch.status===undefined)delete patch.status;
+  setOv(id,patch);S=buildSessions();memo.clear();addLog("Desfet el canvi de «"+(p.userAdj.from||p.t)+"».");queueSync();render();
+}
+function changeHTML(p){
+  if(!canChange(p)&&!(p&&p.userAdj))return "";
+  if(p.userAdj)return '<div class="actions"><button class="btn ghost" type="button" data-undoadj="'+esc(p.id)+'">Desfés el meu canvi</button></div>';
+  if(chg!==p.id)return '<div class="actions"><button class="btn ghost" type="button" data-chg="'+esc(p.id)+'">'+(p.d===todayStr?"Avui no puc / estic cansat":"Canvia aquesta sessió")+'</button></div>';
+  const o=adjOptions(p);
+  let h='<div class="chg"><div class="label">Estic cansat</div>'+o.filter(x=>x.g==="cansat").map(x=>'<button class="opt" type="button" data-adj="'+esc(p.id)+'|'+x.id+'"><span>'+esc(x.t)+'</span><small>'+esc(x.d)+'</small></button>').join("");
+  const t=o.filter(x=>x.g==="temps");
+  if(t.length)h+='<div class="label">Tinc poc temps</div>'+t.map(x=>'<button class="opt" type="button" data-adj="'+esc(p.id)+'|'+x.id+'"><span>'+esc(x.t)+'</span><small>'+esc(x.d)+'</small></button>').join("");
+  h+='<div class="label">Avui no puc: passa-la a un altre dia</div>';
+  for(let i=1;i<=6;i++){
+    const d=addDays(p.d,i),on=sessionsOn(d),block=on.find(x=>x.type!=="rest"&&x.type!=="rec"&&x.type!=="gym"&&x.id!==p.id);
+    const hard=x=>x&&(x.key||x.type==="int"||x.type==="long");
+    const nb=[sessionsOn(addDays(d,-1)),sessionsOn(addDays(d,1))].flat().filter(x=>x.id!==p.id).some(hard);
+    const sub=block?"ja té «"+block.t+"»":(hard(p)&&nb?"queda enganxada a una altra sessió dura":on.some(x=>x.type==="rest")?"substitueix el descans":"dia lliure");
+    h+='<button class="opt" type="button" data-move="'+esc(p.id)+'" data-to="'+d+'"'+(block?" disabled":"")+'><span>'+(i===1&&p.d===todayStr?"Demà":esc(dayLabel(d)))+'</span><small>'+esc(sub)+'</small></button>';
+  }
+  return h+'<div class="actions"><button class="btn ghost" type="button" data-chgcancel="1">Cancel·la</button></div></div>';
+}
+
+/* ---------- On fer les sèries ---------- */
+// Pujades que l'Albert fa sovint (dades dels seus segments de Strava: temps i watts reals).
+const CLIMBS=[
+  {n:"Els Àngels per Madremanya",km:3.85,m:279,g:7.2,t:1179,w:241,near:true},
+  {n:"Els Àngels des de Girona",km:10.8,m:424,g:3.9,t:2353,w:199,near:true},
+  {n:"Santa Pellaia (des de Cassà)",km:8.4,m:280,g:3.3,t:1572,w:207,near:true},
+  {n:"Montnegre (des de Quart)",km:5.4,m:283,g:5.3,t:1350,w:181,near:true},
+  {n:"Can Mascort",km:3.15,m:145,g:4.6,t:778,w:206,near:true},
+  {n:"Les Encies",km:3.6,m:150,g:4.1,t:720,w:212,near:true},
+  {n:"Sant Martí Sacalm per Amer",km:8.2,m:602,g:7.3,t:2661,w:211,near:false},
+  {n:"Bordils – Madremanya",km:6.1,m:112,g:1.8,t:965,w:175,near:true,flat:true},
+  {n:"Girona – Celrà (pla)",km:6.8,m:25,g:0.4,t:856,w:167,near:true,flat:true}
+];
+function climbTime(c,P){const e=c.g>=5?0.9:c.g>=3?0.7:0.4;return c.t*Math.pow(c.w/P,e)}
+function whereHTML(p){
+  if(!p||!active(p)||p.type==="rest"||p.type==="gym"||p.type==="run"||p.done||actFor(p))return "";
+  const F=ftp(),k=p.k||1,mm=s=>Math.round(s/60)+"′";
+  let rows=[];
+  if(p.ints&&p.ints.length){
+    const sp=p.ints[0],mid=sp.hi==null?sp.lo:(sp.lo+sp.hi)/2,P=mid*F*k,rec=sp.s>=900?300:240,force=sp.cad&&sp.cad[0]<70,long=p.type==="long";
+    CLIMBS.forEach(c=>{
+      if(c.flat&&!long&&!(sp.s>=900&&mid<.85))return;
+      if(!c.near&&!long)return;
+      const T=climbTime(c,P),r=T/sp.s;if(r<0.95)return;
+      const per=Math.max(1,Math.floor((T+rec*0.5)/(sp.s+rec*0.5)));
+      let sc=r<=1.5?3:r<=2.6?2:1;
+      if(force)sc+=(c.g>=4&&c.g<=7)?2:-1;
+      else if(sp.s>=900)sc+=(c.g>=2.5&&c.g<=5)?1.5:0;
+      else if(sp.s<=600)sc+=(c.g>=6)?1.5:0;
+      if(long&&!c.near)sc+=0.5;
+      rows.push({c,T,per,sc,txt:per>=sp.n?"hi caben els "+sp.n+" blocs seguits (recuperant suau)":per>1?per+" blocs per pujada; repeteix-la":"1 bloc per pujada; baixa i repeteix"});
+    });
+    rows.sort((a,b)=>b.sc-a.sc);rows=rows.slice(0,3);
+    if(!rows.length)return "";
+    return '<div class="where"><div class="label">On fer-ho</div><ul class="checks">'+rows.map(x=>'<li><span class="m info">▲</span><span><b>'+esc(x.c.n)+'</b> · '+String(x.c.km).replace(".",",")+' km al '+String(x.c.g).replace(".",",")+' %. A '+Math.round(P)+' W, la pujada et dura uns '+mm(x.T)+': '+esc(x.txt)+'.</span></li>').join("")+'</ul><div class="note">Temps calculats amb els teus watts i temps reals a cada pujada.</div></div>';
+  }
+  if(p.type==="end"||p.type==="rec"||p.type==="long"){
+    const top=(p.band?p.band[1]:.72)*F*k;
+    const opts=CLIMBS.filter(c=>c.near&&c.g<=4.2).slice(0,3);
+    return '<div class="where"><div class="label">On rodar</div><div class="note">Terreny pla o de pujada suau. A les pujades, no passis de '+Math.round(top)+' W: '+opts.map(c=>c.n+" ("+String(c.g).replace(".",",")+" %)").join(", ")+'.</div></div>';
+  }
+  return "";
+}
+
+/* ---------- El temps ---------- */
+let wx=lsGet("qw.wx",null),wxBusy=false;
+function loadWeather(force){
+  if(wxBusy)return;
+  if(!force&&wx&&Date.now()-wx.at<60*60*1000)return;
+  wxBusy=true;
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=41.98&longitude=2.82&hourly=temperature_2m,apparent_temperature,precipitation_probability,precipitation,wind_speed_10m,wind_gusts_10m,wind_direction_10m&timezone=Europe%2FMadrid&forecast_days=3&wind_speed_unit=kmh")
+  .then(r=>r.ok?r.json():Promise.reject(r.status)).then(j=>{if(j&&j.hourly){wx={at:Date.now(),h:j.hourly};lsSet("qw.wx",wx)}})
+  .catch(()=>{}).then(()=>{wxBusy=false;renderWeather()});
+}
+const WDIR=["N","NE","E","SE","S","SO","O","NO"];
+function windName(deg){const i=Math.round(((deg%360)+360)%360/45)%8;return WDIR[i]+(i===0||i===7?" (tramuntana)":i===1?" (gregal)":i===4?" (migjorn)":i===6?" (ponent)":i===2?" (llevant)":"")}
+function wxTarget(){
+  const today=sessionsOn(todayStr).find(x=>x.type!=="gym"&&x.type!=="rest");
+  if(today&&!today.done&&!actFor(today)&&!runFor(today))return today;
+  const tm=addDays(todayStr,1);return sessionsOn(tm).find(x=>x.type!=="gym"&&x.type!=="rest")||null;
+}
+function clothes(minT,maxT,rain,wind,run){
+  const L=[];
+  if(run){
+    if(minT>=15)L.push("Samarreta i pantaló curts.");else if(minT>=8)L.push("Samarreta de màniga llarga fina i pantaló curt o malles.");else L.push("Màniga llarga tèrmica, malles i guants fins.");
+  } else {
+    if(minT>=21)L.push("Mallot i culot curts.");
+    else if(minT>=16)L.push("Mallot i culot curts + armilla a la butxaca per a les baixades.");
+    else if(minT>=11)L.push("Mallot curt amb maniguets i camals (o genolleres), armilla i guants curts.");
+    else if(minT>=6)L.push("Mallot de màniga llarga tèrmic o jaqueta lleugera, culot llarg, guants llargs i buff.");
+    else L.push("Jaqueta d'hivern, culot llarg tèrmic, guants d'hivern, cobresabates i buff.");
+    if(maxT-minT>=6)L.push("Hi haurà "+Math.round(maxT-minT)+"° de diferència: vés per capes.");
+  }
+  if(rain>=40)L.push("Probabilitat de pluja del "+Math.round(rain)+" %: jaqueta impermeable"+(run?"":" i guardafangs si en tens")+".");
+  if(wind>=25)L.push("Vent fort: surt de cara al vent i torna amb el vent a favor.");
+  return L;
+}
+function renderWeather(){
+  const el=document.getElementById("weather");if(!el)return;
+  const p=wxTarget();
+  if(!p||!wx||!wx.h){el.hidden=true;el.innerHTML="";return}
+  const dep=state.depHour==null?10:state.depHour,dur=Math.max(1,Math.ceil(((p.maxMin?(p.min+p.maxMin)/2:p.min)||60)/60));
+  const idx=[];wx.h.time.forEach((t,i)=>{if(t.slice(0,10)===p.d){const hh=+t.slice(11,13);if(hh>=dep&&hh<=dep+dur)idx.push(i)}});
+  if(!idx.length){el.hidden=true;el.innerHTML="";return}
+  const H=wx.h,pick=k=>idx.map(i=>H[k][i]);
+  const tmin=Math.min(...pick("apparent_temperature")),tmax=Math.max(...pick("temperature_2m")),rain=Math.max(...pick("precipitation_probability").map(x=>x||0));
+  const wind=Math.max(...pick("wind_speed_10m")),gust=Math.max(...pick("wind_gusts_10m")),wdir=H.wind_direction_10m[idx[0]];
+  el.hidden=false;
+  el.innerHTML='<div class="in" style="gap:12px"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><div><div class="kicker">El temps · '+(p.d===todayStr?"avui":"demà")+'</div><h3 style="margin-top:6px">'+Math.round(tmin)+'–'+Math.round(tmax)+'°</h3></div>'+
+    '<div class="dep"><button type="button" class="btn ghost" data-dep="-1" aria-label="Surto abans">−</button><span>Surto a les <b>'+dep+':00</b></span><button type="button" class="btn ghost" data-dep="1" aria-label="Surto més tard">+</button></div></div>'+
+    '<div class="wxrow">'+idx.map(i=>'<div><small>'+H.time[i].slice(11,13)+'h</small><b>'+Math.round(H.temperature_2m[i])+'°</b><i>'+(H.precipitation_probability[i]||0)+'%</i></div>').join("")+'</div>'+
+    '<div class="note">Vent '+Math.round(wind)+' km/h del '+windName(wdir)+(gust>wind+10?", ràfegues de "+Math.round(gust):"")+' · sensació mínima '+Math.round(tmin)+'°.</div>'+
+    '<ul class="checks">'+clothes(tmin,tmax,rain,wind,p.type==="run").map(t=>'<li><span class="m info">·</span><span>'+esc(t)+'</span></li>').join("")+'</ul></div>';
+}
+
+/* ---------- Què menjar ---------- */
+function dayKind(d){
+  const l=sessionsOn(d).filter(x=>x.type!=="gym");
+  if(!l.length||l.every(x=>x.type==="rest"))return "rest";
+  if(l.some(x=>x.type==="long"||(x.min||0)>=180))return "long";
+  if(l.some(x=>x.key||x.type==="int"))return "key";
+  return "easy";
+}
+const CARB={rest:[3,4],easy:[4,5],key:[5,7],long:[7,9]};
+function foodHTML(){
+  const kg=curWeight(),k=dayKind(todayStr),tk=dayKind(addDays(todayStr,1));
+  const p=sessionsOn(todayStr).find(x=>x.type!=="gym"&&x.type!=="rest");
+  let lo=CARB[k][0],hi=CARB[k][1];if(tk==="long"||tk==="key"){lo+=1;hi+=1}
+  const g=x=>Math.round(x*kg/10)*10;
+  const L=[];
+  L.push({h:"Avui en total",t:"Uns "+g(lo)+"–"+g(hi)+" g d'hidrats ("+lo+"–"+hi+" g/kg) i "+Math.round(1.6*kg)+"–"+Math.round(2*kg)+" g de proteïna repartida en 4 àpats."+(k==="rest"||k==="easy"?" Dia tranquil: és on pots menjar una mica menys per baixar de pes.":" Dia de feina: avui no és dia de passar gana.")});
+  if(p&&!p.done&&!actFor(p)&&!runFor(p)){
+    const durH=((p.maxMin?(p.min+p.maxMin)/2:p.min)||60)/60,pre=Math.round((k==="easy"?1:1.5)*kg/10)*10;
+    L.push({h:"2–3 h abans",t:"Uns "+pre+" g d'hidrats: civada amb llet i plàtan, o torrades amb mel i un parell d'ous. Si surts d'hora i no hi ha temps, un plàtan i un iogurt 45′ abans."});
+    const fm=p.fuel?String(p.fuel).match(/(\d+)\D+(\d+)\s*g\/h/):null;
+    const gh=durH<1.25?0:fm?(+fm[1]+ +fm[2])/2:durH>2.5?70:k==="key"?55:35;
+    if(gh){const tot=Math.round(gh*durH/5)*5,gels=Math.round(tot/25);L.push({h:"A la bici",t:gh+" g/h · "+tot+" g en total ≈ "+gels+" gels de 25 g (o barretes i plàtans equivalents). Comença al minut 30 i menja cada 30–40′. Aigua amb sals."})}
+    else L.push({h:"A la bici",t:"Sessió curta: aigua i prou."});
+    L.push({h:"En acabar",t:"20–30 g de proteïna i "+(k==="key"||k==="long"?Math.round(kg/10)*10:Math.round(kg/20)*10)+" g d'hidrats en la primera hora: iogurt grec amb fruita i civada, o entrepà de pernil o pollastre."});
+  }
+  if(tk==="long"||tk==="key")L.push({h:"Per a demà",t:"Demà toca «"+(sessionsOn(addDays(todayStr,1)).find(x=>x.type!=="gym")||{}).t+"»: sopar amb arròs, pasta o patata generós, i proteïna."});
+  return '<div class="in" style="gap:12px"><div><div class="kicker">Què menjar</div><h3 style="margin-top:6px">'+{rest:"Dia de descans",easy:"Dia suau",key:"Dia de sessió clau",long:"Dia de fons llarg"}[k]+'</h3></div><dl class="steps">'+L.map(x=>'<dt>'+esc(x.h)+'</dt><dd>'+esc(x.t)+'</dd>').join("")+'</dl><div class="note">Calculat per a '+String(kg).replace(".",",")+' kg. Orientatiu: si tens gana de veritat, menja.</div></div>';
+}
+
+/* ---------- Sincronització amb el coach (repositori privat) ---------- */
+let sync=lsGet("qw.sync",{token:"",repo:"albertgraubosch/quadern-privat",last:null,err:""});
+function saveSync(){lsSet("qw.sync",sync)}
+let syncT=0,syncBusy=false;
+function queueSync(){if(!sync.token)return;clearTimeout(syncT);syncT=setTimeout(pushInbox,2500)}
+function inboxData(){
+  const adj=all().filter(s=>s.userAdj).map(s=>({id:s.id,d:s.d,kind:s.userAdj.kind,from:s.userAdj.from||s.t,now:s.t,at:s.userAdj.at,status:s.status}));
+  const moved=all().filter(s=>s.movedFrom).map(s=>({id:s.id,from:s.movedFrom,to:s.d,t:s.t}));
+  const removed=all().filter(s=>s.status==="removed"&&!s.userAdj).map(s=>({id:s.id,d:s.d,t:s.t}));
+  return {updated:new Date().toISOString(),app:APP_VERSION,ftpApp:state.ftp||null,weights:(state.weights||[]).slice(-30),checkins:state.checkins||{},changes:{adjusted:adj,moved,removed},log:state.log.slice(-30),ftpTests:state.ftpTests||[]};
+}
+function b64(s){return btoa(unescape(encodeURIComponent(s)))}
+function pushInbox(){
+  if(!sync.token||syncBusy)return Promise.resolve();
+  syncBusy=true;
+  const url="https://api.github.com/repos/"+sync.repo+"/contents/inbox.json",H={Authorization:"Bearer "+sync.token,Accept:"application/vnd.github+json"};
+  return fetch(url,{headers:H,cache:"no-store"}).then(r=>r.status===404?{}:r.ok?r.json():Promise.reject({status:r.status}))
+  .then(cur=>fetch(url,{method:"PUT",headers:Object.assign({"Content-Type":"application/json"},H),body:JSON.stringify({message:"App: dades de l'Albert",content:b64(JSON.stringify(inboxData(),null,1)),sha:cur.sha})}))
+  .then(r=>{if(!r.ok)return Promise.reject({status:r.status});sync.last=new Date().toISOString();sync.err="";saveSync()})
+  .catch(e=>{sync.err=e&&e.status===401?"El token no és vàlid o ha caducat.":e&&e.status===404?"No trobo el repositori «"+sync.repo+"» o el token no hi té accés.":e&&e.status===403?"El token no té permís d'escriptura (Contents: Read and write).":"No s'ha pogut enviar. Ho tornaré a provar.";saveSync()})
+  .then(()=>{syncBusy=false;if(page==="ajustos")renderSettings()});
+}
+
+/* ---------- Strava: posar el títol directament ---------- */
+function canWrite(){return /activity:write/.test(strava.scope||"")}
+function apiPut(path,body){
+  return ensureToken(false).then(tok=>fetch(API+path,{method:"PUT",headers:{Authorization:"Bearer "+tok,"Content-Type":"application/json"},body:JSON.stringify(body)})).then(r=>{if(!r.ok)throw {code:r.status===401?"reauth":"http",status:r.status};return r.json()});
+}
+function setStravaTitle(id,name){
+  apiPut("/activities/"+id,{name}).then(()=>{const a=allList.find(x=>String(x.id)===String(id));if(a){a.name=name;lsSet("qw.acts",allList)}toast("Títol posat a Strava ✓");renderTitles()})
+  .catch(e=>{copyText(name,e&&(e.status===401||e.status===403)?"Strava no deixa escriure: torna a donar el permís a Ajustos. L'he copiat.":"No s'ha pogut posar. L'he copiat perquè l'enganxis.")});
+}
+
+/* ---------- Rendiment ---------- */
+function renderPerf(){
+  const el=document.getElementById("perfBody");if(!el)return;
+  const kg=curWeight(),F=ftp(),e=eftp(),f2=x=>x.toFixed(2).replace(".",",");
+  let h="";
+  // FTP i rècords
+  const nC=Object.keys(curves).length;
+  h+='<section class="card"><div class="in" style="gap:12px"><div class="kicker">FTP</div><div class="stats">'+
+    '<div class="stat"><div class="k">FTP oficial</div><div class="v">'+F+' W</div></div>'+
+    '<div class="stat"><div class="k">Estimat ara</div><div class="v">'+(e?e.v+" W":"—")+'</div></div>'+
+    '<div class="stat"><div class="k">W/kg</div><div class="v">'+f2(F/kg)+'</div></div></div>'+
+    '<div class="note">'+(e?"L'estimat surt dels teus millors esforços de les últimes 6 setmanes ("+DLAB[e.from.L]+" a "+e.from.w+" W el "+dayLabel(e.from.d)+"). És prudent: només puja quan vas a tope. L'oficial el fixa el test.":nC?"Encara no hi ha esforços prou llargs per estimar-lo.":"Llegint les teves sortides de Strava…")+'</div>';
+  const tp=all().find(s=>s.cat==="test"&&s.d<=todayStr&&acts[s.d]&&curves[String(acts[s.d].id)]&&s.d>=addDays(todayStr,-7));
+  if(tp){const c=curves[String(acts[tp.d].id)].b,v=c[1200]?Math.round(c[1200]*0.95):null;if(v&&v!==F)h+='<div class="suggest"><div class="kicker">Resultat del test</div><div>20′ a '+c[1200]+' W → FTP = '+v+' W ('+f2(v/kg)+' W/kg).</div><div class="actions"><button class="btn primary" type="button" data-setftp="'+v+'">Fes-lo servir com a FTP</button></div></div>'}
+  const rec=[];Object.keys(curves).filter(id=>curves[id].d>=addDays(todayStr,-30)).forEach(id=>recordsFor(id).forEach(r=>rec.push(Object.assign({d:curves[id].d},r))));
+  rec.sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:b.L-a.L);
+  if(rec.length)h+='<div class="label">Rècords dels últims 30 dies</div><div class="tbl"><table><thead><tr><th>Durada</th><th>Watts</th><th>Abans</th><th>Dia</th></tr></thead><tbody>'+rec.slice(0,8).map(r=>'<tr><td>'+DLAB[r.L]+'</td><td class="s-ok">'+r.w+'</td><td>'+r.prev+'</td><td>'+esc(dayLabel(r.d))+'</td></tr>').join("")+'</tbody></table></div>';
+  h+='</div></section>';
+  // Perfil
+  const rows=profileData(),ty=profileType(rows);
+  h+='<section class="card"><div class="in" style="gap:12px"><div><div class="kicker">Perfil de potència</div><h3 style="margin-top:6px">'+(ty?esc(ty[0]):"Perfil")+'</h3></div>'+(ty?'<div class="note">'+esc(ty[1])+'</div>':'');
+  h+='<div class="prof2">'+rows.map(r=>'<div class="pr"><div class="prh"><span>'+esc(r.label)+'</span><b>'+r.w+' W · '+f2(r.wkg)+' W/kg</b></div><div class="lvbar"><i style="width:'+Math.min(100,r.lv.f/8*100).toFixed(1)+'%"></i></div><div class="note">'+esc(r.lv.name)+(r.d?" · "+esc(dayLabel(r.d)):" · FTP oficial")+'</div></div>').join("")+'</div>';
+  h+='<div class="lvleg">'+LV.map(l=>'<span>'+esc(l)+'</span>').join("")+'</div><div class="note">Millors marques dels últims 4 mesos amb '+String(kg).replace(".",",")+' kg. Nivells aproximats de l\'escala de Coggan (homes). L\'esprint i el minut només són fiables si algun dia els has fet a tope.</div>';
+  // Evolució mensual
+  const months=[];for(let i=3;i>=0;i--){const d=parseD(todayStr);d.setDate(1);d.setMonth(d.getMonth()-i);const from=localDate(d);d.setMonth(d.getMonth()+1);d.setDate(0);months.push([from,localDate(d)])}
+  const mb=months.map(([a,b])=>bestCurve(a,b).b);
+  if(mb.some(b=>Object.keys(b).length))h+='<div class="label">Evolució per mesos</div><div class="tbl"><table><thead><tr><th></th>'+months.map(([a])=>'<th>'+MONTHS[parseD(a).getMonth()]+'</th>').join("")+'</tr></thead><tbody>'+[5,60,300,1200].map(L=>'<tr><td>'+DLAB[L]+'</td>'+mb.map(b=>'<td>'+(b[L]||"—")+'</td>').join("")+'</tr>').join("")+'</tbody></table></div>';
+  h+='</div></section>';
+  // Pes
+  const ws=state.weights||[];
+  h+='<section class="card"><div class="in" style="gap:12px"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><div><div class="kicker">Pes</div><h3 style="margin-top:6px">'+String(kg).replace(".",",")+' kg</h3></div><span class="note">Objectiu 70 kg</span></div>';
+  if(ws.length>1){const v=ws.slice(-12),mn=Math.min(70,...v.map(x=>x.kg))-0.5,mx=Math.max(...v.map(x=>x.kg))+0.5,yy=x=>(40-(x-mn)/(mx-mn)*38).toFixed(1);
+    h+='<svg class="spark" viewBox="0 0 100 42" preserveAspectRatio="none" role="img" aria-label="Evolució del pes"><line x1="0" x2="100" y1="'+yy(70)+'" y2="'+yy(70)+'" stroke="var(--ok)" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/><polyline points="'+v.map((x,i)=>(i/(v.length-1)*100).toFixed(1)+","+yy(x.kg)).join(" ")+'" fill="none" stroke="var(--accent)" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>'}
+  h+='<div class="row2"><div class="field" style="flex:1"><label for="wkg">Pes d\'avui (kg)</label><input id="wkg" type="number" inputmode="decimal" step="0.1" min="40" max="150" placeholder="'+String(kg).replace(".",",")+'"></div><button class="btn primary" type="button" id="wSave">Desa</button></div>';
+  h+='<div class="note">Amb el mateix FTP, a 70 kg series a '+f2(F/70)+' W/kg (ara '+f2(F/kg)+'). Pesa\'t un cop per setmana, al matí i en dejú.</div>'+(ws.length?'<div class="note">Últims: '+ws.slice(-4).reverse().map(x=>dayLabel(x.d)+" "+String(x.kg).replace(".",",")).join(" · ")+'</div>':'')+'</div></section>';
+  // Objectius
+  const G=goals();
+  if(G.length)h+='<section class="card"><div class="in" style="gap:12px"><div class="kicker">Objectius</div>'+G.map(g=>{
+    const n=daysTo(g.d);let extra="";
+    if(g.kind==="ftp"){const now=Math.max(F,e?e.v:0),pc=Math.max(0,Math.min(100,(now-FTP0)/(g.target-FTP0)*100));extra='<div class="bar2"><i style="width:'+Math.max(3,pc).toFixed(0)+'%"></i></div><div class="note">Ara '+now+' W de '+g.target+' W · en falten '+Math.max(0,g.target-now)+'.</div>'}
+    else if(g.target)extra='<div class="note">'+esc(g.target)+'</div>';
+    return '<div class="goal"><div class="gl"><b>'+esc(g.t)+'</b><span>'+esc(dayLabel(g.d))+'</span></div><div class="gn">'+(n===0?"Avui":n===1?"Demà":n+" dies")+'</div>'+extra+'</div>'}).join("")+'</div></section>';
+  h+='<section class="card" id="state"></section>';
+  h+='<section class="card">'+weekSummaryHTML(mondayOf(todayStr),"Aquesta setmana")+'</section>';
+  h+='<section class="card">'+weekSummaryHTML(addDays(mondayOf(todayStr),-7),"Setmana passada")+'</section>';
+  el.innerHTML=h;renderState();
+}
+
+/* ---------- Diari ---------- */
+function renderDiary(){
+  const el=document.getElementById("notesList");if(!el)return;
+  const notes=allNotes(),cks=Object.entries(state.checkins||{}).map(([id,c])=>Object.assign({id},c));
+  const dates=[...new Set(notes.map(n=>n.date).concat(cks.map(c=>c.d)))].sort().reverse();
+  if(!dates.length){el.innerHTML='<p class="note">Encara no hi ha res. El coach escriu una nota cada vespre i aquí també veuràs com t\'has trobat a cada sortida.</p>';return}
+  el.innerHTML=dates.map(d=>{
+    const dd=parseD(d);
+    return '<div class="nday"><h3>'+DAYNAMES[dd.getDay()]+' '+dd.getDate()+' '+MONTHS[dd.getMonth()]+'</h3><span class="note">Setmana '+weekNo(d)+'</span>'+
+      cks.filter(c=>c.d===d).map(c=>'<div class="ckmini"><b>Tu'+(c.name?" · "+esc(c.name):"")+'</b><span>'+esc(ckSummary(c))+'</span>'+(c.note?'<span>«'+esc(c.note)+'»</span>':'')+'</div>').join("")+
+      notes.filter(n=>n.date===d).map(n=>'<p class="ntext"><b class="who">Coach</b> '+esc(n.text)+'</p>').join("")+'</div>';
+  }).join("");
+}
+
+/* ---------- Ajustos ---------- */
+function renderSettings(){
+  const el=document.getElementById("syncBox");if(!el)return;
+  if(!sync.token){
+    el.innerHTML='<div class="in setup"><div><div class="kicker">Connexió amb el coach</div><h3 style="margin-top:6px">Que el coach vegi com et trobes</h3></div>'+
+      '<div class="note">Les valoracions, el pes i els canvis que facis a l\'app s\'envien a un repositori <b>privat</b> teu a GitHub. La revisió de cada vespre els llegeix d\'allà. Sense això, només es queden en aquest mòbil.</div>'+
+      '<ol><li>A GitHub, crea un token: <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a>. Nom: «Quadern de Watts». Caducitat: 1 any.</li><li>«Repository access»: <b>Only select repositories</b> → <b>quadern-privat</b>.</li><li>«Permissions» → «Contents»: <b>Read and write</b>. Genera\'l i copia\'l aquí. Es queda només en aquest mòbil.</li></ol>'+
+      '<div class="field"><label for="syncRepo">Repositori</label><input id="syncRepo" autocomplete="off" autocapitalize="off" spellcheck="false" value="'+esc(sync.repo)+'"></div>'+
+      '<div class="field"><label for="syncTok">Token</label><input id="syncTok" autocomplete="off" autocapitalize="off" spellcheck="false"></div>'+
+      '<div class="actions"><button class="btn primary" type="button" id="syncSave">Connecta i prova</button></div></div>';
+  } else {
+    const l=sync.last?new Date(sync.last):null;
+    el.innerHTML='<div class="in" style="gap:12px"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h3>Coach</h3><span class="note">'+esc(sync.repo)+'</span></div>'+
+      '<div class="note">'+(syncBusy?"Enviant…":sync.err?'<span style="color:var(--bad)">'+esc(sync.err)+'</span>':l?"Últim enviament: "+l.getDate()+" "+MONTHS[l.getMonth()]+" a les "+String(l.getHours()).padStart(2,"0")+":"+String(l.getMinutes()).padStart(2,"0")+". S'envia sol cada cop que puntues una sortida, et peses o canvies una sessió.":"Encara no s'ha enviat res.")+'</div>'+
+      '<div class="actions"><button class="btn primary" type="button" id="syncNow">Envia ara</button><button class="btn ghost" type="button" id="syncForget">Treu el token</button></div></div>';
+  }
+  const sw=document.getElementById("stravaWrite");
+  if(sw)sw.innerHTML=!strava.refreshToken?"":canWrite()?'<div class="note">✓ L\'app pot posar els títols directament a Strava.</div>':'<div class="note">Perquè l\'app posi el títol directament a Strava (sense copiar i enganxar), cal donar-li permís d\'escriptura un cop.</div><div class="actions"><button class="btn ghost" type="button" id="stravaWriteBtn">Permet posar títols a Strava</button></div>';
+  const dh=document.getElementById("depHourTxt");if(dh)dh.textContent=(state.depHour==null?10:state.depHour)+":00";
+}
+
 /* ---------- Progress sync ---------- */
 function syncDone(){
   all().forEach(s=>{const r=runFor(s);if(r&&!(s.done&&s.done.activityId===String(r.id)))setOv(s.id,{done:{by:"strava",activityId:String(r.id),name:r.name||"Cursa",movingMin:Math.round((r.moving_time||0)/60),km:Math.round((r.distance||0)/100)/10,at:new Date().toISOString()}})});
@@ -675,12 +1167,13 @@ function syncDone(){
 /* ---------- Strava ---------- */
 const API="https://www.strava.com/api/v3";
 function redirectUri(){return location.origin+location.pathname}
-function startAuth(){
-  const cid=(document.getElementById("cid").value||"").trim(),sec=(document.getElementById("csec").value||"").trim();
+function startAuth(write){
+  const ci=document.getElementById("cid"),cs=document.getElementById("csec");
+  const cid=(ci?ci.value:strava.clientId||"").trim(),sec=(cs?cs.value:strava.clientSecret||"").trim();
   if(!/^\d+$/.test(cid)){toast("El Client ID són només números. Copia'l de strava.com/settings/api.");return}
   if(sec.length<20){toast("El Client Secret sembla incomplet. Toca «Show» a Strava i copia'l sencer.");return}
   strava.clientId=cid;strava.clientSecret=sec;saveStrava();
-  const u="https://www.strava.com/oauth/authorize?client_id="+encodeURIComponent(cid)+"&response_type=code&approval_prompt=auto&scope="+encodeURIComponent("read,activity:read_all")+"&redirect_uri="+encodeURIComponent(redirectUri());
+  const u="https://www.strava.com/oauth/authorize?client_id="+encodeURIComponent(cid)+"&response_type=code&approval_prompt=auto&scope="+encodeURIComponent(write?"read,activity:read_all,activity:write":"read,activity:read_all")+"&redirect_uri="+encodeURIComponent(redirectUri());
   location.href=u;
 }
 function tokenRequest(params){
@@ -689,7 +1182,7 @@ function tokenRequest(params){
 }
 function handleAuthReturn(){
   const q=new URLSearchParams(location.search);
-  const code=q.get("code"),err=q.get("error");
+  const code=q.get("code"),err=q.get("error");if(q.get("scope"))strava.scope=q.get("scope");
   if(!code&&!err)return Promise.resolve();
   history.replaceState(null,"",location.pathname);
   if(err){toast("No s'ha donat permís a Strava. Torna-ho a provar i accepta l'accés.");return Promise.resolve()}
@@ -697,7 +1190,7 @@ function handleAuthReturn(){
   stravaMsg="Connectant amb Strava…";renderStatus();
   return tokenRequest({code,grant_type:"authorization_code"}).then(j=>{
     strava.accessToken=j.access_token;strava.refreshToken=j.refresh_token;strava.expiresAt=j.expires_at;
-    strava.athlete=j.athlete?[j.athlete.firstname,j.athlete.lastname].filter(Boolean).join(" "):"";
+    strava.athlete=j.athlete?[j.athlete.firstname,j.athlete.lastname].filter(Boolean).join(" "):"";if(q.get("scope"))strava.scope=q.get("scope");
     saveStrava();toast("Strava connectat ✓");
   }).catch(e=>{
     stravaState="err";
@@ -756,7 +1249,7 @@ function loadActivities(){
     seenActs=new Set(norm.map(a=>a.id));
     acts=next;runActs=indexRuns(norm);gymActs={};norm.forEach(a=>{if(a.start_local&&/WeightTraining|Workout|Crossfit|Yoga|Pilates/i.test(String(a.sport_type||"")))gymActs[a.start_local.slice(0,10)]=a});stravaState="on";
     const t=new Date();stravaMsg="Strava connectat · "+String(t.getHours()).padStart(2,"0")+":"+String(t.getMinutes()).padStart(2,"0");
-    syncDone();render();analyzeAll();
+    syncDone();render();analyzeAll();curveQueue();loadWeather();
   })
   .catch(e=>{stravaState=e&&e.code==="net"&&Object.keys(acts).length?"on":"err";stravaMsg=errMsg(e);render()})
   .then(()=>{busy=false});
@@ -771,14 +1264,17 @@ function getStreams(id){
   if(!window.caches)return fromNet();
   return caches.open(STREAM_CACHE).then(c=>c.match(key)).then(r=>r?r.json():fromNet()).catch(()=>fromNet());
 }
-function loadDetail(id){
+let renderT=0;
+function renderSoon(){clearTimeout(renderT);renderT=setTimeout(render,700)}
+function loadDetail(id,quiet){
   loading[id]=true;
   return getStreams(id).then(st=>{
     const g=k=>st&&st[k]&&Array.isArray(st[k].data)?st[k].data:null;
-    const time=g("time");
-    data[id]={w:g("watts")?expand(time,g("watts")):[],c:g("cadence")?expand(time,g("cadence")):[]};memo.clear();
-  }).catch(e=>{data[id]={error:errMsg(e)}})
-  .then(()=>{delete loading[id];syncDone();render()});
+    const time=g("time"),w=g("watts")?expand(time,g("watts")):[];
+    const a=allList.find(x=>String(x.id)===String(id));if(a&&w.length)storeCurve(a,w);
+    if(!quiet){data[id]={w,c:g("cadence")?expand(time,g("cadence")):[]};memo.clear()}
+  }).catch(e=>{if(!quiet)data[id]={error:errMsg(e)}})
+  .then(()=>{delete loading[id];if(quiet){renderSoon();return}syncDone();render()});
 }
 let chain=Promise.resolve();
 function analyzeAll(){
@@ -910,10 +1406,25 @@ document.getElementById("refresh").addEventListener("click",()=>{loadPlan();load
 document.getElementById("share").addEventListener("click",shareSummary);
 document.addEventListener("click",e=>{
   const el=e.target.closest("button");if(!el)return;
-  if(el.dataset&&el.dataset.title){copyText(el.dataset.title,"Copiat. Ara enganxa'l com a títol a Strava.");return}
+  if(el.dataset&&el.dataset.title){const ra=recentAct();if(canWrite()&&ra)setStravaTitle(ra.id,el.dataset.title);else copyText(el.dataset.title,"Copiat. Ara enganxa'l com a títol a Strava.");return}
+  if(el.dataset&&el.dataset.page){setPage(el.dataset.page);return}
+  if(el.dataset&&el.dataset.ck){const [id,k,v]=el.dataset.ck.split("|");ckDraft[id]=ckDraft[id]||{};ckDraft[id][k]=+v;const inp=document.querySelector('[data-cknote="'+id+'"]');if(inp)ckDraft[id].note=inp.value;renderWeek();return}
+  if(el.dataset&&el.dataset.cksave){saveCheckin(el.dataset.cksave);return}
+  if(el.dataset&&el.dataset.ckedit){ckEdit=el.dataset.ckedit;renderWeek();return}
+  if(el.dataset&&el.dataset.ckcancel){ckEdit=null;delete ckDraft[el.dataset.ckcancel];renderWeek();return}
+  if(el.dataset&&el.dataset.chg){chg=el.dataset.chg;renderWeek();return}
+  if(el.dataset&&el.dataset.chgcancel){chg=null;renderWeek();return}
+  if(el.dataset&&el.dataset.adj){const [id,kind]=el.dataset.adj.split("|");applyAdj(id,kind);return}
+  if(el.dataset&&el.dataset.undoadj){undoAdj(el.dataset.undoadj);return}
+  if(el.dataset&&el.dataset.dep){state.depHour=Math.max(5,Math.min(20,(state.depHour==null?10:state.depHour)+(+el.dataset.dep)));saveState();renderWeather();return}
+  if(el.dataset&&el.dataset.setftp){const v=+el.dataset.setftp,old=ftp();state.ftp=v;state.ftpTests=(state.ftpTests||[]).concat([{d:todayStr,ftp:v,old}]);saveState();addLog("FTP del test: de "+old+" W a "+v+" W.");memo.clear();queueSync();toast("FTP actualitzat a "+v+" W.");render();return}
+  if(el.id==="wSave"){const v=parseFloat(String(document.getElementById("wkg").value).replace(",","."));if(!(v>=40&&v<=150)){toast("Escriu el pes en kg, per exemple 74,6.");return}state.weights=(state.weights||[]).filter(x=>x.d!==todayStr).concat([{d:todayStr,kg:Math.round(v*10)/10}]);saveState();applyWeight();queueSync();toast("Pes desat.");render();return}
+  if(el.id==="syncSave"){const t=(document.getElementById("syncTok").value||"").trim(),r=(document.getElementById("syncRepo").value||"").trim();if(t.length<20){toast("El token sembla incomplet.");return}if(!/^[\w.-]+\/[\w.-]+$/.test(r)){toast("El repositori ha de ser usuari/nom.");return}sync.token=t;sync.repo=r;sync.err="";saveSync();renderSettings();pushInbox().then(()=>toast(sync.err||"Connectat amb el coach ✓"));return}
+  if(el.id==="syncNow"){pushInbox().then(()=>toast(sync.err||"Enviat ✓"));renderSettings();return}
+  if(el.id==="syncForget"){sync={token:"",repo:sync.repo,last:null,err:""};saveSync();renderSettings();return}
+  if(el.id==="stravaWriteBtn"){startAuth(true);return}
   if(el.dataset&&el.dataset.tmore){titleOff[el.dataset.tmore]=(titleOff[el.dataset.tmore]||0)+1;renderTitles();return}
   if(el.id==="openNotes"){openNotes();return}
-  if(el.id==="closeNotes"){closeNotes();return}
   if(el.id==="wkPrev"||el.id==="wkNext"){weekSel=(weekSel||1)+(el.id==="wkNext"?1:-1);selId=null;renderWeek();return}
   if(el.id==="icuSave"){const k=(document.getElementById("icuKey").value||"").trim();if(k.length<10){toast("La clau sembla incompleta. Copia-la sencera.");return}icu.key=k;icu.lastHash="";icu.err="";saveIcu();renderWahoo();icuPush(true);return}
   if(el.id==="icuPush"){icuPush(true);return}
@@ -922,11 +1433,11 @@ document.addEventListener("click",e=>{
   if(el.id==="connect"){startAuth();return}
   if(el.id==="importBtn"){
     try{const raw=(document.getElementById("importKey").value||"").trim();const j=JSON.parse(decodeURIComponent(escape(atob(raw))));
-      if(!j.c||!j.s||!j.r)throw 0;strava={clientId:j.c,clientSecret:j.s,refreshToken:j.r,athlete:j.a||""};saveStrava();toast("Strava connectat ✓");render();loadActivities();
+      if(!j.c||!j.s||!j.r)throw 0;strava={clientId:j.c,clientSecret:j.s,refreshToken:j.r,athlete:j.a||"",scope:j.sc||""};saveStrava();toast("Strava connectat ✓");render();loadActivities();
     }catch(err){toast("Aquesta clau no és vàlida. Copia-la sencera des de «Connexió amb Strava».")}
     return;
   }
-  if(el.id==="exportBtn"){const k=btoa(unescape(encodeURIComponent(JSON.stringify({c:strava.clientId,s:strava.clientSecret,r:strava.refreshToken,a:strava.athlete||""}))));copyText(k,"Clau copiada. Enganxa-la a l'altra app.");return}
+  if(el.id==="exportBtn"){const k=btoa(unescape(encodeURIComponent(JSON.stringify({c:strava.clientId,s:strava.clientSecret,r:strava.refreshToken,a:strava.athlete||"",sc:strava.scope||""}))));copyText(k,"Clau copiada. Enganxa-la a l'altra app.");return}
   if(el.id==="disconnect"){strava={clientId:strava.clientId,clientSecret:strava.clientSecret};saveStrava();acts={};data={};stravaState="idle";stravaMsg="Strava desconnectat.";render();return}
   const ds=el.dataset;
   if(ds.week){weekSel=+ds.week;selId=null;renderWeek();return}
@@ -941,11 +1452,11 @@ document.addEventListener("click",e=>{
     repl.forEach(x=>setOv(x.id,{status:"replaced",replacedBy:s.id}));
     setOv(s.id,{d:to,movedFrom:s.movedFrom||from});
     addLog("«"+s.t+"» reprogramada del "+dayLabel(from)+" al "+dayLabel(to)+(repl.length?", en lloc de «"+repl.map(x=>x.t).join(" + ")+"».":"."));
-    toast("«"+s.t+"» passa al "+dayLabel(to)+".");memo.clear();render();return;
+    toast("«"+s.t+"» passa al "+dayLabel(to)+".");chg=null;memo.clear();queueSync();render();return;
   }
-  if(ds.remove){const s=S[ds.remove];if(!s)return;chooser=null;setOv(s.id,{status:"removed"});addLog("«"+s.t+"» del "+dayLabel(s.d)+" eliminada.");toast("Sessió eliminada. La pots recuperar des del pla.");render();return}
+  if(ds.remove){const s=S[ds.remove];if(!s)return;chooser=null;setOv(s.id,{status:"removed"});addLog("«"+s.t+"» del "+dayLabel(s.d)+" eliminada.");toast("Sessió eliminada. La pots recuperar des del pla.");queueSync();render();return}
   if(ds.restore){const s=S[ds.restore];if(!s)return;setOv(s.id,{status:"planned"});addLog("«"+s.t+"» del "+dayLabel(s.d)+" recuperada.");render();return}
-  if(ds.done){const s=S[ds.done];if(!s)return;chooser=null;setOv(s.id,{done:{by:"manual",at:new Date().toISOString()}});addLog("«"+s.t+"» del "+dayLabel(s.d)+" marcada com a feta a mà.");toast("Marcada com a feta ✓");render();return}
+  if(ds.done){const s=S[ds.done];if(!s)return;chooser=null;setOv(s.id,{done:{by:"manual",at:new Date().toISOString()}});addLog("«"+s.t+"» del "+dayLabel(s.d)+" marcada com a feta a mà.");toast("Marcada com a feta ✓");queueSync();render();return}
   if(ds.undone){const s=S[ds.undone];if(!s)return;setOv(s.id,{done:null});render();return}
   if(ds.apply||ds.dismiss){
     const s=S[ds.apply||ds.dismiss];if(!s)return;const act=actFor(s);const d=act&&data[act.id];
@@ -956,6 +1467,7 @@ document.addEventListener("click",e=>{
     setOv(s.id,{adjDone:ds.apply?"applied":"dismissed"});memo.clear();render();return;
   }
 });
+document.addEventListener("input",e=>{const t=e.target;if(t&&t.dataset&&t.dataset.cknote){const id=t.dataset.cknote;ckDraft[id]=ckDraft[id]||{};ckDraft[id].note=t.value}});
 function tick(){
   const t=localDate(new Date());
   if(t!==todayStr){todayStr=t;weekSel=null;selId=null;render()}
@@ -968,7 +1480,7 @@ document.addEventListener("visibilitychange",()=>{if(document.visibilityState===
 if(plan){applyPlanMeta();S=buildSessions();planState="ready"}
 const cached=lsGet("qw.acts",null);if(Array.isArray(cached)){allList=cached;acts=indexActs(cached);runActs=indexRuns(cached);if(strava.refreshToken){stravaState="on";stravaMsg="Carregant Strava…"}}
 try{localStorage.removeItem("qw.coach")}catch(e){}
-render();if(location.hash==="#notes")openNotes();
+render();{const hsh=location.hash.slice(1);setPage(hsh==="notes"?"diari":hsh||"avui",true)}loadWeather();
 handleAuthReturn().then(()=>{render();return loadPlan()}).then(()=>{if(strava.refreshToken)loadActivities()});
 function checkAppUpdate(){
   if(!("serviceWorker" in navigator))return;
