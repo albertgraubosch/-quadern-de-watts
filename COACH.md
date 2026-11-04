@@ -87,6 +87,13 @@ Fons llarg: 3 h → 3h30 → 4 h; tempo 2×15′ → 2×20′ → 3×15′ a 78�
 - Watts als passos amb placeholders `{lo,hi}` en % de l'FTP (p. ex. `{88,92}`), mai en watts fixos.
 - Fes commit i push a `main`. L'app i el Wahoo (via intervals.icu) s'actualitzen quan l'Albert obre l'app.
 
+## Dades de l'app (repositori privat `albertgraubosch/quadern-privat`)
+- L'app hi desa `inbox.json`: `checkins` (per activitat: son, cames, ganes 1–5, esforç 1–10 i comentari), `weights` (pes), `changes` (sessions que l'Albert ha suavitzat, escurçat, mogut o eliminat des de l'app), `ftpTests` i `log`.
+- A cada revisió: `add_repo` d'aquest repositori (lectura), clona'l i llegeix `inbox.json` abans de decidir. Si no hi és o no hi tens accés, continua sense i no ho comentis a la nota.
+- Com fer-les servir: cames ≤ 2 o esforç ≥ 9 en una sessió no-clau → rebaixa l'endemà. Son ≤ 2 dos dies seguits → més descans. Esforç ≤ 6 en una clau feta per sobre de l'objectiu → senyal per pujar. Cita-ho a la nota amb naturalitat («deies que tenies les cames carregades…»).
+- Si l'Albert ha canviat una sessió des de l'app (`changes`), respecta-ho: no la tornis a posar com estava; reorganitza la resta de la setmana i actualitza `plan.json` perquè coincideixi.
+- No copiïs mai res d'aquest repositori al repositori públic de l'app (pes, sensacions…): a `plan.json` i a les notes, només el que calgui per entrenar.
+
 ## Títols per a Strava (`titles.json`)
 - L'app mostra 5 títols per a cada activitat nova. L'Albert en tria un i l'enganxa a Strava.
 - **El que vol:** frases amb segones intencions, canalla i amb gràcia, que relacionin l'activitat amb l'actualitat del món (política, economia, futbol, Girona, Catalunya, xarxes) o amb coses de col·legues. Res de frases genèriques o buides. En català, una línia, sense emojis, sense explicar l'acudit.
