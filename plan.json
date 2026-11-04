@@ -1,6 +1,6 @@
 {
- "version": 23,
- "updated": "2026-11-04 08:25",
+ "version": 24,
+ "updated": "2026-11-04 20:49",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -825,26 +825,26 @@
    "type": "end",
    "z": "z2",
    "cat": "end",
-   "t": "Z2 i cadència",
-   "min": 105,
+   "t": "Z2 suau 1h30",
+   "min": 90,
    "band": [
     0.56,
-    0.75
+    0.7
    ],
    "cad": [
-    85,
+    88,
     92
    ],
-   "fuel": "Aigua amb electròlits i 30–40 g/h",
-   "note": "Dijous no toca força: serien dos dies seguits d'intervals. La força-resistència d'aquesta setmana cau; dissabte, el fons llarg amb tempo. Z2 de veritat: res per sobre de 184 W.",
+   "fuel": "Aigua amb electròlits i 30 g/h",
+   "note": "Rebaixat: ahir 168 TSS i TSB ≈ −30. Z2 baixa de veritat: màxim 172 W, també a les pujades. Cadència alta per descarregar les cames.",
    "steps": [
     {
      "l": "Escalfament",
-     "x": "10′ progressius fins a {61}"
+     "x": "10′ progressius fins a {60}"
     },
     {
      "l": "Principal",
-     "x": "1h25 en Z2 a {63,73} · cada 15′, 2′ a 100–105 rpm sense canviar els watts"
+     "x": "1h10 en Z2 baixa a {58,68} · 88–92 rpm · pujades com a màxim a {70}, pinyó gran"
     },
     {
      "l": "Calma",
@@ -928,7 +928,7 @@
    "key": true,
    "t": "Fons llarg amb tempo",
    "min": 210,
-   "maxMin": 240,
+   "maxMin": 210,
    "band": [
     0.56,
     0.8
@@ -951,7 +951,7 @@
     }
    ],
    "fuel": "70 g/h de carbohidrats des del minut 30. Esmorzar fort 2–3 h abans.",
-   "note": "La sortida més llarga del bloc. Els dos blocs de tempo, a la segona meitat: fan que aguantis el ritme amb fatiga, que és el que et falta a 20′.",
+   "note": "Màxim 3h30 (vens d'una setmana amb TSB ≈ −30). Els dos blocs de tempo, a la segona meitat, a 191–203 W i 85+ rpm: tempo, no llindar. Si als primers 5′ del primer bloc et costa aguantar 191 W, fes-ne només un.",
    "steps": [
     {
      "l": "Primera meitat",
@@ -972,25 +972,16 @@
   {
    "id": "s20261108",
    "d": "2026-11-08",
-   "type": "end",
-   "z": "z2",
-   "cat": "end",
-   "t": "Z2 suau (opcional)",
-   "min": 90,
-   "band": [
-    0.56,
-    0.7
-   ],
-   "cad": [
-    85,
-    90
-   ],
-   "fuel": "Aigua i 30 g/h",
-   "note": "Opcional. Si dissabte has acabat molt cansat, descans.",
+   "type": "rest",
+   "z": "z1",
+   "cat": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Abans era Z2 opcional. Descans per absorbir la setmana i arribar fresc a la descàrrega i al test del 14.",
    "steps": [
     {
-     "l": "Sessió",
-     "x": "1h30 a {56,70}, sense apretar enlloc (màxim {75})"
+     "l": "Avui",
+     "x": "Descans total. 15′ de mobilitat si et ve de gust."
     }
    ],
    "ord": 1,
@@ -1259,6 +1250,10 @@
   {
    "date": "2026-11-04",
    "text": "Et lleves amb agulletes: normal, ahir vas córrer 14,4 km a 4:58/km quan feia setmanes que no corries, i l'impacte carrega quàdriceps i bessons. Les sèries es fan, però a 233–243 W i amb cadència alta. Si a l'escalfament no hi ets, pla B sense pensar-hi. Gimnàs d'avui sense cames. Pròximes curses suaus: el temps i el ritme previstos, no més."
+  },
+  {
+   "date": "2026-11-04",
+   "text": "Llindar 3 × 8′ previst a 233–243 W: n'has fet dos, a 268 i 258 W (+10 % i +6 %) i a 82 rpm, i el tercer no. Això ja és VO2, no llindar. Sortida: 2h38, NP 197 W, IF 0,80, TSS ≈ 168. 7 dies ≈ 400 TSS, TSB ≈ −30. No pugem. Dijous Z2 1h30 fins a 172 W, dissabte màxim 3h30, diumenge descans. 20′ als Àngels a 240 W: l'FTP pinta més alt, ho dirà el test."
   }
  ]
 }
