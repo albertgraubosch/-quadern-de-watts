@@ -1,6 +1,6 @@
 {
- "version": 26,
- "updated": "2026-11-05 22:30",
+ "version": 27,
+ "updated": "2026-11-05 22:58",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -882,7 +882,7 @@
    "t": "Gimnàs B: core i estabilitat",
    "min": 40,
    "rpe": "RPE 6",
-   "note": "Poques cames: demà tens el fons llarg.",
+   "note": "Només core i tren superior: dissabte tens 115 km i 1.400 m.",
    "steps": [
     {
      "l": "Escalfament",
@@ -926,44 +926,36 @@
    "z": "z3",
    "cat": "long",
    "key": true,
-   "t": "Fons llarg amb tempo (3 h)",
-   "min": 180,
-   "maxMin": 180,
+   "t": "Sortida llarga: 115 km i 1.400 m",
+   "min": 255,
+   "maxMin": 285,
    "band": [
     0.56,
-    0.8
+    0.75
    ],
    "cad": [
     85,
-    90
+    92
    ],
-   "ints": [
-    {
-     "n": 2,
-     "s": 900,
-     "lo": 0.78,
-     "hi": 0.83,
-     "cad": [
-      85,
-      90
-     ],
-     "label": "Tempo 15′"
-    }
-   ],
-   "fuel": "70 g/h de carbohidrats des del minut 30. Esmorzar fort 2–3 h abans.",
-   "note": "Rebaixat a 3 h (TSB ≈ −28). Dos blocs de tempo de 15′ a la segona meitat, a 191–203 W i 85+ rpm: tempo, no llindar. Res d'esprints a les rotondes ni de segments: guardem les cames per al test del 14.",
+   "ints": [],
+   "fuel": "60–70 g/h d'hidrats (≈ 280 g en total: 6 gels + 2 barretes o plàtans). Comença al minut 30. 2 bidons amb sals.",
+   "note": "La ruta substitueix el fons de 3 h: uns 4h20–4h45. Amb 1.400 m, el tempo ja hi és a les pujades, així que no cal fer blocs. Pujades a 190–205 W, sense passar de 215; en pla, Z2 a 150–180 W. Res d'esprints ni de segments: el test és d'aquí a una setmana.",
    "steps": [
     {
-     "l": "Primera meitat",
-     "x": "Z2 a {61,73}, pujades com a màxim a {75}"
+     "l": "Primera hora",
+     "x": "Z2 tranquil a {61,70}, encara que el grup vagi fort. Menja ja al minut 30."
     },
     {
-     "l": "Segona meitat",
-     "x": "2 × 15′ a {78,83} · 10′ en Z2 entre blocs · en pla o pujada constant"
+     "l": "Pujades",
+     "x": "A {78,84}, sense passar de {88}. Assegut, cadència 80+."
     },
     {
-     "l": "Final",
-     "x": "Z2 suau fins a casa"
+     "l": "Pla i baixades",
+     "x": "Z2 a {61,73}. A roda, estalvia."
+    },
+    {
+     "l": "Última hora",
+     "x": "Si vas bé, pots acabar en Z2 alta (fins a {75}). Si et quedes buit, menja i baixa el ritme."
     }
    ],
    "ord": 1,
@@ -1259,6 +1251,10 @@
   {
    "date": "2026-11-05",
    "text": "Z2 ben feta de mitjana: 1h48, NP 158 W, IF 0,65, TSS ≈ 73. Però 33′ per sobre de 172 W i un esprint de 426 W: a les rotondes, cames quietes. Cadència 79 rpm (objectiu 88–92). 7 dies ≈ 370 TSS i TSB ≈ −28. Demà descans i gimnàs B. Dissabte el fons baixa a 3 h amb 2 × 15′ de tempo a 191–203 W. Diumenge descans."
+  },
+  {
+   "date": "2026-11-05",
+   "text": "Dissabte tens una ruta de 115 km i 1.400 m: substitueix el fons de 3 h. Seran unes 4h30 i uns 220–240 TSS, i es pot fer perquè diumenge i dilluns descanses i la setmana que ve és de descàrrega. Sense blocs de tempo: les pujades ja ho són. Pujades a 190–205 W (màxim 215), en pla Z2, i 60–70 g/h de menjar. Divendres, gimnàs B sense cames i un sopar amb hidrats."
   }
  ]
 }
