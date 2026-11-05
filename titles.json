@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03",
+ "updated": "2026-11-05",
  "about": "Títols per a Strava. 'byDay': 5 frases fetes a mida per a l'activitat d'aquell dia (surten primer). 'phrases': banc general amb etiquetes (ride, run, gym, long, short, hard, easy, climb, morning, night, weekend, sunday, monday, weekday, rest, group, solo, pr); una frase només surt si l'activitat compleix totes les seves etiquetes. 'topical': actualitat amb dates (from/to).",
  "byDay": {
   "2026-11-03": [
@@ -8,6 +8,13 @@
    "La bici s'ha avançat a la vaga de l'11-N. Jo, serveis mínims: a peu.",
    "Amb la taxa nova de Temu, ni cambra nova. Avui toca córrer.",
    "El Girona a Segona i jo sense bici. Aquest any, a casa anem tots a peu."
+  ],
+  "2026-11-05": [
+   "Dimiteix el president d'Adif i jo, de la Z2, a cada rotonda de Cassà.",
+   "L'Enigma puja al 29è del món. Jo, 21 PR rodant en Z2: cuina de proximitat.",
+   "Etxebarri, millor restaurant del món: tot a la brasa. Jo, a foc lent fins a Cassà.",
+   "Els republicans perden les de mitjan mandat. Jo he perdut contra el pinyó gran a 79 rpm.",
+   "Ha plegat el ministre de Transports. Jo segueixo: transport propi, sense retards ni AVE."
   ]
  },
  "phrases": [

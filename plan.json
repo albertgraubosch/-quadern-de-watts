@@ -1,6 +1,6 @@
 {
- "version": 25,
- "updated": "2026-11-04 23:12",
+ "version": 26,
+ "updated": "2026-11-05 22:30",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -926,9 +926,9 @@
    "z": "z3",
    "cat": "long",
    "key": true,
-   "t": "Fons llarg amb tempo",
-   "min": 210,
-   "maxMin": 210,
+   "t": "Fons llarg amb tempo (3 h)",
+   "min": 180,
+   "maxMin": 180,
    "band": [
     0.56,
     0.8
@@ -940,18 +940,18 @@
    "ints": [
     {
      "n": 2,
-     "s": 1200,
+     "s": 900,
      "lo": 0.78,
      "hi": 0.83,
      "cad": [
       85,
       90
      ],
-     "label": "Tempo 20′"
+     "label": "Tempo 15′"
     }
    ],
    "fuel": "70 g/h de carbohidrats des del minut 30. Esmorzar fort 2–3 h abans.",
-   "note": "Màxim 3h30 (vens d'una setmana amb TSB ≈ −30). Els dos blocs de tempo, a la segona meitat, a 191–203 W i 85+ rpm: tempo, no llindar. Si als primers 5′ del primer bloc et costa aguantar 191 W, fes-ne només un.",
+   "note": "Rebaixat a 3 h (TSB ≈ −28). Dos blocs de tempo de 15′ a la segona meitat, a 191–203 W i 85+ rpm: tempo, no llindar. Res d'esprints a les rotondes ni de segments: guardem les cames per al test del 14.",
    "steps": [
     {
      "l": "Primera meitat",
@@ -959,7 +959,7 @@
     },
     {
      "l": "Segona meitat",
-     "x": "2 × 20′ a {78,83} · 10′ en Z2 entre blocs · en pla o pujada constant"
+     "x": "2 × 15′ a {78,83} · 10′ en Z2 entre blocs · en pla o pujada constant"
     },
     {
      "l": "Final",
@@ -1255,6 +1255,10 @@
   {
    "date": "2026-11-04",
    "text": "Llindar 3 × 8′ previst a 233–243 W: n'has fet dos, a 268 i 258 W (+10 % i +6 %) i a 82 rpm, i el tercer no. Això ja és VO2, no llindar. Sortida: 2h38, NP 197 W, IF 0,80, TSS ≈ 168. 7 dies ≈ 400 TSS, TSB ≈ −30. No pugem. Dijous Z2 1h30 fins a 172 W, dissabte màxim 3h30, diumenge descans. 20′ als Àngels a 240 W: l'FTP pinta més alt, ho dirà el test."
+  },
+  {
+   "date": "2026-11-05",
+   "text": "Z2 ben feta de mitjana: 1h48, NP 158 W, IF 0,65, TSS ≈ 73. Però 33′ per sobre de 172 W i un esprint de 426 W: a les rotondes, cames quietes. Cadència 79 rpm (objectiu 88–92). 7 dies ≈ 370 TSS i TSB ≈ −28. Demà descans i gimnàs B. Dissabte el fons baixa a 3 h amb 2 × 15′ de tempo a 191–203 W. Diumenge descans."
   }
  ]
 }
