@@ -1,6 +1,6 @@
 {
- "version": 27,
- "updated": "2026-11-05 22:58",
+ "version": 28,
+ "updated": "2026-11-06 20:50",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1255,6 +1255,10 @@
   {
    "date": "2026-11-05",
    "text": "Dissabte tens una ruta de 115 km i 1.400 m: substitueix el fons de 3 h. Seran unes 4h30 i uns 220–240 TSS, i es pot fer perquè diumenge i dilluns descanses i la setmana que ve és de descàrrega. Sense blocs de tempo: les pujades ja ho són. Pujades a 190–205 W (màxim 215), en pla Z2, i 60–70 g/h de menjar. Divendres, gimnàs B sense cames i un sopar amb hidrats."
+  },
+  {
+   "date": "2026-11-06",
+   "text": "Avui descans de bici, com tocava. Últims 7 dies ≈ 318 TSS (cursa 77, llindar 168, Z2 73) i el TSB puja cap a −20: arribes a demà més fresc. La ruta de 115 km i 1.400 m es manté tal com està: pujades a 190–205 W (màxim 215), pla en Z2 a 150–180 W, menjar des del minut 30 i res de segments. Diumenge i dilluns, descans. Dimarts comença la descàrrega cap al test del 14."
   }
  ]
 }
