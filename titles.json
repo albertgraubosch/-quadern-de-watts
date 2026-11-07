@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05",
+ "updated": "2026-11-07 21:00",
  "about": "Títols per a Strava. 'byDay': 5 frases fetes a mida per a l'activitat d'aquell dia (surten primer). 'phrases': banc general amb etiquetes (ride, run, gym, long, short, hard, easy, climb, morning, night, weekend, sunday, monday, weekday, rest, group, solo, pr); una frase només surt si l'activitat compleix totes les seves etiquetes. 'topical': actualitat amb dates (from/to).",
  "byDay": {
   "2026-11-03": [
@@ -15,6 +15,13 @@
    "Etxebarri, millor restaurant del món: tot a la brasa. Jo, a foc lent fins a Cassà.",
    "Els republicans perden les de mitjan mandat. Jo he perdut contra el pinyó gran a 79 rpm.",
    "Ha plegat el ministre de Transports. Jo segueixo: transport propi, sense retards ni AVE."
+  ],
+  "2026-11-07": [
+   "Tesla plega el Cybertruck i jo segueixo fent quadrats: 104 km, 1.030 m i 90 PR.",
+   "El rei Felip no accepta la dimissió de De Wever. Les meves cames tampoc l'acceptaven a Santa Pellaia.",
+   "Mélenchon presenta programa. Jo, 90 PR: la revolució comença a la Ganga.",
+   "Diumenge el Barça es veu amb l'Atlètic. Jo el clàssic ja l'he fet: Cassà–Santa Pellaia.",
+   "Última aturada de seleccions de l'any i a mi ningú em convoca. 4 hores de currículum per si de cas."
   ]
  },
  "phrases": [

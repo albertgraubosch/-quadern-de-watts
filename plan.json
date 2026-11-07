@@ -1,6 +1,6 @@
 {
- "version": 28,
- "updated": "2026-11-06 20:50",
+ "version": 29,
+ "updated": "2026-11-07 21:00",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1002,26 +1002,22 @@
    "type": "end",
    "z": "z2",
    "cat": "end",
-   "t": "Z2 amb activacions",
+   "t": "Z2 pur",
    "min": 90,
    "band": [
     0.56,
-    0.75
+    0.7
    ],
    "cad": [
     85,
     92
    ],
    "fuel": "Aigua i 30 g/h",
-   "note": "Setmana de descàrrega: el cos assimila la feina de les setmanes 1–3.",
+   "note": "Setmana de descàrrega. Després de la ruta del 7/11 (TSS ≈ 229) la fatiga és alta: avui només Z2. Les activacions passen a dijous.",
    "steps": [
     {
      "l": "Principal",
-     "x": "1h20 en Z2 a {61,72}"
-    },
-    {
-     "l": "Activacions",
-     "x": "Al minut 60: 4 × 30″ a {120} amb 2′30″ suaus entre cadascun"
+     "x": "1h20 en Z2 a {58,70}, 85–92 rpm. Res de segments ni rotondes a fons"
     },
     {
      "l": "Calma",
@@ -1098,7 +1094,7 @@
    "type": "end",
    "z": "z2",
    "cat": "end",
-   "t": "Z2 suau",
+   "t": "Z2 suau amb obertura",
    "min": 90,
    "band": [
     0.56,
@@ -1111,12 +1107,21 @@
    "fuel": "Aigua i 30 g/h",
    "steps": [
     {
-     "l": "Sessió",
-     "x": "1h30 a {56,70}, 85–92 rpm, sense cap esforç"
+     "l": "Principal",
+     "x": "1h15 a {56,70}, 85–92 rpm"
+    },
+    {
+     "l": "Obertura",
+     "x": "Al minut 45: 3 × 1′ a {105} amb 3′ suaus entre cadascun, assegut"
+    },
+    {
+     "l": "Calma",
+     "x": "10′ suaus"
     }
    ],
    "ord": 1,
-   "k": 1
+   "k": 1,
+   "note": "Obertura del test: activa sense cansar. Dissabte TSB al voltant de 0."
   },
   {
    "id": "s20261113",
@@ -1259,6 +1264,10 @@
   {
    "date": "2026-11-06",
    "text": "Avui descans de bici, com tocava. Últims 7 dies ≈ 318 TSS (cursa 77, llindar 168, Z2 73) i el TSB puja cap a −20: arribes a demà més fresc. La ruta de 115 km i 1.400 m es manté tal com està: pujades a 190–205 W (màxim 215), pla en Z2 a 150–180 W, menjar des del minut 30 i res de segments. Diumenge i dilluns, descans. Dimarts comença la descàrrega cap al test del 14."
+  },
+  {
+   "date": "2026-11-07",
+   "text": "Ruta feta: 104 km, 1.030 m, 3h54 en moviment. NP 188 W, IF 0,77, TSS ≈ 229, el previst. Santa Pellaia ben pujada (20′ a 188–193 W), però La Ganga a 223 W, 20′ per sobre de 250 W, 1′ a 376 W i un esprint de 762 W: 90 PR no surten sols. Cadència 79. 7 dies ≈ 547 TSS i TSB cap a −35. Diumenge i dilluns descans; dimarts Z2 pur i les activacions passen a dijous com a obertura del test."
   }
  ]
 }
