@@ -38,8 +38,8 @@ Regles fixes:
 - Mai dues sessions d'intervals en dies seguits. Excepció: intervals dissabte + fons llarg diumenge.
 - Màxim 3 sessions de qualitat per setmana (comptant el fons llarg amb tempo).
 - Gimnàs de cames el mateix dia que una sessió dura, després de la bici. Mai cames 72 h abans d'un test.
-- Patró 3 setmanes de càrrega + 1 de descàrrega. Setmana 4 (9–15 nov): descàrrega + test d'FTP de 20′ (dissabte 14).
-- Fases: Base S1–S4 · Construcció S5–S8 · Especificitat S9–S11 · Tapering i test S12.
+- Patró 3 setmanes de càrrega + 1 de descàrrega. Setmana 4 (9–15 nov): càrrega extra (a petició de l'Albert). Setmana 5 (16–22 nov): descàrrega + test d'FTP de 20′ a Sant Martí Sacalm (dissabte 21).
+- Fases: Base i construcció S1–S4 · Descàrrega i test S5 (21 nov) · Construcció S6–S8 · Descàrrega i test final S9 (19–20 des).
 
 ## Córrer
 - L'Albert farà sortides de córrer suaus alguns dies (i, des de gener, el bloc de la mitja marató del 28/02/2027).
