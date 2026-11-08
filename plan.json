@@ -1,6 +1,6 @@
 {
- "version": 30,
- "updated": "2026-11-08 20:55",
+ "version": 31,
+ "updated": "2026-11-08 20:58",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -994,7 +994,7 @@
    "steps": [
     {
      "l": "Avui",
-     "x": "Comença la setmana de descàrrega: menys volum, mateixa qualitat, i dissabte el test."
+     "x": "Descans total. Comença l'última setmana de càrrega: dimecres llindar 3 × 10′ i dissabte fons amb tempo."
     }
    ],
    "ord": 1,
@@ -1511,6 +1511,10 @@
   {
    "date": "2026-11-08",
    "text": "Canvi: el test passa al dissabte 21 i aquesta setmana és de càrrega. Dimarts Z2 pur, dimecres 3 × 10′ a 245–252 W (gimnàs A a la tarda), dijous Z2, divendres descans i gimnàs B, dissabte fons de 3h30–4 h amb 2 × 20′ de tempo. Vens de TSB −35: els dies suaus, suaus de veritat. Del 16 al 22, descàrrega i test."
+  },
+  {
+   "date": "2026-11-08",
+   "text": "Diumenge de descans complet, cap activitat a Strava. Últims 7 dies ≈ 547 TSS (cursa 77, dimecres 168, Z2 73, ruta 229). Amb avui i demà parats, el TSB passa de −35 a ≈ −18: arribes dimarts amb cames per fer un Z2 pur (res per sobre de 176 W) i dimecres el 3 × 10′ a 245–252 W. Pla sense canvis."
   }
  ],
  "goals": [
