@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.18.0";
+const APP_VERSION="1.18.1";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -590,7 +590,10 @@ function renderWeek(){
   document.getElementById("wkLoad").textContent=Math.round(wkDone)+" / "+Math.round(wkPlan)+" TSS";
   if(selId&&selId.startsWith("day:")){sel.innerHTML=extraCard(selId.slice(4));renderFood();return}
   const p=S[selId];
-  sel.innerHTML=(p?all().filter(x=>x.d===p.d&&(x.id===p.id||active(x))).sort((a,b)=>(a.type==="gym")-(b.type==="gym")).map(x=>sessionCard(x,esc(dayLabel(x.d))+(x.d===todayStr?" · Avui":""))).join('<div style="height:14px"></div>'):"")+(p&&extraRuns(p.d).length?'<div style="height:14px"></div>'+extraCard(p.d):"");
+  const dayL=p?all().filter(x=>x.d===p.d&&(x.id===p.id||active(x))):[];
+  const gyms=dayL.filter(x=>x.type==="gym");
+  sel.innerHTML=(p?dayL.filter(x=>x.type!=="gym").map(x=>sessionCard(x,esc(dayLabel(x.d))+(x.d===todayStr?" · Avui":""))).join('<div style="height:14px"></div>'):"")+
+    gyms.map(g=>'<button type="button" class="gymlink" data-gopen="'+esc(g.id)+'"><span>Gimnàs</span><b>'+esc(g.t)+'</b><i>'+(g.done||gymActs[g.d]?"✓ Fet":"Obre →")+'</i></button>').join("")+(p&&extraRuns(p.d).length?'<div style="height:14px"></div>'+extraCard(p.d):"");
   renderFood();
 }
 function renderLog(){
@@ -1513,6 +1516,7 @@ document.addEventListener("click",e=>{
   if(el.dataset&&el.dataset.gadd){const [pid,i]=el.dataset.gadd.split("|");const p=S[pid];const cur=((state.gymSets||{})[pid]||{})[+i]||[];gymSet(pid,+i,Math.max(cur.length,(p.ex[+i].sets||3)));saveState();renderWeek();renderPage();return}
   if(el.dataset&&el.dataset.gsave){gymSave(el.dataset.gsave);return}
   if(el.dataset&&el.dataset.gsel){gymSel=el.dataset.gsel;renderGym();return}
+  if(el.dataset&&el.dataset.gopen){gymSel=el.dataset.gopen;setPage("gimnas");return}
   if(el.dataset&&el.dataset.noteok){const fresh=allNotes().filter(n=>n.date>=addDays(todayStr,-2));state.notesRead=(state.notesRead||[]).concat(fresh.map(noteKey)).slice(-80);saveState();renderCoachNotes();return}
   if(el.dataset&&el.dataset.ck){const [id,k,v]=el.dataset.ck.split("|");ckDraft[id]=ckDraft[id]||{};ckDraft[id][k]=+v;const inp=document.querySelector('[data-cknote="'+id+'"]');if(inp)ckDraft[id].note=inp.value;renderWeek();return}
   if(el.dataset&&el.dataset.cksave){saveCheckin(el.dataset.cksave);return}

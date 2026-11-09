@@ -306,3 +306,5 @@ select{font:inherit;font-size:.9rem;background:var(--bg);color:var(--ink);border
 .gli.on{border-color:var(--z7)}
 .gli .gd{color:var(--muted);font-size:.78rem}.gli .gs{color:var(--ok);font-weight:800;text-align:right}
 .gymcard h2{font-size:clamp(1.7rem,7.5vw,2.3rem);line-height:1}
+.gymlink{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;width:100%;margin-top:14px;text-align:left;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--z7);border-radius:12px;padding:12px 14px;color:var(--ink);font:inherit}
+.gymlink span{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--z7);font-weight:700}.gymlink b{font-weight:600;font-size:.92rem}.gymlink i{font-style:normal;color:var(--muted);font-size:.82rem;white-space:nowrap}
