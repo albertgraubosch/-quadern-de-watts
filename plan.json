@@ -1,6 +1,6 @@
 {
- "version": 34,
- "updated": "2026-11-09 17:08",
+ "version": 35,
+ "updated": "2026-11-09 17:22",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1449,15 +1449,19 @@
     },
     {
      "l": "Cames (lleuger)",
-     "x": "Zancada búlgara 2 × 8 per cama · pes mort romanès 2 × 10 · step-up 2 × 8 per cama"
+     "x": "Zancada búlgara 2 × 8 per cama: 1a sèrie sense pes, 2a amb 2 manuelles de 6–8 kg · pes mort romanès 2 × 10 amb 2 manuelles de 12–14 kg · step-up 2 × 8 per cama sense pes o amb 2 de 6 kg"
     },
     {
      "l": "Tren superior",
-     "x": "Press de banca amb manuelles 3 × 10–12 · rem amb manuella 3 × 10–12 per braç · elevacions laterals 3 × 12–15"
+     "x": "Press de banca 3 × 10–12 amb manuelles de 12–14 kg · rem 3 × 10–12 amb 14–18 kg · elevacions laterals 3 × 12–15 amb 4–6 kg"
     },
     {
      "l": "Core",
-     "x": "Pallof press 3 × 10 per costat · planxa 3 × 40″"
+     "x": "Pallof press 3 × 10 per costat (goma o cable lleuger) · planxa 3 × 40″"
+    },
+    {
+     "l": "Regla",
+     "x": "Si les 2 últimes repeticions surten fàcils, la setmana que ve +2 kg. Si no pots fer-les bé, baixa el pes."
     }
    ]
   }
