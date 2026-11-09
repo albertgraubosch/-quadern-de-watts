@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.16.0";
+const APP_VERSION="1.17.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -354,7 +354,7 @@ function sessionCard(p,kick){
     return '<article class="card feature runcard" style="--zc:var(--z2)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+kick+' · Córrer</div><h2>'+esc(p.t)+'</h2><div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span>'+(p.pace?'<span>Ritme <b>'+paceTxt(p.pace[0])+'–'+paceTxt(p.pace[1])+'/km</b></span>':'')+'</div></div>'+stepsHTML(p)+changeHTML(p)+resultHTML(p)+'</div></article>';
   }
   if(p.type==="gym"){
-    return '<article class="card feature gymcard" style="--zc:var(--z7)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+kick+' · Gimnàs</div><h2>'+esc(p.t)+'</h2><div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span><span>Esforç <b>'+esc(p.rpe||"RPE 6")+'</b></span></div></div>'+stepsHTML(p)+resultHTML(p)+'</div></article>';
+    return '<article class="card feature gymcard" style="--zc:var(--z7)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+kick+' · Gimnàs</div><h2>'+esc(p.t)+'</h2><div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span><span>Esforç <b>'+esc(p.rpe||"RPE 6–7")+'</b></span></div></div>'+(p.ex&&p.ex.length?(p.note?'<div class="note">'+esc(p.note)+'</div>':'')+gymLogHTML(p):stepsHTML(p)+resultHTML(p))+'</div></article>';
   }
   if(p.type==="rest"&&active(p)){
     return '<article class="card feature"><div class="in"><div class="feature-head"><div class="kicker">'+kick+'</div><h2>'+esc(p.t)+'</h2></div>'+
@@ -1142,6 +1142,7 @@ function renderPerf(){
     if(g.kind==="ftp"){const now=Math.max(F,e?e.v:0),pc=Math.max(0,Math.min(100,(now-FTP0)/(g.target-FTP0)*100));extra='<div class="bar2"><i style="width:'+Math.max(3,pc).toFixed(0)+'%"></i></div><div class="note">Ara '+now+' W de '+g.target+' W · en falten '+Math.max(0,g.target-now)+'.</div>'}
     else if(g.target)extra='<div class="note">'+esc(g.target)+'</div>';
     return '<div class="goal"><div class="gl"><b>'+esc(g.t)+'</b><span>'+esc(dayLabel(g.d))+'</span></div><div class="gn">'+(n===0?"Avui":n===1?"Demà":n+" dies")+'</div>'+extra+'</div>'}).join("")+'</div></section>';
+  h+=gymPerfHTML();
   h+='<section class="card" id="state"></section>';
   h+='<section class="card">'+weekSummaryHTML(mondayOf(todayStr),"Aquesta setmana")+'</section>';
   h+='<section class="card">'+weekSummaryHTML(addDays(mondayOf(todayStr),-7),"Setmana passada")+'</section>';
@@ -1183,6 +1184,57 @@ function renderSettings(){
   const sw=document.getElementById("stravaWrite");
   if(sw)sw.innerHTML=!strava.refreshToken?"":canWrite()?'<div class="note">✓ L\'app pot posar els títols directament a Strava.</div>':'<div class="note">Perquè l\'app posi el títol directament a Strava (sense copiar i enganxar), cal donar-li permís d\'escriptura un cop.</div><div class="actions"><button class="btn ghost" type="button" id="stravaWriteBtn">Permet posar títols a Strava</button></div>';
   const dh=document.getElementById("depHourTxt");if(dh)dh.textContent=(state.depHour==null?10:state.depHour)+":00";
+}
+
+/* ---------- Registre de gimnàs ---------- */
+function gymHistAll(){
+  const seed=(plan&&Array.isArray(plan.gymLog)?plan.gymLog:[]),loc=state.gymHist||[];
+  const m={};seed.concat(loc).forEach(e=>{m[e.d+"|"+e.ex]=e});
+  return Object.values(m).sort((a,b)=>a.d<b.d?-1:1);
+}
+function gymLast(name,before){const l=gymHistAll().filter(e=>e.ex===name&&(!before||e.d<before));return l.length?l[l.length-1]:null}
+function setTxt(x,unit){return (x.kg?String(x.kg).replace(".",",")+" kg × ":"")+x.reps+(unit==="s"?"″":"")}
+function gymLogHTML(p){
+  const cur=(state.gymSets||{})[p.id]||{},done=p.done||!!gymActs[p.d];
+  let h='<div class="glog">';
+  p.ex.forEach((e,i)=>{
+    const last=gymLast(e.n,p.d),same=gymHistAll().find(x=>x.d===p.d&&x.ex===e.n),rows=cur[i]||(same?same.sets.map(x=>({kg:x.kg,reps:x.reps,ok:true})):[]),n=Math.max(same&&!cur[i]?same.sets.length:(e.sets||3),rows.length);
+    h+='<div class="gx"><div class="gxh"><b>'+esc(e.n)+'</b><span>'+esc((e.sets||3)+" × "+(e.reps||"10")+(e.kg?" · "+e.kg:""))+'</span></div>';
+    if(e.tip)h+='<div class="note">'+esc(e.tip)+'</div>';
+    if(last)h+='<div class="note">Últim cop ('+esc(dayLabel(last.d))+'): '+esc(last.sets.map(x=>setTxt(x,e.unit)).join(" · "))+(last.note?" · "+esc(last.note):"")+'</div>';
+    h+='<div class="gsets">';
+    for(let j=0;j<n;j++){
+      const r=rows[j]||{},ph=last&&last.sets[Math.min(j,last.sets.length-1)]||{};
+      h+='<div class="gset'+(r.ok?" ok":"")+'"><span class="gn">'+(j+1)+'</span>'+
+        '<label><input type="number" inputmode="decimal" step="0.5" min="0" data-gk="'+esc(p.id)+'|'+i+'|'+j+'|kg" value="'+(r.kg!=null?r.kg:"")+'" placeholder="'+(ph.kg!=null?ph.kg:(e.bw?"0":"kg"))+'"><i>kg</i></label>'+
+        '<label><input type="number" inputmode="numeric" step="1" min="0" data-gk="'+esc(p.id)+'|'+i+'|'+j+'|reps" value="'+(r.reps!=null?r.reps:"")+'" placeholder="'+(ph.reps!=null?ph.reps:String(e.reps||"10").replace(/\D.*$/,""))+'"><i>'+(e.unit==="s"?"seg":"reps")+'</i></label>'+
+        '<button type="button" class="gok" data-gok="'+esc(p.id)+'|'+i+'|'+j+'" aria-label="Sèrie feta">✓</button></div>';
+    }
+    h+='</div><button type="button" class="btn ghost gadd" data-gadd="'+esc(p.id)+'|'+i+'">+ sèrie</button></div>';
+  });
+  h+='</div>';
+  if(done)h+='<div class="verdict ok"><span class="ic">✓</span><div>Gimnàs fet<small>'+(p.done&&p.done.by==="log"?"Registrat a l'app":gymActs[p.d]?esc(gymActs[p.d].name||"Activitat de Strava"):"Marcat a mà")+'</small></div></div>';
+  h+='<div class="actions"><button class="btn primary" type="button" data-gsave="'+esc(p.id)+'">'+(done?"Actualitza el registre":"Desa i marca'l com a fet")+'</button></div>';
+  if(gymActs[p.d])h+=checkinHTML(gymActs[p.d]);
+  return h;
+}
+function gymSet(pid,i,j){state.gymSets=state.gymSets||{};const s=state.gymSets[pid]=state.gymSets[pid]||{};const r=s[i]=s[i]||[];r[j]=r[j]||{};return r[j]}
+function gymSave(pid){
+  const p=S[pid];if(!p||!p.ex)return;
+  const cur=(state.gymSets||{})[pid]||{};let any=false;
+  state.gymHist=(state.gymHist||[]).filter(e=>!(e.d===p.d&&p.ex.some(x=>x.n===e.ex)));
+  p.ex.forEach((e,i)=>{const sets=(cur[i]||[]).filter(r=>r&&r.ok&&r.reps).map(r=>({kg:r.kg||0,reps:r.reps}));if(sets.length){any=true;state.gymHist.push({d:p.d,ex:e.n,sets})}});
+  if(!any){toast("Marca amb ✓ almenys una sèrie.");return}
+  saveState();setOv(pid,{done:{by:"log",at:new Date().toISOString()}});addLog("Gimnàs registrat: «"+p.t+"».");queueSync();toast("Gimnàs desat ✓");render();
+}
+function gymPerfHTML(){
+  const H=gymHistAll();if(!H.length)return "";
+  const names=[...new Set(H.map(e=>e.ex))];
+  const best=e=>e.sets.reduce((m,x)=>Math.max(m,(x.kg||0)*(1+x.reps/30)+x.reps/1000),0);
+  return '<section class="card"><div class="in" style="gap:12px"><div class="kicker">Gimnàs</div><div class="tbl"><table><thead><tr><th>Exercici</th><th>Últim</th><th>Millor</th><th>Cops</th></tr></thead><tbody>'+
+    names.map(n=>{const l=H.filter(e=>e.ex===n),last=l[l.length-1],b=l.reduce((m,e)=>best(e)>best(m)?e:m,l[0]),top=x=>x.sets.reduce((m,s)=>(s.kg||0)>(m.kg||0)||((s.kg||0)===(m.kg||0)&&s.reps>m.reps)?s:m,x.sets[0]);
+      return '<tr><td style="font-family:var(--f-body);white-space:normal">'+esc(n)+'<div class="note">'+esc(dayLabel(last.d))+'</div></td><td>'+esc(setTxt(top(last)))+'</td><td>'+esc(setTxt(top(b)))+'</td><td>'+l.length+'</td></tr>'}).join("")+
+    '</tbody></table></div><div class="note">«Millor» té en compte pes i repeticions. Quan les últimes repeticions surtin fàcils, +2 kg.</div></div></section>';
 }
 
 /* ---------- Progress sync ---------- */
@@ -1441,6 +1493,9 @@ document.addEventListener("click",e=>{
   const el=e.target.closest("button");if(!el)return;
   if(el.dataset&&el.dataset.title){const ra=recentAct();if(canWrite()&&ra)setStravaTitle(ra.id,el.dataset.title);else copyText(el.dataset.title,"Copiat. Ara enganxa'l com a títol a Strava.");return}
   if(el.dataset&&el.dataset.page){setPage(el.dataset.page);return}
+  if(el.dataset&&el.dataset.gok){const [pid,i,j]=el.dataset.gok.split("|");const r=gymSet(pid,+i,+j);const row=el.closest(".gset");if(row){row.querySelectorAll("input").forEach(inp=>{const f=inp.dataset.gk.split("|")[3];if(r[f]==null&&inp.value==="")r[f]=inp.placeholder&&!isNaN(+inp.placeholder)?+inp.placeholder:null;else if(inp.value!=="")r[f]=+inp.value})}r.ok=!r.ok;saveState();renderWeek();return}
+  if(el.dataset&&el.dataset.gadd){const [pid,i]=el.dataset.gadd.split("|");const p=S[pid];const cur=((state.gymSets||{})[pid]||{})[+i]||[];gymSet(pid,+i,Math.max(cur.length,(p.ex[+i].sets||3)));saveState();renderWeek();return}
+  if(el.dataset&&el.dataset.gsave){gymSave(el.dataset.gsave);return}
   if(el.dataset&&el.dataset.noteok){const fresh=allNotes().filter(n=>n.date>=addDays(todayStr,-2));state.notesRead=(state.notesRead||[]).concat(fresh.map(noteKey)).slice(-80);saveState();renderCoachNotes();return}
   if(el.dataset&&el.dataset.ck){const [id,k,v]=el.dataset.ck.split("|");ckDraft[id]=ckDraft[id]||{};ckDraft[id][k]=+v;const inp=document.querySelector('[data-cknote="'+id+'"]');if(inp)ckDraft[id].note=inp.value;renderWeek();return}
   if(el.dataset&&el.dataset.cksave){saveCheckin(el.dataset.cksave);return}
@@ -1502,7 +1557,7 @@ document.addEventListener("click",e=>{
   }
 });
 document.addEventListener("change",e=>{const t=e.target;if(t&&(t.id==="wDay"||t.id==="wHour")){if(t.id==="wDay")state.weighDay=+t.value;else state.weighHour=+t.value;saveState();const c=weighCfg();toast("Et recordaré de pesar-te cada "+DAYNAMES[c.day].toLowerCase()+" a les "+c.hour+":00.");renderAvuiExtras()}});
-document.addEventListener("input",e=>{const t=e.target;if(t&&t.dataset&&t.dataset.cknote){const id=t.dataset.cknote;ckDraft[id]=ckDraft[id]||{};ckDraft[id].note=t.value}});
+document.addEventListener("input",e=>{const t=e.target;if(t&&t.dataset&&t.dataset.gk){const [pid,i,j,f]=t.dataset.gk.split("|");const r=gymSet(pid,+i,+j);r[f]=t.value===""?null:+t.value;saveState();return}if(t&&t.dataset&&t.dataset.cknote){const id=t.dataset.cknote;ckDraft[id]=ckDraft[id]||{};ckDraft[id].note=t.value}});
 function tick(){
   const t=localDate(new Date());
   if(t!==todayStr){todayStr=t;weekSel=null;selId=null;render()}

@@ -1,6 +1,6 @@
 {
- "version": 35,
- "updated": "2026-11-09 17:22",
+ "version": 36,
+ "updated": "2026-11-09 18:15",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1141,7 +1141,7 @@
    "type": "gym",
    "t": "Gimnàs B: tren superior i core",
    "min": 45,
-   "note": "Dia de tonificar el tren superior. Sense cames pesades: demà fons llarg. Esforç 7 de 10, sense arribar a l'error.",
+   "note": "Tren superior i core, sense cames: demà fons llarg. Esforç 7 de 10.",
    "steps": [
     {
      "l": "Escalfament",
@@ -1162,6 +1162,48 @@
     {
      "l": "Core",
      "x": "Dead bug 3 × 10 · planxa lateral 3 × 30″ per costat · bird dog 2 × 10"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Les vols fer sempre: 4 sèries de 3–4. Si no en surten, negatives de 3–4 segons."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12",
+     "tip": "Puja de pes: 16–18 kg (amb 10 et va faltar)."
+    },
+    {
+     "n": "Press militar amb manuelles",
+     "sets": 3,
+     "reps": "10"
+    },
+    {
+     "n": "Flexions",
+     "sets": 3,
+     "reps": "màx. − 2",
+     "bw": true
+    },
+    {
+     "n": "Curl de bíceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Extensió de tríceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
     }
    ]
   },
@@ -1279,6 +1321,30 @@
     {
      "l": "Core",
      "x": "Planxa 3 × 40″ · dead bug 2 × 10"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 3,
+     "reps": "màx.",
+     "bw": true
+    },
+    {
+     "n": "Press de banca",
+     "sets": 2,
+     "reps": "10"
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 2,
+     "reps": "10"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
     }
    ]
   },
@@ -1441,7 +1507,7 @@
    "min": 45,
    "ord": 1,
    "k": 1,
-   "note": "Primer dia: comença amb menys pes del que creus que pots moure i deixa 2–3 repeticions de marge. Cames només per despertar-les (dimecres, llindar). Tren superior, aquí sí, treballa bé.",
+   "note": "Primer dia fet. Les planxes, a casa: 2 × 40″ abans de dormir.",
    "steps": [
     {
      "l": "Escalfament",
@@ -1463,7 +1529,46 @@
      "l": "Regla",
      "x": "Si les 2 últimes repeticions surten fàcils, la setmana que ve +2 kg. Si no pots fer-les bé, baixa el pes."
     }
-   ]
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 2,
+     "reps": "8/cama",
+     "tip": "Equilibri: peu del darrere ben recolzat, mirada fixa al davant. Si cal, agafa't amb una mà."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 2,
+     "reps": "10"
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Dominades",
+     "sets": 3,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Si no en surten 3, fes negatives: puja amb un salt i baixa en 3–4 segons."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ],
+   "done": {
+    "by": "log",
+    "at": "2026-11-09T18:00:00"
+   }
   }
  ],
  "rules": {
@@ -1538,6 +1643,10 @@
   {
    "date": "2026-11-09",
    "text": "Gimnàs nou: dos dies per setmana. A: cames funcionals per a la bici (búlgara, pes mort romanès, step-up) + tren superior. B: tren superior per tonificar + core, sense cames. Les dues primeres setmanes, amb marge (esforç 6–7). Després pujarem els pesos."
+  },
+  {
+   "date": "2026-11-09",
+   "text": "Primer gimnàs: búlgara amb 2 × 10 kg (l'equilibri ja vindrà), pes mort romanès a 40 kg bé, press a 40 kg sobrat: la propera, 45. Rem amb 10 kg massa lleuger: divendres 16–18 kg. Dominades 2 × 3: les farem sempre, 4 sèries, i si no surten, negatives. Planxes a casa, 2 × 40″."
   }
  ],
  "goals": [
@@ -1557,6 +1666,96 @@
    "d": "2027-02-28",
    "kind": "race",
    "target": "Sota 1:30 · 4:15/km"
+  }
+ ],
+ "gymLog": [
+  {
+   "d": "2026-11-09",
+   "ex": "Zancada búlgara",
+   "sets": [
+    {
+     "kg": 20,
+     "reps": 8
+    },
+    {
+     "kg": 20,
+     "reps": 8
+    }
+   ],
+   "note": "2 × 10 kg; equilibri a millorar"
+  },
+  {
+   "d": "2026-11-09",
+   "ex": "Pes mort romanès",
+   "sets": [
+    {
+     "kg": 40,
+     "reps": 10
+    },
+    {
+     "kg": 40,
+     "reps": 10
+    }
+   ],
+   "note": "barra 20 + 2 × 10; bé"
+  },
+  {
+   "d": "2026-11-09",
+   "ex": "Press de banca",
+   "sets": [
+    {
+     "kg": 40,
+     "reps": 10
+    },
+    {
+     "kg": 40,
+     "reps": 10
+    },
+    {
+     "kg": 40,
+     "reps": 10
+    }
+   ],
+   "note": "sobrat"
+  },
+  {
+   "d": "2026-11-09",
+   "ex": "Rem amb manuella",
+   "sets": [
+    {
+     "kg": 10,
+     "reps": 12
+    }
+   ],
+   "note": "poc pes"
+  },
+  {
+   "d": "2026-11-09",
+   "ex": "Dominades",
+   "sets": [
+    {
+     "kg": 0,
+     "reps": 3
+    },
+    {
+     "kg": 0,
+     "reps": 3
+    }
+   ]
+  },
+  {
+   "d": "2026-11-09",
+   "ex": "Pallof press",
+   "sets": [
+    {
+     "kg": 0,
+     "reps": 10
+    },
+    {
+     "kg": 0,
+     "reps": 10
+    }
+   ]
   }
  ]
 }

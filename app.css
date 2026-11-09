@@ -285,3 +285,18 @@ select{font:inherit;font-size:.9rem;background:var(--bg);color:var(--ink);border
 .dotc{width:10px;height:10px;border-radius:50%;display:inline-block}
 .sport .stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .sport .stat .v{font-size:1.25rem;white-space:nowrap}
+
+.glog{display:flex;flex-direction:column;gap:12px}
+.gx{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:12px}
+.gxh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.gxh b{font-size:1rem}.gxh span{color:var(--muted);font-size:.82rem;white-space:nowrap}
+.gsets{display:flex;flex-direction:column;gap:6px}
+.gset{display:grid;grid-template-columns:22px 1fr 1fr 44px;gap:6px;align-items:center}
+.gset .gn{font-family:var(--f-mono);color:var(--muted);font-size:.8rem;text-align:center}
+.gset label{position:relative;display:block}
+.gset input{width:100%;padding:9px 34px 9px 10px;font-family:var(--f-mono);font-size:.95rem}
+.gset i{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-style:normal;font-size:.68rem;color:var(--muted)}
+.gok{height:40px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--muted);font-weight:800;font-size:1rem}
+.gset.ok .gok{background:var(--ok);border-color:var(--ok);color:#0b0b0c}
+.gset.ok input{border-color:var(--ok)}
+.gadd{align-self:flex-start;padding:5px 12px;font-size:.8rem}
