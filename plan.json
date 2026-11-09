@@ -1,6 +1,6 @@
 {
- "version": 33,
- "updated": "2026-11-09 17:10",
+ "version": 34,
+ "updated": "2026-11-09 17:08",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -989,21 +989,21 @@
    "type": "run",
    "z": "z2",
    "cat": "run",
-   "t": "Córrer molt suau",
+   "t": "Córrer molt suau (19 h)",
    "min": 45,
    "pace": [
     330,
     345
    ],
    "tssH": 50,
-   "ord": 1,
+   "ord": 2,
    "k": 1,
    "fuel": "Només aigua",
-   "note": "Vens de 547 TSS i dimecres tens 3 × 10′ de llindar. Millor 7–8 km (40–45′) que 10: l'últim cop, 14 km et van deixar agulletes 2 dies. A ritme de conversa.",
+   "note": "Per afluixar les cames del gimnàs. Ritme de conversa tota l'estona. Si notes els quàdriceps carregats de la búlgara, escurça-la a 30′. Sopar: proteïna, arròs o pasta i verdura, i dormir bé: demà Z2 i dimecres 3 × 10′.",
    "steps": [
     {
      "l": "Sessió",
-     "x": "40–45′ a 5:30–5:45/km, terreny pla, sense mirar el rellotge"
+     "x": "40–45′ a 5:30–5:45/km (30′ si vas carregat)"
     },
     {
      "l": "Final",
@@ -1437,19 +1437,19 @@
    "id": "s20261109g",
    "d": "2026-11-09",
    "type": "gym",
-   "t": "Gimnàs A: cames funcionals + tren superior",
-   "min": 50,
-   "ord": 2,
+   "t": "Gimnàs A (versió suau): cames funcionals + tren superior",
+   "min": 45,
+   "ord": 1,
    "k": 1,
-   "note": "Primer dia: pes suau i 2–3 repeticions de marge (esforç 6–7). Les cames, pensant en la bici (una cama i cadena posterior). El tren superior, per tonificar. Dimecres hi ha llindar: avui, cames amb poc volum.",
+   "note": "Primer dia: comença amb menys pes del que creus que pots moure i deixa 2–3 repeticions de marge. Cames només per despertar-les (dimecres, llindar). Tren superior, aquí sí, treballa bé.",
    "steps": [
     {
      "l": "Escalfament",
      "x": "5′ de bici o rem + mobilitat de maluc i espatlles"
     },
     {
-     "l": "Cames (bici)",
-     "x": "Zancada búlgara 2 × 8 per cama · pes mort romanès amb manuelles 2 × 10 · step-up al banc 2 × 8 per cama"
+     "l": "Cames (lleuger)",
+     "x": "Zancada búlgara 2 × 8 per cama · pes mort romanès 2 × 10 · step-up 2 × 8 per cama"
     },
     {
      "l": "Tren superior",
