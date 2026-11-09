@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.17.0";
+const APP_VERSION="1.18.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -674,7 +674,7 @@ function renderTitles(){
 }
 
 /* ---------- Pàgines ---------- */
-const PAGES=["avui","rendiment","diari","ajustos"];
+const PAGES=["avui","gimnas","rendiment","diari","ajustos"];
 let page="avui";
 function setPage(p,keepScroll){
   if(!PAGES.includes(p))p="avui";
@@ -686,7 +686,8 @@ function setPage(p,keepScroll){
   if(!keepScroll)window.scrollTo(0,0);
 }
 function renderPage(){
-  if(page==="rendiment")renderPerf();
+  if(page==="gimnas")renderGym();
+  else if(page==="rendiment")renderPerf();
   else if(page==="diari")renderDiary();
   else if(page==="ajustos")renderSettings();
 }
@@ -1142,7 +1143,6 @@ function renderPerf(){
     if(g.kind==="ftp"){const now=Math.max(F,e?e.v:0),pc=Math.max(0,Math.min(100,(now-FTP0)/(g.target-FTP0)*100));extra='<div class="bar2"><i style="width:'+Math.max(3,pc).toFixed(0)+'%"></i></div><div class="note">Ara '+now+' W de '+g.target+' W · en falten '+Math.max(0,g.target-now)+'.</div>'}
     else if(g.target)extra='<div class="note">'+esc(g.target)+'</div>';
     return '<div class="goal"><div class="gl"><b>'+esc(g.t)+'</b><span>'+esc(dayLabel(g.d))+'</span></div><div class="gn">'+(n===0?"Avui":n===1?"Demà":n+" dies")+'</div>'+extra+'</div>'}).join("")+'</div></section>';
-  h+=gymPerfHTML();
   h+='<section class="card" id="state"></section>';
   h+='<section class="card">'+weekSummaryHTML(mondayOf(todayStr),"Aquesta setmana")+'</section>';
   h+='<section class="card">'+weekSummaryHTML(addDays(mondayOf(todayStr),-7),"Setmana passada")+'</section>';
@@ -1235,6 +1235,22 @@ function gymPerfHTML(){
     names.map(n=>{const l=H.filter(e=>e.ex===n),last=l[l.length-1],b=l.reduce((m,e)=>best(e)>best(m)?e:m,l[0]),top=x=>x.sets.reduce((m,s)=>(s.kg||0)>(m.kg||0)||((s.kg||0)===(m.kg||0)&&s.reps>m.reps)?s:m,x.sets[0]);
       return '<tr><td style="font-family:var(--f-body);white-space:normal">'+esc(n)+'<div class="note">'+esc(dayLabel(last.d))+'</div></td><td>'+esc(setTxt(top(last)))+'</td><td>'+esc(setTxt(top(b)))+'</td><td>'+l.length+'</td></tr>'}).join("")+
     '</tbody></table></div><div class="note">«Millor» té en compte pes i repeticions. Quan les últimes repeticions surtin fàcils, +2 kg.</div></div></section>';
+}
+
+let gymSel=null;
+function renderGym(){
+  const el=document.getElementById("gymBody");if(!el)return;
+  const gs=all().filter(x=>x.type==="gym"&&active(x));
+  const ws=mondayOf(todayStr),we=addDays(ws,6);
+  let p=gymSel&&S[gymSel]&&S[gymSel].type==="gym"?S[gymSel]:null;
+  if(!p)p=gs.find(x=>x.d===todayStr)||gs.find(x=>x.d>todayStr&&!x.done)||gs.filter(x=>x.d<todayStr).pop()||null;
+  let h="";
+  const week=gs.filter(x=>x.d>=ws&&x.d<=addDays(we,7));
+  if(week.length)h+='<section class="card"><div class="in" style="gap:10px"><div class="kicker">Sessions</div><div class="glist">'+week.map(x=>{const dn=x.done||gymActs[x.d];return '<button type="button" class="gli'+(p&&x.id===p.id?" on":"")+'" data-gsel="'+esc(x.id)+'"><span class="gd">'+esc(x.d===todayStr?"Avui":dayLabel(x.d))+'</span><span class="gt">'+esc(x.t)+'</span><span class="gs">'+(dn?"✓":x.d<todayStr?"—":"")+'</span></button>'}).join("")+'</div></div></section>';
+  if(p)h+=sessionCard(p,p.d===todayStr?"Avui":dayLabel(p.d));
+  else h+='<section class="card"><div class="in"><div class="note">No hi ha cap sessió de gimnàs al pla.</div></div></section>';
+  h+=gymPerfHTML();
+  el.innerHTML=h;
 }
 
 /* ---------- Progress sync ---------- */
@@ -1493,9 +1509,10 @@ document.addEventListener("click",e=>{
   const el=e.target.closest("button");if(!el)return;
   if(el.dataset&&el.dataset.title){const ra=recentAct();if(canWrite()&&ra)setStravaTitle(ra.id,el.dataset.title);else copyText(el.dataset.title,"Copiat. Ara enganxa'l com a títol a Strava.");return}
   if(el.dataset&&el.dataset.page){setPage(el.dataset.page);return}
-  if(el.dataset&&el.dataset.gok){const [pid,i,j]=el.dataset.gok.split("|");const r=gymSet(pid,+i,+j);const row=el.closest(".gset");if(row){row.querySelectorAll("input").forEach(inp=>{const f=inp.dataset.gk.split("|")[3];if(r[f]==null&&inp.value==="")r[f]=inp.placeholder&&!isNaN(+inp.placeholder)?+inp.placeholder:null;else if(inp.value!=="")r[f]=+inp.value})}r.ok=!r.ok;saveState();renderWeek();return}
-  if(el.dataset&&el.dataset.gadd){const [pid,i]=el.dataset.gadd.split("|");const p=S[pid];const cur=((state.gymSets||{})[pid]||{})[+i]||[];gymSet(pid,+i,Math.max(cur.length,(p.ex[+i].sets||3)));saveState();renderWeek();return}
+  if(el.dataset&&el.dataset.gok){const [pid,i,j]=el.dataset.gok.split("|");const r=gymSet(pid,+i,+j);const row=el.closest(".gset");if(row){row.querySelectorAll("input").forEach(inp=>{const f=inp.dataset.gk.split("|")[3];if(r[f]==null&&inp.value==="")r[f]=inp.placeholder&&!isNaN(+inp.placeholder)?+inp.placeholder:null;else if(inp.value!=="")r[f]=+inp.value})}r.ok=!r.ok;saveState();renderWeek();renderPage();return}
+  if(el.dataset&&el.dataset.gadd){const [pid,i]=el.dataset.gadd.split("|");const p=S[pid];const cur=((state.gymSets||{})[pid]||{})[+i]||[];gymSet(pid,+i,Math.max(cur.length,(p.ex[+i].sets||3)));saveState();renderWeek();renderPage();return}
   if(el.dataset&&el.dataset.gsave){gymSave(el.dataset.gsave);return}
+  if(el.dataset&&el.dataset.gsel){gymSel=el.dataset.gsel;renderGym();return}
   if(el.dataset&&el.dataset.noteok){const fresh=allNotes().filter(n=>n.date>=addDays(todayStr,-2));state.notesRead=(state.notesRead||[]).concat(fresh.map(noteKey)).slice(-80);saveState();renderCoachNotes();return}
   if(el.dataset&&el.dataset.ck){const [id,k,v]=el.dataset.ck.split("|");ckDraft[id]=ckDraft[id]||{};ckDraft[id][k]=+v;const inp=document.querySelector('[data-cknote="'+id+'"]');if(inp)ckDraft[id].note=inp.value;renderWeek();return}
   if(el.dataset&&el.dataset.cksave){saveCheckin(el.dataset.cksave);return}
