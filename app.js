@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.18.1";
+const APP_VERSION="1.19.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -677,7 +677,7 @@ function renderTitles(){
 }
 
 /* ---------- Pàgines ---------- */
-const PAGES=["avui","gimnas","rendiment","diari","ajustos"];
+const PAGES=["avui","gimnas","nutricio","rendiment","diari","ajustos"];
 let page="avui";
 function setPage(p,keepScroll){
   if(!PAGES.includes(p))p="avui";
@@ -690,6 +690,7 @@ function setPage(p,keepScroll){
 }
 function renderPage(){
   if(page==="gimnas")renderGym();
+  else if(page==="nutricio")renderNut();
   else if(page==="rendiment")renderPerf();
   else if(page==="diari")renderDiary();
   else if(page==="ajustos")renderSettings();
@@ -1068,7 +1069,7 @@ function foodHTML(d){
   return '<div class="in" style="gap:12px"><div><div class="kicker">Què menjar · '+esc(isToday?"avui":dayLabel(d))+'</div><h3 style="margin-top:6px">'+title+'</h3></div><dl class="steps">'+L.map(x=>'<dt>'+esc(x.h)+'</dt><dd>'+esc(x.t)+'</dd>').join("")+'</dl><div class="note">Calculat per a '+String(kg).replace(".",",")+' kg. Orientatiu: si tens gana de veritat, menja.</div></div>';
 }
 function selDay(){if(!selId)return todayStr;if(selId.startsWith("day:"))return selId.slice(4);return S[selId]?S[selId].d:todayStr}
-function renderFood(){const f=document.getElementById("food");if(!f)return;const d=selDay();if(d<todayStr){f.hidden=true;f.innerHTML="";return}f.hidden=false;f.innerHTML=foodHTML(d)}
+function renderFood(){const f=document.getElementById("food");if(!f)return;f.className="";f.hidden=false;f.innerHTML=nutLinkHTML()}
 
 /* ---------- Sincronització amb el coach (repositori privat) ---------- */
 let sync=lsGet("qw.sync",{token:"",repo:"albertgraubosch/quadern-privat",last:null,err:""});
@@ -1254,6 +1255,107 @@ function renderGym(){
   else h+='<section class="card"><div class="in"><div class="note">No hi ha cap sessió de gimnàs al pla.</div></div></section>';
   h+=gymPerfHTML();
   el.innerHTML=h;
+}
+
+/* ---------- Nutrició ---------- */
+// Pautes: hidrats periodificats segons la càrrega del dia (3–10 g/kg), proteïna 1,8–2,2 g/kg en 4 àpats
+// de 0,3–0,4 g/kg, greix ~1 g/kg. Dèficit moderat només els dies suaus o de descans; mai els dies durs.
+let nutDay=null;
+function bmr(){const kg=curWeight(),h=state.height||178,age=(plan&&plan.athlete&&plan.athlete.age)||23;return 10*kg+6.25*h-5*age+5}
+function sessKcal(s){
+  if(!s||!active(s)||s.type==="rest")return 0;
+  const min=(s.maxMin?(s.min+s.maxMin)/2:s.min)||0;
+  if(s.type==="gym")return Math.round(min*5);
+  if(s.type==="run"){const pace=s.pace?(s.pace[0]+s.pace[1])/2:330;return Math.round(min*60/pace*curWeight())}
+  const IF=s.type==="int"?(s.cat==="test"?0.80:0.78):s.type==="long"?0.72:s.type==="rec"?0.55:0.65;
+  return Math.round(ftp()*IF*0.88*min*60/1000);
+}
+function dayNut(d){
+  const L=sessionsOn(d).filter(s=>active(s)),k=dayKind(d),nk=dayKind(addDays(d,1)),kg=curWeight();
+  const done=L.filter(s=>s.type!=="gym"&&s.type!=="rest").map(s=>actFor(s)||runFor(s)).filter(Boolean);
+  let ex=L.reduce((m,s)=>m+sessKcal(s),0);
+  if(done.length){const real=done.reduce((m,a)=>m+(a.kilojoules||(a.average_watts&&a.moving_time?a.average_watts*a.moving_time/1000:0)||(isRun(a)?(a.distance||0)/1000*kg:0)),0);if(real)ex=real+L.filter(s=>s.type==="gym").reduce((m,s)=>m+sessKcal(s),0)}
+  const tdee=Math.round(bmr()*1.35+ex);
+  const goalLoss=curWeight()>70.5;
+  const def=goalLoss?Math.max(0,{rest:400,easy:350,key:150,long:0}[k]-((nk==="long"||nk==="key")&&k!=="long"?150:0)):0;
+  const target=tdee-def;
+  const P=Math.round(kg*(goalLoss?2.0:1.8));
+  const cLo=CARB[k][0]+((nk==="long"||nk==="key")&&k!=="long"?1:0),cHi=CARB[k][1]+((nk==="long"||nk==="key")?1:0);
+  let F=Math.round(kg*0.9);
+  let C=Math.round((target-P*4-F*9)/4);
+  C=Math.max(Math.round(cLo*kg),Math.min(Math.round(cHi*kg),C));
+  F=Math.max(Math.round(kg*0.8),Math.min(Math.round(kg*1.2),Math.round((target-P*4-C*4)/9)));
+  C=Math.round(C/5)*5;
+  const kcal=Math.round((P*4+C*4+F*9)/50)*50;
+  return {d,k,nk,L,kcal,P,C,F,ex:Math.round(ex),tdee,goalLoss};
+}
+const FOOD={
+  esm:{alt:["Civada (80 g) cuita amb llet, un plàtan i mel + 2 ous remenats","3 llesques de pa amb tomàquet i pernil dolç + suc de taronja + iogurt grec"],mitja:["2 llesques de pa amb tomàquet i 2 ous + una peça de fruita","Iogurt grec amb civada (40 g), fruita i un grapat de nous"],baix:["Truita de 2–3 ous amb espinacs + 1 llesca de pa integral + fruita","Iogurt grec (250 g) amb fruits vermells i nous"]},
+  din:{alt:["Arròs (100 g en sec) amb pollastre (150 g) i verdures saltejades","Pasta (110 g en sec) amb tonyina, tomàquet i formatge"],mitja:["Arròs o pasta (70 g en sec) + peix o pollastre (150 g) + amanida","Patates (250 g) al forn amb ous i verdura + pa"],baix:["Llegums (70 g en sec) amb verdures i un ou dur","Amanida gran amb salmó o pollastre (150 g), alvocat i 1 llesca de pa"]},
+  ber:{alt:["Entrepà de pernil o gall dindi + plàtan","Iogurt amb mel, civada i fruita"],mitja:["Iogurt grec amb fruita","Torrada amb crema de cacauet i plàtan"],baix:["Iogurt grec o formatge fresc amb fruita","Un grapat de fruits secs i una peça de fruita"]},
+  sop:{alt:["Noodles o arròs (80 g en sec) amb pollastre, verdures i ou","Patata (300 g) i peix blanc (180 g) amb verdura + pa"],mitja:["Truita de patates (2 ous, 150 g de patata) + amanida","Pasta (60 g en sec) amb salmó i verdures"],baix:["Peix o pollastre (180 g) a la planxa amb verdures i una mica de patata","Crema de verdures + truita de 2 ous o tonyina"]}
+};
+function pick(arr,d,i){return arr[(parseD(d).getDate()+i)%arr.length]}
+function lvlFor(g){return g>=85?"alt":g>=50?"mitja":"baix"}
+function hh(h){h=Math.round((((h%24)+24)%24)*4)/4;const m=Math.round((h%1)*60);return Math.floor(h)+":"+String(m).padStart(2,"0")}
+function mealsFor(n){
+  const d=n.d,kg=curWeight(),s=n.L.find(x=>x.type!=="gym"&&x.type!=="rest"),dep=state.depHour==null?10:state.depHour;
+  const durH=s?((s.maxMin?(s.min+s.maxMin)/2:s.min)||60)/60:0;
+  const ses=s&&!(s.type==="rec"&&durH<1);
+  const pp=Math.round(kg*0.4/5)*5;
+  const M=[];
+  let Cleft=n.C;
+  const add=(o)=>{M.push(o)};
+  if(ses){
+    const fm=s.fuel?String(s.fuel).match(/(\d+)\D+(\d+)\s*g\/h/):null;
+    const gh=s.type==="run"?0:durH<1.25?0:fm?(+fm[1]+ +fm[2])/2:durH>2.5?70:n.k==="key"?55:35;
+    const dur=Math.round(gh*durH/5)*5;
+    const pre=Math.round((n.k==="long"||n.k==="key"?1.5:1)*kg/5)*5;
+    const post=Math.round((n.k==="long"||n.k==="key"?1:0.6)*kg/5)*5;
+    const morning=dep<12;
+    add({h:hh(dep-2.5),t:"Esmorzar (abans de la sessió)",c:pre,p:pp,food:pick(FOOD.esm[lvlFor(pre)],d,0),tip:"2–3 h abans. Poca fibra i poc greix."});
+    if(!morning)add({h:"8:00",t:"Esmorzar",c:Math.round(n.C*0.18/5)*5,p:pp,food:pick(FOOD.esm.mitja,d,1)});
+    add({h:hh(dep)+"–"+hh(dep+durH),t:"Durant: "+s.t,c:dur,p:0,food:dur?Math.round(gh)+" g/h → "+Math.round(dur/25)+" gels de 25 g o l'equivalent (barretes, plàtans, dàtils). Comença al minut 30. Aigua amb sals: 500–750 ml/h.":"Aigua i prou.",tip:""});
+    add({h:hh(dep+durH+0.5),t:"Recuperació (primera hora)",c:post,p:pp,food:n.k==="long"||n.k==="key"?"Iogurt grec amb civada, mel i fruita, o entrepà de pernil amb un suc":"Iogurt grec amb fruita, o un got de llet amb cacau"});
+    Cleft=n.C-pre-dur-post-(morning?0:Math.round(n.C*0.18/5)*5);
+    const rest=morning?[["din",14,0.45],["ber",17.5,0.15],["sop",21,0.40]]:[["din",13,0.5],["sop",21,0.5]];
+    rest.forEach(([k,h,f],i)=>{const g=Math.max(20,Math.round(Cleft*f/5)*5);if(morning&&k==="din"&&dep+durH+0.5>12.5)h=Math.max(h,dep+durH+1.5);add({h:hh(h),t:{din:"Dinar",ber:"Berenar",sop:"Sopar"}[k],c:g,p:k==="ber"?Math.round(pp*0.6/5)*5:pp,food:pick(FOOD[k][lvlFor(g)],d,i+2),tip:k==="sop"&&(n.nk==="key"||n.nk==="long")?"Demà hi ha sessió dura: aquí carrega hidrats.":""})});
+  } else {
+    [["esm","8:00","Esmorzar",0.25],["din","13:30","Dinar",0.35],["ber","17:30","Berenar",0.10],["sop","21:00","Sopar",0.30]].forEach(([k,h,t,f],i)=>{const g=Math.max(15,Math.round(n.C*f/5)*5);add({h,t,c:g,p:k==="ber"?Math.round(pp*0.6/5)*5:pp,food:pick(FOOD[k][lvlFor(g+(k==="sop"&&(n.nk==="key"||n.nk==="long")?40:0))],d,i),tip:k==="sop"&&(n.nk==="key"||n.nk==="long")?"Demà hi ha sessió dura: aquí carrega hidrats.":""})});
+  }
+  const g=n.L.find(x=>x.type==="gym");
+  if(g)M.push({h:"",t:"Gimnàs",c:0,p:0,food:"Si el fas lluny d'un àpat, pren 25–30 g de proteïna en acabar (iogurt grec, llet o un batut).",tip:""});
+  return M;
+}
+const DK={rest:"Descans",easy:"Dia suau",key:"Sessió clau",long:"Fons llarg"};
+function weekLabelNut(ws){const days=[];for(let i=0;i<7;i++)days.push(addDays(ws,i));const nm=days.map(dayKind);const keys=nm.filter(x=>x==="key"||x==="long").length;const test=all().some(s=>s.cat==="test"&&s.d>=ws&&s.d<=addDays(ws,6));return test?"Setmana de descàrrega i test: menys volum, així que menys hidrats els dies suaus; el dia abans i el del test, carrega.":keys>=2?"Setmana de càrrega: menja bé els dies durs (no són dies de fer dieta) i aprofita els suaus per al dèficit.":"Setmana tranquil·la: és la millor per baixar de pes, sempre amb proteïna alta."}
+function renderNut(){
+  const el=document.getElementById("nutBody");if(!el)return;
+  const ws=mondayOf(todayStr);
+  if(!nutDay||nutDay<todayStr&&nutDay<ws)nutDay=todayStr;
+  const n=dayNut(nutDay),M=mealsFor(n),kg=curWeight();
+  let h='<section class="card"><div class="in" style="gap:10px"><div class="kicker">Setmana</div><div class="nweek">';
+  for(let i=0;i<7;i++){const d=addDays(ws,i),k=dayKind(d);h+='<button type="button" class="nwd'+(d===nutDay?" on":"")+' k-'+k+'" data-nday="'+d+'"><small>'+DAYS[parseD(d).getDay()]+'</small><b>'+parseD(d).getDate()+'</b><i></i></button>'}
+  h+='</div><div class="note">'+esc(weekLabelNut(ws))+'</div></div></section>';
+  const s=n.L.find(x=>x.type!=="gym"&&x.type!=="rest");
+  h+='<section class="card"><div class="in" style="gap:12px"><div><div class="kicker">'+esc(nutDay===todayStr?"Avui":dayLabel(nutDay))+' · '+DK[n.k]+'</div><h3 style="margin-top:6px">'+(s?esc(s.t):"Sense sessió de bici")+'</h3></div>'+
+    '<div class="stats">'+[["Kcal",n.kcal],["Hidrats",n.C+" g"],["Proteïna",n.P+" g"],["Greix",n.F+" g"]].map(x=>'<div class="stat"><div class="k">'+x[0]+'</div><div class="v">'+x[1]+'</div></div>').join("")+'</div>'+
+    '<div class="note">Despesa estimada '+n.tdee+' kcal (entrenament ≈ '+n.ex+'). '+(n.goalLoss?(n.tdee-n.kcal>0?"Dèficit de "+(n.tdee-n.kcal)+" kcal per anar baixant cap als 70 kg.":"Avui sense dèficit: és un dia dur."):"Ja ets al pes: mantenir.")+' Hidrats '+(Math.round(n.C/kg*10)/10).toString().replace(".",",")+' g/kg.</div></div></section>';
+  h+='<section class="card"><div class="in" style="gap:4px"><div class="kicker" style="margin-bottom:8px">Àpats</div>'+M.map(m=>'<div class="meal"><div class="mh"><span class="mt">'+esc(m.h)+'</span><b>'+esc(m.t)+'</b>'+(m.c||m.p?'<span class="mm">'+(m.c?m.c+" g H":"")+(m.c&&m.p?" · ":"")+(m.p?m.p+" g P":"")+'</span>':'')+'</div><div class="mf">'+esc(m.food)+'</div>'+(m.tip?'<div class="note">'+esc(m.tip)+'</div>':'')+'</div>').join("")+'</div></section>';
+  h+='<section class="card"><div class="in" style="gap:10px"><div class="kicker">Claus</div><ul class="checks">'+[
+    "Proteïna a cada àpat: ~"+Math.round(kg*0.4)+" g (un palmell de carn o peix, 3 ous o un iogurt grec gran). És el que protegeix el múscul mentre baixes de pes.",
+    "Els hidrats segueixen l'entrenament: molts els dies durs, pocs els de descans. El dèficit es fa els dies suaus, mai abans ni durant les sessions clau.",
+    "Verdura o fruita a cada àpat principal. Aigua: 2–2,5 l al dia, més els dies d'entreno.",
+    "Cafè: 1–2 cafès (≈ 3 mg/kg) 45–60′ abans de les sèries o del test ajuden. No a la tarda si dorms malament.",
+    "Si tens gana de veritat, menja. Baixar 0,3–0,5 kg per setmana és el ritme bo: més ràpid et buida les cames."
+  ].map(t=>'<li><span class="m info">·</span><span>'+esc(t)+'</span></li>').join("")+'</ul>'+
+  '<div class="row2"><div class="field" style="flex:1"><label for="hcm">Alçada (cm)</label><input id="hcm" type="number" inputmode="numeric" min="140" max="210" value="'+(state.height||"")+'" placeholder="178"></div><button class="btn ghost" type="button" id="hSave">Desa</button></div>'+
+  '<div class="note">'+(state.height?"":"Posa la teva alçada perquè les calories siguin exactes. ")+'Calculat per a '+String(kg).replace(".",",")+' kg i sortida a les '+(state.depHour==null?10:state.depHour)+':00 (ho canvies a El temps, a Avui). Orientatiu.</div></div></section>';
+  el.innerHTML=h;
+}
+function nutLinkHTML(){
+  const n=dayNut(todayStr);
+  return '<button type="button" class="gymlink nutlink" data-page="nutricio"><span>Nutrició</span><b>Avui: '+n.kcal+' kcal · '+n.C+' g d\'hidrats · '+n.P+' g de proteïna</b><i>Obre →</i></button>';
 }
 
 /* ---------- Progress sync ---------- */
@@ -1516,6 +1618,8 @@ document.addEventListener("click",e=>{
   if(el.dataset&&el.dataset.gadd){const [pid,i]=el.dataset.gadd.split("|");const p=S[pid];const cur=((state.gymSets||{})[pid]||{})[+i]||[];gymSet(pid,+i,Math.max(cur.length,(p.ex[+i].sets||3)));saveState();renderWeek();renderPage();return}
   if(el.dataset&&el.dataset.gsave){gymSave(el.dataset.gsave);return}
   if(el.dataset&&el.dataset.gsel){gymSel=el.dataset.gsel;renderGym();return}
+  if(el.dataset&&el.dataset.nday){nutDay=el.dataset.nday;renderNut();return}
+  if(el.id==="hSave"){const v=parseInt(document.getElementById("hcm").value,10);if(!(v>=140&&v<=210)){toast("Escriu l'alçada en cm, per exemple 178.");return}state.height=v;saveState();toast("Alçada desada.");renderNut();renderFood();return}
   if(el.dataset&&el.dataset.gopen){gymSel=el.dataset.gopen;setPage("gimnas");return}
   if(el.dataset&&el.dataset.noteok){const fresh=allNotes().filter(n=>n.date>=addDays(todayStr,-2));state.notesRead=(state.notesRead||[]).concat(fresh.map(noteKey)).slice(-80);saveState();renderCoachNotes();return}
   if(el.dataset&&el.dataset.ck){const [id,k,v]=el.dataset.ck.split("|");ckDraft[id]=ckDraft[id]||{};ckDraft[id][k]=+v;const inp=document.querySelector('[data-cknote="'+id+'"]');if(inp)ckDraft[id].note=inp.value;renderWeek();return}
