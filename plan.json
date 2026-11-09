@@ -1,6 +1,6 @@
 {
- "version": 31,
- "updated": "2026-11-08 20:58",
+ "version": 32,
+ "updated": "2026-11-09 13:55",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -986,19 +986,30 @@
   {
    "id": "s20261109",
    "d": "2026-11-09",
-   "type": "rest",
-   "z": "z1",
-   "cat": "rest",
-   "t": "Descans",
-   "min": 0,
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer molt suau",
+   "min": 45,
+   "pace": [
+    330,
+    345
+   ],
+   "tssH": 50,
+   "ord": 1,
+   "k": 1,
+   "fuel": "Només aigua",
+   "note": "Vens de 547 TSS i dimecres tens 3 × 10′ de llindar. Millor 7–8 km (40–45′) que 10: l'últim cop, 14 km et van deixar agulletes 2 dies. A ritme de conversa.",
    "steps": [
     {
-     "l": "Avui",
-     "x": "Descans total. Comença l'última setmana de càrrega: dimecres llindar 3 × 10′ i dissabte fons amb tempo."
+     "l": "Sessió",
+     "x": "40–45′ a 5:30–5:45/km, terreny pla, sense mirar el rellotge"
+    },
+    {
+     "l": "Final",
+     "x": "5′ caminant i mobilitat de bessons i maluc"
     }
-   ],
-   "ord": 1,
-   "k": 1
+   ]
   },
   {
    "ord": 1,
@@ -1080,42 +1091,6 @@
   {
    "ord": 1,
    "k": 1,
-   "id": "s20261111g",
-   "d": "2026-11-11",
-   "type": "gym",
-   "t": "Gimnàs A: força",
-   "min": 45,
-   "note": "A la tarda, 3–6 h després de la bici. Cames amb pes moderat: dissabte hi ha fons.",
-   "steps": [
-    {
-     "l": "Escalfament",
-     "x": "5′ de bici estàtica o rem + mobilitat de maluc"
-    },
-    {
-     "l": "Goblet squat",
-     "x": "3 × 10, pes moderat"
-    },
-    {
-     "l": "Pes mort romanès",
-     "x": "3 × 8"
-    },
-    {
-     "l": "Flexions",
-     "x": "3 × 10–12"
-    },
-    {
-     "l": "Rem amb manuella",
-     "x": "3 × 10 per braç"
-    },
-    {
-     "l": "Planxa",
-     "x": "3 × 45″"
-    }
-   ]
-  },
-  {
-   "ord": 1,
-   "k": 1,
    "id": "s20261112",
    "d": "2026-11-12",
    "type": "end",
@@ -1166,7 +1141,7 @@
    "type": "gym",
    "t": "Gimnàs B: core i tren superior",
    "min": 35,
-   "note": "Sense cames: demà fons llarg.",
+   "note": "Segon dia de gimnàs de la setmana. Sense cames: demà fons llarg.",
    "steps": [
     {
      "l": "Core",
@@ -1449,6 +1424,46 @@
      "x": "1h30 en Z2 a {58,70}"
     }
    ]
+  },
+  {
+   "id": "s20261109g",
+   "d": "2026-11-09",
+   "type": "gym",
+   "t": "Gimnàs: tornada (cos sencer, suau)",
+   "min": 40,
+   "ord": 2,
+   "k": 1,
+   "note": "Primer dia després de molt temps: pes suau, 2–3 repeticions de marge (esforç 6–7 de 10). Dimecres hi ha llindar, així que cames amb poc volum. Les agulletes dels primers dies són normals: com més suau comencis, menys en tindràs.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de bici estàtica o rem + mobilitat de maluc i espatlles"
+    },
+    {
+     "l": "Goblet squat",
+     "x": "2 × 10, pes lleuger"
+    },
+    {
+     "l": "Pont de glutis",
+     "x": "2 × 12"
+    },
+    {
+     "l": "Flexions",
+     "x": "3 × 8–10 (amb genolls si cal)"
+    },
+    {
+     "l": "Rem amb manuella",
+     "x": "3 × 10 per braç"
+    },
+    {
+     "l": "Press d'espatlles",
+     "x": "2 × 10, lleuger"
+    },
+    {
+     "l": "Core",
+     "x": "Planxa 3 × 30″ · dead bug 2 × 10"
+    }
+   ]
   }
  ],
  "rules": {
@@ -1515,6 +1530,10 @@
   {
    "date": "2026-11-08",
    "text": "Diumenge de descans complet, cap activitat a Strava. Últims 7 dies ≈ 547 TSS (cursa 77, dimecres 168, Z2 73, ruta 229). Amb avui i demà parats, el TSB passa de −35 a ≈ −18: arribes dimarts amb cames per fer un Z2 pur (res per sobre de 176 W) i dimecres el 3 × 10′ a 245–252 W. Pla sense canvis."
+  },
+  {
+   "date": "2026-11-09",
+   "text": "Avui tornes al gimnàs: cos sencer suau, amb marge, i poques cames perquè dimecres toca llindar. A les 19 h, cursa molt suau: millor 40–45′ (7–8 km) a 5:30–5:45 que 10 km, que vens de 547 TSS. El gimnàs d'aquesta setmana serà avui i divendres. El de dimecres a la tarda el trec."
   }
  ],
  "goals": [
