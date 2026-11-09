@@ -1,6 +1,6 @@
 {
- "version": 32,
- "updated": "2026-11-09 13:55",
+ "version": 33,
+ "updated": "2026-11-09 17:10",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1139,21 +1139,29 @@
    "id": "s20261113g",
    "d": "2026-11-13",
    "type": "gym",
-   "t": "Gimnàs B: core i tren superior",
-   "min": 35,
-   "note": "Segon dia de gimnàs de la setmana. Sense cames: demà fons llarg.",
+   "t": "Gimnàs B: tren superior i core",
+   "min": 45,
+   "note": "Dia de tonificar el tren superior. Sense cames pesades: demà fons llarg. Esforç 7 de 10, sense arribar a l'error.",
    "steps": [
     {
+     "l": "Escalfament",
+     "x": "5′ de rem o el·líptica + mobilitat d'espatlles"
+    },
+    {
+     "l": "Esquena",
+     "x": "Dominades assistides o jaló al pit 3 × 8–10 · rem amb cable o a una mà 3 × 12"
+    },
+    {
+     "l": "Pit i espatlles",
+     "x": "Press militar amb manuelles 3 × 10 · flexions 3 × (màxim − 2)"
+    },
+    {
+     "l": "Braços",
+     "x": "Curl de bíceps 2 × 12 · extensió de tríceps 2 × 12"
+    },
+    {
      "l": "Core",
-     "x": "Planxa 3 × 45″ · planxa lateral 3 × 30″ per costat · dead bug 3 × 10"
-    },
-    {
-     "l": "Tren superior",
-     "x": "Flexions 3 × 10 · rem invertit 3 × 10"
-    },
-    {
-     "l": "Mobilitat",
-     "x": "10′ de maluc, isquios i esquena"
+     "x": "Dead bug 3 × 10 · planxa lateral 3 × 30″ per costat · bird dog 2 × 10"
     }
    ]
   },
@@ -1260,17 +1268,17 @@
    "id": "s20261117g",
    "d": "2026-11-17",
    "type": "gym",
-   "t": "Gimnàs suau: core i mobilitat",
-   "min": 30,
-   "note": "Res de cames pesades: el test és dissabte.",
+   "t": "Gimnàs suau: tren superior i core",
+   "min": 35,
+   "note": "Setmana de descàrrega i test dissabte: res de cames. Tren superior al 70 %.",
    "steps": [
     {
-     "l": "Core",
-     "x": "Planxa 3 × 40″ · dead bug 3 × 10"
+     "l": "Tren superior",
+     "x": "Jaló al pit 2 × 10 · press de banca amb manuelles 2 × 10 · elevacions laterals 2 × 12"
     },
     {
-     "l": "Mobilitat",
-     "x": "15′ de maluc, isquios i esquena"
+     "l": "Core",
+     "x": "Planxa 3 × 40″ · dead bug 2 × 10"
     }
    ]
   },
@@ -1429,39 +1437,27 @@
    "id": "s20261109g",
    "d": "2026-11-09",
    "type": "gym",
-   "t": "Gimnàs: tornada (cos sencer, suau)",
-   "min": 40,
+   "t": "Gimnàs A: cames funcionals + tren superior",
+   "min": 50,
    "ord": 2,
    "k": 1,
-   "note": "Primer dia després de molt temps: pes suau, 2–3 repeticions de marge (esforç 6–7 de 10). Dimecres hi ha llindar, així que cames amb poc volum. Les agulletes dels primers dies són normals: com més suau comencis, menys en tindràs.",
+   "note": "Primer dia: pes suau i 2–3 repeticions de marge (esforç 6–7). Les cames, pensant en la bici (una cama i cadena posterior). El tren superior, per tonificar. Dimecres hi ha llindar: avui, cames amb poc volum.",
    "steps": [
     {
      "l": "Escalfament",
-     "x": "5′ de bici estàtica o rem + mobilitat de maluc i espatlles"
+     "x": "5′ de bici o rem + mobilitat de maluc i espatlles"
     },
     {
-     "l": "Goblet squat",
-     "x": "2 × 10, pes lleuger"
+     "l": "Cames (bici)",
+     "x": "Zancada búlgara 2 × 8 per cama · pes mort romanès amb manuelles 2 × 10 · step-up al banc 2 × 8 per cama"
     },
     {
-     "l": "Pont de glutis",
-     "x": "2 × 12"
-    },
-    {
-     "l": "Flexions",
-     "x": "3 × 8–10 (amb genolls si cal)"
-    },
-    {
-     "l": "Rem amb manuella",
-     "x": "3 × 10 per braç"
-    },
-    {
-     "l": "Press d'espatlles",
-     "x": "2 × 10, lleuger"
+     "l": "Tren superior",
+     "x": "Press de banca amb manuelles 3 × 10–12 · rem amb manuella 3 × 10–12 per braç · elevacions laterals 3 × 12–15"
     },
     {
      "l": "Core",
-     "x": "Planxa 3 × 30″ · dead bug 2 × 10"
+     "x": "Pallof press 3 × 10 per costat · planxa 3 × 40″"
     }
    ]
   }
@@ -1534,6 +1530,10 @@
   {
    "date": "2026-11-09",
    "text": "Avui tornes al gimnàs: cos sencer suau, amb marge, i poques cames perquè dimecres toca llindar. A les 19 h, cursa molt suau: millor 40–45′ (7–8 km) a 5:30–5:45 que 10 km, que vens de 547 TSS. El gimnàs d'aquesta setmana serà avui i divendres. El de dimecres a la tarda el trec."
+  },
+  {
+   "date": "2026-11-09",
+   "text": "Gimnàs nou: dos dies per setmana. A: cames funcionals per a la bici (búlgara, pes mort romanès, step-up) + tren superior. B: tren superior per tonificar + core, sense cames. Les dues primeres setmanes, amb marge (esforç 6–7). Després pujarem els pesos."
   }
  ],
  "goals": [

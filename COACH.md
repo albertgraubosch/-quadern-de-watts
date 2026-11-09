@@ -21,6 +21,7 @@ abans de tocar el pla. Si canvies regles, canvia-les aquí.
 - **Menys dies, més qualitat.** Sortida mínima d'**1h30** (si un dia ha de ser curta, ell ho dirà).
 - Els **canvis grans** (estructura de setmanes, test, FTP oficial) es parlen abans amb ell.
   Els **ajustos de càrrega i progressió** els fa el coach sol i els explica en una nota.
+- Gimnàs (2 dies/setmana): A = cames funcionals per a la bici (una cama, cadena posterior) + tren superior; B = tren superior per tonificar + core, sense cames. L'Albert també vol tonificar el tren superior: mantén-lo sempre. Cames pesades només el dia d'una sessió dura i mai 72 h abans d'un test.
 - Idioma: català. To: proper, directe, frases curtes, amb números reals.
 
 ## Estructura de setmana tipus
