@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-07 21:00",
+ "updated": "2026-11-09 21:30",
  "about": "Títols per a Strava. 'byDay': 5 frases fetes a mida per a l'activitat d'aquell dia (surten primer). 'phrases': banc general amb etiquetes (ride, run, gym, long, short, hard, easy, climb, morning, night, weekend, sunday, monday, weekday, rest, group, solo, pr); una frase només surt si l'activitat compleix totes les seves etiquetes. 'topical': actualitat amb dates (from/to).",
  "byDay": {
   "2026-11-03": [
@@ -22,6 +22,13 @@
    "Mélenchon presenta programa. Jo, 90 PR: la revolució comença a la Ganga.",
    "Diumenge el Barça es veu amb l'Atlètic. Jo el clàssic ja l'he fet: Cassà–Santa Pellaia.",
    "Última aturada de seleccions de l'any i a mi ningú em convoca. 4 hores de currículum per si de cas."
+  ],
+  "2026-11-09": [
+   "Fermín en fa dos al Metropolitano i jo dues sèries de búlgara. Ell remunta; jo baixo les escales de costat.",
+   "El Barça ja és líder per 3 punts. Jo, líder d'agulletes per 3 dies.",
+   "A Madrid avui fan festa per l'Almudena. A Girona, gimnàs i 6 km: festius, els justos.",
+   "El Barça remunta a l'Atlètic i jo remunto del gimnàs: 6,3 km a 5:48 sense mirar el rellotge.",
+   "El Girona a Segona i jo corrent en segona marxa: 5:48/km i cap pressa per pujar."
   ]
  },
  "phrases": [

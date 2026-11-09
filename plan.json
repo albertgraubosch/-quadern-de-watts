@@ -1,6 +1,6 @@
 {
- "version": 36,
- "updated": "2026-11-09 18:15",
+ "version": 37,
+ "updated": "2026-11-09 21:30",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1030,7 +1030,7 @@
     92
    ],
    "fuel": "Aigua amb sals i 30 g/h",
-   "note": "Vens de TSB ≈ −35: avui és per recuperar rodant. Res per sobre de 176 W, tampoc a les pujades ni a les rotondes.",
+   "note": "Primer dia després de la búlgara: si notes agulletes, millor, cadència alta i les fas fora. Res per sobre de 176 W, tampoc a les pujades ni a les rotondes. Avui és per arribar fresc a les sèries de demà.",
    "steps": [
     {
      "l": "Sessió",
@@ -1068,7 +1068,7 @@
     }
    ],
    "fuel": "50–60 g/h d'hidrats",
-   "note": "Pugem: el 4/11 vas fer 8′ a 268 W amb agulletes. Ara 3 × 10′ a 245–252 W, 5′ suaus entre blocs. Els Àngels per Madremanya hi van perfectes (≈ 17′ a aquests watts). Si al primer bloc et costa arribar a 245, pla B: 3 × 10′ a 235–240 W.",
+   "note": "Pugem: el 4/11 vas fer 8′ a 268 W amb agulletes. Ara 3 × 10′ a 245–252 W, 5′ suaus entre blocs. Els Àngels per Madremanya hi van perfectes. Pot ser que encara arrosseguis agulletes del gimnàs de dilluns: si a l'escalfament els 2 × 1′ a 257 W et costen, pla B sense pensar-hi (3 × 10′ a 235–240 W).",
    "steps": [
     {
      "l": "Escalfament",
@@ -1647,6 +1647,10 @@
   {
    "date": "2026-11-09",
    "text": "Primer gimnàs: búlgara amb 2 × 10 kg (l'equilibri ja vindrà), pes mort romanès a 40 kg bé, press a 40 kg sobrat: la propera, 45. Rem amb 10 kg massa lleuger: divendres 16–18 kg. Dominades 2 × 3: les farem sempre, 4 sèries, i si no surten, negatives. Planxes a casa, 2 × 40″."
+  },
+  {
+   "date": "2026-11-09",
+   "text": "Dilluns complet: gimnàs A (57′) i cursa de 6,3 km a 5:48/km, tots els quilòmetres entre 5:44 i 5:55. Suau de veritat, així m'agrada. Total ≈ 65 TSS; 7 dies ≈ 610 TSS i TSB cap a −20. Primer dia de cames al gimnàs: les agulletes poden arribar dimarts o dimecres. Demà Z2 pur fins a 176 W; dimecres 3 × 10′ a 245–252 W, amb el pla B a punt si l'escalfament costa."
   }
  ],
  "goals": [
