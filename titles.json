@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09 21:30",
+ "updated": "2026-11-10 20:50",
  "about": "Títols per a Strava. 'byDay': 5 frases fetes a mida per a l'activitat d'aquell dia (surten primer). 'phrases': banc general amb etiquetes (ride, run, gym, long, short, hard, easy, climb, morning, night, weekend, sunday, monday, weekday, rest, group, solo, pr); una frase només surt si l'activitat compleix totes les seves etiquetes. 'topical': actualitat amb dates (from/to).",
  "byDay": {
   "2026-11-03": [
@@ -29,6 +29,13 @@
    "A Madrid avui fan festa per l'Almudena. A Girona, gimnàs i 6 km: festius, els justos.",
    "El Barça remunta a l'Atlètic i jo remunto del gimnàs: 6,3 km a 5:48 sense mirar el rellotge.",
    "El Girona a Segona i jo corrent en segona marxa: 5:48/km i cap pressa per pujar."
+  ],
+  "2026-11-10": [
+   "Vaga general per l'habitatge i jo pujant als Àngels: l'únic pis amb vistes que em puc permetre és el santuari.",
+   "Rodalies no compleix els serveis mínims. Jo sí: 1h28 de Z2 i cap a casa.",
+   "Sánchez i Feijóo pacten un cara a cara. Jo n'he fet un amb els Àngels, i ha guanyat la pujada.",
+   "Arrenca la campanya del 29-N i jo ja tinc el vot decidit: 19 PR a favor, cap en contra.",
+   "Comença la COP31 a Turquia i jo ja hi poso de la meva part: 30 km sense emetre res més que suor."
   ]
  },
  "phrases": [

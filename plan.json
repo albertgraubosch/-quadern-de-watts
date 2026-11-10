@@ -1,6 +1,6 @@
 {
- "version": 39,
- "updated": "2026-11-10 20:20",
+ "version": 40,
+ "updated": "2026-11-10 20:50",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1632,6 +1632,10 @@
   {
    "date": "2026-11-10",
    "text": "Dimecres canvia: sortida amb col·legues per Les Encies cap a Sant Martí Sacalm, i les 3 × 10′ a 245–252 W a la pujada des d'Amer, que de pas és el reconeixement del test. Tot el que hi hagi abans, Z2: no segueixis el grup. Com que serà un dia llarg (4 h o més), dijous descans i el fons de dissabte baixa a 3–3h30 amb 2 × 15′."
+  },
+  {
+   "date": "2026-11-10",
+   "text": "Z2 pels Àngels: 1h28, 30 km i 459 m. NP 161 W, IF 0,66, TSS ≈ 63. La pujada, 41′ a 171 W: bé de mitjana, però 29′ per sobre de 176 W i 5′ a 208 W. Cadència 75 rpm (objectiu 88–92): és el que més hem de treballar. 7 dies ≈ 600 TSS i TSB ≈ −20, dins del previst. Demà, pla sense canvis: Z2 fins a Amer (màxim 185 W) i 3 × 10′ a 245–252 W a Sant Martí. Menja des del minut 30."
   }
  ],
  "goals": [
