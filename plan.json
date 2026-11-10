@@ -1,6 +1,6 @@
 {
- "version": 37,
- "updated": "2026-11-09 21:30",
+ "version": 38,
+ "updated": "2026-11-10 20:15",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1048,8 +1048,8 @@
    "cat": "thr",
    "key": true,
    "t": "Llindar 3 × 10′",
-   "min": 105,
-   "maxMin": 120,
+   "min": 150,
+   "maxMin": 180,
    "cad": [
     85,
     92
@@ -1067,12 +1067,12 @@
      "label": "Llindar 10′"
     }
    ],
-   "fuel": "50–60 g/h d'hidrats",
-   "note": "Pugem: el 4/11 vas fer 8′ a 268 W amb agulletes. Ara 3 × 10′ a 245–252 W, 5′ suaus entre blocs. Els Àngels per Madremanya hi van perfectes. Pot ser que encara arrosseguis agulletes del gimnàs de dilluns: si a l'escalfament els 2 × 1′ a 257 W et costen, pla B sense pensar-hi (3 × 10′ a 235–240 W).",
+   "fuel": "60 g/h des del minut 30 (≈ 6–7 gels o l'equivalent). 2 bidons amb sals.",
+   "note": "Demà, 45 km abans de les sèries: només funciona si són Z2 baixa de veritat (150–170 W, res de rotondes ni segments) i menges des del principi. 3 × 10′ a 245–252 W amb 5′ suaus. Si al primer bloc no arribes a 245, pla B a 235–240 W. Tornada suau: total, menys de 3 h.",
    "steps": [
     {
      "l": "Escalfament",
-     "x": "20′ en Z2 fins a la pujada + 2 × 1′ a {105} amb 1′ suau"
+     "x": "45 km en Z2 baixa a {61,69} (150–170 W) fins a la pujada + 2 × 1′ a {105} amb 1′ suau"
     },
     {
      "l": "Principal",
