@@ -16,6 +16,7 @@ abans de tocar el pla. Si canvies regles, canvia-les aquí.
 ## El que vol l'Albert del coach
 - **Entrenador autònom i professional.** Ell només diu com s'ha trobat; **el coach decideix**
   pujar, mantenir o baixar. No li preguntis "pugem els watts?": decideix-ho i explica-ho.
+- **El que compta és la feina clau** (els blocs de la sessió). Ruta, durada i lloc poden canviar sense problema: si els blocs estan fets, la sessió és complerta.
 - **Flexibilitat**: si la sortida dura més (arribar al lloc de les sèries, tornada), no és un error.
   Es valora el treball fet (blocs, intensitat), mai la durada.
 - **Menys dies, més qualitat.** Sortida mínima d'**1h30** (si un dia ha de ser curta, ell ho dirà).
