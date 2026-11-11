@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.20.1";
+const APP_VERSION="1.20.2";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -130,8 +130,7 @@ function analyze(p,act,d){
   if(p.type==="rest"){add("up","Avui tocava descans i has rodat. El coach ho comptarà com a càrrega extra.")}
   else{
     const planned=p.maxMin?(p.min+p.maxMin)/2:p.min,r=planned?(mov/60)/planned:1;
-    if(!hasInts&&r<0.6)add("warn","Més curta del previst: "+fmtDur(mov)+" de "+fmtPlanDur(p)+".");
-    else add("info","Durada: "+fmtDur(mov)+" (previst "+fmtPlanDur(p)+")."+(r>1.15?" El temps extra no compta en contra: es valora el treball fet.":""));
+    add("info","Durada: "+fmtDur(mov)+".");
   }
   if(!hasW){add("info","Aquesta activitat no té dades de potenciòmetre, així que no puc valorar els watts.")}
   else if(p.type!=="rest"){
@@ -297,7 +296,6 @@ function runResultHTML(p){
     return h;
   }
   const km=(a.distance||0)/1000,pace=km?(a.moving_time||0)/km:0,checks=[];
-  if(p.min&&(a.moving_time||0)<p.min*60*0.7)checks.push({l:"info",t:"Més curta del previst ("+fmtDur(a.moving_time||0)+" de "+fmtDur(p.min*60)+")."});
   if(p.pace&&pace){if(pace<p.pace[0]-10)checks.push({l:"warn",t:"Ritme de "+paceTxt(pace)+"/km: més ràpid del previst ("+paceTxt(p.pace[0])+"–"+paceTxt(p.pace[1])+"). Els dies suaus, suaus de veritat."});else checks.push({l:"ok",t:"Ritme de "+paceTxt(pace)+"/km, dins del que tocava."})}
   checks.push({l:"info",t:Math.round(a.total_elevation_gain||0)+" m de desnivell · càrrega estimada ≈ "+Math.round(actTSS(a))+" TSS."});
   const lv=checks.some(c=>c.l==="warn")?"warn":"ok";
@@ -370,7 +368,7 @@ function sessionCard(p,kick){
     return '<article class="card feature'+(p.type==="run"?" runcard":"")+'" style="--zc:var(--'+zc+')"><div class="zonebar"></div><div class="in">'+
       '<div class="feature-head"><div class="kicker">'+kick+' · Fet'+(p.type==="run"?" · Córrer":"")+'</div><h2>'+esc(doneTitle(p,da))+'</h2>'+doneMeta(da)+'</div>'+
       (p.doneNote?'<div class="note">'+esc(p.doneNote)+'</div>':'')+
-      plannedBox(p,(p.type!=="run"&&active(p)?profileHTML(p):"")+stepsHTML(p))+resultHTML(p)+'</div></article>';
+      resultHTML(p)+'</div></article>';
   }
   if(p.type==="run"){
     return '<article class="card feature runcard" style="--zc:var(--z2)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+kick+' · Córrer</div><h2>'+esc(p.t)+'</h2><div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span>'+(p.pace?'<span>Ritme <b>'+paceTxt(p.pace[0])+'–'+paceTxt(p.pace[1])+'/km</b></span>':'')+'</div></div>'+stepsHTML(p)+changeHTML(p)+resultHTML(p)+'</div></article>';
