@@ -1,6 +1,6 @@
 {
- "version": 43,
- "updated": "2026-11-11 19:05",
+ "version": 44,
+ "updated": "2026-11-11 19:10",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1048,8 +1048,8 @@
    "cat": "thr",
    "key": true,
    "t": "3 × 10′ a Sant Martí Sacalm",
-   "min": 240,
-   "maxMin": 270,
+   "min": 105,
+   "maxMin": 120,
    "cad": [
     85,
     92

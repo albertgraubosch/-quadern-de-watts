@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.20.3";
+const APP_VERSION="1.20.4";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -130,7 +130,8 @@ function analyze(p,act,d){
   if(p.type==="rest"){add("up","Avui tocava descans i has rodat. El coach ho comptarà com a càrrega extra.")}
   else{
     const planned=p.maxMin?(p.min+p.maxMin)/2:p.min,r=planned?(mov/60)/planned:1;
-    add("info","Durada: "+fmtDur(mov)+".");
+    if(!hasInts&&r<0.6)add("warn","Més curta del previst: "+fmtDur(mov)+" de "+fmtPlanDur(p)+".");
+    else add("info","Durada: "+fmtDur(mov)+" (previst "+fmtPlanDur(p)+")."+(r>1.15?" El temps extra no compta en contra: es valora el treball fet.":""));
   }
   if(!hasW){add("info","Aquesta activitat no té dades de potenciòmetre, així que no puc valorar els watts.")}
   else if(p.type!=="rest"){
@@ -296,6 +297,7 @@ function runResultHTML(p){
     return h;
   }
   const km=(a.distance||0)/1000,pace=km?(a.moving_time||0)/km:0,checks=[];
+  if(p.min&&(a.moving_time||0)<p.min*60*0.7)checks.push({l:"info",t:"Més curta del previst ("+fmtDur(a.moving_time||0)+" de "+fmtDur(p.min*60)+")."});
   if(p.pace&&pace){if(pace<p.pace[0]-10)checks.push({l:"warn",t:"Ritme de "+paceTxt(pace)+"/km: més ràpid del previst ("+paceTxt(p.pace[0])+"–"+paceTxt(p.pace[1])+"). Els dies suaus, suaus de veritat."});else checks.push({l:"ok",t:"Ritme de "+paceTxt(pace)+"/km, dins del que tocava."})}
   checks.push({l:"info",t:Math.round(a.total_elevation_gain||0)+" m de desnivell · càrrega estimada ≈ "+Math.round(actTSS(a))+" TSS."});
   const lv=checks.some(c=>c.l==="warn")?"warn":"ok";
