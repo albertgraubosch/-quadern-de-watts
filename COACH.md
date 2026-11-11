@@ -81,7 +81,7 @@ Fons llarg: 3 h → 3h30 → 4 h; tempo 2×15′ → 2×20′ → 3×15′ a 78�
 
 ## Com aplicar canvis
 - Edita només `plan.json`: sessions futures (mai les passades), `updated` (data i hora), `version` +1.
-- Quan una sessió ja està feta, omple-hi `doneT` (títol curt del que s'ha fet de veritat, p. ex. «Àngels i Santa Pellaia amb els col·legues») i `doneNote` (1–2 frases: ruta, km, desnivell i com han anat els blocs). L'app ho mostra en lloc del que hi havia previst. És l'única cosa que pots tocar d'una sessió passada.
+- Quan una sessió ja està feta, omple-hi `doneT` (títol MOLT curt amb l'entrenament fet, com el títol del pla: «3 × 10′ de llindar», «Fons de 4 h», «Z2 1h30»; sense rutes ni noms) i `doneNote` (1–2 frases: ruta, km, desnivell i com han anat els blocs; aquí sí, els matisos). L'app ho mostra en lloc del que hi havia previst. És l'única cosa que pots tocar d'una sessió passada.
 - Afegeix una entrada a `coachNotes` (`{"date":"AAAA-MM-DD","text":"..."}`) explicant què has vist i què has canviat.
   Màxim ~80 paraules, en català. **Conserva totes les notes anteriors** (mai n'esborris cap): l'app les mostra
   al "Diari del coach". La pantalla principal només ensenya la nota del dia, així que posa la data correcta.

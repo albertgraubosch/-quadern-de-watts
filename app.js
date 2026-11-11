@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.20.0";
+const APP_VERSION="1.20.1";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -352,7 +352,7 @@ function resultHTML(p){
 const DEFNAME=/^(morning|afternoon|evening|night|lunch) (ride|run)$|^cycling$|^ride$|^run$|^carrera|^bicicleta|^sortida (en bici|matinal|de)|^vuelta|^volta/i;
 function doneTitle(p,a){
   if(p.doneT)return p.doneT;
-  if(a&&a.name&&!DEFNAME.test(String(a.name).trim()))return a.name;
+  if(p.t)return p.t;
   const km=(a.distance||0)/1000,el=Math.round(a.total_elevation_gain||0);
   return (isRun(a)?"Cursa de ":"Sortida de ")+(km>=10?Math.round(km):km.toFixed(1).replace(".",","))+" km"+(el>=100?" i "+el+" m":"");
 }

@@ -1,6 +1,6 @@
 {
- "version": 42,
- "updated": "2026-11-11 19:10",
+ "version": 43,
+ "updated": "2026-11-11 19:05",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1083,8 +1083,8 @@
      "x": "Baixa amb la jaqueta posada i torna en Z1–Z2"
     }
    ],
-   "doneT": "Àngels i Santa Pellaia amb els col·legues",
-   "doneNote": "Canvi de ruta: 61 km i 900 m. Sèries: 1 al final dels Àngels (≈ 245–250 W) i 2 a Santa Pellaia (10′ a 253 W i 9′42″ a 246 W). Totes dins l'objectiu. Els Àngels sencers a 209 W abans de la primera: per això ha costat."
+   "doneT": "3 × 10′ de llindar",
+   "doneNote": "Ruta amb els col·legues (61 km, 900 m): 1 sèrie al final dels Àngels (≈ 245–250 W) i 2 a Santa Pellaia (10′ a 253 W i 9′42″ a 246 W). Totes dins l'objectiu."
   },
   {
    "ord": 1,
