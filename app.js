@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.20.2";
+const APP_VERSION="1.20.3";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -368,7 +368,7 @@ function sessionCard(p,kick){
     return '<article class="card feature'+(p.type==="run"?" runcard":"")+'" style="--zc:var(--'+zc+')"><div class="zonebar"></div><div class="in">'+
       '<div class="feature-head"><div class="kicker">'+kick+' · Fet'+(p.type==="run"?" · Córrer":"")+'</div><h2>'+esc(doneTitle(p,da))+'</h2>'+doneMeta(da)+'</div>'+
       (p.doneNote?'<div class="note">'+esc(p.doneNote)+'</div>':'')+
-      resultHTML(p)+'</div></article>';
+      plannedBox(p,(p.type!=="run"&&active(p)?profileHTML(p):"")+stepsHTML(p))+resultHTML(p)+'</div></article>';
   }
   if(p.type==="run"){
     return '<article class="card feature runcard" style="--zc:var(--z2)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+kick+' · Córrer</div><h2>'+esc(p.t)+'</h2><div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span>'+(p.pace?'<span>Ritme <b>'+paceTxt(p.pace[0])+'–'+paceTxt(p.pace[1])+'/km</b></span>':'')+'</div></div>'+stepsHTML(p)+changeHTML(p)+resultHTML(p)+'</div></article>';
