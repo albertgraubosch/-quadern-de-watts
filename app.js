@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.19.0";
+const APP_VERSION="1.20.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -349,7 +349,29 @@ function resultHTML(p){
   if(sg)h+='<div class="suggest"><div class="kicker">Ajust suggerit</div><div>'+esc(sg.why)+' '+esc(sg.txt)+'</div><div class="actions"><button class="btn primary" type="button" data-apply="'+esc(p.id)+'">Aplica l\'ajust</button><button class="btn ghost" type="button" data-dismiss="'+esc(p.id)+'">Deixa-ho igual</button></div></div>';
   return h+"</div>";
 }
+const DEFNAME=/^(morning|afternoon|evening|night|lunch) (ride|run)$|^cycling$|^ride$|^run$|^carrera|^bicicleta|^sortida (en bici|matinal|de)|^vuelta|^volta/i;
+function doneTitle(p,a){
+  if(p.doneT)return p.doneT;
+  if(a&&a.name&&!DEFNAME.test(String(a.name).trim()))return a.name;
+  const km=(a.distance||0)/1000,el=Math.round(a.total_elevation_gain||0);
+  return (isRun(a)?"Cursa de ":"Sortida de ")+(km>=10?Math.round(km):km.toFixed(1).replace(".",","))+" km"+(el>=100?" i "+el+" m":"");
+}
+function doneMeta(a){
+  const km=(a.distance||0)/1000,L=[["Temps",fmtDur(a.moving_time||0)],["Distància",(km>=10?Math.round(km):km.toFixed(1).replace(".",","))+" km"]];
+  if(a.total_elevation_gain>=50)L.push(["Desnivell",Math.round(a.total_elevation_gain)+" m"]);
+  if(isRun(a)&&km)L.push(["Ritme",paceTxt((a.moving_time||0)/km)+"/km"]);else if(a.average_watts)L.push(["Mitjana",Math.round(a.average_watts)+" W"]);
+  return '<div class="meta">'+L.map(x=>'<span>'+x[0]+' <b>'+x[1]+'</b></span>').join("")+'</div>';
+}
+function plannedBox(p,inner){return '<details class="planned"><summary>Previst: '+esc(p.t)+'</summary><div class="stack" style="gap:12px;margin-top:10px">'+inner+'</div></details>'}
 function sessionCard(p,kick){
+  const da=p.type!=="gym"&&p.type!=="rest"?(actFor(p)||runFor(p)):null;
+  if(da){
+    const zc=p.type==="run"?"z2":esc(p.z||"z2");
+    return '<article class="card feature'+(p.type==="run"?" runcard":"")+'" style="--zc:var(--'+zc+')"><div class="zonebar"></div><div class="in">'+
+      '<div class="feature-head"><div class="kicker">'+kick+' · Fet'+(p.type==="run"?" · Córrer":"")+'</div><h2>'+esc(doneTitle(p,da))+'</h2>'+doneMeta(da)+'</div>'+
+      (p.doneNote?'<div class="note">'+esc(p.doneNote)+'</div>':'')+
+      plannedBox(p,(p.type!=="run"&&active(p)?profileHTML(p):"")+stepsHTML(p))+resultHTML(p)+'</div></article>';
+  }
   if(p.type==="run"){
     return '<article class="card feature runcard" style="--zc:var(--z2)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+kick+' · Córrer</div><h2>'+esc(p.t)+'</h2><div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span>'+(p.pace?'<span>Ritme <b>'+paceTxt(p.pace[0])+'–'+paceTxt(p.pace[1])+'/km</b></span>':'')+'</div></div>'+stepsHTML(p)+changeHTML(p)+resultHTML(p)+'</div></article>';
   }
@@ -384,8 +406,9 @@ function renderHero(){
   const todays=sessionsOn(todayStr),p=todays.find(x=>x.type!=="gym")||todays[0],gym=todays.find(x=>x.type==="gym"&&x!==p);
   if(!p){const next=all().find(x=>x.d>todayStr&&active(x));title.textContent=next?"Dia lliure":"Pla completat";sub.hidden=false;sub.textContent=next?"Propera sessió: «"+next.t+"», "+dayLabel(next.d)+".":"Envia el resum a Claude per preparar les setmanes següents.";return}
   if(p.type==="rest"){title.textContent=p.t;sub.hidden=false;sub.textContent=p.note||"Avui les cames es fan al sofà. El descans també fa pujar l'FTP.";return}
-  title.textContent=p.t;
-  if(p.key){kick.textContent+=" · Sessió clau"}
+  const hda=p.type!=="gym"?(actFor(p)||runFor(p)):null;
+  title.textContent=hda?doneTitle(p,hda):p.t;
+  if(hda)kick.textContent+=" · Fet";else if(p.key){kick.textContent+=" · Sessió clau"}
   if(gym){sub.hidden=false;sub.textContent="+ "+gym.t+" ("+fmtPlanDur(gym)+")"+(gym.done?" ✓":", després de la bici")}
   if(p.type==="run"){
     tiles.innerHTML=[["Durada",fmtPlanDur(p)],["Ritme",p.pace?paceTxt(p.pace[0])+"–"+paceTxt(p.pace[1]):"suau"],["Esforç","suau"]].map(x=>'<div class="tile2"><span class="k">'+x[0]+'</span><span class="v">'+esc(x[1])+'</span></div>').join("");
@@ -397,6 +420,7 @@ function renderHero(){
   const t=p.type==="gym"?[["Durada",fmtPlanDur(p)],["Exercicis",String(steps(p).length)],["Esforç",p.rpe||"RPE 6"]]:[["Durada",fmtPlanDur(p)],["Watts",mainTarget(p)],["Rpm",p.cad?p.cad[0]+"–"+p.cad[1]:"lliure"]];
   tiles.innerHTML=t.map(x=>'<div class="tile2"><span class="k">'+x[0]+'</span><span class="v">'+esc(x[1])+'</span></div>').join("");
   const act=actFor(p),d=act&&data[act.id];
+  if(act){const km=(act.distance||0)/1000;tiles.innerHTML=[["Temps",fmtDur(act.moving_time||0)],["Km",String(Math.round(km))],["Desnivell",Math.round(act.total_elevation_gain||0)+" m"]].map(x=>'<div class="tile2"><span class="k">'+x[0]+'</span><span class="v">'+esc(x[1])+'</span></div>').join("")}
   if(act&&d&&!d.error&&!loading[act.id]){
     const a=analyze(p,act,d);
     ver.hidden=false;ver.innerHTML='<span class="vpill '+a.level+'"><i>'+MARK[a.level]+'</i>'+VERDICT[a.level][1]+' · '+fmtDur(act.moving_time||0)+(act.average_watts?" · "+Math.round(act.average_watts)+" W":"")+'</span>';

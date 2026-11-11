@@ -323,3 +323,8 @@ select{font:inherit;font-size:.9rem;background:var(--bg);color:var(--ink);border
 .mh b{font-size:.95rem}.mm{margin-left:auto;font-family:var(--f-mono);font-size:.75rem;color:var(--accent)}
 .mf{font-size:.92rem;line-height:1.45}
 .nutlink{border-left-color:var(--ok)}.nutlink span{color:var(--ok)}
+
+.planned{border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.planned summary{cursor:pointer;color:var(--muted);font-size:.86rem;list-style:none}
+.planned summary::before{content:"▸ ";color:var(--muted)}
+.planned[open] summary::before{content:"▾ "}
