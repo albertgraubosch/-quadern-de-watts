@@ -1,6 +1,6 @@
 {
- "version": 44,
- "updated": "2026-11-11 19:10",
+ "version": 45,
+ "updated": "2026-11-11 20:55",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1094,22 +1094,26 @@
    "type": "end",
    "z": "z2",
    "cat": "end",
-   "t": "Z2 suau (opcional)",
-   "min": 75,
+   "t": "Descans o Z2 molt suau 1h30",
+   "min": 90,
    "band": [
-    0.56,
-    0.7
+    0.55,
+    0.68
    ],
    "cad": [
     88,
     95
    ],
    "fuel": "Aigua i 30 g/h",
-   "note": "Recuperat perquè ahir va ser més curt del previst (2h30). Si et lleves cansat, descans. Si no, 1h15 suau de veritat: res per sobre de 172 W.",
+   "note": "Ahir ≈ 166 TSS amb 35′ de sweet spot als Àngels a més de les sèries, i el TSB baixa cap a −25. Si et lleves cansat, descans total. Si surts, 1h30 en pla i suau de veritat: res per sobre de 167 W, tampoc a les pujades.",
    "steps": [
     {
      "l": "Sessió",
-     "x": "1h15 en Z2 baixa a {56,68} · cadència 90+"
+     "x": "1h30 en Z2 baixa a {55,68} · cadència 90+ · terreny pla, pujades amb pinyó gran"
+    },
+    {
+     "l": "Opció",
+     "x": "Si les cames pesen, descans: dissabte és més important"
     }
    ]
   },
@@ -1653,6 +1657,10 @@
   {
    "date": "2026-11-11",
    "text": "Sèries complertes: Àngels al final (≈ 245–250 W), Santa Pellaia 10′ a 253 W i 9′42″ a 246 W, totes a 245–252, l'objectiu. Que costin és el normal: 10′ per sobre de l'FTP han de ser un 8 de 10. Però abans vas pujar Els Àngels sencers a 209 W (35′ a ritme de sweet spot), i això es paga a les sèries. Dijous, Z2 suau opcional. Dissabte, 3–3h30 amb 2 × 15′."
+  },
+  {
+   "date": "2026-11-11",
+   "text": "Números del dia: 2h28 en moviment, NP 201 W, IF 0,82, TSS ≈ 166. Millors 10′: 253, 248 i 244 W, el que tocava. Però abans, 20′ a 222 W als Àngels: el tram «de Z2» va ser sweet spot. Cadència 75 rpm, encara baixa. 7 dies ≈ 600 TSS i TSB cap a −25: dijous, descans o 1h30 molt suau (màx. 167 W). Divendres gimnàs B. Dissabte, 3–3h30 amb 2 × 15′. Que 253 W surtin cansat diu que el test pot anar bé."
   }
  ],
  "goals": [
