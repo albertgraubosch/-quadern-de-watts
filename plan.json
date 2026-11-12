@@ -1,6 +1,6 @@
 {
- "version": 45,
- "updated": "2026-11-11 20:55",
+ "version": 46,
+ "updated": "2026-11-12 20:55",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -963,7 +963,9 @@
     }
    ],
    "ord": 1,
-   "k": 1
+   "k": 1,
+   "doneT": "Ruta llarga de 3h55",
+   "doneNote": "104 km i 1.032 m, 3h54 en moviment. TSS ≈ 229."
   },
   {
    "id": "s20261108",
@@ -1036,7 +1038,9 @@
      "l": "Sessió",
      "x": "1h30 en Z2 baixa a {58,70} · cadència 88–92 · cames quietes a les rotondes"
     }
-   ]
+   ],
+   "doneT": "Z2 1h30",
+   "doneNote": "Els Àngels: 30 km i 459 m, NP 161 W, IF 0,66. Pujada a 171 W de mitjana, una mica alta; cadència 75 rpm."
   },
   {
    "ord": 1,
@@ -1115,7 +1119,9 @@
      "l": "Opció",
      "x": "Si les cames pesen, descans: dissabte és més important"
     }
-   ]
+   ],
+   "doneT": "Descans",
+   "doneNote": "Triada l'opció de descans després de les sèries de dimecres."
   },
   {
    "ord": 1,
@@ -1235,7 +1241,7 @@
     }
    ],
    "fuel": "60–70 g/h d'hidrats. 2 bidons amb sals.",
-   "note": "Escurçat perquè dimecres va ser llarg: 3–3h30 amb 2 × 15′ de tempo a 191–203 W a la segona meitat. Res d'esprints.",
+   "note": "Arribes descansat (dijous parat): 3–3h30 amb 2 × 15′ de tempo a 191–203 W a la segona meitat. Fora dels blocs, Z2 de veritat: màxim 185 W també a les pujades, i cadència 85+. Res d'esprints ni segments: dilluns comença la descàrrega del test.",
    "steps": [
     {
      "l": "Primera hora",
@@ -1661,6 +1667,10 @@
   {
    "date": "2026-11-11",
    "text": "Números del dia: 2h28 en moviment, NP 201 W, IF 0,82, TSS ≈ 166. Millors 10′: 253, 248 i 244 W, el que tocava. Però abans, 20′ a 222 W als Àngels: el tram «de Z2» va ser sweet spot. Cadència 75 rpm, encara baixa. 7 dies ≈ 600 TSS i TSB cap a −25: dijous, descans o 1h30 molt suau (màx. 167 W). Divendres gimnàs B. Dissabte, 3–3h30 amb 2 × 15′. Que 253 W surtin cansat diu que el test pot anar bé."
+  },
+  {
+   "date": "2026-11-12",
+   "text": "Dijous de descans, l'opció bona després del 3 × 10′. Últims 7 dies ≈ 520 TSS (ruta 229, gimnàs + cursa 65, Z2 63, sèries 166) i el TSB puja cap a −15: dissabte hi arribes amb cames. Demà gimnàs B, sense cames i amb dominades. Dissabte, 3–3h30 amb 2 × 15′ a 191–203 W a la segona meitat. Abans, Z2 de veritat (màx. 185 W) i cadència 85+: aquesta setmana vas a 75 rpm de mitjana. És el deure pendent."
   }
  ],
  "goals": [
