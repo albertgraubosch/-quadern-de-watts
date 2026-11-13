@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11 20:55",
+ "updated": "2026-11-13 21:00",
  "about": "Títols per a Strava. 'byDay': 5 frases fetes a mida per a l'activitat d'aquell dia (surten primer). 'phrases': banc general amb etiquetes (ride, run, gym, long, short, hard, easy, climb, morning, night, weekend, sunday, monday, weekday, rest, group, solo, pr); una frase només surt si l'activitat compleix totes les seves etiquetes. 'topical': actualitat amb dates (from/to).",
  "byDay": {
   "2026-11-03": [
@@ -43,6 +43,13 @@
    "Serveis mínims del 25 % a Rodalies; serveis màxims als Àngels i a Santa Pellaia",
    "El Girona no la va ficar contra l'Almeria; jo almenys n'he ficat 90 de PR",
    "Avui tot el país de vaga menys el potenciòmetre: 253 W durant 10′ i sense serveis mínims"
+  ],
+  "2026-11-13": [
+   "Divendres 13 i dia de descans: les dues coses que no m'he cregut",
+   "El pla deia descans; la Mare de Déu del Mont deia una altra cosa, i a dalt mana ella",
+   "Les borrasques atlàntiques arriben dissabte; jo m'he menjat la meva divendres baixant del Mont",
+   "58 rècords personals i cap d'ells sap llegir un pla d'entrenament",
+   "Pepito diu «anem a fer una volta» i en surten 116 km: la inflació també ha arribat a les voltes"
   ]
  },
  "phrases": [

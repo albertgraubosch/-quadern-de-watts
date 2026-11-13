@@ -1,6 +1,6 @@
 {
- "version": 47,
- "updated": "2026-11-13 20:40",
+ "version": 48,
+ "updated": "2026-11-13 21:00",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1244,7 +1244,7 @@
    "type": "rest",
    "t": "Descans",
    "min": 0,
-   "note": "Comença la descàrrega. Si et ve de gust, 30–40′ caminant o una cursa molt suau."
+   "note": "Comença la descàrrega. Si el gimnàs B de divendres no es va fer, avui: dominades, tren superior i core, gens de cames. Si no, 30–40′ caminant."
   },
   {
    "ord": 1,
@@ -1654,6 +1654,10 @@
   {
    "date": "2026-11-13",
    "text": "Avui havia de ser descans i has fet 5h08 i 1.900 m a la Mare de Déu del Mont (pujada: 54′ a 215 W). Bona sortida, però són ≈ 290 TSS no previstos. Dissabte, el fons desapareix: recuperació d'1 h o descans. Diumenge, descans. La setmana que ve és de descàrrega i el test és el 21: arribar-hi fresc és el que compta."
+  },
+  {
+   "date": "2026-11-13",
+   "text": "Revisió del vespre: la Mare de Déu del Mont surt a NP ≈ 190 W, IF 0,77 i ≈ 300 TSS en 5h08. Millors 20′ a 225 W i 1 h a 214 W: bon motor. Però els últims 7 dies sumen ≈ 820 TSS i el TSB baixa per sota de −30: toca frenar. Dissabte, descans o 1 h a menys de 147 W. Diumenge i dilluns, descans. El gimnàs B d'avui, si no l'has fet, passa a diumenge (només tren superior i core). Dimarts comença la descàrrega cap al test."
   }
  ],
  "goals": [
