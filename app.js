@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.20.4";
+const APP_VERSION="1.20.5";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -352,7 +352,7 @@ function resultHTML(p){
 const DEFNAME=/^(morning|afternoon|evening|night|lunch) (ride|run)$|^cycling$|^ride$|^run$|^carrera|^bicicleta|^sortida (en bici|matinal|de)|^vuelta|^volta/i;
 function doneTitle(p,a){
   if(p.doneT)return p.doneT;
-  if(p.t)return p.t;
+  if(p.t&&p.type!=="rest")return p.t;
   const km=(a.distance||0)/1000,el=Math.round(a.total_elevation_gain||0);
   return (isRun(a)?"Cursa de ":"Sortida de ")+(km>=10?Math.round(km):km.toFixed(1).replace(".",","))+" km"+(el>=100?" i "+el+" m":"");
 }
@@ -364,13 +364,13 @@ function doneMeta(a){
 }
 function plannedBox(p,inner){return '<details class="planned"><summary>Previst: '+esc(p.t)+'</summary><div class="stack" style="gap:12px;margin-top:10px">'+inner+'</div></details>'}
 function sessionCard(p,kick){
-  const da=p.type!=="gym"&&p.type!=="rest"?(actFor(p)||runFor(p)):null;
+  const da=p.type!=="gym"?(actFor(p)||runFor(p)):null;
   if(da){
     const zc=p.type==="run"?"z2":esc(p.z||"z2");
     return '<article class="card feature'+(p.type==="run"?" runcard":"")+'" style="--zc:var(--'+zc+')"><div class="zonebar"></div><div class="in">'+
-      '<div class="feature-head"><div class="kicker">'+kick+' · Fet'+(p.type==="run"?" · Córrer":"")+'</div><h2>'+esc(doneTitle(p,da))+'</h2>'+doneMeta(da)+'</div>'+
+      '<div class="feature-head"><div class="kicker">'+kick+(p.type==="rest"?" · Fora del pla":" · Fet")+(p.type==="run"?" · Córrer":"")+'</div><h2>'+esc(doneTitle(p,da))+'</h2>'+doneMeta(da)+'</div>'+
       (p.doneNote?'<div class="note">'+esc(p.doneNote)+'</div>':'')+
-      plannedBox(p,(p.type!=="run"&&active(p)?profileHTML(p):"")+stepsHTML(p))+resultHTML(p)+'</div></article>';
+      (p.type==="rest"?'':plannedBox(p,(p.type!=="run"&&active(p)?profileHTML(p):"")+stepsHTML(p)))+resultHTML(p)+'</div></article>';
   }
   if(p.type==="run"){
     return '<article class="card feature runcard" style="--zc:var(--z2)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+kick+' · Córrer</div><h2>'+esc(p.t)+'</h2><div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span>'+(p.pace?'<span>Ritme <b>'+paceTxt(p.pace[0])+'–'+paceTxt(p.pace[1])+'/km</b></span>':'')+'</div></div>'+stepsHTML(p)+changeHTML(p)+resultHTML(p)+'</div></article>';
@@ -405,6 +405,7 @@ function renderHero(){
   if(!Object.keys(S).length){title.textContent="Sense pla";sub.hidden=false;sub.textContent=planMsg||"Demana a Claude que prepari el pla.";return}
   const todays=sessionsOn(todayStr),p=todays.find(x=>x.type!=="gym")||todays[0],gym=todays.find(x=>x.type==="gym"&&x!==p);
   if(!p){const next=all().find(x=>x.d>todayStr&&active(x));title.textContent=next?"Dia lliure":"Pla completat";sub.hidden=false;sub.textContent=next?"Propera sessió: «"+next.t+"», "+dayLabel(next.d)+".":"Envia el resum a Claude per preparar les setmanes següents.";return}
+  if(p.type==="rest"&&actFor(p)){const ra=actFor(p),km=(ra.distance||0)/1000;title.textContent=doneTitle(p,ra);kick.textContent+=" · Fora del pla";sub.hidden=false;sub.textContent=p.doneNote||"Era dia de descans i has rodat: compta com a càrrega extra.";tiles.innerHTML=[["Temps",fmtDur(ra.moving_time||0)],["Km",String(Math.round(km))],["Desnivell",Math.round(ra.total_elevation_gain||0)+" m"]].map(x=>'<div class="tile2"><span class="k">'+x[0]+'</span><span class="v">'+esc(x[1])+'</span></div>').join("");return}
   if(p.type==="rest"){title.textContent=p.t;sub.hidden=false;sub.textContent=p.note||"Avui les cames es fan al sofà. El descans també fa pujar l'FTP.";return}
   const hda=p.type!=="gym"?(actFor(p)||runFor(p)):null;
   title.textContent=hda?doneTitle(p,hda):p.t;

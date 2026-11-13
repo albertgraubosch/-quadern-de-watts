@@ -1,6 +1,6 @@
 {
- "version": 46,
- "updated": "2026-11-12 20:55",
+ "version": 47,
+ "updated": "2026-11-13 20:40",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1131,7 +1131,9 @@
    "type": "rest",
    "t": "Descans",
    "min": 0,
-   "note": "Descans de bici. Sopar amb hidrats: demà fons llarg."
+   "note": "Descans de bici. Sopar amb hidrats: demà fons llarg.",
+   "doneT": "Fons de 5 h (fora del pla)",
+   "doneNote": "Mare de Déu del Mont amb els col·legues: 116 km, 1.900 m i 5h08, amb diluvi baixant. La pujada, 54′ a 215 W (sweet spot). Era dia de descans: uns 290 TSS de més, i per això el fons de dissabte desapareix."
   },
   {
    "ord": 1,
@@ -1208,52 +1210,29 @@
    ]
   },
   {
-   "ord": 1,
-   "k": 1,
    "id": "s20261114",
    "d": "2026-11-14",
-   "type": "long",
-   "z": "z3",
-   "cat": "long",
-   "key": true,
-   "t": "Fons amb tempo (3–3h30)",
-   "min": 180,
-   "maxMin": 210,
+   "type": "rec",
+   "z": "z1",
+   "cat": "rec",
+   "t": "Recuperació (opcional)",
+   "min": 60,
    "band": [
-    0.56,
-    0.75
+    0.45,
+    0.6
    ],
    "cad": [
-    85,
-    90
+    90,
+    100
    ],
-   "ints": [
-    {
-     "n": 2,
-     "s": 900,
-     "lo": 0.78,
-     "hi": 0.83,
-     "cad": [
-      85,
-      90
-     ],
-     "label": "Tempo 15′"
-    }
-   ],
-   "fuel": "60–70 g/h d'hidrats. 2 bidons amb sals.",
-   "note": "Arribes descansat (dijous parat): 3–3h30 amb 2 × 15′ de tempo a 191–203 W a la segona meitat. Fora dels blocs, Z2 de veritat: màxim 185 W també a les pujades, i cadència 85+. Res d'esprints ni segments: dilluns comença la descàrrega del test.",
+   "ord": 1,
+   "k": 1,
+   "fuel": "Aigua",
+   "note": "Ahir vas fer 5 h i 1.900 m (≈ 290 TSS) el dia que tocava descans: el fons d'avui desapareix. Si et lleves cansat o amb les cames carregades, descans total. Si no, 1 h molt suau: res per sobre de 147 W.",
    "steps": [
     {
-     "l": "Primera hora",
-     "x": "Z2 a {61,70}. Menja al minut 30."
-    },
-    {
-     "l": "Tempo",
-     "x": "2 × 15′ a {78,83} · 85–90 rpm · 10′ suaus entre blocs"
-    },
-    {
-     "l": "Resta",
-     "x": "Z2 a {61,73} fins a 3–3h30"
+     "l": "Sessió",
+     "x": "1 h a {45,60}, pla, cadència 90+"
     }
    ]
   },
@@ -1671,6 +1650,10 @@
   {
    "date": "2026-11-12",
    "text": "Dijous de descans, l'opció bona després del 3 × 10′. Últims 7 dies ≈ 520 TSS (ruta 229, gimnàs + cursa 65, Z2 63, sèries 166) i el TSB puja cap a −15: dissabte hi arribes amb cames. Demà gimnàs B, sense cames i amb dominades. Dissabte, 3–3h30 amb 2 × 15′ a 191–203 W a la segona meitat. Abans, Z2 de veritat (màx. 185 W) i cadència 85+: aquesta setmana vas a 75 rpm de mitjana. És el deure pendent."
+  },
+  {
+   "date": "2026-11-13",
+   "text": "Avui havia de ser descans i has fet 5h08 i 1.900 m a la Mare de Déu del Mont (pujada: 54′ a 215 W). Bona sortida, però són ≈ 290 TSS no previstos. Dissabte, el fons desapareix: recuperació d'1 h o descans. Diumenge, descans. La setmana que ve és de descàrrega i el test és el 21: arribar-hi fresc és el que compta."
   }
  ],
  "goals": [
