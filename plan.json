@@ -1,6 +1,6 @@
 {
- "version": 48,
- "updated": "2026-11-13 21:00",
+ "version": 49,
+ "updated": "2026-11-14 21:00",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1234,7 +1234,9 @@
      "l": "Sessió",
      "x": "1 h a {45,60}, pla, cadència 90+"
     }
-   ]
+   ],
+   "doneT": "Descans",
+   "doneNote": "Descans total després de les 5 h de la Mare de Déu del Mont. Era l'opció bona."
   },
   {
    "ord": 1,
@@ -1244,7 +1246,81 @@
    "type": "rest",
    "t": "Descans",
    "min": 0,
-   "note": "Comença la descàrrega. Si el gimnàs B de divendres no es va fer, avui: dominades, tren superior i core, gens de cames. Si no, 30–40′ caminant."
+   "note": "Descans de bici. Toca el gimnàs B que no es va fer divendres: dominades, tren superior i core, gens de cames."
+  },
+  {
+   "ord": 1,
+   "k": 1,
+   "id": "s20261115g",
+   "d": "2026-11-15",
+   "type": "gym",
+   "t": "Gimnàs B: tren superior i core",
+   "min": 45,
+   "note": "Gimnàs B mogut de divendres. Tren superior i core, sense cames: la setmana que ve és de descàrrega i test. Esforç 7 de 10.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem o el·líptica + mobilitat d'espatlles"
+    },
+    {
+     "l": "Esquena",
+     "x": "Dominades assistides o jaló al pit 3 × 8–10 · rem amb cable o a una mà 3 × 12"
+    },
+    {
+     "l": "Pit i espatlles",
+     "x": "Press militar amb manuelles 3 × 10 · flexions 3 × (màxim − 2)"
+    },
+    {
+     "l": "Braços",
+     "x": "Curl de bíceps 2 × 12 · extensió de tríceps 2 × 12"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug 3 × 10 · planxa lateral 3 × 30″ per costat · bird dog 2 × 10"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Les vols fer sempre: 4 sèries de 3–4. Si no en surten, negatives de 3–4 segons."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12",
+     "tip": "Puja de pes: 16–18 kg (amb 10 et va faltar)."
+    },
+    {
+     "n": "Press militar amb manuelles",
+     "sets": 3,
+     "reps": "10"
+    },
+    {
+     "n": "Flexions",
+     "sets": 3,
+     "reps": "màx. − 2",
+     "bw": true
+    },
+    {
+     "n": "Curl de bíceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Extensió de tríceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
+    }
+   ]
   },
   {
    "ord": 1,
@@ -1265,7 +1341,7 @@
    "z": "z2",
    "cat": "end",
    "t": "Z2 suau",
-   "min": 75,
+   "min": 90,
    "band": [
     0.56,
     0.7
@@ -1275,11 +1351,11 @@
     92
    ],
    "fuel": "Aigua",
-   "note": "Descàrrega: suau de veritat.",
+   "note": "Descàrrega: suau de veritat. 1h30, cadència 88+ i res per sobre de 167 W.",
    "steps": [
     {
      "l": "Sessió",
-     "x": "1h15 en Z2 baixa a {58,68}"
+     "x": "1h30 en Z2 baixa a {58,68}"
     }
    ]
   },
@@ -1658,6 +1734,10 @@
   {
    "date": "2026-11-13",
    "text": "Revisió del vespre: la Mare de Déu del Mont surt a NP ≈ 190 W, IF 0,77 i ≈ 300 TSS en 5h08. Millors 20′ a 225 W i 1 h a 214 W: bon motor. Però els últims 7 dies sumen ≈ 820 TSS i el TSB baixa per sota de −30: toca frenar. Dissabte, descans o 1 h a menys de 147 W. Diumenge i dilluns, descans. El gimnàs B d'avui, si no l'has fet, passa a diumenge (només tren superior i core). Dimarts comença la descàrrega cap al test."
+  },
+  {
+   "date": "2026-11-14",
+   "text": "Dissabte de descans total, bona decisió després de les 5h08 de divendres. Últims 7 dies ≈ 595 TSS (cursa i gimnàs 65, Z2 63, sèries 166, Mare de Déu del Mont 300) i el TSB remunta cap a −20. Demà, sense bici: el gimnàs B que va quedar pendent (dominades, tren superior, core, zero cames). Dilluns descans i dimarts 1h30 de Z2 baixa. El test del 21 a Sant Martí Sacalm, intacte."
   }
  ],
  "goals": [
