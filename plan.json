@@ -1,6 +1,6 @@
 {
- "version": 51,
- "updated": "2026-11-15 18:35",
+ "version": 52,
+ "updated": "2026-11-15 20:50",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1748,6 +1748,10 @@
   {
    "date": "2026-11-15",
    "text": "Dilluns, fisio (si hi ha hora): explica-li la càrrega de la setmana i els genolls. Dimarts, bike fitting en lloc de la Z2. Si et canvien molt la posició (selló més d'1 cm, cales molt girades), parlarem de si mantenim el test del 21 o el passem una setmana, per donar temps al cos a adaptar-s'hi."
+  },
+  {
+   "date": "2026-11-15",
+   "text": "Tancament de la setmana 4: últims 7 dies ≈ 690 TSS (Z2 63, sèries 166, Mare de Déu del Mont ≈ 300, avui 90, més cursa i gimnàs). Molta càrrega i ja es nota: la segona hora d'avui a 129 W. El gimnàs B no surt a Strava: si no l'has fet, no el recuperis. Demà descans total, dimarts bike fitting i tren superior suau. Objectiu de la setmana: arribar fresc al test del 21."
   }
  ],
  "goals": [

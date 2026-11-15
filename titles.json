@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-13 21:00",
+ "updated": "2026-11-15",
  "about": "Títols per a Strava. 'byDay': 5 frases fetes a mida per a l'activitat d'aquell dia (surten primer). 'phrases': banc general amb etiquetes (ride, run, gym, long, short, hard, easy, climb, morning, night, weekend, sunday, monday, weekday, rest, group, solo, pr); una frase només surt si l'activitat compleix totes les seves etiquetes. 'topical': actualitat amb dates (from/to).",
  "byDay": {
   "2026-11-03": [
@@ -50,6 +50,13 @@
    "Les borrasques atlàntiques arriben dissabte; jo m'he menjat la meva divendres baixant del Mont",
    "58 rècords personals i cap d'ells sap llegir un pla d'entrenament",
    "Pepito diu «anem a fer una volta» i en surten 116 km: la inflació també ha arribat a les voltes"
+  ],
+  "2026-11-15": [
+   "A dues setmanes del 29-N les enquestes no es mouen. Les meves cames tampoc: 169 W la primera hora, 129 la segona.",
+   "El pla deia descans i he sortit igual: a dues setmanes de les eleccions, ningú respecta el diumenge.",
+   "Més de mil persones a Móra d'Ebre diuen que el món rural no està en venda. Jo l'he llogat 1h52 per 400 metres.",
+   "La inflació a les portades i els meus watts a la baixa: de la primera a la segona hora, un 24 % menys.",
+   "Bateria a dues ratlles i 10 PR igualment: rendiment de govern en funcions."
   ]
  },
  "phrases": [
