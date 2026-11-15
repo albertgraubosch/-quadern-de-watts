@@ -328,3 +328,5 @@ select{font:inherit;font-size:.9rem;background:var(--bg);color:var(--ink);border
 .planned summary{cursor:pointer;color:var(--muted);font-size:.86rem;list-style:none}
 .planned summary::before{content:"▸ ";color:var(--muted)}
 .planned[open] summary::before{content:"▾ "}
+.verdict.free{background:var(--chip);color:var(--ink)}
+.vpill.free i{background:var(--z2)}

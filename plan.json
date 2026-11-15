@@ -1,6 +1,6 @@
 {
- "version": 49,
- "updated": "2026-11-14 21:00",
+ "version": 50,
+ "updated": "2026-11-15 18:50",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1235,7 +1235,7 @@
      "x": "1 h a {45,60}, pla, cadència 90+"
     }
    ],
-   "doneT": "Descans",
+   "doneT": null,
    "doneNote": "Descans total després de les 5 h de la Mare de Déu del Mont. Era l'opció bona."
   },
   {
@@ -1246,7 +1246,9 @@
    "type": "rest",
    "t": "Descans",
    "min": 0,
-   "note": "Descans de bici. Toca el gimnàs B que no es va fer divendres: dominades, tren superior i core, gens de cames."
+   "note": "Descans de bici. Toca el gimnàs B que no es va fer divendres: dominades, tren superior i core, gens de cames.",
+   "doneT": "Z2 d'1h52 (fora del pla)",
+   "doneNote": "50 km i 400 m. NP 169 W, IF 0,69, ≈ 90 TSS. Bona base, però un 30 % del temps en tempo o més i la segona meitat molt més fluixa (169 → 129 W): les cames encara arrosseguen la Mare de Déu del Mont."
   },
   {
    "ord": 1,
@@ -1341,7 +1343,7 @@
    "z": "z2",
    "cat": "end",
    "t": "Z2 suau",
-   "min": 90,
+   "min": 60,
    "band": [
     0.56,
     0.7
@@ -1351,11 +1353,11 @@
     92
    ],
    "fuel": "Aigua",
-   "note": "Descàrrega: suau de veritat. 1h30, cadència 88+ i res per sobre de 167 W.",
+   "note": "Comença la descàrrega. Diumenge vas acabar buit (segona meitat molt més fluixa): 1 h suau de veritat, res per sobre de 167 W.",
    "steps": [
     {
      "l": "Sessió",
-     "x": "1h30 en Z2 baixa a {58,68}"
+     "x": "1 h en Z2 baixa a {56,68} · cadència 90+ · pla"
     }
    ]
   },
@@ -1738,6 +1740,10 @@
   {
    "date": "2026-11-14",
    "text": "Dissabte de descans total, bona decisió després de les 5h08 de divendres. Últims 7 dies ≈ 595 TSS (cursa i gimnàs 65, Z2 63, sèries 166, Mare de Déu del Mont 300) i el TSB remunta cap a −20. Demà, sense bici: el gimnàs B que va quedar pendent (dominades, tren superior, core, zero cames). Dilluns descans i dimarts 1h30 de Z2 baixa. El test del 21 a Sant Martí Sacalm, intacte."
+  },
+  {
+   "date": "2026-11-15",
+   "text": "Diumenge tocava descans i has fet 1h52 de Z2 (50 km, NP 169 W, IF 0,69, ≈ 90 TSS). Està bé com a base, però dues coses: un 30 % del temps en tempo o més, i la segona meitat molt més fluixa (169 → 129 W). Vas cansat, i és normal després de la Mare de Déu del Mont. Dilluns descans, dimarts 1 h molt suau i dimecres les activacions curtes. El test del 21 es manté: aquesta setmana és per arribar-hi fresc."
   }
  ],
  "goals": [
