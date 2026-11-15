@@ -1,6 +1,6 @@
 {
- "version": 50,
- "updated": "2026-11-15 18:50",
+ "version": 51,
+ "updated": "2026-11-15 18:35",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1339,25 +1339,25 @@
    "k": 1,
    "id": "s20261117",
    "d": "2026-11-17",
-   "type": "end",
-   "z": "z2",
-   "cat": "end",
-   "t": "Z2 suau",
-   "min": 60,
+   "type": "rec",
+   "z": "z1",
+   "cat": "rec",
+   "t": "Bike fitting",
+   "min": 90,
    "band": [
-    0.56,
-    0.7
+    0.45,
+    0.65
    ],
    "cad": [
-    88,
-    92
+    85,
+    95
    ],
-   "fuel": "Aigua",
-   "note": "Comença la descàrrega. Diumenge vas acabar buit (segona meitat molt més fluixa): 1 h suau de veritat, res per sobre de 167 W.",
+   "fuel": "Aigua i alguna cosa per menjar",
+   "note": "Avui el bike fitting és la sessió: res més de bici. Porta sabatilles, cales, pedals (si són teus), plantilles i culot. Explica-li: genolls que entren cap a dins, punta del peu cap a fora, la cala que se't treu en moure el taló cap a fora i que t'agrada anar amb el taló una mica cap a fora. Pregunta-li per la rotació de les cales i el float.",
    "steps": [
     {
      "l": "Sessió",
-     "x": "1 h en Z2 baixa a {56,68} · cadència 90+ · pla"
+     "x": "Bike fitting. Si a més hi ha prova d'FTP o rampa, digues-m'ho per ajustar el test de dissabte."
     }
    ]
   },
@@ -1744,6 +1744,10 @@
   {
    "date": "2026-11-15",
    "text": "Diumenge tocava descans i has fet 1h52 de Z2 (50 km, NP 169 W, IF 0,69, ≈ 90 TSS). Està bé com a base, però dues coses: un 30 % del temps en tempo o més, i la segona meitat molt més fluixa (169 → 129 W). Vas cansat, i és normal després de la Mare de Déu del Mont. Dilluns descans, dimarts 1 h molt suau i dimecres les activacions curtes. El test del 21 es manté: aquesta setmana és per arribar-hi fresc."
+  },
+  {
+   "date": "2026-11-15",
+   "text": "Dilluns, fisio (si hi ha hora): explica-li la càrrega de la setmana i els genolls. Dimarts, bike fitting en lloc de la Z2. Si et canvien molt la posició (selló més d'1 cm, cales molt girades), parlarem de si mantenim el test del 21 o el passem una setmana, per donar temps al cos a adaptar-s'hi."
   }
  ],
  "goals": [
