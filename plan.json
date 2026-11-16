@@ -1,6 +1,6 @@
 {
- "version": 52,
- "updated": "2026-11-15 20:50",
+ "version": 53,
+ "updated": "2026-11-16 20:48",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1752,6 +1752,10 @@
   {
    "date": "2026-11-15",
    "text": "Tancament de la setmana 4: últims 7 dies ≈ 690 TSS (Z2 63, sèries 166, Mare de Déu del Mont ≈ 300, avui 90, més cursa i gimnàs). Molta càrrega i ja es nota: la segona hora d'avui a 129 W. El gimnàs B no surt a Strava: si no l'has fet, no el recuperis. Demà descans total, dimarts bike fitting i tren superior suau. Objectiu de la setmana: arribar fresc al test del 21."
+  },
+  {
+   "date": "2026-11-16",
+   "text": "Dilluns de descans, complert: res a Strava. Els últims 7 dies sumen ≈ 620 TSS (Z2 63, sèries 166, Mare de Déu del Mont ≈ 300, diumenge 90) i el TSB remunta de ≈ −20 a ≈ −10. Va bé: la descàrrega ja fa efecte. Demà, bike fitting i tren superior suau, gens de cames. Dimecres, 3 × 3′ a 245–257 W per recordar el ritme. Dijous descans, divendres obertura i dissabte, test a Sant Martí Sacalm."
   }
  ],
  "goals": [
