@@ -1,6 +1,6 @@
 {
- "version": 55,
- "updated": "2026-11-17 13:40",
+ "version": 56,
+ "updated": "2026-11-17 20:50",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1770,6 +1770,10 @@
   {
    "date": "2026-11-17",
    "text": "Bike fitting: selló més enrere, 2 separadors menys i cales ben posades. Són canvis mitjans: el test del 21 es manté de moment, però la decisió final, dimecres després de la Z2. Si et notes estrany (maluc, lumbar, genolls) o perds força a les pujades, el passem al 28."
+  },
+  {
+   "date": "2026-11-17",
+   "text": "Revisió del vespre: avui res a Strava, ni la cursa de 10 km. Cap problema: era suau i no es recupera. Si encara surts, 5:20–5:40/km i prou; si no, millor fresc. Últims 7 dies ≈ 555 TSS i el TSB ja ronda −5: la descàrrega funciona. Demà, Z2 d'1h30 amb la posició nova i 3 × 1′ a 245–257 W. Aquí es decideix el test: si et trobes bé, dissabte Sant Martí Sacalm."
   }
  ],
  "goals": [
