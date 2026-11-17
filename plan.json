@@ -1,6 +1,6 @@
 {
- "version": 53,
- "updated": "2026-11-16 20:48",
+ "version": 54,
+ "updated": "2026-11-17 11:10",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1335,29 +1335,31 @@
    "note": "Setmana de descàrrega i test: menys volum, cames fresques."
   },
   {
-   "ord": 1,
-   "k": 1,
    "id": "s20261117",
    "d": "2026-11-17",
-   "type": "rec",
-   "z": "z1",
-   "cat": "rec",
-   "t": "Bike fitting",
-   "min": 90,
-   "band": [
-    0.45,
-    0.65
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 10 km",
+   "min": 55,
+   "pace": [
+    320,
+    340
    ],
-   "cad": [
-    85,
-    95
-   ],
-   "fuel": "Aigua i alguna cosa per menjar",
-   "note": "Avui el bike fitting és la sessió: res més de bici. Porta sabatilles, cales, pedals (si són teus), plantilles i culot. Explica-li: genolls que entren cap a dins, punta del peu cap a fora, la cala que se't treu en moure el taló cap a fora i que t'agrada anar amb el taló una mica cap a fora. Pregunta-li per la rotació de les cales i el float.",
+   "tssH": 55,
+   "ord": 1,
+   "k": 1,
+   "fuel": "Aigua",
+   "doneT": null,
+   "note": "Bici al taller després del bike fitting: avui toca córrer. Setmana de descàrrega i dissabte hi ha test, així que suau de veritat: 5:20–5:40/km, que puguis parlar. Si a partir del km 7 notes les cames carregades, talla-ho a 8 km.",
    "steps": [
     {
      "l": "Sessió",
-     "x": "Bike fitting. Si a més hi ha prova d'FTP o rampa, digues-m'ho per ajustar el test de dissabte."
+     "x": "10 km a 5:20–5:40/km, pla"
+    },
+    {
+     "l": "Final",
+     "x": "5′ caminant i mobilitat de bessons i maluc"
     }
    ]
   },
@@ -1406,42 +1408,46 @@
    ]
   },
   {
-   "ord": 1,
-   "k": 1,
    "id": "s20261118",
    "d": "2026-11-18",
-   "type": "int",
-   "z": "z4",
-   "cat": "vo2",
-   "t": "Z2 amb activacions",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Z2 1h30 + activacions (posició nova)",
    "min": 90,
+   "band": [
+    0.56,
+    0.72
+   ],
    "cad": [
-    85,
+    88,
     95
    ],
+   "ord": 1,
+   "k": 1,
+   "fuel": "Aigua i 30 g/h",
    "ints": [
     {
      "n": 3,
-     "s": 180,
+     "s": 60,
      "lo": 1.0,
      "hi": 1.05,
      "cad": [
       90,
       95
      ],
-     "label": "Activació 3′"
+     "label": "Activació 1′"
     }
    ],
-   "fuel": "Aigua i 30 g/h",
-   "note": "Recordar el ritme sense cansar-se: 3 × 3′ a 245–257 W amb 3′ suaus. La resta, Z2.",
+   "note": "Primera sortida amb la posició nova del bike fitting: fixa't en genolls, esquena, mans i selló, i apunta qualsevol molèstia. 1h30 en Z2 amb 3 canvis curts per despertar les cames. Res per sobre de 176 W fora dels canvis.",
    "steps": [
     {
      "l": "Escalfament",
-     "x": "20′ en Z2"
+     "x": "20′ en Z2 baixa"
     },
     {
      "l": "Activacions",
-     "x": "3 × 3′ a {100,105} · 3′ a {55} entre"
+     "x": "3 × 1′ a {100,105} amb 3′ suaus"
     },
     {
      "l": "Resta",
@@ -1756,6 +1762,10 @@
   {
    "date": "2026-11-16",
    "text": "Dilluns de descans, complert: res a Strava. Els últims 7 dies sumen ≈ 620 TSS (Z2 63, sèries 166, Mare de Déu del Mont ≈ 300, diumenge 90) i el TSB remunta de ≈ −20 a ≈ −10. Va bé: la descàrrega ja fa efecte. Demà, bike fitting i tren superior suau, gens de cames. Dimecres, 3 × 3′ a 245–257 W per recordar el ritme. Dijous descans, divendres obertura i dissabte, test a Sant Martí Sacalm."
+  },
+  {
+   "date": "2026-11-17",
+   "text": "Bike fitting fet i bici al taller. Replanificació: avui 10 km corrent molt suaus (5:20–5:40/km); dimecres 1h30 de Z2 amb 3 × 1′ d'activació, primera sortida amb la posició nova; dijous descans; divendres obertura de 50′; dissabte test a Sant Martí Sacalm, si el canvi de posició no ha estat gran."
   }
  ],
  "goals": [
