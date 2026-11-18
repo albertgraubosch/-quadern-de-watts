@@ -1,6 +1,6 @@
 {
- "version": 56,
- "updated": "2026-11-17 20:50",
+ "version": 57,
+ "updated": "2026-11-18 21:00",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1350,7 +1350,7 @@
    "ord": 1,
    "k": 1,
    "fuel": "Aigua",
-   "doneT": null,
+   "doneT": "Córrer 10 km suau",
    "note": "Bici al taller després del bike fitting: avui toca córrer. Setmana de descàrrega i dissabte hi ha test, així que suau de veritat: 5:20–5:40/km, que puguis parlar. Si a partir del km 7 notes les cames carregades, talla-ho a 8 km.",
    "steps": [
     {
@@ -1361,7 +1361,8 @@
      "l": "Final",
      "x": "5′ caminant i mobilitat de bessons i maluc"
     }
-   ]
+   ],
+   "doneNote": "9,98 km en 55′42″ a 5:35/km i 88 m de desnivell. Dins del ritme previst: suau de veritat."
   },
   {
    "ord": 1,
@@ -1453,7 +1454,9 @@
      "l": "Resta",
      "x": "Z2 a {60,70} fins a 1h30"
     }
-   ]
+   ],
+   "doneT": "Z2 2h20 amb Osor",
+   "doneNote": "Primera amb la posició nova: 63 km i 674 m per Anglès–Osor. NP 190 W, IF 0,77, ≈ 140 TSS. Osor a 204 W (20′, tempo) i esforços per sobre de l'FTP a Brunyola (1′ a 384 W): més dur que la Z2 prevista."
   },
   {
    "ord": 1,
@@ -1463,7 +1466,7 @@
    "type": "rest",
    "t": "Descans",
    "min": 0,
-   "note": "Descans."
+   "note": "Descans total, sense bici. Ahir ≈ 140 TSS en lloc dels ≈ 70 previstos: avui toca recuperar perquè dissabte arribis fresc al test. Camina, estira i menja bé."
   },
   {
    "ord": 1,
@@ -1473,8 +1476,8 @@
    "type": "rec",
    "z": "z1",
    "cat": "rec",
-   "t": "Obertura pre-test",
-   "min": 50,
+   "t": "Obertura pre-test (curta)",
+   "min": 45,
    "band": [
     0.5,
     0.65
@@ -1484,11 +1487,11 @@
     100
    ],
    "fuel": "Aigua",
-   "note": "Curt i suau, amb 3 canvis curts per despertar les cames. Sopar amb hidrats.",
+   "note": "Curt i suau de veritat, amb 2 canvis curts per despertar les cames: dimecres ja vas fer prou intensitat. Res per sobre de 160 W fora dels canvis. Sopar amb hidrats.",
    "steps": [
     {
      "l": "Sessió",
-     "x": "40′ a {50,65} · 3 × 1′ a {105} amb 2′ suaus · 3 × 15″ a 110 rpm"
+     "x": "35′ a {50,65} · 2 × 1′ a {105} amb 3′ suaus · 3 × 15″ a 110 rpm, sense força"
     }
    ]
   },
@@ -1774,6 +1777,10 @@
   {
    "date": "2026-11-17",
    "text": "Revisió del vespre: avui res a Strava, ni la cursa de 10 km. Cap problema: era suau i no es recupera. Si encara surts, 5:20–5:40/km i prou; si no, millor fresc. Últims 7 dies ≈ 555 TSS i el TSB ja ronda −5: la descàrrega funciona. Demà, Z2 d'1h30 amb la posició nova i 3 × 1′ a 245–257 W. Aquí es decideix el test: si et trobes bé, dissabte Sant Martí Sacalm."
+  },
+  {
+   "date": "2026-11-18",
+   "text": "Ahir, 10 km a 5:35/km: perfecte. Avui, en canvi, la Z2 d'1h30 s'ha convertit en 2h20 per Osor: NP 190 W, IF 0,77, ≈ 140 TSS, Osor a 204 W i Brunyola a 384 W en 1′. Massa per a una setmana de test. Bona notícia: 20′ a 204 W i cadència de 84 a la pujada amb la posició nova. Test dissabte es manté. Demà descans total i divendres obertura més curta (45′, 2 × 1′). TSB ara ≈ −12; dissabte, cap a +3."
   }
  ],
  "goals": [
