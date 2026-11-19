@@ -1,6 +1,6 @@
 {
- "version": 57,
- "updated": "2026-11-18 21:00",
+ "version": 58,
+ "updated": "2026-11-19 10:30",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -29,8 +29,12 @@
    "img": "media/peloton.webp"
   },
   "5": {
-   "name": "Descàrrega i test",
+   "name": "Recuperació",
    "img": "media/group.webp"
+  },
+  "6": {
+   "name": "Setmana del test",
+   "img": "media/mud.webp"
   }
  },
  "sessions": [
@@ -1466,104 +1470,9 @@
    "type": "rest",
    "t": "Descans",
    "min": 0,
-   "note": "Descans total, sense bici. Ahir ≈ 140 TSS en lloc dels ≈ 70 previstos: avui toca recuperar perquè dissabte arribis fresc al test. Camina, estira i menja bé."
-  },
-  {
-   "ord": 1,
-   "k": 1,
-   "id": "s20261120",
-   "d": "2026-11-20",
-   "type": "rec",
-   "z": "z1",
-   "cat": "rec",
-   "t": "Obertura pre-test (curta)",
-   "min": 45,
-   "band": [
-    0.5,
-    0.65
-   ],
-   "cad": [
-    90,
-    100
-   ],
-   "fuel": "Aigua",
-   "note": "Curt i suau de veritat, amb 2 canvis curts per despertar les cames: dimecres ja vas fer prou intensitat. Res per sobre de 160 W fora dels canvis. Sopar amb hidrats.",
-   "steps": [
-    {
-     "l": "Sessió",
-     "x": "35′ a {50,65} · 2 × 1′ a {105} amb 3′ suaus · 3 × 15″ a 110 rpm, sense força"
-    }
-   ]
-  },
-  {
-   "id": "s20261121",
-   "d": "2026-11-21",
-   "type": "int",
-   "z": "z4",
-   "cat": "test",
-   "key": true,
-   "t": "TEST d'FTP (20′) · Sant Martí Sacalm",
-   "min": 150,
-   "ints": [
-    {
-     "n": 1,
-     "s": 1200,
-     "lo": 1.0,
-     "hi": 1.12,
-     "cad": null,
-     "label": "Test 20′"
-    }
-   ],
-   "fuel": "Esmorzar fort 3 h abans. Anada: 30–40 g/h. Durant el test, només aigua. Porta jaqueta per a la baixada.",
-   "note": "Test a Sant Martí Sacalm des d'Amer (8,2 km al 7,3 %): a 260 W la pujada et dura uns 36′, així que els 20′ hi caben de sobres. Compta per temps, no fins dalt. FTP nou = 95 % de la mitjana dels 20′. Per a 250 W calen 263 W. Aplaçat una setmana a petició teva.",
-   "steps": [
-    {
-     "l": "Anada",
-     "x": "Girona → Amer en Z2 a {61,70} (uns 45′). És l'escalfament de base."
-    },
-    {
-     "l": "Activació",
-     "x": "Abans d'Amer: 3 × 1′ a {82} i 105 rpm · 1 × 3′ a {100} · 5′ molt suau"
-    },
-    {
-     "l": "Test",
-     "x": "Comença a l'inici de la pujada, a la sortida d'Amer. 20′ per temps: 0–5′ a {104}–{106}, 5–15′ a {107}–{108}, últims 5′ el que quedi i l'últim minut a fons"
-    },
-    {
-     "l": "Després",
-     "x": "Acaba la pujada suau o gira, baixa amb la jaqueta posada i torna a Girona en Z1–Z2"
-    }
-   ],
-   "ord": 1,
-   "k": 1,
-   "maxMin": 180
-  },
-  {
-   "ord": 1,
-   "k": 1,
-   "id": "s20261122",
-   "d": "2026-11-22",
-   "type": "end",
-   "z": "z2",
-   "cat": "end",
-   "t": "Z2 suau (opcional)",
-   "min": 90,
-   "band": [
-    0.56,
-    0.72
-   ],
-   "cad": [
-    88,
-    92
-   ],
-   "fuel": "Aigua i 30 g/h",
-   "note": "Rodar suau després del test. Amb el nou FTP recalculo les zones.",
-   "steps": [
-    {
-     "l": "Sessió",
-     "x": "1h30 en Z2 a {58,70}"
-    }
-   ]
+   "note": "Descans total, sense bici. Ahir ≈ 140 TSS en lloc dels ≈ 70 previstos: avui toca recuperar perquè dissabte arribis fresc al test. Camina, estira i menja bé.",
+   "doneT": "Z2 d'1h39 (fora del pla)",
+   "doneNote": "46 km i 320 m a primera hora, el dia que tocava descans. Ahir 2h21 (en lloc d'1h30) i dimarts 10 km corrent: la descàrrega no ha estat descàrrega."
   },
   {
    "id": "s20261109g",
@@ -1635,6 +1544,296 @@
     "by": "log",
     "at": "2026-11-09T18:00:00"
    }
+  },
+  {
+   "id": "s20261120",
+   "d": "2026-11-20",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "ord": 1,
+   "k": 1,
+   "note": "Descans de veritat: ni bici ni córrer. Si no et trobes bé, el cos t'ho està demanant."
+  },
+  {
+   "id": "s20261121",
+   "d": "2026-11-21",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Z2 suau (opcional)",
+   "min": 75,
+   "band": [
+    0.56,
+    0.68
+   ],
+   "cad": [
+    88,
+    95
+   ],
+   "ord": 1,
+   "k": 1,
+   "fuel": "Aigua i 30 g/h",
+   "note": "Només si et lleves bé. Si no, descans. 1h15 sense passar de 172 W.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "1h15 en Z2 baixa a {56,68}, res per sobre de {70}"
+    }
+   ]
+  },
+  {
+   "id": "s20261122",
+   "d": "2026-11-22",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Z2 suau (opcional)",
+   "min": 90,
+   "band": [
+    0.56,
+    0.68
+   ],
+   "cad": [
+    88,
+    95
+   ],
+   "ord": 1,
+   "k": 1,
+   "fuel": "Aigua i 30 g/h",
+   "note": "Només si dissabte et vas trobar bé. Res de pujades fortes ni de seguir el grup.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "1h30 en Z2 baixa a {56,68}, res per sobre de {70}"
+    }
+   ]
+  },
+  {
+   "id": "s20261123",
+   "d": "2026-11-23",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "ord": 1,
+   "k": 1,
+   "note": "Setmana del test. Avui descans."
+  },
+  {
+   "id": "s20261124",
+   "d": "2026-11-24",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Z2 suau",
+   "min": 75,
+   "band": [
+    0.56,
+    0.68
+   ],
+   "cad": [
+    88,
+    95
+   ],
+   "ord": 1,
+   "k": 1,
+   "fuel": "Aigua i 30 g/h",
+   "note": "Suau de veritat. Res per sobre de 172 W.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "1h15 en Z2 baixa a {56,68}, res per sobre de {70}"
+    }
+   ]
+  },
+  {
+   "id": "s20261124g",
+   "d": "2026-11-24",
+   "type": "gym",
+   "t": "Gimnàs suau: tren superior i core",
+   "min": 35,
+   "ord": 2,
+   "k": 1,
+   "note": "Res de cames: el test és dissabte.",
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 3,
+     "reps": "màx.",
+     "bw": true
+    },
+    {
+     "n": "Press de banca",
+     "sets": 2,
+     "reps": "10"
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 2,
+     "reps": "10"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
+    }
+   ]
+  },
+  {
+   "id": "s20261125",
+   "d": "2026-11-25",
+   "type": "int",
+   "z": "z4",
+   "cat": "vo2",
+   "t": "Z2 amb activacions",
+   "min": 90,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    95
+   ],
+   "ord": 1,
+   "k": 1,
+   "fuel": "Aigua i 30 g/h",
+   "ints": [
+    {
+     "n": 3,
+     "s": 180,
+     "lo": 1.0,
+     "hi": 1.05,
+     "cad": [
+      90,
+      95
+     ],
+     "label": "Activació 3′"
+    }
+   ],
+   "note": "Recordar el ritme sense cansar-se: 3 × 3′ a 245–257 W amb 3′ suaus. La resta, Z2. 1h30 i prou.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "20′ en Z2"
+    },
+    {
+     "l": "Activacions",
+     "x": "3 × 3′ a {100,105} · 3′ a {55} entre"
+    },
+    {
+     "l": "Resta",
+     "x": "Z2 a {60,70} fins a 1h30"
+    }
+   ]
+  },
+  {
+   "id": "s20261126",
+   "d": "2026-11-26",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "ord": 1,
+   "k": 1,
+   "note": "Descans."
+  },
+  {
+   "ord": 1,
+   "k": 1,
+   "id": "s20261127",
+   "d": "2026-11-27",
+   "type": "rec",
+   "z": "z1",
+   "cat": "rec",
+   "t": "Obertura pre-test (curta)",
+   "min": 45,
+   "band": [
+    0.5,
+    0.65
+   ],
+   "cad": [
+    90,
+    100
+   ],
+   "fuel": "Aigua",
+   "note": "Curt i suau de veritat, amb 2 canvis curts per despertar les cames: dimecres ja vas fer prou intensitat. Res per sobre de 160 W fora dels canvis. Sopar amb hidrats.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "35′ a {50,65} · 2 × 1′ a {105} amb 3′ suaus · 3 × 15″ a 110 rpm, sense força"
+    }
+   ]
+  },
+  {
+   "id": "s20261128",
+   "d": "2026-11-28",
+   "type": "int",
+   "z": "z4",
+   "cat": "test",
+   "key": true,
+   "t": "TEST d'FTP (20′) · Sant Martí Sacalm",
+   "min": 150,
+   "ints": [
+    {
+     "n": 1,
+     "s": 1200,
+     "lo": 1.0,
+     "hi": 1.12,
+     "cad": null,
+     "label": "Test 20′"
+    }
+   ],
+   "fuel": "Esmorzar fort 3 h abans. Anada: 30–40 g/h. Durant el test, només aigua. Porta jaqueta per a la baixada.",
+   "note": "Test a Sant Martí Sacalm des d'Amer (8,2 km al 7,3 %): a 260 W la pujada et dura uns 36′, així que els 20′ hi caben de sobres. Compta per temps, no fins dalt. FTP nou = 95 % de la mitjana dels 20′. Per a 250 W calen 263 W. Aplaçat al 28: no et trobaves bé.",
+   "steps": [
+    {
+     "l": "Anada",
+     "x": "Girona → Amer en Z2 a {61,70} (uns 45′). És l'escalfament de base."
+    },
+    {
+     "l": "Activació",
+     "x": "Abans d'Amer: 3 × 1′ a {82} i 105 rpm · 1 × 3′ a {100} · 5′ molt suau"
+    },
+    {
+     "l": "Test",
+     "x": "Comença a l'inici de la pujada, a la sortida d'Amer. 20′ per temps: 0–5′ a {104}–{106}, 5–15′ a {107}–{108}, últims 5′ el que quedi i l'últim minut a fons"
+    },
+    {
+     "l": "Després",
+     "x": "Acaba la pujada suau o gira, baixa amb la jaqueta posada i torna a Girona en Z1–Z2"
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "maxMin": 180
+  },
+  {
+   "id": "s20261129",
+   "d": "2026-11-29",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Z2 suau (opcional)",
+   "min": 90,
+   "band": [
+    0.56,
+    0.68
+   ],
+   "cad": [
+    88,
+    95
+   ],
+   "ord": 1,
+   "k": 1,
+   "fuel": "Aigua i 30 g/h",
+   "note": "Rodar suau després del test. Amb el nou FTP recalculo les zones.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "1h30 en Z2 baixa a {56,68}, res per sobre de {70}"
+    }
+   ]
   }
  ],
  "rules": {
@@ -1781,12 +1980,16 @@
   {
    "date": "2026-11-18",
    "text": "Ahir, 10 km a 5:35/km: perfecte. Avui, en canvi, la Z2 d'1h30 s'ha convertit en 2h20 per Osor: NP 190 W, IF 0,77, ≈ 140 TSS, Osor a 204 W i Brunyola a 384 W en 1′. Massa per a una setmana de test. Bona notícia: 20′ a 204 W i cadència de 84 a la pujada amb la posició nova. Test dissabte es manté. Demà descans total i divendres obertura més curta (45′, 2 × 1′). TSB ara ≈ −12; dissabte, cap a +3."
+  },
+  {
+   "date": "2026-11-19",
+   "text": "Test aplaçat al dissabte 28. Sincerament: aquesta setmana havia de ser de descàrrega i no ho ha estat (dimarts 10 km corrent, dimecres 2h21 en lloc d'1h30, avui 1h39 el dia de descans). Que no et trobis bé és el cos demanant parar. Divendres descans total; dissabte i diumenge, Z2 suau només si et lleves bé. La setmana que ve, la del test, amb dies de descans de veritat."
   }
  ],
  "goals": [
   {
    "t": "Test d'FTP (20′) · Sant Martí Sacalm",
-   "d": "2026-11-21",
+   "d": "2026-11-28",
    "kind": "test"
   },
   {
