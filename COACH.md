@@ -41,11 +41,19 @@ Regles fixes:
 - Màxim 3 sessions de qualitat per setmana (comptant el fons llarg amb tempo).
 - Gimnàs de cames el mateix dia que una sessió dura, després de la bici. Mai cames 72 h abans d'un test.
 - Patró 3 setmanes de càrrega + 1 de descàrrega. Setmana 4 (9–15 nov): càrrega extra (a petició de l'Albert). Setmana 5 (16–22 nov): recuperació. Setmana 6 (23–29 nov): test d'FTP de 20′ a Sant Martí Sacalm (dissabte 28), aplaçat perquè no es trobava bé.
-- Fases: Base i construcció S1–S4 · Recuperació S5 · Test S6 (28 nov) · Construcció S7–S8 · Descàrrega i test final S9 (19–20 des).
+- Fases: Base i construcció S1–S4 · Recuperació S5 · Test d'FTP S6 (28 nov) · Construcció de bici S7 (30 nov–6 des) · **Bloc de la mitja S8–S19 (7 des–28 feb)**. El test d'FTP de desembre s'ha eliminat; l'FTP es torna a mesurar a la primavera.
 
-## Córrer
-- L'Albert farà sortides de córrer suaus alguns dies (i, des de gener, el bloc de la mitja marató del 28/02/2027).
-- Sessió de córrer a `plan.json`: `"type":"run"`, `"z":"z2"`, `min`, `pace` en segons per km (p. ex. `[305,325]` = 5:05–5:25/km), `tssH` (≈55 suau, 70 ritme), `steps` en text (sense placeholders de watts).
+## Córrer — Mitja Marató de Girona (28/02/2027)
+- Objectiu **1:28 (4:10/km)**. Millor marca 1:31:16. A Granollers (gen 2026) va tenir problemes d'estómac del km 16: assaja sempre esmorzar i gels.
+- Té molèsties de tant en tant però no l'han fet parar mai: progressió de volum prudent; si diu que té dolor (no només cansament), substitueix córrer per bici Z2.
+- Ritmes: suau 5:05–5:35 · mitjà 4:30–4:40 · mitja 4:08–4:12 · llindar 3:58–4:03 · VO2 3:45–3:55 (també a `plan.run.paces`).
+- Estructura: S8–S9 (7–20 des) mixt: 3 curses + 3 bici (dimecres llindar de bici). Des de S10: Dl descans · Dt sèries + gimnàs A (cames per córrer, poc volum) · Dc bici Z2 1h30 · Dj tempo/ritme de mitja · Dv suau + rectes + gimnàs B · Ds bici Z2 2–3 h amb la grupeta · Dg llarga.
+- Claus que l'Albert valora (també les hi va dir un amic): 5 × 1 km, 4 × 2 km, 3 × 3 km i les llargues. Mantén-les.
+- **Test de 10K el 31 de gener** (S15, setmana de descàrrega): sota 39:45 → ritme 4:10; 39:45–40:30 → 4:13; més lent → 4:15. Actualitza `plan.run`, el `work.pace` de la cursa i `goals` després del test (això es parla amb l'Albert).
+- Assaig general dijous 11 feb: 12 km a 4:10 amb l'esmorzar, la roba i els gels del dia de la cursa.
+- Res de cames al gimnàs la setmana de la cursa ni 72 h abans del test de 10K.
+- Sessió de córrer a `plan.json`: `"type":"run"`, `z` (z2 suau, z3 tempo, z4 llindar, z5 VO2), `min`, `km` previstos, `pace` (ritme suau en s/km, p. ex. `[305,335]`), `tssH` (≈55 suau, 70 qualitat), `key`, `steps` en text (sense placeholders de watts) i, a les sessions de qualitat, `work`: `{n, dist (m) o sec, pace:[lo,hi], rec}`. L'app busca als streams de Strava (time, distance) els `n` millors blocs de `dist` metres o `sec` segons i els compara amb `work.pace`. Fes el mateix a la revisió: ritme de cada bloc, regularitat (últim vs primer) i esforç.
+- Progressió de córrer: blocs ≥ 3 s/km més ràpids i esforç ≤ 7 dues vegades seguides → la propera sessió de la mateixa mena 3–5 s/km més ràpida o +1 bloc. Blocs més lents o esforç ≥ 9 → mantén o treu un bloc. No toquis el ritme objectiu de la mitja sense parlar-ho.
 - L'app marca la sessió com a feta quan troba una cursa a Strava aquell dia, i mostra les curses fora del pla a la setmana (etiqueta RUN). Compten per a la càrrega: ≈ 65 TSS/h (o `tssH`).
 - A la revisió diària, llegeix també les curses (`list_activities`): temps, distància, ritme i desnivell. Si una cursa "suau" va més ràpida de 5:00/km, avisa-ho a la nota. Una cursa suau no és sessió de qualitat, però sí fatiga: tingues-la en compte per a l'endemà.
 

@@ -1,13 +1,14 @@
 {
- "version": 58,
- "updated": "2026-11-19 10:30",
+ "version": 59,
+ "updated": "2026-11-19T20:30",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
   "goalWeight": 70,
   "ftpStart": 245,
   "goalFtp": 280,
-  "ftpNote": "245 W és la referència actual (Strava). El primer valor mesurat serà el test de la Setmana 4."
+  "ftpNote": "245 W és la referència actual (Strava). El primer valor mesurat serà el test de la Setmana 4.",
+  "goalFtpNote": "FTP 280: es torna a mesurar a la primavera, després de la mitja."
  },
  "ftp": 245,
  "start": "2026-10-19",
@@ -35,6 +36,58 @@
   "6": {
    "name": "Setmana del test",
    "img": "media/mud.webp"
+  },
+  "7": {
+   "name": "Construcció post-test",
+   "img": "media/peloton.webp"
+  },
+  "8": {
+   "name": "Mitja S1 · Mixt",
+   "img": "media/group.webp"
+  },
+  "9": {
+   "name": "Mitja S2 · Mixt",
+   "img": "media/gravel.webp"
+  },
+  "10": {
+   "name": "Mitja S3 · Arrenca el córrer",
+   "img": "media/mud.webp"
+  },
+  "11": {
+   "name": "Mitja S4 · Construcció",
+   "img": "media/peloton.webp"
+  },
+  "12": {
+   "name": "Mitja S5 · Construcció",
+   "img": "media/group.webp"
+  },
+  "13": {
+   "name": "Mitja S6 · Construcció",
+   "img": "media/gravel.webp"
+  },
+  "14": {
+   "name": "Mitja S7 · Pic de volum",
+   "img": "media/mud.webp"
+  },
+  "15": {
+   "name": "Mitja S8 · Descàrrega i test 10K",
+   "img": "media/peloton.webp"
+  },
+  "16": {
+   "name": "Mitja S9 · Específic",
+   "img": "media/group.webp"
+  },
+  "17": {
+   "name": "Mitja S10 · Assaig general",
+   "img": "media/gravel.webp"
+  },
+  "18": {
+   "name": "Mitja S11 · Últim bloc",
+   "img": "media/mud.webp"
+  },
+  "19": {
+   "name": "Mitja S12 · Setmana de la cursa",
+   "img": "media/peloton.webp"
   }
  },
  "sessions": [
@@ -1834,6 +1887,4471 @@
      "x": "1h30 en Z2 baixa a {56,68}, res per sobre de {70}"
     }
    ]
+  },
+  {
+   "d": "2026-11-30",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans. Amb el resultat del test recalculo les zones.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20261130"
+  },
+  {
+   "d": "2026-12-01",
+   "type": "int",
+   "z": "ss",
+   "cat": "ss",
+   "key": true,
+   "t": "3 × 12′ sweet spot",
+   "min": 105,
+   "maxMin": 120,
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    95
+   ],
+   "ints": [
+    {
+     "n": 3,
+     "s": 720,
+     "lo": 0.88,
+     "hi": 0.93,
+     "cad": [
+      85,
+      92
+     ],
+     "label": "Sweet spot 12′"
+    }
+   ],
+   "fuel": "60 g/h d'hidrats i 2 bidons",
+   "note": "Primera clau amb l'FTP nou. Constant, sense cops de pedal.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "20′ progressius fins a {70} + 2 × 1′ a {100}"
+    },
+    {
+     "l": "Principal",
+     "x": "3 × 12′ a {88,93} amb 4′ suaus a {55}"
+    },
+    {
+     "l": "Tornada",
+     "x": "Z2 a {60,70} fins a casa"
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20261201"
+  },
+  {
+   "d": "2026-12-01",
+   "type": "gym",
+   "t": "Gimnàs A: cames per córrer + tren superior",
+   "min": 50,
+   "ord": 2,
+   "note": "Gimnàs A després de la bici: setmana de construcció, cames amb 3 sèries.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem o bici + mobilitat de maluc i turmells"
+    },
+    {
+     "l": "Cames",
+     "x": "Búlgara, pes mort romanès i bessons a una cama"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Press de banca, rem i dominades"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press + planxa 2 × 40″"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 3,
+     "reps": "8/cama",
+     "tip": "Puja de pes quan les 2 últimes surtin fàcils (ara 10 kg per mà)."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "Barra de 40 kg. Esquena neutra, baixa fins a sota el genoll."
+    },
+    {
+     "n": "Elevació de bessons a una cama",
+     "sets": 3,
+     "reps": "12/cama",
+     "bw": true,
+     "tip": "A un esglaó, baixant lent. Protegeix l'Aquil·les i el soli per córrer."
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "40 kg et va sobrat: prova 42,5–45 kg."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Sempre. Si no en surten, negatives de 3–4″."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ],
+   "k": 1,
+   "id": "s20261201g"
+  },
+  {
+   "d": "2026-12-02",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 35′ + 4 rectes",
+   "min": 39,
+   "km": 6.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "Primera presa de contacte amb el córrer abans del bloc de la mitja. Res de mirar el ritme.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "35′ a 5:05–5:35/km, ritme de conversa"
+    },
+    {
+     "l": "Rectes",
+     "x": "4 × 20″ ràpides i relaxades (ritme de 5K, no esprint), amb 1′ caminant o trotant entre"
+    }
+   ],
+   "k": 1,
+   "id": "s20261202"
+  },
+  {
+   "d": "2026-12-03",
+   "type": "int",
+   "z": "z3",
+   "cat": "force",
+   "key": true,
+   "t": "4 × 6′ de força-resistència",
+   "min": 100,
+   "maxMin": 120,
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    95
+   ],
+   "ints": [
+    {
+     "n": 4,
+     "s": 360,
+     "lo": 0.8,
+     "hi": 0.87,
+     "cad": [
+      60,
+      65
+     ],
+     "label": "Força 6′"
+    }
+   ],
+   "fuel": "60 g/h d'hidrats i 2 bidons",
+   "note": "Força a baixa cadència en pujada llarga (Àngels o Santa Pellaia). Genolls alineats.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "20′ a {60,70}"
+    },
+    {
+     "l": "Principal",
+     "x": "4 × 6′ a {80,87} a 60–65 rpm, assegut i amb el tronc quiet, 4′ suaus entre"
+    },
+    {
+     "l": "Tornada",
+     "x": "Z2 a {60,70}"
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20261203"
+  },
+  {
+   "d": "2026-12-04",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20261204"
+  },
+  {
+   "d": "2026-12-04",
+   "type": "gym",
+   "t": "Gimnàs B: tren superior i core",
+   "min": 45,
+   "ord": 2,
+   "note": "Sense cames. Tren superior per tonificar i core per mantenir la postura quan arribi el cansament a la cursa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem + mobilitat d'espatlles"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Dominades, rem, press militar, flexions, bíceps i tríceps"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug i planxa lateral"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Press militar amb manuelles",
+     "sets": 3,
+     "reps": "10"
+    },
+    {
+     "n": "Flexions",
+     "sets": 3,
+     "reps": "màx. − 2",
+     "bw": true
+    },
+    {
+     "n": "Curl de bíceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Extensió de tríceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
+    },
+    {
+     "n": "Planxa lateral",
+     "sets": 2,
+     "reps": "30″/costat",
+     "bw": true
+    }
+   ],
+   "k": 1,
+   "id": "s20261204g"
+  },
+  {
+   "d": "2026-12-05",
+   "type": "long",
+   "z": "z3",
+   "cat": "long",
+   "key": true,
+   "t": "Fons de 3 h amb 2 × 15′ de tempo",
+   "min": 180,
+   "maxMin": 210,
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "ints": [
+    {
+     "n": 2,
+     "s": 900,
+     "lo": 0.78,
+     "hi": 0.83,
+     "cad": [
+      85,
+      90
+     ],
+     "label": "Tempo 15′"
+    }
+   ],
+   "fuel": "60–70 g/h d'hidrats. Comença al minut 30.",
+   "note": "Amb la grupeta si voleu, però els 2 blocs de tempo són teus.",
+   "steps": [
+    {
+     "l": "Primera hora",
+     "x": "Z2 a {61,70}"
+    },
+    {
+     "l": "Tempo",
+     "x": "2 × 15′ a {78,83} amb 10′ de Z2 entre"
+    },
+    {
+     "l": "Final",
+     "x": "Z2 a {61,72} fins a casa"
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20261205"
+  },
+  {
+   "d": "2026-12-06",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 45′",
+   "min": 45,
+   "km": 8.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "Rodatge suau. Diumenge vinent comença el bloc de la mitja de debò.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "45′ a 5:05–5:35/km, ritme de conversa"
+    }
+   ],
+   "k": 1,
+   "id": "s20261206"
+  },
+  {
+   "d": "2026-12-07",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20261207"
+  },
+  {
+   "d": "2026-12-08",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 40′ + 6 rectes",
+   "min": 44,
+   "km": 7.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "Suau de veritat: si et costa parlar, vas massa ràpid. El 80 % dels km del pla són així.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "40′ a 5:05–5:35/km, ritme de conversa"
+    },
+    {
+     "l": "Rectes",
+     "x": "6 × 20″ ràpides i relaxades (ritme de 5K, no esprint), amb 1′ caminant o trotant entre"
+    }
+   ],
+   "k": 1,
+   "id": "s20261208"
+  },
+  {
+   "d": "2026-12-09",
+   "type": "int",
+   "z": "z4",
+   "cat": "ss",
+   "key": true,
+   "t": "2 × 15′ de llindar",
+   "min": 105,
+   "maxMin": 120,
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    95
+   ],
+   "ints": [
+    {
+     "n": 2,
+     "s": 900,
+     "lo": 0.95,
+     "hi": 1.0,
+     "cad": [
+      85,
+      92
+     ],
+     "label": "Llindar 15′"
+    }
+   ],
+   "fuel": "60 g/h d'hidrats i 2 bidons",
+   "note": "Mantenim l'FTP mentre arrenca el córrer. Aquest és el dia dur de la bici.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "20′ fins a {70} + 2 × 1′ a {100}"
+    },
+    {
+     "l": "Principal",
+     "x": "2 × 15′ a {95,100} amb 5′ suaus"
+    },
+    {
+     "l": "Tornada",
+     "x": "Z2 fins a casa"
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20261209"
+  },
+  {
+   "d": "2026-12-09",
+   "type": "gym",
+   "t": "Gimnàs A: cames per córrer + tren superior",
+   "min": 50,
+   "ord": 2,
+   "note": "Després de les sèries, el mateix dia (dur amb dur). Cames amb poc volum i pes moderat: l'objectiu és ser fort i resistent a les lesions, no acabar mort.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem o bici + mobilitat de maluc i turmells"
+    },
+    {
+     "l": "Cames",
+     "x": "Búlgara, pes mort romanès i bessons a una cama"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Press de banca, rem i dominades"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press + planxa 2 × 40″"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 2,
+     "reps": "8/cama",
+     "tip": "Puja de pes quan les 2 últimes surtin fàcils (ara 10 kg per mà)."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 2,
+     "reps": "8–10",
+     "tip": "Barra de 40 kg. Esquena neutra, baixa fins a sota el genoll."
+    },
+    {
+     "n": "Elevació de bessons a una cama",
+     "sets": 3,
+     "reps": "12/cama",
+     "bw": true,
+     "tip": "A un esglaó, baixant lent. Protegeix l'Aquil·les i el soli per córrer."
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "40 kg et va sobrat: prova 42,5–45 kg."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Sempre. Si no en surten, negatives de 3–4″."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ],
+   "k": 1,
+   "id": "s20261209g"
+  },
+  {
+   "d": "2026-12-10",
+   "type": "run",
+   "z": "z3",
+   "cat": "run",
+   "t": "45′ amb 6 × 1′ a 4:15",
+   "min": 45,
+   "km": 8.5,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 6,
+    "dist": 0,
+    "pace": [
+     252,
+     258
+    ],
+    "rec": "1′30″ trotant",
+    "sec": 60
+   },
+   "tssH": 65,
+   "key": false,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Primer contacte amb el ritme. Ha de semblar fàcil.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km"
+    },
+    {
+     "l": "Principal",
+     "x": "6 × 1′ a 4:15/km amb 1′30″ trotant. Relaxat: és per sentir el ritme, no per patir"
+    },
+    {
+     "l": "Final",
+     "x": "Suau fins als 45′"
+    }
+   ],
+   "k": 1,
+   "id": "s20261210"
+  },
+  {
+   "d": "2026-12-11",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans de córrer.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20261211"
+  },
+  {
+   "d": "2026-12-11",
+   "type": "gym",
+   "t": "Gimnàs B: tren superior i core",
+   "min": 45,
+   "ord": 2,
+   "note": "Sense cames. Tren superior per tonificar i core per mantenir la postura quan arribi el cansament a la cursa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem + mobilitat d'espatlles"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Dominades, rem, press militar, flexions, bíceps i tríceps"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug i planxa lateral"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Press militar amb manuelles",
+     "sets": 3,
+     "reps": "10"
+    },
+    {
+     "n": "Flexions",
+     "sets": 3,
+     "reps": "màx. − 2",
+     "bw": true
+    },
+    {
+     "n": "Curl de bíceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Extensió de tríceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
+    },
+    {
+     "n": "Planxa lateral",
+     "sets": 2,
+     "reps": "30″/costat",
+     "bw": true
+    }
+   ],
+   "k": 1,
+   "id": "s20261211g"
+  },
+  {
+   "d": "2026-12-12",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 3 h",
+   "min": 180,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Sortida de 3 h en Z2 (amb la grupeta si va tranquil·la). Menja des del minut 30.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "maxMin": 210,
+   "ord": 1,
+   "k": 1,
+   "id": "s20261212"
+  },
+  {
+   "d": "2026-12-13",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Tirada llarga suau 60′",
+   "min": 60,
+   "km": 11,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "La primera llarga: 60′ suaus. Si a partir del 45′ notes el soli o el genoll, para i camina.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "60′ a 5:05–5:35/km, ritme de conversa"
+    }
+   ],
+   "k": 1,
+   "id": "s20261213"
+  },
+  {
+   "d": "2026-12-14",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20261214"
+  },
+  {
+   "d": "2026-12-15",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 45′ + 8 rectes",
+   "min": 49,
+   "km": 8.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "Suau de veritat: si et costa parlar, vas massa ràpid. El 80 % dels km del pla són així.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "45′ a 5:05–5:35/km, ritme de conversa"
+    },
+    {
+     "l": "Rectes",
+     "x": "8 × 20″ ràpides i relaxades (ritme de 5K, no esprint), amb 1′ caminant o trotant entre"
+    }
+   ],
+   "k": 1,
+   "id": "s20261215"
+  },
+  {
+   "d": "2026-12-16",
+   "type": "int",
+   "z": "z4",
+   "cat": "ss",
+   "key": true,
+   "t": "3 × 12′ de llindar",
+   "min": 110,
+   "maxMin": 125,
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    95
+   ],
+   "ints": [
+    {
+     "n": 3,
+     "s": 720,
+     "lo": 0.95,
+     "hi": 1.0,
+     "cad": [
+      85,
+      92
+     ],
+     "label": "Llindar 12′"
+    }
+   ],
+   "fuel": "60 g/h d'hidrats i 2 bidons",
+   "note": "Última clau dura de bici abans que el córrer passi a manar.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "20′ fins a {70} + 2 × 1′ a {100}"
+    },
+    {
+     "l": "Principal",
+     "x": "3 × 12′ a {95,100} amb 4′ suaus"
+    },
+    {
+     "l": "Tornada",
+     "x": "Z2 fins a casa"
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20261216"
+  },
+  {
+   "d": "2026-12-16",
+   "type": "gym",
+   "t": "Gimnàs A: cames per córrer + tren superior",
+   "min": 50,
+   "ord": 2,
+   "note": "Després de les sèries, el mateix dia (dur amb dur). Cames amb poc volum i pes moderat: l'objectiu és ser fort i resistent a les lesions, no acabar mort.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem o bici + mobilitat de maluc i turmells"
+    },
+    {
+     "l": "Cames",
+     "x": "Búlgara, pes mort romanès i bessons a una cama"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Press de banca, rem i dominades"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press + planxa 2 × 40″"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 2,
+     "reps": "8/cama",
+     "tip": "Puja de pes quan les 2 últimes surtin fàcils (ara 10 kg per mà)."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 2,
+     "reps": "8–10",
+     "tip": "Barra de 40 kg. Esquena neutra, baixa fins a sota el genoll."
+    },
+    {
+     "n": "Elevació de bessons a una cama",
+     "sets": 3,
+     "reps": "12/cama",
+     "bw": true,
+     "tip": "A un esglaó, baixant lent. Protegeix l'Aquil·les i el soli per córrer."
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "40 kg et va sobrat: prova 42,5–45 kg."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Sempre. Si no en surten, negatives de 3–4″."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ],
+   "k": 1,
+   "id": "s20261216g"
+  },
+  {
+   "d": "2026-12-17",
+   "type": "run",
+   "z": "z3",
+   "cat": "run",
+   "t": "50′ amb 5 × 2′ a 4:10",
+   "min": 50,
+   "km": 9.5,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 5,
+    "dist": 0,
+    "pace": [
+     246,
+     254
+    ],
+    "rec": "2′ trotant",
+    "sec": 120
+   },
+   "tssH": 65,
+   "key": false,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Ritme de cursa en dosis petites.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau"
+    },
+    {
+     "l": "Principal",
+     "x": "5 × 2′ a 4:10/km amb 2′ trotant. És el ritme de la mitja: memoritza com respires"
+    },
+    {
+     "l": "Final",
+     "x": "Suau fins als 50′"
+    }
+   ],
+   "k": 1,
+   "id": "s20261217"
+  },
+  {
+   "d": "2026-12-18",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans de córrer.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20261218"
+  },
+  {
+   "d": "2026-12-18",
+   "type": "gym",
+   "t": "Gimnàs B: tren superior i core",
+   "min": 45,
+   "ord": 2,
+   "note": "Sense cames. Tren superior per tonificar i core per mantenir la postura quan arribi el cansament a la cursa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem + mobilitat d'espatlles"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Dominades, rem, press militar, flexions, bíceps i tríceps"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug i planxa lateral"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Press militar amb manuelles",
+     "sets": 3,
+     "reps": "10"
+    },
+    {
+     "n": "Flexions",
+     "sets": 3,
+     "reps": "màx. − 2",
+     "bw": true
+    },
+    {
+     "n": "Curl de bíceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Extensió de tríceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
+    },
+    {
+     "n": "Planxa lateral",
+     "sets": 2,
+     "reps": "30″/costat",
+     "bw": true
+    }
+   ],
+   "k": 1,
+   "id": "s20261218g"
+  },
+  {
+   "d": "2026-12-19",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 3 h",
+   "min": 180,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Z2 de veritat: és motor aeròbic que també serveix per córrer, sense l'impacte. Res d'esprints ni segments.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "maxMin": 210,
+   "ord": 1,
+   "k": 1,
+   "id": "s20261219"
+  },
+  {
+   "d": "2026-12-20",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Tirada llarga suau 70′",
+   "min": 70,
+   "km": 13,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "Suau de veritat: si et costa parlar, vas massa ràpid. El 80 % dels km del pla són així.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "70′ a 5:05–5:35/km, ritme de conversa"
+    }
+   ],
+   "k": 1,
+   "id": "s20261220"
+  },
+  {
+   "d": "2026-12-21",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20261221"
+  },
+  {
+   "d": "2026-12-22",
+   "type": "run",
+   "z": "z4",
+   "cat": "run",
+   "t": "5 × 1 km a 4:05",
+   "min": 55,
+   "km": 10,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 5,
+    "dist": 1000,
+    "pace": [
+     242,
+     248
+    ],
+    "rec": "2′"
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Sèries: la clau de la setmana. Regulars, totes al mateix ritme; l'última ha de sortir igual que la primera, no més ràpida.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km + 4 rectes de 20″"
+    },
+    {
+     "l": "Sèries",
+     "x": "5 × 1 km a 4:02–4:08/km amb 2′ trotant"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau + estiraments de bessons i maluc"
+    }
+   ],
+   "k": 1,
+   "id": "s20261222"
+  },
+  {
+   "d": "2026-12-22",
+   "type": "gym",
+   "t": "Gimnàs A: cames per córrer + tren superior",
+   "min": 50,
+   "ord": 2,
+   "note": "Després de les sèries, el mateix dia (dur amb dur). Cames amb poc volum i pes moderat: l'objectiu és ser fort i resistent a les lesions, no acabar mort.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem o bici + mobilitat de maluc i turmells"
+    },
+    {
+     "l": "Cames",
+     "x": "Búlgara, pes mort romanès i bessons a una cama"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Press de banca, rem i dominades"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press + planxa 2 × 40″"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 2,
+     "reps": "8/cama",
+     "tip": "Puja de pes quan les 2 últimes surtin fàcils (ara 10 kg per mà)."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 2,
+     "reps": "8–10",
+     "tip": "Barra de 40 kg. Esquena neutra, baixa fins a sota el genoll."
+    },
+    {
+     "n": "Elevació de bessons a una cama",
+     "sets": 3,
+     "reps": "12/cama",
+     "bw": true,
+     "tip": "A un esglaó, baixant lent. Protegeix l'Aquil·les i el soli per córrer."
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "40 kg et va sobrat: prova 42,5–45 kg."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Sempre. Si no en surten, negatives de 3–4″."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ],
+   "k": 1,
+   "id": "s20261222g"
+  },
+  {
+   "d": "2026-12-23",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 1h30",
+   "min": 90,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Z2 de bici: volum aeròbic sense impacte. Suau de veritat, que demà toca qualitat.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20261223"
+  },
+  {
+   "d": "2026-12-24",
+   "type": "run",
+   "z": "z3",
+   "cat": "run",
+   "t": "6 km a ritme mitjà (4:30)",
+   "min": 50,
+   "km": 10,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 1,
+    "dist": 6000,
+    "pace": [
+     265,
+     275
+    ],
+    "rec": ""
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Tempo: ritme controlat i constant, el que podries mantenir una hora. Practica beure en marxa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km"
+    },
+    {
+     "l": "Principal",
+     "x": "6 km seguits a 4:25–4:35/km"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau"
+    }
+   ],
+   "k": 1,
+   "id": "s20261224"
+  },
+  {
+   "d": "2026-12-25",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 35′ + 6 rectes",
+   "min": 39,
+   "km": 6.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "Suau de veritat: si et costa parlar, vas massa ràpid. El 80 % dels km del pla són així.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "35′ a 5:05–5:35/km, ritme de conversa"
+    },
+    {
+     "l": "Rectes",
+     "x": "6 × 20″ ràpides i relaxades (ritme de 5K, no esprint), amb 1′ caminant o trotant entre"
+    }
+   ],
+   "k": 1,
+   "id": "s20261225"
+  },
+  {
+   "d": "2026-12-25",
+   "type": "gym",
+   "t": "Gimnàs B: tren superior i core",
+   "min": 45,
+   "ord": 2,
+   "note": "Sense cames. Tren superior per tonificar i core per mantenir la postura quan arribi el cansament a la cursa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem + mobilitat d'espatlles"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Dominades, rem, press militar, flexions, bíceps i tríceps"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug i planxa lateral"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Press militar amb manuelles",
+     "sets": 3,
+     "reps": "10"
+    },
+    {
+     "n": "Flexions",
+     "sets": 3,
+     "reps": "màx. − 2",
+     "bw": true
+    },
+    {
+     "n": "Curl de bíceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Extensió de tríceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
+    },
+    {
+     "n": "Planxa lateral",
+     "sets": 2,
+     "reps": "30″/costat",
+     "bw": true
+    }
+   ],
+   "k": 1,
+   "id": "s20261225g"
+  },
+  {
+   "d": "2026-12-26",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 2–3 h amb la grupeta",
+   "min": 120,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Amb els col·legues, però en Z2: demà hi ha la llarga. Si el grup tira, a roda.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "maxMin": 180,
+   "ord": 1,
+   "k": 1,
+   "id": "s20261226"
+  },
+  {
+   "d": "2026-12-27",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "key": true,
+   "t": "Tirada llarga 14 km suau",
+   "min": 80,
+   "km": 14,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 58,
+   "fuel": "Esmorzar 2–3 h abans. Aigua i un gel a partir del km 10.",
+   "note": "Llarga i suau. La clau és el temps de peus, no el ritme.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "14 km a 5:05–5:30/km, sempre podent parlar"
+    },
+    {
+     "l": "Després",
+     "x": "5′ caminant + estiraments de bessons, isquios i maluc"
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20261227"
+  },
+  {
+   "d": "2026-12-28",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20261228"
+  },
+  {
+   "d": "2026-12-29",
+   "type": "run",
+   "z": "z4",
+   "cat": "run",
+   "t": "6 × 1 km a 4:02",
+   "min": 58,
+   "km": 11,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 6,
+    "dist": 1000,
+    "pace": [
+     239,
+     245
+    ],
+    "rec": "2′"
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Sèries: la clau de la setmana. Regulars, totes al mateix ritme; l'última ha de sortir igual que la primera, no més ràpida.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km + 4 rectes de 20″"
+    },
+    {
+     "l": "Sèries",
+     "x": "6 × 1 km a 3:59–4:05/km amb 2′ trotant"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau + estiraments de bessons i maluc"
+    }
+   ],
+   "k": 1,
+   "id": "s20261229"
+  },
+  {
+   "d": "2026-12-29",
+   "type": "gym",
+   "t": "Gimnàs A: cames per córrer + tren superior",
+   "min": 50,
+   "ord": 2,
+   "note": "Després de les sèries, el mateix dia (dur amb dur). Cames amb poc volum i pes moderat: l'objectiu és ser fort i resistent a les lesions, no acabar mort.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem o bici + mobilitat de maluc i turmells"
+    },
+    {
+     "l": "Cames",
+     "x": "Búlgara, pes mort romanès i bessons a una cama"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Press de banca, rem i dominades"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press + planxa 2 × 40″"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 2,
+     "reps": "8/cama",
+     "tip": "Puja de pes quan les 2 últimes surtin fàcils (ara 10 kg per mà)."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 2,
+     "reps": "8–10",
+     "tip": "Barra de 40 kg. Esquena neutra, baixa fins a sota el genoll."
+    },
+    {
+     "n": "Elevació de bessons a una cama",
+     "sets": 3,
+     "reps": "12/cama",
+     "bw": true,
+     "tip": "A un esglaó, baixant lent. Protegeix l'Aquil·les i el soli per córrer."
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "40 kg et va sobrat: prova 42,5–45 kg."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Sempre. Si no en surten, negatives de 3–4″."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ],
+   "k": 1,
+   "id": "s20261229g"
+  },
+  {
+   "d": "2026-12-30",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 1h30",
+   "min": 90,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Z2 de bici: volum aeròbic sense impacte. Suau de veritat, que demà toca qualitat.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20261230"
+  },
+  {
+   "d": "2026-12-31",
+   "type": "run",
+   "z": "z3",
+   "cat": "run",
+   "t": "2 × 3 km a 4:15",
+   "min": 55,
+   "km": 11,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 2,
+    "dist": 3000,
+    "pace": [
+     252,
+     258
+    ],
+    "rec": "3′"
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Tempo: ritme controlat i constant, el que podries mantenir una hora. Practica beure en marxa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km"
+    },
+    {
+     "l": "Principal",
+     "x": "2 × 3 km a 4:12–4:18/km amb 3′ trotant"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau"
+    }
+   ],
+   "k": 1,
+   "id": "s20261231"
+  },
+  {
+   "d": "2027-01-01",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 35′ + 6 rectes",
+   "min": 39,
+   "km": 6.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "Suau de veritat: si et costa parlar, vas massa ràpid. El 80 % dels km del pla són així.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "35′ a 5:05–5:35/km, ritme de conversa"
+    },
+    {
+     "l": "Rectes",
+     "x": "6 × 20″ ràpides i relaxades (ritme de 5K, no esprint), amb 1′ caminant o trotant entre"
+    }
+   ],
+   "k": 1,
+   "id": "s20270101"
+  },
+  {
+   "d": "2027-01-01",
+   "type": "gym",
+   "t": "Gimnàs B: tren superior i core",
+   "min": 45,
+   "ord": 2,
+   "note": "Sense cames. Tren superior per tonificar i core per mantenir la postura quan arribi el cansament a la cursa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem + mobilitat d'espatlles"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Dominades, rem, press militar, flexions, bíceps i tríceps"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug i planxa lateral"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Press militar amb manuelles",
+     "sets": 3,
+     "reps": "10"
+    },
+    {
+     "n": "Flexions",
+     "sets": 3,
+     "reps": "màx. − 2",
+     "bw": true
+    },
+    {
+     "n": "Curl de bíceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Extensió de tríceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
+    },
+    {
+     "n": "Planxa lateral",
+     "sets": 2,
+     "reps": "30″/costat",
+     "bw": true
+    }
+   ],
+   "k": 1,
+   "id": "s20270101g"
+  },
+  {
+   "d": "2027-01-02",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 2–3 h amb la grupeta",
+   "min": 120,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Amb els col·legues, però en Z2: demà hi ha la llarga. Si el grup tira, a roda.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "maxMin": 180,
+   "ord": 1,
+   "k": 1,
+   "id": "s20270102"
+  },
+  {
+   "d": "2027-01-03",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "key": true,
+   "t": "Tirada llarga 16 km suau",
+   "min": 90,
+   "km": 16,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 58,
+   "fuel": "Esmorzar 2–3 h abans. Aigua i un gel a partir del km 10.",
+   "note": "Llarga i suau. La clau és el temps de peus, no el ritme.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "16 km a 5:05–5:30/km, sempre podent parlar"
+    },
+    {
+     "l": "Després",
+     "x": "5′ caminant + estiraments de bessons, isquios i maluc"
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20270103"
+  },
+  {
+   "d": "2027-01-04",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20270104"
+  },
+  {
+   "d": "2027-01-05",
+   "type": "run",
+   "z": "z4",
+   "cat": "run",
+   "t": "5 × 1,5 km a 4:00",
+   "min": 62,
+   "km": 12,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 5,
+    "dist": 1500,
+    "pace": [
+     237,
+     243
+    ],
+    "rec": "2′"
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Sèries: la clau de la setmana. Regulars, totes al mateix ritme; l'última ha de sortir igual que la primera, no més ràpida.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km + 4 rectes de 20″"
+    },
+    {
+     "l": "Sèries",
+     "x": "5 × 1,5 km a 3:57–4:03/km amb 2′ trotant"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau + estiraments de bessons i maluc"
+    }
+   ],
+   "k": 1,
+   "id": "s20270105"
+  },
+  {
+   "d": "2027-01-05",
+   "type": "gym",
+   "t": "Gimnàs A: cames per córrer + tren superior",
+   "min": 50,
+   "ord": 2,
+   "note": "Després de les sèries, el mateix dia (dur amb dur). Cames amb poc volum i pes moderat: l'objectiu és ser fort i resistent a les lesions, no acabar mort.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem o bici + mobilitat de maluc i turmells"
+    },
+    {
+     "l": "Cames",
+     "x": "Búlgara, pes mort romanès i bessons a una cama"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Press de banca, rem i dominades"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press + planxa 2 × 40″"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 2,
+     "reps": "8/cama",
+     "tip": "Puja de pes quan les 2 últimes surtin fàcils (ara 10 kg per mà)."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 2,
+     "reps": "8–10",
+     "tip": "Barra de 40 kg. Esquena neutra, baixa fins a sota el genoll."
+    },
+    {
+     "n": "Elevació de bessons a una cama",
+     "sets": 3,
+     "reps": "12/cama",
+     "bw": true,
+     "tip": "A un esglaó, baixant lent. Protegeix l'Aquil·les i el soli per córrer."
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "40 kg et va sobrat: prova 42,5–45 kg."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Sempre. Si no en surten, negatives de 3–4″."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ],
+   "k": 1,
+   "id": "s20270105g"
+  },
+  {
+   "d": "2027-01-06",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 1h30",
+   "min": 90,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Z2 de bici: volum aeròbic sense impacte. Suau de veritat, que demà toca qualitat.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20270106"
+  },
+  {
+   "d": "2027-01-07",
+   "type": "run",
+   "z": "z3",
+   "cat": "run",
+   "t": "8 km a 4:20",
+   "min": 62,
+   "km": 12,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 1,
+    "dist": 8000,
+    "pace": [
+     257,
+     263
+    ],
+    "rec": ""
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Tempo: ritme controlat i constant, el que podries mantenir una hora. Practica beure en marxa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km"
+    },
+    {
+     "l": "Principal",
+     "x": "8 km seguits a 4:17–4:23/km"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau"
+    }
+   ],
+   "k": 1,
+   "id": "s20270107"
+  },
+  {
+   "d": "2027-01-08",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 35′ + 6 rectes",
+   "min": 39,
+   "km": 6.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "Suau de veritat: si et costa parlar, vas massa ràpid. El 80 % dels km del pla són així.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "35′ a 5:05–5:35/km, ritme de conversa"
+    },
+    {
+     "l": "Rectes",
+     "x": "6 × 20″ ràpides i relaxades (ritme de 5K, no esprint), amb 1′ caminant o trotant entre"
+    }
+   ],
+   "k": 1,
+   "id": "s20270108"
+  },
+  {
+   "d": "2027-01-08",
+   "type": "gym",
+   "t": "Gimnàs B: tren superior i core",
+   "min": 45,
+   "ord": 2,
+   "note": "Sense cames. Tren superior per tonificar i core per mantenir la postura quan arribi el cansament a la cursa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem + mobilitat d'espatlles"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Dominades, rem, press militar, flexions, bíceps i tríceps"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug i planxa lateral"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Press militar amb manuelles",
+     "sets": 3,
+     "reps": "10"
+    },
+    {
+     "n": "Flexions",
+     "sets": 3,
+     "reps": "màx. − 2",
+     "bw": true
+    },
+    {
+     "n": "Curl de bíceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Extensió de tríceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
+    },
+    {
+     "n": "Planxa lateral",
+     "sets": 2,
+     "reps": "30″/costat",
+     "bw": true
+    }
+   ],
+   "k": 1,
+   "id": "s20270108g"
+  },
+  {
+   "d": "2027-01-09",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 2–3 h amb la grupeta",
+   "min": 120,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Amb els col·legues, però en Z2: demà hi ha la llarga. Si el grup tira, a roda.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "maxMin": 180,
+   "ord": 1,
+   "k": 1,
+   "id": "s20270109"
+  },
+  {
+   "d": "2027-01-10",
+   "type": "run",
+   "z": "z3",
+   "cat": "run",
+   "t": "Llarga de 17 km, últims 3 a 4:25",
+   "min": 95,
+   "km": 17,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 1,
+    "dist": 3000,
+    "pace": [
+     262,
+     268
+    ],
+    "rec": ""
+   },
+   "tssH": 68,
+   "key": true,
+   "ord": 1,
+   "fuel": "Esmorzar 2–3 h abans. Prova un gel al km 10: el mateix que portaràs a la cursa.",
+   "note": "Córrer ràpid amb les cames cansades: és el que passarà del km 15 al 21.",
+   "steps": [
+    {
+     "l": "Primera part",
+     "x": "14 km suaus a 5:05–5:30/km"
+    },
+    {
+     "l": "Final",
+     "x": "Últims 3 km a 4:22–4:28/km"
+    },
+    {
+     "l": "Després",
+     "x": "5′ caminant + estiraments"
+    }
+   ],
+   "k": 1,
+   "id": "s20270110"
+  },
+  {
+   "d": "2027-01-11",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20270111"
+  },
+  {
+   "d": "2027-01-12",
+   "type": "run",
+   "z": "z5",
+   "cat": "run",
+   "t": "8 × 800 m a 3:48",
+   "min": 60,
+   "km": 11,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 8,
+    "dist": 800,
+    "pace": [
+     225,
+     231
+    ],
+    "rec": "2′"
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Sèries: la clau de la setmana. Regulars, totes al mateix ritme; l'última ha de sortir igual que la primera, no més ràpida.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km + 4 rectes de 20″"
+    },
+    {
+     "l": "Sèries",
+     "x": "8 × 800 m a 3:45–3:51/km amb 2′ trotant"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau + estiraments de bessons i maluc"
+    }
+   ],
+   "k": 1,
+   "id": "s20270112"
+  },
+  {
+   "d": "2027-01-12",
+   "type": "gym",
+   "t": "Gimnàs A: cames per córrer + tren superior",
+   "min": 50,
+   "ord": 2,
+   "note": "Després de les sèries, el mateix dia (dur amb dur). Cames amb poc volum i pes moderat: l'objectiu és ser fort i resistent a les lesions, no acabar mort.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem o bici + mobilitat de maluc i turmells"
+    },
+    {
+     "l": "Cames",
+     "x": "Búlgara, pes mort romanès i bessons a una cama"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Press de banca, rem i dominades"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press + planxa 2 × 40″"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 2,
+     "reps": "8/cama",
+     "tip": "Puja de pes quan les 2 últimes surtin fàcils (ara 10 kg per mà)."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 2,
+     "reps": "8–10",
+     "tip": "Barra de 40 kg. Esquena neutra, baixa fins a sota el genoll."
+    },
+    {
+     "n": "Elevació de bessons a una cama",
+     "sets": 3,
+     "reps": "12/cama",
+     "bw": true,
+     "tip": "A un esglaó, baixant lent. Protegeix l'Aquil·les i el soli per córrer."
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "40 kg et va sobrat: prova 42,5–45 kg."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Sempre. Si no en surten, negatives de 3–4″."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ],
+   "k": 1,
+   "id": "s20270112g"
+  },
+  {
+   "d": "2027-01-13",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 1h30",
+   "min": 90,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Z2 de bici: volum aeròbic sense impacte. Suau de veritat, que demà toca qualitat.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20270113"
+  },
+  {
+   "d": "2027-01-14",
+   "type": "run",
+   "z": "z3",
+   "cat": "run",
+   "t": "3 × 3 km a 4:08",
+   "min": 65,
+   "km": 13,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 3,
+    "dist": 3000,
+    "pace": [
+     245,
+     251
+    ],
+    "rec": "2′"
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Tempo: ritme controlat i constant, el que podries mantenir una hora. Practica beure en marxa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km"
+    },
+    {
+     "l": "Principal",
+     "x": "3 × 3 km a 4:05–4:11/km amb 2′ trotant"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau"
+    }
+   ],
+   "k": 1,
+   "id": "s20270114"
+  },
+  {
+   "d": "2027-01-15",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 40′ + 6 rectes",
+   "min": 44,
+   "km": 7.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "Suau de veritat: si et costa parlar, vas massa ràpid. El 80 % dels km del pla són així.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "40′ a 5:05–5:35/km, ritme de conversa"
+    },
+    {
+     "l": "Rectes",
+     "x": "6 × 20″ ràpides i relaxades (ritme de 5K, no esprint), amb 1′ caminant o trotant entre"
+    }
+   ],
+   "k": 1,
+   "id": "s20270115"
+  },
+  {
+   "d": "2027-01-15",
+   "type": "gym",
+   "t": "Gimnàs B: tren superior i core",
+   "min": 45,
+   "ord": 2,
+   "note": "Sense cames. Tren superior per tonificar i core per mantenir la postura quan arribi el cansament a la cursa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem + mobilitat d'espatlles"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Dominades, rem, press militar, flexions, bíceps i tríceps"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug i planxa lateral"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Press militar amb manuelles",
+     "sets": 3,
+     "reps": "10"
+    },
+    {
+     "n": "Flexions",
+     "sets": 3,
+     "reps": "màx. − 2",
+     "bw": true
+    },
+    {
+     "n": "Curl de bíceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Extensió de tríceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
+    },
+    {
+     "n": "Planxa lateral",
+     "sets": 2,
+     "reps": "30″/costat",
+     "bw": true
+    }
+   ],
+   "k": 1,
+   "id": "s20270115g"
+  },
+  {
+   "d": "2027-01-16",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 2–3 h amb la grupeta",
+   "min": 120,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Amb els col·legues, però en Z2: demà hi ha la llarga. Si el grup tira, a roda.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "maxMin": 180,
+   "ord": 1,
+   "k": 1,
+   "id": "s20270116"
+  },
+  {
+   "d": "2027-01-17",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "key": true,
+   "t": "Tirada llarga 18 km suau",
+   "min": 100,
+   "km": 18,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 58,
+   "fuel": "Esmorzar 2–3 h abans. Aigua i un gel a partir del km 10.",
+   "note": "Llarga i suau. La clau és el temps de peus, no el ritme.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "18 km a 5:05–5:30/km, sempre podent parlar"
+    },
+    {
+     "l": "Després",
+     "x": "5′ caminant + estiraments de bessons, isquios i maluc"
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20270117"
+  },
+  {
+   "d": "2027-01-18",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20270118"
+  },
+  {
+   "d": "2027-01-19",
+   "type": "run",
+   "z": "z4",
+   "cat": "run",
+   "t": "4 × 2 km a 4:00",
+   "min": 65,
+   "km": 13,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 4,
+    "dist": 2000,
+    "pace": [
+     237,
+     243
+    ],
+    "rec": "2′30″"
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Sèries: la clau de la setmana. Regulars, totes al mateix ritme; l'última ha de sortir igual que la primera, no més ràpida.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km + 4 rectes de 20″"
+    },
+    {
+     "l": "Sèries",
+     "x": "4 × 2 km a 3:57–4:03/km amb 2′30″ trotant"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau + estiraments de bessons i maluc"
+    }
+   ],
+   "k": 1,
+   "id": "s20270119"
+  },
+  {
+   "d": "2027-01-19",
+   "type": "gym",
+   "t": "Gimnàs A: cames per córrer + tren superior",
+   "min": 50,
+   "ord": 2,
+   "note": "Després de les sèries, el mateix dia (dur amb dur). Cames amb poc volum i pes moderat: l'objectiu és ser fort i resistent a les lesions, no acabar mort.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem o bici + mobilitat de maluc i turmells"
+    },
+    {
+     "l": "Cames",
+     "x": "Búlgara, pes mort romanès i bessons a una cama"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Press de banca, rem i dominades"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press + planxa 2 × 40″"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 2,
+     "reps": "8/cama",
+     "tip": "Puja de pes quan les 2 últimes surtin fàcils (ara 10 kg per mà)."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 2,
+     "reps": "8–10",
+     "tip": "Barra de 40 kg. Esquena neutra, baixa fins a sota el genoll."
+    },
+    {
+     "n": "Elevació de bessons a una cama",
+     "sets": 3,
+     "reps": "12/cama",
+     "bw": true,
+     "tip": "A un esglaó, baixant lent. Protegeix l'Aquil·les i el soli per córrer."
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "40 kg et va sobrat: prova 42,5–45 kg."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Sempre. Si no en surten, negatives de 3–4″."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ],
+   "k": 1,
+   "id": "s20270119g"
+  },
+  {
+   "d": "2027-01-20",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 1h30",
+   "min": 90,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Z2 de bici: volum aeròbic sense impacte. Suau de veritat, que demà toca qualitat.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20270120"
+  },
+  {
+   "d": "2027-01-21",
+   "type": "run",
+   "z": "z3",
+   "cat": "run",
+   "t": "10 km a 4:12",
+   "min": 72,
+   "km": 15,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 1,
+    "dist": 10000,
+    "pace": [
+     249,
+     255
+    ],
+    "rec": ""
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Tempo: ritme controlat i constant, el que podries mantenir una hora. Practica beure en marxa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km"
+    },
+    {
+     "l": "Principal",
+     "x": "10 km seguits a 4:09–4:15/km"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau"
+    }
+   ],
+   "k": 1,
+   "id": "s20270121"
+  },
+  {
+   "d": "2027-01-22",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 40′ + 6 rectes",
+   "min": 44,
+   "km": 7.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "Suau de veritat: si et costa parlar, vas massa ràpid. El 80 % dels km del pla són així.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "40′ a 5:05–5:35/km, ritme de conversa"
+    },
+    {
+     "l": "Rectes",
+     "x": "6 × 20″ ràpides i relaxades (ritme de 5K, no esprint), amb 1′ caminant o trotant entre"
+    }
+   ],
+   "k": 1,
+   "id": "s20270122"
+  },
+  {
+   "d": "2027-01-22",
+   "type": "gym",
+   "t": "Gimnàs B: tren superior i core",
+   "min": 45,
+   "ord": 2,
+   "note": "Sense cames. Tren superior per tonificar i core per mantenir la postura quan arribi el cansament a la cursa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem + mobilitat d'espatlles"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Dominades, rem, press militar, flexions, bíceps i tríceps"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug i planxa lateral"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Press militar amb manuelles",
+     "sets": 3,
+     "reps": "10"
+    },
+    {
+     "n": "Flexions",
+     "sets": 3,
+     "reps": "màx. − 2",
+     "bw": true
+    },
+    {
+     "n": "Curl de bíceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Extensió de tríceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
+    },
+    {
+     "n": "Planxa lateral",
+     "sets": 2,
+     "reps": "30″/costat",
+     "bw": true
+    }
+   ],
+   "k": 1,
+   "id": "s20270122g"
+  },
+  {
+   "d": "2027-01-23",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 2–3 h amb la grupeta",
+   "min": 120,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Amb els col·legues, però en Z2: demà hi ha la llarga. Si el grup tira, a roda.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "maxMin": 180,
+   "ord": 1,
+   "k": 1,
+   "id": "s20270123"
+  },
+  {
+   "d": "2027-01-24",
+   "type": "run",
+   "z": "z3",
+   "cat": "run",
+   "t": "Llarga de 19 km, últims 6 a 4:15",
+   "min": 105,
+   "km": 19,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 1,
+    "dist": 6000,
+    "pace": [
+     252,
+     258
+    ],
+    "rec": ""
+   },
+   "tssH": 68,
+   "key": true,
+   "ord": 1,
+   "fuel": "Esmorzar 2–3 h abans. Prova un gel al km 10: el mateix que portaràs a la cursa.",
+   "note": "Córrer ràpid amb les cames cansades: és el que passarà del km 15 al 21.",
+   "steps": [
+    {
+     "l": "Primera part",
+     "x": "13 km suaus a 5:05–5:30/km"
+    },
+    {
+     "l": "Final",
+     "x": "Últims 6 km a 4:12–4:18/km"
+    },
+    {
+     "l": "Després",
+     "x": "5′ caminant + estiraments"
+    }
+   ],
+   "k": 1,
+   "id": "s20270124"
+  },
+  {
+   "d": "2027-01-25",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20270125"
+  },
+  {
+   "d": "2027-01-26",
+   "type": "run",
+   "z": "z5",
+   "cat": "run",
+   "t": "5 × 1 km a 3:55",
+   "min": 55,
+   "km": 10,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 5,
+    "dist": 1000,
+    "pace": [
+     232,
+     238
+    ],
+    "rec": "2′"
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Sèries: la clau de la setmana. Regulars, totes al mateix ritme; l'última ha de sortir igual que la primera, no més ràpida. Setmana de descàrrega: és l'última càrrega abans del test de diumenge.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km + 4 rectes de 20″"
+    },
+    {
+     "l": "Sèries",
+     "x": "5 × 1 km a 3:52–3:58/km amb 2′ trotant"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau + estiraments de bessons i maluc"
+    }
+   ],
+   "k": 1,
+   "id": "s20270126"
+  },
+  {
+   "d": "2027-01-26",
+   "type": "gym",
+   "t": "Gimnàs A: cames per córrer + tren superior",
+   "min": 50,
+   "ord": 2,
+   "note": "Gimnàs A amb mig volum: diumenge hi ha el test de 10K.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem o bici + mobilitat de maluc i turmells"
+    },
+    {
+     "l": "Cames",
+     "x": "Búlgara, pes mort romanès i bessons a una cama"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Press de banca, rem i dominades"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press + planxa 2 × 40″"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 2,
+     "reps": "8/cama",
+     "tip": "Puja de pes quan les 2 últimes surtin fàcils (ara 10 kg per mà)."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 2,
+     "reps": "8–10",
+     "tip": "Barra de 40 kg. Esquena neutra, baixa fins a sota el genoll."
+    },
+    {
+     "n": "Elevació de bessons a una cama",
+     "sets": 3,
+     "reps": "12/cama",
+     "bw": true,
+     "tip": "A un esglaó, baixant lent. Protegeix l'Aquil·les i el soli per córrer."
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "40 kg et va sobrat: prova 42,5–45 kg."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Sempre. Si no en surten, negatives de 3–4″."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ],
+   "k": 1,
+   "id": "s20270126g"
+  },
+  {
+   "d": "2027-01-27",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 1h30",
+   "min": 90,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Z2 de veritat: és motor aeròbic que també serveix per córrer, sense l'impacte. Res d'esprints ni segments.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20270127"
+  },
+  {
+   "d": "2027-01-28",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 30′",
+   "min": 30,
+   "km": 5.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "Rodatge curt de descàrrega.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "30′ a 5:05–5:35/km, ritme de conversa"
+    }
+   ],
+   "k": 1,
+   "id": "s20270128"
+  },
+  {
+   "d": "2027-01-29",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 25′ + 4 rectes",
+   "min": 29,
+   "km": 4.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "Activació: curt i amb 4 rectes. Sense gimnàs aquesta setmana per arribar fresc.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "25′ a 5:05–5:35/km, ritme de conversa"
+    },
+    {
+     "l": "Rectes",
+     "x": "4 × 20″ ràpides i relaxades (ritme de 5K, no esprint), amb 1′ caminant o trotant entre"
+    }
+   ],
+   "k": 1,
+   "id": "s20270129"
+  },
+  {
+   "d": "2027-01-30",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 1h30 (opcional)",
+   "min": 90,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Molt suau i curt, o descans. Demà test.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20270130"
+  },
+  {
+   "d": "2027-01-31",
+   "type": "run",
+   "z": "z4",
+   "cat": "run",
+   "t": "TEST: 10K a tope",
+   "min": 70,
+   "km": 14,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 1,
+    "dist": 10000,
+    "pace": [
+     234,
+     240
+    ],
+    "rec": ""
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Esmorzar 3 h abans. Només aigua.",
+   "note": "Aquest test decideix el ritme de la mitja: sota 39:45 → 4:10/km; 39:45–40:30 → 4:13/km; més lent → 4:15/km. Millor en pla (o en una cursa de 10K).",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau + 4 rectes + 2′ a ritme de 10K"
+    },
+    {
+     "l": "Test",
+     "x": "10 km al màxim sostenible: surt a 3:58–4:00 els 2 primers km i, a partir del 5, el que quedi"
+    },
+    {
+     "l": "Tornada",
+     "x": "10′ molt suau"
+    }
+   ],
+   "k": 1,
+   "id": "s20270131"
+  },
+  {
+   "d": "2027-02-01",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20270201"
+  },
+  {
+   "d": "2027-02-02",
+   "type": "run",
+   "z": "z5",
+   "cat": "run",
+   "t": "6 × 1 km a 3:55",
+   "min": 58,
+   "km": 11,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 6,
+    "dist": 1000,
+    "pace": [
+     232,
+     238
+    ],
+    "rec": "2′"
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Sèries: la clau de la setmana. Regulars, totes al mateix ritme; l'última ha de sortir igual que la primera, no més ràpida.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km + 4 rectes de 20″"
+    },
+    {
+     "l": "Sèries",
+     "x": "6 × 1 km a 3:52–3:58/km amb 2′ trotant"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau + estiraments de bessons i maluc"
+    }
+   ],
+   "k": 1,
+   "id": "s20270202"
+  },
+  {
+   "d": "2027-02-02",
+   "type": "gym",
+   "t": "Gimnàs A: cames per córrer + tren superior",
+   "min": 50,
+   "ord": 2,
+   "note": "Després de les sèries, el mateix dia (dur amb dur). Cames amb poc volum i pes moderat: l'objectiu és ser fort i resistent a les lesions, no acabar mort.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem o bici + mobilitat de maluc i turmells"
+    },
+    {
+     "l": "Cames",
+     "x": "Búlgara, pes mort romanès i bessons a una cama"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Press de banca, rem i dominades"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press + planxa 2 × 40″"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 2,
+     "reps": "8/cama",
+     "tip": "Puja de pes quan les 2 últimes surtin fàcils (ara 10 kg per mà)."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 2,
+     "reps": "8–10",
+     "tip": "Barra de 40 kg. Esquena neutra, baixa fins a sota el genoll."
+    },
+    {
+     "n": "Elevació de bessons a una cama",
+     "sets": 3,
+     "reps": "12/cama",
+     "bw": true,
+     "tip": "A un esglaó, baixant lent. Protegeix l'Aquil·les i el soli per córrer."
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "40 kg et va sobrat: prova 42,5–45 kg."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Sempre. Si no en surten, negatives de 3–4″."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ],
+   "k": 1,
+   "id": "s20270202g"
+  },
+  {
+   "d": "2027-02-03",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 1h30",
+   "min": 90,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Z2 de bici: volum aeròbic sense impacte. Suau de veritat, que demà toca qualitat.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20270203"
+  },
+  {
+   "d": "2027-02-04",
+   "type": "run",
+   "z": "z3",
+   "cat": "run",
+   "t": "2 × 5 km a 4:09",
+   "min": 72,
+   "km": 15,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 2,
+    "dist": 5000,
+    "pace": [
+     246,
+     252
+    ],
+    "rec": "3′"
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Tempo: ritme controlat i constant, el que podries mantenir una hora. Practica beure en marxa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km"
+    },
+    {
+     "l": "Principal",
+     "x": "2 × 5 km a 4:06–4:12/km amb 3′ trotant"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau"
+    }
+   ],
+   "k": 1,
+   "id": "s20270204"
+  },
+  {
+   "d": "2027-02-05",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 40′ + 6 rectes",
+   "min": 44,
+   "km": 7.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "Suau de veritat: si et costa parlar, vas massa ràpid. El 80 % dels km del pla són així.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "40′ a 5:05–5:35/km, ritme de conversa"
+    },
+    {
+     "l": "Rectes",
+     "x": "6 × 20″ ràpides i relaxades (ritme de 5K, no esprint), amb 1′ caminant o trotant entre"
+    }
+   ],
+   "k": 1,
+   "id": "s20270205"
+  },
+  {
+   "d": "2027-02-05",
+   "type": "gym",
+   "t": "Gimnàs B: tren superior i core",
+   "min": 45,
+   "ord": 2,
+   "note": "Sense cames. Tren superior per tonificar i core per mantenir la postura quan arribi el cansament a la cursa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem + mobilitat d'espatlles"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Dominades, rem, press militar, flexions, bíceps i tríceps"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug i planxa lateral"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Press militar amb manuelles",
+     "sets": 3,
+     "reps": "10"
+    },
+    {
+     "n": "Flexions",
+     "sets": 3,
+     "reps": "màx. − 2",
+     "bw": true
+    },
+    {
+     "n": "Curl de bíceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Extensió de tríceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
+    },
+    {
+     "n": "Planxa lateral",
+     "sets": 2,
+     "reps": "30″/costat",
+     "bw": true
+    }
+   ],
+   "k": 1,
+   "id": "s20270205g"
+  },
+  {
+   "d": "2027-02-06",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 2–3 h amb la grupeta",
+   "min": 120,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Amb els col·legues, però en Z2: demà hi ha la llarga. Si el grup tira, a roda.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "maxMin": 180,
+   "ord": 1,
+   "k": 1,
+   "id": "s20270206"
+  },
+  {
+   "d": "2027-02-07",
+   "type": "run",
+   "z": "z3",
+   "cat": "run",
+   "t": "Llarga de 20 km, últims 5 a 4:10",
+   "min": 110,
+   "km": 20,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 1,
+    "dist": 5000,
+    "pace": [
+     248,
+     252
+    ],
+    "rec": ""
+   },
+   "tssH": 68,
+   "key": true,
+   "ord": 1,
+   "fuel": "Esmorzar 2–3 h abans. Prova un gel al km 10: el mateix que portaràs a la cursa.",
+   "note": "Córrer ràpid amb les cames cansades: és el que passarà del km 15 al 21.",
+   "steps": [
+    {
+     "l": "Primera part",
+     "x": "15 km suaus a 5:05–5:30/km"
+    },
+    {
+     "l": "Final",
+     "x": "Últims 5 km a 4:08–4:12/km"
+    },
+    {
+     "l": "Després",
+     "x": "5′ caminant + estiraments"
+    }
+   ],
+   "k": 1,
+   "id": "s20270207"
+  },
+  {
+   "d": "2027-02-08",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20270208"
+  },
+  {
+   "d": "2027-02-09",
+   "type": "run",
+   "z": "z4",
+   "cat": "run",
+   "t": "3 × 3 km a 4:00",
+   "min": 68,
+   "km": 14,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 3,
+    "dist": 3000,
+    "pace": [
+     237,
+     243
+    ],
+    "rec": "3′"
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Sèries: la clau de la setmana. Regulars, totes al mateix ritme; l'última ha de sortir igual que la primera, no més ràpida.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km + 4 rectes de 20″"
+    },
+    {
+     "l": "Sèries",
+     "x": "3 × 3 km a 3:57–4:03/km amb 3′ trotant"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau + estiraments de bessons i maluc"
+    }
+   ],
+   "k": 1,
+   "id": "s20270209"
+  },
+  {
+   "d": "2027-02-09",
+   "type": "gym",
+   "t": "Gimnàs A: cames per córrer + tren superior",
+   "min": 50,
+   "ord": 2,
+   "note": "Després de les sèries, el mateix dia (dur amb dur). Cames amb poc volum i pes moderat: l'objectiu és ser fort i resistent a les lesions, no acabar mort.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem o bici + mobilitat de maluc i turmells"
+    },
+    {
+     "l": "Cames",
+     "x": "Búlgara, pes mort romanès i bessons a una cama"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Press de banca, rem i dominades"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press + planxa 2 × 40″"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 2,
+     "reps": "8/cama",
+     "tip": "Puja de pes quan les 2 últimes surtin fàcils (ara 10 kg per mà)."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 2,
+     "reps": "8–10",
+     "tip": "Barra de 40 kg. Esquena neutra, baixa fins a sota el genoll."
+    },
+    {
+     "n": "Elevació de bessons a una cama",
+     "sets": 3,
+     "reps": "12/cama",
+     "bw": true,
+     "tip": "A un esglaó, baixant lent. Protegeix l'Aquil·les i el soli per córrer."
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "40 kg et va sobrat: prova 42,5–45 kg."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Sempre. Si no en surten, negatives de 3–4″."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ],
+   "k": 1,
+   "id": "s20270209g"
+  },
+  {
+   "d": "2027-02-10",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 1h30",
+   "min": 90,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Z2 de bici: volum aeròbic sense impacte. Suau de veritat, que demà toca qualitat.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20270210"
+  },
+  {
+   "d": "2027-02-11",
+   "type": "run",
+   "z": "z3",
+   "cat": "run",
+   "t": "Assaig general: 12 km a 4:10",
+   "min": 75,
+   "km": 16,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 1,
+    "dist": 12000,
+    "pace": [
+     247,
+     253
+    ],
+    "rec": ""
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Assaig general: la roba, les sabatilles, l'esmorzar i els gels del dia de la cursa. L'estómac també s'entrena (recorda Granollers).",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km"
+    },
+    {
+     "l": "Principal",
+     "x": "12 km seguits a 4:07–4:13/km"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau"
+    }
+   ],
+   "k": 1,
+   "id": "s20270211"
+  },
+  {
+   "d": "2027-02-12",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 40′ + 6 rectes",
+   "min": 44,
+   "km": 7.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "Suau de veritat: si et costa parlar, vas massa ràpid. El 80 % dels km del pla són així.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "40′ a 5:05–5:35/km, ritme de conversa"
+    },
+    {
+     "l": "Rectes",
+     "x": "6 × 20″ ràpides i relaxades (ritme de 5K, no esprint), amb 1′ caminant o trotant entre"
+    }
+   ],
+   "k": 1,
+   "id": "s20270212"
+  },
+  {
+   "d": "2027-02-12",
+   "type": "gym",
+   "t": "Gimnàs B: tren superior i core",
+   "min": 45,
+   "ord": 2,
+   "note": "Sense cames. Tren superior per tonificar i core per mantenir la postura quan arribi el cansament a la cursa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem + mobilitat d'espatlles"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Dominades, rem, press militar, flexions, bíceps i tríceps"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug i planxa lateral"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Press militar amb manuelles",
+     "sets": 3,
+     "reps": "10"
+    },
+    {
+     "n": "Flexions",
+     "sets": 3,
+     "reps": "màx. − 2",
+     "bw": true
+    },
+    {
+     "n": "Curl de bíceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Extensió de tríceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
+    },
+    {
+     "n": "Planxa lateral",
+     "sets": 2,
+     "reps": "30″/costat",
+     "bw": true
+    }
+   ],
+   "k": 1,
+   "id": "s20270212g"
+  },
+  {
+   "d": "2027-02-13",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 2–3 h amb la grupeta",
+   "min": 120,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Amb els col·legues, però en Z2: demà hi ha la llarga. Si el grup tira, a roda.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "maxMin": 180,
+   "ord": 1,
+   "k": 1,
+   "id": "s20270213"
+  },
+  {
+   "d": "2027-02-14",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "key": true,
+   "t": "Tirada llarga 18 km suau",
+   "min": 100,
+   "km": 18,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 58,
+   "fuel": "Esmorzar 2–3 h abans. Aigua i un gel a partir del km 10.",
+   "note": "Llarga i suau. La clau és el temps de peus, no el ritme.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "18 km a 5:05–5:30/km, sempre podent parlar"
+    },
+    {
+     "l": "Després",
+     "x": "5′ caminant + estiraments de bessons, isquios i maluc"
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20270214"
+  },
+  {
+   "d": "2027-02-15",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20270215"
+  },
+  {
+   "d": "2027-02-16",
+   "type": "run",
+   "z": "z5",
+   "cat": "run",
+   "t": "8 × 1 km a 3:55",
+   "min": 65,
+   "km": 13,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 8,
+    "dist": 1000,
+    "pace": [
+     232,
+     238
+    ],
+    "rec": "1′30″"
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Sèries: la clau de la setmana. Regulars, totes al mateix ritme; l'última ha de sortir igual que la primera, no més ràpida.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km + 4 rectes de 20″"
+    },
+    {
+     "l": "Sèries",
+     "x": "8 × 1 km a 3:52–3:58/km amb 1′30″ trotant"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau + estiraments de bessons i maluc"
+    }
+   ],
+   "k": 1,
+   "id": "s20270216"
+  },
+  {
+   "d": "2027-02-16",
+   "type": "gym",
+   "t": "Gimnàs A: cames per córrer + tren superior",
+   "min": 50,
+   "ord": 2,
+   "note": "Després de les sèries, el mateix dia (dur amb dur). Cames amb poc volum i pes moderat: l'objectiu és ser fort i resistent a les lesions, no acabar mort.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem o bici + mobilitat de maluc i turmells"
+    },
+    {
+     "l": "Cames",
+     "x": "Búlgara, pes mort romanès i bessons a una cama"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Press de banca, rem i dominades"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press + planxa 2 × 40″"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 2,
+     "reps": "8/cama",
+     "tip": "Puja de pes quan les 2 últimes surtin fàcils (ara 10 kg per mà)."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 2,
+     "reps": "8–10",
+     "tip": "Barra de 40 kg. Esquena neutra, baixa fins a sota el genoll."
+    },
+    {
+     "n": "Elevació de bessons a una cama",
+     "sets": 3,
+     "reps": "12/cama",
+     "bw": true,
+     "tip": "A un esglaó, baixant lent. Protegeix l'Aquil·les i el soli per córrer."
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "40 kg et va sobrat: prova 42,5–45 kg."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Sempre. Si no en surten, negatives de 3–4″."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ],
+   "k": 1,
+   "id": "s20270216g"
+  },
+  {
+   "d": "2027-02-17",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 1h30",
+   "min": 90,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Z2 de bici: volum aeròbic sense impacte. Suau de veritat, que demà toca qualitat.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20270217"
+  },
+  {
+   "d": "2027-02-18",
+   "type": "run",
+   "z": "z3",
+   "cat": "run",
+   "t": "2 × 4 km a 4:09",
+   "min": 65,
+   "km": 13,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 2,
+    "dist": 4000,
+    "pace": [
+     246,
+     252
+    ],
+    "rec": "3′"
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Tempo: ritme controlat i constant, el que podries mantenir una hora. Practica beure en marxa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km"
+    },
+    {
+     "l": "Principal",
+     "x": "2 × 4 km a 4:06–4:12/km amb 3′ trotant"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau"
+    }
+   ],
+   "k": 1,
+   "id": "s20270218"
+  },
+  {
+   "d": "2027-02-19",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 40′ + 6 rectes",
+   "min": 44,
+   "km": 7.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "Suau de veritat: si et costa parlar, vas massa ràpid. El 80 % dels km del pla són així.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "40′ a 5:05–5:35/km, ritme de conversa"
+    },
+    {
+     "l": "Rectes",
+     "x": "6 × 20″ ràpides i relaxades (ritme de 5K, no esprint), amb 1′ caminant o trotant entre"
+    }
+   ],
+   "k": 1,
+   "id": "s20270219"
+  },
+  {
+   "d": "2027-02-19",
+   "type": "gym",
+   "t": "Gimnàs B: tren superior i core",
+   "min": 45,
+   "ord": 2,
+   "note": "Sense cames. Tren superior per tonificar i core per mantenir la postura quan arribi el cansament a la cursa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem + mobilitat d'espatlles"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Dominades, rem, press militar, flexions, bíceps i tríceps"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug i planxa lateral"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Press militar amb manuelles",
+     "sets": 3,
+     "reps": "10"
+    },
+    {
+     "n": "Flexions",
+     "sets": 3,
+     "reps": "màx. − 2",
+     "bw": true
+    },
+    {
+     "n": "Curl de bíceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Extensió de tríceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
+    },
+    {
+     "n": "Planxa lateral",
+     "sets": 2,
+     "reps": "30″/costat",
+     "bw": true
+    }
+   ],
+   "k": 1,
+   "id": "s20270219g"
+  },
+  {
+   "d": "2027-02-20",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 2–3 h amb la grupeta",
+   "min": 120,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Amb els col·legues, però en Z2: demà hi ha la llarga. Si el grup tira, a roda.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "maxMin": 180,
+   "ord": 1,
+   "k": 1,
+   "id": "s20270220"
+  },
+  {
+   "d": "2027-02-21",
+   "type": "run",
+   "z": "z3",
+   "cat": "run",
+   "t": "Llarga de 16 km, últims 5 a 4:10",
+   "min": 85,
+   "km": 16,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 1,
+    "dist": 5000,
+    "pace": [
+     248,
+     252
+    ],
+    "rec": ""
+   },
+   "tssH": 68,
+   "key": true,
+   "ord": 1,
+   "fuel": "Esmorzar 2–3 h abans. Prova un gel al km 10: el mateix que portaràs a la cursa.",
+   "note": "Córrer ràpid amb les cames cansades: és el que passarà del km 15 al 21.",
+   "steps": [
+    {
+     "l": "Primera part",
+     "x": "11 km suaus a 5:05–5:30/km"
+    },
+    {
+     "l": "Final",
+     "x": "Últims 5 km a 4:08–4:12/km"
+    },
+    {
+     "l": "Després",
+     "x": "5′ caminant + estiraments"
+    }
+   ],
+   "k": 1,
+   "id": "s20270221"
+  },
+  {
+   "d": "2027-02-22",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20270222"
+  },
+  {
+   "d": "2027-02-23",
+   "type": "run",
+   "z": "z3",
+   "cat": "run",
+   "t": "5 × 1 km a 4:08",
+   "min": 50,
+   "km": 9,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 5,
+    "dist": 1000,
+    "pace": [
+     246,
+     250
+    ],
+    "rec": "2′"
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "Setmana de la cursa: poc volum, una mica de ritme. Res de gimnàs de cames.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "15′ suau a 5:20–5:40/km + 4 rectes de 20″"
+    },
+    {
+     "l": "Sèries",
+     "x": "5 × 1 km a 4:06–4:10/km amb 2′ trotant. Fàcil: és per recordar el ritme"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau + estiraments de bessons i maluc"
+    }
+   ],
+   "k": 1,
+   "id": "s20270223"
+  },
+  {
+   "d": "2027-02-23",
+   "type": "gym",
+   "t": "Gimnàs B: tren superior i core (suau)",
+   "min": 40,
+   "ord": 2,
+   "note": "Només tren superior i suau. Res de cames fins després de la cursa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem + mobilitat d'espatlles"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Dominades, rem, press militar, flexions, bíceps i tríceps"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug i planxa lateral"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 3,
+     "reps": "màx.",
+     "bw": true
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 2,
+     "reps": "10–12"
+    },
+    {
+     "n": "Press militar amb manuelles",
+     "sets": 2,
+     "reps": "10"
+    },
+    {
+     "n": "Flexions",
+     "sets": 2,
+     "reps": "màx. − 2",
+     "bw": true
+    },
+    {
+     "n": "Curl de bíceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Extensió de tríceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
+    },
+    {
+     "n": "Planxa lateral",
+     "sets": 2,
+     "reps": "30″/costat",
+     "bw": true
+    }
+   ],
+   "k": 1,
+   "id": "s20270223g"
+  },
+  {
+   "d": "2027-02-24",
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Bici Z2 1h30 (opcional)",
+   "min": 90,
+   "band": [
+    0.56,
+    0.72
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "fuel": "Aigua i 30–40 g/h d'hidrats",
+   "note": "Molt suau, o descans si tens les cames carregades.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "Z2 a {60,72}, cadència 85–92 rpm. A les pujades, assegut i sense passar de {80}."
+    }
+   ],
+   "ord": 1,
+   "k": 1,
+   "id": "s20270224"
+  },
+  {
+   "d": "2027-02-25",
+   "type": "run",
+   "z": "z3",
+   "cat": "run",
+   "t": "35′ amb 3 × 1 km a 4:10",
+   "min": 35,
+   "km": 7,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 3,
+    "dist": 1000,
+    "pace": [
+     248,
+     252
+    ],
+    "rec": "2′"
+   },
+   "tssH": 72,
+   "key": false,
+   "ord": 1,
+   "fuel": "Aigua. Si passa de 75′, un gel a mitja sessió.",
+   "note": "L'últim toc de ritme. Dorm molt aquests dies.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "12′ suau"
+    },
+    {
+     "l": "Principal",
+     "x": "3 × 1 km a 4:10/km amb 2′ trotant"
+    },
+    {
+     "l": "Final",
+     "x": "5′ suau"
+    }
+   ],
+   "k": 1,
+   "id": "s20270225"
+  },
+  {
+   "d": "2027-02-26",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans. Comença la càrrega d'hidrats: pasta, arròs, pa i menys fibra.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20270226"
+  },
+  {
+   "d": "2027-02-27",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Activació 20′ + 4 rectes",
+   "min": 24,
+   "km": 4,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "fuel": "Només aigua",
+   "note": "Només per moure les cames. Recull el dorsal, deixa la roba preparada i sopa d'hora.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "20′ a 5:05–5:35/km, ritme de conversa"
+    },
+    {
+     "l": "Rectes",
+     "x": "4 × 20″ ràpides i relaxades (ritme de 5K, no esprint), amb 1′ caminant o trotant entre"
+    }
+   ],
+   "k": 1,
+   "id": "s20270227"
+  },
+  {
+   "d": "2027-02-28",
+   "type": "run",
+   "z": "z4",
+   "cat": "run",
+   "t": "MITJA MARATÓ DE GIRONA",
+   "min": 90,
+   "km": 21.1,
+   "pace": [
+    305,
+    335
+   ],
+   "work": {
+    "n": 1,
+    "dist": 21097,
+    "pace": [
+     248,
+     252
+    ],
+    "rec": ""
+   },
+   "tssH": 72,
+   "key": true,
+   "ord": 1,
+   "fuel": "Esmorzar 3 h abans (el mateix de l'assaig general). Gels als km 7 i 14 amb aigua.",
+   "note": "Objectiu 1:28 (4:10/km), o el ritme que hagi marcat el test de 10K. Ritme constant: cada segon que guanyes al principi el pagues el doble al final.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "10′ molt suau + 3 rectes, 20′ abans de la sortida"
+    },
+    {
+     "l": "Km 1–5",
+     "x": "4:12–4:14/km. Que et passin: la cursa comença al 10"
+    },
+    {
+     "l": "Km 5–15",
+     "x": "4:09–4:11/km, constant. Gel al km 7 i al 14"
+    },
+    {
+     "l": "Km 15–21",
+     "x": "Si vas bé, accelera de mica en mica. L'últim km, el que quedi"
+    }
+   ],
+   "k": 1,
+   "id": "s20270228"
   }
  ],
  "rules": {
@@ -1984,6 +6502,10 @@
   {
    "date": "2026-11-19",
    "text": "Test aplaçat al dissabte 28. Sincerament: aquesta setmana havia de ser de descàrrega i no ho ha estat (dimarts 10 km corrent, dimecres 2h21 en lloc d'1h30, avui 1h39 el dia de descans). Que no et trobis bé és el cos demanant parar. Divendres descans total; dissabte i diumenge, Z2 suau només si et lleves bé. La setmana que ve, la del test, amb dies de descans de veritat."
+  },
+  {
+   "date": "2026-11-19",
+   "text": "Pla de la mitja carregat: 12 setmanes del 7 de desembre al 28 de febrer. Fins a Nadal, mixt (3 curses + 3 bici); després, 4 dies de córrer + 2 de bici. Claus: sèries de llindar dimarts, tempo dijous i llarga diumenge. Test de 10K el 31 de gener per fixar el ritme. El test d'FTP de desembre queda eliminat. Tens tot a la pestanya Córrer."
   }
  ],
  "goals": [
@@ -1993,16 +6515,16 @@
    "kind": "test"
   },
   {
-   "t": "FTP 280 W",
-   "d": "2026-12-25",
-   "kind": "ftp",
-   "target": 280
+   "t": "Test de 10K",
+   "d": "2027-01-31",
+   "kind": "test10k"
   },
   {
    "t": "Mitja Marató de Girona",
    "d": "2027-02-28",
    "kind": "race",
-   "target": "Sota 1:30 · 4:15/km"
+   "target": "1:28 · 4:10/km",
+   "targetSec": 5280
   }
  ],
  "gymLog": [
@@ -2094,5 +6616,63 @@
     }
    ]
   }
- ]
+ ],
+ "run": {
+  "race": {
+   "name": "Mitja Marató de Girona",
+   "d": "2027-02-28",
+   "dist": 21097,
+   "target": 5280,
+   "pb": 5476,
+   "blockStart": "2026-12-07"
+  },
+  "paces": [
+   {
+    "k": "Suau",
+    "z": "z2",
+    "p": [
+     305,
+     335
+    ],
+    "x": "El 80 % dels km. Has de poder parlar."
+   },
+   {
+    "k": "Mitjà",
+    "z": "z3",
+    "p": [
+     270,
+     280
+    ],
+    "x": "Tempo llarg i còmode."
+   },
+   {
+    "k": "Ritme de mitja",
+    "z": "z3",
+    "p": [
+     248,
+     252
+    ],
+    "x": "El de la cursa. 1:28."
+   },
+   {
+    "k": "Llindar",
+    "z": "z4",
+    "p": [
+     238,
+     243
+    ],
+    "x": "Sèries de 1–3 km."
+   },
+   {
+    "k": "VO2",
+    "z": "z5",
+    "p": [
+     225,
+     235
+    ],
+    "x": "Sèries de 800 m–1 km."
+   }
+  ],
+  "rule10k": "Test de 10K (31 gen): sota 39:45 → 4:10/km · 39:45–40:30 → 4:13/km · més lent → 4:15/km"
+ }
 }

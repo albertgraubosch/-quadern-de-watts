@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const APP_VERSION="1.21.0";
+const APP_VERSION="1.22.0";
 const DAYS=["Dg","Dl","Dt","Dc","Dj","Dv","Ds"];
 const DAYNAMES=["Diumenge","Dilluns","Dimarts","Dimecres","Dijous","Divendres","Dissabte"];
 const MONTHS=["gen","feb","març","abr","maig","juny","jul","ag","set","oct","nov","des"];
@@ -318,12 +318,12 @@ function runResultHTML(p){
   }
   const km=(a.distance||0)/1000,pace=km?(a.moving_time||0)/km:0,checks=[];
   if(p.min&&(a.moving_time||0)<p.min*60*0.7)checks.push({l:"info",t:"Més curta del previst ("+fmtDur(a.moving_time||0)+" de "+fmtDur(p.min*60)+")."});
-  if(p.pace&&pace){if(pace<p.pace[0]-10)checks.push({l:"warn",t:"Ritme de "+paceTxt(pace)+"/km: més ràpid del previst ("+paceTxt(p.pace[0])+"–"+paceTxt(p.pace[1])+"). Els dies suaus, suaus de veritat."});else checks.push({l:"ok",t:"Ritme de "+paceTxt(pace)+"/km, dins del que tocava."})}
+  if(p.work){}else if(p.pace&&pace){if(pace<p.pace[0]-10)checks.push({l:"warn",t:"Ritme de "+paceTxt(pace)+"/km: més ràpid del previst ("+paceTxt(p.pace[0])+"–"+paceTxt(p.pace[1])+"). Els dies suaus, suaus de veritat."});else checks.push({l:"ok",t:"Ritme de "+paceTxt(pace)+"/km, dins del que tocava."})}
   checks.push({l:"info",t:Math.round(a.total_elevation_gain||0)+" m de desnivell · càrrega estimada ≈ "+Math.round(actTSS(a))+" TSS."});
   const lv=checks.some(c=>c.l==="warn")?"warn":"ok";
   return '<div class="result"><div class="verdict '+lv+'"><span class="ic">'+(lv==="ok"?"✓":"!")+'</span><div>'+(lv==="ok"?"Cursa feta":"Feta, però massa ràpida")+'<small>'+esc(a.name||"Cursa")+'</small></div></div>'+
     '<div class="stats">'+runStats(a).map(x=>'<div class="stat"><div class="k">'+x[0]+'</div><div class="v">'+x[1]+'</div></div>').join("")+'</div>'+
-    '<ul class="checks">'+checks.map(c=>'<li><span class="m '+c.l+'">'+MARK[c.l]+'</span><span>'+esc(c.t)+'</span></li>').join("")+'</ul>'+checkinHTML(a)+'</div>';
+    '<ul class="checks">'+checks.map(c=>'<li><span class="m '+c.l+'">'+MARK[c.l]+'</span><span>'+esc(c.t)+'</span></li>').join("")+'</ul>'+runWorkHTML(p,a)+checkinHTML(a)+'</div>';
 }
 function extraCard(d){
   const l=extraRuns(d);
@@ -389,14 +389,14 @@ function plannedBox(p,inner){return '<details class="planned"><summary>Previst: 
 function sessionCard(p,kick){
   const da=p.type!=="gym"?(actFor(p)||runFor(p)):null;
   if(da){
-    const zc=p.type==="run"?"z2":esc(p.z||"z2");
+    const zc=esc(p.z||"z2");
     return '<article class="card feature'+(p.type==="run"?" runcard":"")+'" style="--zc:var(--'+zc+')"><div class="zonebar"></div><div class="in">'+
       '<div class="feature-head"><div class="kicker">'+kick+(p.type==="rest"?" · Fora del pla":" · Fet")+(p.type==="run"?" · Córrer":"")+'</div><h2>'+esc(doneTitle(p,da))+'</h2>'+doneMeta(da)+'</div>'+
       (p.doneNote?'<div class="note">'+esc(p.doneNote)+'</div>':'')+
       (p.type==="rest"?'':plannedBox(p,(p.type!=="run"&&active(p)?profileHTML(p):"")+stepsHTML(p)))+resultHTML(p)+'</div></article>';
   }
   if(p.type==="run"){
-    return '<article class="card feature runcard" style="--zc:var(--z2)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+kick+' · Córrer</div><h2>'+esc(p.t)+'</h2><div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span>'+(p.pace?'<span>Ritme <b>'+paceTxt(p.pace[0])+'–'+paceTxt(p.pace[1])+'/km</b></span>':'')+'</div></div>'+stepsHTML(p)+changeHTML(p)+resultHTML(p)+'</div></article>';
+    return '<article class="card feature runcard" style="--zc:var(--'+esc(p.z||"z2")+')"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+kick+' · Córrer'+(p.key?' · Clau':'')+'</div><h2>'+esc(p.t)+'</h2><div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span>'+(p.km?'<span>Distància <b>~'+kmTxt(p.km)+' km</b></span>':'')+(p.work?'<span>Blocs <b>'+paceTxt(p.work.pace[0])+'–'+paceTxt(p.work.pace[1])+'/km</b></span>':p.pace?'<span>Ritme <b>'+paceTxt(p.pace[0])+'–'+paceTxt(p.pace[1])+'/km</b></span>':'')+'</div></div>'+stepsHTML(p)+changeHTML(p)+resultHTML(p)+'</div></article>';
   }
   if(p.type==="gym"){
     return '<article class="card feature gymcard" style="--zc:var(--z7)"><div class="zonebar"></div><div class="in"><div class="feature-head"><div class="kicker">'+kick+' · Gimnàs</div><h2>'+esc(p.t)+'</h2><div class="meta"><span>Durada <b>'+fmtPlanDur(p)+'</b></span><span>Esforç <b>'+esc(p.rpe||"RPE 6–7")+'</b></span></div></div>'+(p.ex&&p.ex.length?(p.note?'<div class="note">'+esc(p.note)+'</div>':'')+gymLogHTML(p):stepsHTML(p)+resultHTML(p))+'</div></article>';
@@ -433,9 +433,9 @@ function renderHero(){
   const hda=p.type!=="gym"?(actFor(p)||runFor(p)):null;
   title.textContent=hda?doneTitle(p,hda):p.t;
   if(hda)kick.textContent+=" · Fet";else if(p.key){kick.textContent+=" · Sessió clau"}
-  if(gym){sub.hidden=false;sub.textContent="+ "+gym.t+" ("+fmtPlanDur(gym)+")"+(gym.done?" ✓":", després de la bici")}
+  if(gym){sub.hidden=false;sub.textContent="+ "+gym.t+" ("+fmtPlanDur(gym)+")"+(gym.done?" ✓":p.type==="run"?", després de córrer":", després de la bici")}
   if(p.type==="run"){
-    tiles.innerHTML=[["Durada",fmtPlanDur(p)],["Ritme",p.pace?paceTxt(p.pace[0])+"–"+paceTxt(p.pace[1]):"suau"],["Esforç","suau"]].map(x=>'<div class="tile2"><span class="k">'+x[0]+'</span><span class="v">'+esc(x[1])+'</span></div>').join("");
+    tiles.innerHTML=[["Durada",fmtPlanDur(p)],p.work?["Blocs",paceTxt(p.work.pace[0])+"–"+paceTxt(p.work.pace[1])]:["Ritme",p.pace?paceTxt(p.pace[0])+"–"+paceTxt(p.pace[1]):"suau"],["Esforç",{z5:"fort",z4:"llindar",z3:"ritme"}[p.z]||"suau"]].map(x=>'<div class="tile2"><span class="k">'+x[0]+'</span><span class="v">'+esc(x[1])+'</span></div>').join("");
     const ra=runFor(p);
     if(ra){const km=(ra.distance||0)/1000;ver.hidden=false;ver.innerHTML='<span class="vpill ok"><i>✓</i>Cursa feta · '+fmtDur(ra.moving_time||0)+(km?" · "+km.toFixed(1).replace(".",",")+" km":"")+'</span>'}
     else if(p.done){ver.hidden=false;ver.innerHTML='<span class="vpill"><i>✓</i>Marcada com a feta</span>'}
@@ -725,7 +725,7 @@ function renderTitles(){
 }
 
 /* ---------- Pàgines ---------- */
-const PAGES=["avui","gimnas","nutricio","rendiment","diari","ajustos"];
+const PAGES=["avui","correr","gimnas","nutricio","rendiment","diari","ajustos"];
 let page="avui";
 function setPage(p,keepScroll){
   if(!PAGES.includes(p))p="avui";
@@ -737,7 +737,8 @@ function setPage(p,keepScroll){
   if(!keepScroll)window.scrollTo(0,0);
 }
 function renderPage(){
-  if(page==="gimnas")renderGym();
+  if(page==="correr")renderRun();
+  else if(page==="gimnas")renderGym();
   else if(page==="nutricio")renderNut();
   else if(page==="rendiment")renderPerf();
   else if(page==="diari")renderDiary();
@@ -1305,6 +1306,131 @@ function renderGym(){
   el.innerHTML=h;
 }
 
+/* ---------- Córrer ---------- */
+let runSel=null;const runData={},runLoading={};
+function runCfg(){return (plan&&plan.run)||null}
+function hms(sec){sec=Math.round(sec);const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60;return (h?h+":"+String(m).padStart(2,"0"):m)+":"+String(s).padStart(2,"0")}
+function kmTxt(x){return (Math.round(x*10)/10).toString().replace(".",",")}
+function getRunStreams(id){
+  const key="/rstreams/"+id;
+  const fromNet=()=>api("/activities/"+id+"/streams?keys=time,distance&key_by_type=true").then(j=>{
+    try{if(window.caches)caches.open(STREAM_CACHE).then(c=>c.put(key,new Response(JSON.stringify(j),{headers:{"Content-Type":"application/json"}}))).catch(()=>{})}catch(e){}
+    return j});
+  if(!window.caches)return fromNet();
+  return caches.open(STREAM_CACHE).then(c=>c.match(key)).then(r=>r?r.json():fromNet()).catch(()=>fromNet());
+}
+function loadRun(id){
+  if(runData[id]||runLoading[id])return;runLoading[id]=true;
+  getRunStreams(id).then(st=>{const g=k=>st&&st[k]&&Array.isArray(st[k].data)?st[k].data:null;runData[id]={t:g("time")||[],x:g("distance")||[]}})
+  .catch(e=>{runData[id]={error:errMsg(e)}}).then(()=>{delete runLoading[id];renderSoon()});
+}
+// Troba els n millors trams que no se solapen: per distància (dist, m) o per temps (sec).
+function bestReps(t,x,n,dist,sec){
+  const N=Math.min(t.length,x.length),used=new Uint8Array(N),out=[];
+  for(let r=0;r<n;r++){
+    let best=null,j=0;
+    for(let i=0;i<N;i++){
+      if(used[i])continue;if(j<i)j=i;
+      if(dist){while(j<N&&x[j]-x[i]<dist)j++;if(j>=N)break;}
+      else{while(j<N&&t[j]-t[i]<sec)j++;if(j>=N)break;}
+      let ok=true;for(let k=i;k<=j;k+=Math.max(1,Math.floor((j-i)/40)))if(used[k]){ok=false;break}
+      if(!ok||used[j])continue;
+      const dt=t[j]-t[i],dx=x[j]-x[i];if(dx<=0||dt<=0)continue;
+      const pace=dt/(dx/1000);
+      if(!best||pace<best.pace)best={i,j,pace,dt,dx};
+    }
+    if(!best)break;
+    for(let k=best.i;k<=best.j;k++)used[k]=1;
+    out.push(best);
+  }
+  return out.sort((a,b)=>a.i-b.i);
+}
+function runWorkHTML(p,a){
+  const w=p.work;if(!w)return "";
+  const d=runData[a.id];
+  if(!d){loadRun(a.id);return '<div class="empty">Analitzant les sèries…</div>'}
+  if(d.error||!d.x.length)return '<div class="empty">No he pogut llegir els parcials d\'aquesta cursa'+(d.error?' ('+esc(d.error)+')':'')+'.</div>';
+  const mx=d.x[d.x.length-1]||0,wd=w.dist&&w.n===1&&mx<w.dist?mx*0.98:(w.dist||0);
+  const reps=bestReps(d.t,d.x,w.n||1,wd,w.sec||0);
+  if(!reps.length)return "";
+  const lo=w.pace[0],hi=w.pace[1],tol=3;
+  const cls=r=>r.pace<lo-tol?"up":r.pace>hi+tol?"bad":"ok";
+  const avg=reps.reduce((s,r)=>s+r.dt,0)/reps.reduce((s,r)=>s+r.dx/1000,0);
+  const nOk=reps.filter(r=>cls(r)==="ok").length,nSlow=reps.filter(r=>cls(r)==="bad").length,nFast=reps.filter(r=>cls(r)==="up").length;
+  const fade=reps.length>=3?reps[reps.length-1].pace-reps[0].pace:0;
+  const lab=w.dist?(w.dist>=1000?kmTxt(w.dist/1000)+" km":w.dist+" m"):fmtDur(w.sec);
+  const L=[];
+  if(reps.length<(w.n||1))L.push({l:"warn",t:"Només he trobat "+reps.length+" de "+w.n+" blocs de "+lab+"."});
+  L.push({l:nSlow?"warn":"ok",t:(reps.length>1?"Mitjana dels blocs ":"Ritme del bloc ")+paceTxt(avg)+"/km (objectiu "+paceTxt(lo)+"–"+paceTxt(hi)+"). "+nOk+" de "+reps.length+" dins del ritme."});
+  if(nFast)L.push({l:"info",t:nFast+(nFast===1?" bloc més ràpid":" blocs més ràpids")+" del previst. Si ha sortit fàcil, bona senyal; si no, regula: el ritme just és el que entrena."});
+  if(fade>8)L.push({l:"warn",t:"L'últim bloc "+Math.round(fade)+" s/km més lent que el primer: vas sortir massa fort."});
+  else if(reps.length>=3&&Math.abs(fade)<=5)L.push({l:"ok",t:"Molt regular del primer a l'últim bloc."});
+  if(w.n===1&&w.dist>=10000){L.push({l:"info",t:"Temps: "+hms(reps[0].dt)+"."})}
+  const lvl=nSlow>reps.length/2?"warn":"ok";
+  return '<div class="kicker" style="margin-top:4px">Blocs · '+(w.n>1?w.n+" × ":"")+esc(lab)+'</div><div class="reps">'+reps.map((r,i)=>'<span class="rep '+cls(r)+'"><small>'+(i+1)+'</small>'+paceTxt(r.pace)+'</span>').join("")+'</div>'+
+    '<ul class="checks">'+L.map(c=>'<li><span class="m '+c.l+'">'+MARK[c.l]+'</span><span>'+esc(c.t)+'</span></li>').join("")+'</ul>';
+}
+function runWeekKm(ws){
+  const we=addDays(ws,6);let plan=0,done=0,n=0;
+  all().forEach(s=>{if(s.type==="run"&&active(s)&&s.d>=ws&&s.d<=we)plan+=s.km||((s.min||0)*60/((s.pace?(s.pace[0]+s.pace[1])/2:320)))});
+  Object.keys(runActs).forEach(d=>{if(d>=ws&&d<=we)runActs[d].forEach(a=>{done+=(a.distance||0)/1000;n++})});
+  return {plan,done,n};
+}
+function predictHM(){
+  const g=(plan&&plan.goals||[]).find(x=>x.kind==="test10k");if(!g)return null;
+  const l=runActs[g.d];if(!l||!l.length)return null;
+  const a=l[0],d=runData[a.id];
+  let t=a.moving_time,dist=(a.distance||0);
+  if(d&&d.x&&d.x.length){const r=bestReps(d.t,d.x,1,10000,0)[0];if(r){t=r.dt;dist=r.dx}}else loadRun(a.id);
+  if(dist<9000)return null;
+  const t10=t*10000/dist,hm=t10*Math.pow(21.0975/10,1.06);
+  return {t10,hm,pace:hm/21.0975,rule:t10<2385?250:t10<=2430?253:255};
+}
+function renderRun(){
+  const el=document.getElementById("runBody");if(!el)return;
+  const R=runCfg();
+  const runs=all().filter(x=>x.type==="run"&&active(x));
+  let h="";
+  if(R){
+    const race=R.race,days=Math.round((parseD(race.d)-parseD(todayStr))/864e5);
+    const bs=race.blockStart,bw=todayStr<bs?0:Math.floor(Math.round((parseD(todayStr)-parseD(bs))/864e5)/7)+1;
+    const pr=predictHM();
+    h+='<section class="card feature" style="--zc:var(--z4)"><div class="zonebar"></div><div class="in" style="gap:12px"><div class="kicker">Objectiu</div><h2>'+esc(race.name)+'</h2>'+
+      '<div class="tiles2"><div class="tile2"><span class="k">Falten</span><span class="v">'+(days>0?days+" dies":days===0?"Avui!":"Feta")+'</span></div><div class="tile2"><span class="k">Objectiu</span><span class="v">'+hms(race.target)+'</span></div><div class="tile2"><span class="k">Ritme</span><span class="v">'+paceTxt(race.target/21.0975)+'/km</span></div></div>'+
+      '<div class="note">'+(bw<=0?"El bloc comença el "+esc(dayLabel(bs))+".":bw<=12?"Setmana "+bw+" de 12.":"")+' Millor marca: '+hms(race.pb)+'.</div>'+
+      (pr?'<div class="verdict ok"><span class="ic">✓</span><div>Test de 10K: '+hms(pr.t10)+'<small>Predicció de mitja: '+hms(pr.hm)+' ('+paceTxt(pr.pace)+'/km). Ritme de cursa: '+paceTxt(pr.rule)+'/km.</small></div></div>':
+        '<div class="note">'+esc(R.rule10k||"")+'</div>')+
+      '</div></section>';
+    h+='<section class="card"><div class="in" style="gap:10px"><h3>Els teus ritmes</h3><div class="paces">'+R.paces.map(x=>'<div class="pz"><span class="dotc" style="background:var(--'+esc(x.z)+')"></span><b>'+esc(x.k)+'</b><span class="pv">'+paceTxt(x.p[0])+'–'+paceTxt(x.p[1])+'</span><span class="note">'+esc(x.x)+'</span></div>').join("")+'</div></div></section>';
+  }
+  // Sessions d'aquesta setmana i la següent
+  const ws=mondayOf(todayStr),we=addDays(ws,13);
+  let p=runSel&&S[runSel]&&S[runSel].type==="run"?S[runSel]:null;
+  if(!p)p=runs.find(x=>x.d===todayStr)||runs.find(x=>x.d>todayStr)||runs.filter(x=>x.d<todayStr).pop()||null;
+  const near=runs.filter(x=>x.d>=ws&&x.d<=we);
+  if(near.length)h+='<section class="card"><div class="in" style="gap:10px"><div class="kicker">Sessions</div><div class="glist">'+near.map(x=>{const dn=x.done||runFor(x);return '<button type="button" class="gli'+(p&&x.id===p.id?" on":"")+'" data-rsel="'+esc(x.id)+'"><span class="gd">'+esc(x.d===todayStr?"Avui":dayLabel(x.d))+'</span><span class="gt">'+(x.key?'<i class="kdot"></i>':'')+esc(x.t)+'</span><span class="gs">'+(dn?"✓":x.d<todayStr?"—":"")+'</span></button>'}).join("")+'</div></div></section>';
+  if(p)h+=sessionCard(p,p.d===todayStr?"Avui":dayLabel(p.d));
+  // Bloc
+  if(R){
+    const bs=R.race.blockStart;let rows="";
+    for(let i=0;i<12;i++){
+      const s0=addDays(bs,i*7),r=runWeekKm(s0),ss=runs.filter(x=>x.d>=s0&&x.d<=addDays(s0,6)&&x.key);
+      const cur=todayStr>=s0&&todayStr<=addDays(s0,6),past=addDays(s0,6)<todayStr;
+      const wk=(plan.weeks||{})[String(weekNo(s0))]||{};
+      const pct=r.plan?Math.min(100,r.done/r.plan*100):0;
+      rows+='<div class="rw'+(cur?" cur":"")+'"><div class="rwh"><b>S'+(i+1)+'</b><span>'+esc((wk.name||"").replace(/^Mitja S\d+ · /,""))+'</span><span class="note">'+(past||cur?kmTxt(r.done)+" / ":"")+kmTxt(r.plan)+' km</span></div>'+
+        ((past||cur)?'<div class="lvbar"><i style="width:'+pct.toFixed(0)+'%"></i></div>':'')+
+        '<div class="rwk">'+ss.map(x=>'<button type="button" data-rsel="'+esc(x.id)+'"'+(runFor(x)||x.done?' class="dn"':'')+'>'+esc(x.t)+'</button>').join("")+'</div></div>';
+    }
+    h+='<section class="card"><div class="in" style="gap:10px"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h3>El bloc</h3><span class="note">'+esc(dayLabel(bs))+' – '+esc(dayLabel(R.race.d))+'</span></div><div class="note">Km previstos i fets per setmana, i les sessions clau. Toca una sessió per veure-la.</div><div class="rws">'+rows+'</div></div></section>';
+  }
+  // Últimes curses
+  const recent=Object.keys(runActs).sort().reverse().slice(0,8);
+  if(recent.length)h+='<section class="card"><div class="in" style="gap:10px"><h3>Últimes curses</h3><div class="tbl"><table><thead><tr><th>Dia</th><th>Km</th><th>Temps</th><th>Ritme</th></tr></thead><tbody>'+
+    recent.flatMap(d=>runActs[d].map(a=>{const km=(a.distance||0)/1000;return '<tr><td style="font-family:var(--f-body)">'+esc(dayLabel(d))+'</td><td>'+kmTxt(km)+'</td><td>'+fmtDur(a.moving_time||0)+'</td><td>'+(km?paceTxt((a.moving_time||0)/km):"—")+'</td></tr>'})).join("")+'</tbody></table></div></div></section>';
+  el.innerHTML=h;
+}
+
 /* ---------- Nutrició ---------- */
 // Pautes: hidrats periodificats segons la càrrega del dia (3–10 g/kg), proteïna 1,8–2,2 g/kg en 4 àpats
 // de 0,3–0,4 g/kg, greix ~1 g/kg. Dèficit moderat només els dies suaus o de descans; mai els dies durs.
@@ -1665,6 +1791,7 @@ document.addEventListener("click",e=>{
   if(el.dataset&&el.dataset.gok){const [pid,i,j]=el.dataset.gok.split("|");const r=gymSet(pid,+i,+j);const row=el.closest(".gset");if(row){row.querySelectorAll("input").forEach(inp=>{const f=inp.dataset.gk.split("|")[3];if(r[f]==null&&inp.value==="")r[f]=inp.placeholder&&!isNaN(+inp.placeholder)?+inp.placeholder:null;else if(inp.value!=="")r[f]=+inp.value})}r.ok=!r.ok;saveState();renderWeek();renderPage();return}
   if(el.dataset&&el.dataset.gadd){const [pid,i]=el.dataset.gadd.split("|");const p=S[pid];const cur=((state.gymSets||{})[pid]||{})[+i]||[];gymSet(pid,+i,Math.max(cur.length,(p.ex[+i].sets||3)));saveState();renderWeek();renderPage();return}
   if(el.dataset&&el.dataset.gsave){gymSave(el.dataset.gsave);return}
+  if(el.dataset&&el.dataset.rsel){runSel=el.dataset.rsel;if(page!=="correr")setPage("correr");else{renderRun();const c=document.querySelector("#runBody .feature.runcard");if(c)c.scrollIntoView({behavior:"smooth",block:"start"})}return}
   if(el.dataset&&el.dataset.gsel){gymSel=el.dataset.gsel;renderGym();return}
   if(el.dataset&&el.dataset.nday){nutDay=el.dataset.nday;renderNut();return}
   if(el.id==="hSave"){const v=parseInt(document.getElementById("hcm").value,10);if(!(v>=140&&v<=210)){toast("Escriu l'alçada en cm, per exemple 178.");return}state.height=v;saveState();toast("Alçada desada.");renderNut();renderFood();return}
