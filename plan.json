@@ -1,6 +1,6 @@
 {
- "version": 59,
- "updated": "2026-11-19T20:30",
+ "version": 60,
+ "updated": "2026-11-19T20:55",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1525,7 +1525,7 @@
    "min": 0,
    "note": "Descans total, sense bici. Ahir ≈ 140 TSS en lloc dels ≈ 70 previstos: avui toca recuperar perquè dissabte arribis fresc al test. Camina, estira i menja bé.",
    "doneT": "Z2 d'1h39 (fora del pla)",
-   "doneNote": "46 km i 320 m a primera hora, el dia que tocava descans. Ahir 2h21 (en lloc d'1h30) i dimarts 10 km corrent: la descàrrega no ha estat descàrrega."
+   "doneNote": "46 km i 322 m a primera hora, el dia que tocava descans. NP 188 W, IF 0,77, ≈ 96 TSS, 10′ per sobre de l'FTP i pic d'1′ a 305 W. Tercer dia seguit més intens del previst."
   },
   {
    "id": "s20261109g",
@@ -1611,29 +1611,12 @@
   {
    "id": "s20261121",
    "d": "2026-11-21",
-   "type": "end",
-   "z": "z2",
-   "cat": "end",
-   "t": "Z2 suau (opcional)",
-   "min": 75,
-   "band": [
-    0.56,
-    0.68
-   ],
-   "cad": [
-    88,
-    95
-   ],
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
    "ord": 1,
    "k": 1,
-   "fuel": "Aigua i 30 g/h",
-   "note": "Només si et lleves bé. Si no, descans. 1h15 sense passar de 172 W.",
-   "steps": [
-    {
-     "l": "Sessió",
-     "x": "1h15 en Z2 baixa a {56,68}, res per sobre de {70}"
-    }
-   ]
+   "note": "Descans total. Tres dies seguits (dimarts, dimecres i dijous) per sobre del previst: ≈ 300 TSS en una setmana de recuperació. Dos dies sense bici i diumenge, Z2 de veritat."
   },
   {
    "id": "s20261122",
@@ -1641,7 +1624,7 @@
    "type": "end",
    "z": "z2",
    "cat": "end",
-   "t": "Z2 suau (opcional)",
+   "t": "Z2 suau",
    "min": 90,
    "band": [
     0.56,
@@ -1654,7 +1637,7 @@
    "ord": 1,
    "k": 1,
    "fuel": "Aigua i 30 g/h",
-   "note": "Només si dissabte et vas trobar bé. Res de pujades fortes ni de seguir el grup.",
+   "note": "1h30 en Z2 baixa i prou: res per sobre de 172 W, ni pujades fortes ni seguir el grup. Si no et trobes bé, descans.",
    "steps": [
     {
      "l": "Sessió",
@@ -6506,6 +6489,10 @@
   {
    "date": "2026-11-19",
    "text": "Pla de la mitja carregat: 12 setmanes del 7 de desembre al 28 de febrer. Fins a Nadal, mixt (3 curses + 3 bici); després, 4 dies de córrer + 2 de bici. Claus: sèries de llindar dimarts, tempo dijous i llarga diumenge. Test de 10K el 31 de gener per fixar el ritme. El test d'FTP de desembre queda eliminat. Tens tot a la pestanya Córrer."
+  },
+  {
+   "date": "2026-11-19",
+   "text": "Avui, el dia de descans, 1h39: NP 188 W, IF 0,77, ≈ 96 TSS i 10′ per sobre de l'FTP. Sumat a la cursa de dimarts i l'Osor d'ahir, ≈ 300 TSS en tres dies d'una setmana de recuperació. Decisió: divendres i dissabte descans total; diumenge, 1h30 Z2 sense passar de 172 W. Així arribes al test del 28 amb el TSB en positiu. El repte ara és saber no pedalar."
   }
  ],
  "goals": [

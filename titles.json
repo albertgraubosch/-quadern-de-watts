@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18",
+ "updated": "2026-11-19",
  "about": "Títols per a Strava. 'byDay': 5 frases fetes a mida per a l'activitat d'aquell dia (surten primer). 'phrases': banc general amb etiquetes (ride, run, gym, long, short, hard, easy, climb, morning, night, weekend, sunday, monday, weekday, rest, group, solo, pr); una frase només surt si l'activitat compleix totes les seves etiquetes. 'topical': actualitat amb dates (from/to).",
  "byDay": {
   "2026-11-05": [
@@ -57,6 +57,13 @@
    "Selló enrere i manillar avall: l'única cosa que s'ha reposicionat de debò aquesta setmana.",
    "Rodalies no arriba mai a l'hora. Jo tampoc, però com a mínim porto 674 metres a les cames.",
    "Vot per correu: el pla deia Z2 i les cames han votat Brunyola a fons."
+  ],
+  "2026-11-19": [
+   "Cara a cara Sánchez–Feijóo a deu dies del 29-N; el meu era pla contra cames i han guanyat les cames.",
+   "Dia de descans i 36 PR: més promeses incomplertes que en un debat electoral.",
+   "Nogueras nega suport a Feijóo; jo nego que avui toqués descans.",
+   "Tensió al debat del 29-N i tensió a les cames: deu minuts per sobre de l'FTP el dia de descans.",
+   "Sortida a les 7:51 el dia de descans: abans del debat, jo ja havia fet campanya per tot el Gironès."
   ]
  },
  "phrases": [
