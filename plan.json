@@ -1,6 +1,6 @@
 {
- "version": 60,
- "updated": "2026-11-19T20:55",
+ "version": 61,
+ "updated": "2026-11-20T21:00",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1606,7 +1606,9 @@
    "min": 0,
    "ord": 1,
    "k": 1,
-   "note": "Descans de veritat: ni bici ni córrer. Si no et trobes bé, el cos t'ho està demanant."
+   "note": "Descans de veritat: ni bici ni córrer. Si no et trobes bé, el cos t'ho està demanant.",
+   "doneT": "Recuperació 1h30 (fora del pla)",
+   "doneNote": "36 km i 114 m pel pla de Celrà–Bordils. NP 140 W, IF 0,57, ≈ 48 TSS, un 88 % del temps en Z1–Z2. Suau de veritat, tot i que tocava descans."
   },
   {
    "id": "s20261121",
@@ -1616,7 +1618,7 @@
    "min": 0,
    "ord": 1,
    "k": 1,
-   "note": "Descans total. Tres dies seguits (dimarts, dimecres i dijous) per sobre del previst: ≈ 300 TSS en una setmana de recuperació. Dos dies sense bici i diumenge, Z2 de veritat."
+   "note": "Descans total, sense bici ni córrer. Quatre dies seguits pedalant o corrent: el cos necessita un dia sencer en blanc per arribar fresc al test del 28."
   },
   {
    "id": "s20261122",
@@ -1637,7 +1639,7 @@
    "ord": 1,
    "k": 1,
    "fuel": "Aigua i 30 g/h",
-   "note": "1h30 en Z2 baixa i prou: res per sobre de 172 W, ni pujades fortes ni seguir el grup. Si no et trobes bé, descans.",
+   "note": "1h30 en Z2 baixa i prou: res per sobre de 172 W, ni pujades fortes ni seguir el grup. Com divendres, però amb la cadència a 85–90 rpm. Si no et trobes bé, descans.",
    "steps": [
     {
      "l": "Sessió",
@@ -6493,6 +6495,10 @@
   {
    "date": "2026-11-19",
    "text": "Avui, el dia de descans, 1h39: NP 188 W, IF 0,77, ≈ 96 TSS i 10′ per sobre de l'FTP. Sumat a la cursa de dimarts i l'Osor d'ahir, ≈ 300 TSS en tres dies d'una setmana de recuperació. Decisió: divendres i dissabte descans total; diumenge, 1h30 Z2 sense passar de 172 W. Així arribes al test del 28 amb el TSB en positiu. El repte ara és saber no pedalar."
+  },
+  {
+   "date": "2026-11-20",
+   "text": "Avui tocava descans i has sortit, però aquesta vegada suau de veritat: 1h31, NP 140 W, IF 0,57, ≈ 48 TSS i un 88 % del temps en Z1–Z2. Així sí. Única pega: cadència de 81 rpm; diumenge, 85–90. Últims 7 dies ≈ 450 TSS i TSB ≈ −7. Demà descans total, sense excepcions: diumenge Z2 d'1h30 i la setmana del test, tal com està."
   }
  ],
  "goals": [
