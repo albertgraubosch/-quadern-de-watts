@@ -1,6 +1,6 @@
 {
- "version": 61,
- "updated": "2026-11-20T21:00",
+ "version": 62,
+ "updated": "2026-11-21T21:00",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1618,7 +1618,9 @@
    "min": 0,
    "ord": 1,
    "k": 1,
-   "note": "Descans total, sense bici ni córrer. Quatre dies seguits pedalant o corrent: el cos necessita un dia sencer en blanc per arribar fresc al test del 28."
+   "note": "Descans total, sense bici ni córrer. Quatre dies seguits pedalant o corrent: el cos necessita un dia sencer en blanc per arribar fresc al test del 28.",
+   "doneT": "Descans",
+   "doneNote": "Dia en blanc, com tocava: ni bici ni córrer."
   },
   {
    "id": "s20261122",
@@ -6499,6 +6501,10 @@
   {
    "date": "2026-11-20",
    "text": "Avui tocava descans i has sortit, però aquesta vegada suau de veritat: 1h31, NP 140 W, IF 0,57, ≈ 48 TSS i un 88 % del temps en Z1–Z2. Així sí. Única pega: cadència de 81 rpm; diumenge, 85–90. Últims 7 dies ≈ 450 TSS i TSB ≈ −7. Demà descans total, sense excepcions: diumenge Z2 d'1h30 i la setmana del test, tal com està."
+  },
+  {
+   "date": "2026-11-21",
+   "text": "Avui, descans total complert. Així m'agrada. Els últims 7 dies sumen ≈ 450 TSS, però amb el dia en blanc el TSB passa de ≈ −7 a ≈ +1: comences a carregar piles per al test. Demà, 1h30 en Z2 baixa, res per sobre de 172 W i cadència a 85–90 rpm (divendres vas fer 81). La setmana del test no es toca: dimecres 3 × 3′ d'activació i dissabte, Sant Martí Sacalm."
   }
  ],
  "goals": [
