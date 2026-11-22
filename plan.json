@@ -1,6 +1,6 @@
 {
- "version": 62,
- "updated": "2026-11-21T21:00",
+ "version": 63,
+ "updated": "2026-11-22T21:00",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1666,7 +1666,7 @@
    "z": "z2",
    "cat": "end",
    "t": "Z2 suau",
-   "min": 75,
+   "min": 90,
    "band": [
     0.56,
     0.68
@@ -1678,11 +1678,11 @@
    "ord": 1,
    "k": 1,
    "fuel": "Aigua i 30 g/h",
-   "note": "Suau de veritat. Res per sobre de 172 W.",
+   "note": "Suau de veritat. Res per sobre de 172 W. 1h30, que és el teu mínim: més no cal.",
    "steps": [
     {
      "l": "Sessió",
-     "x": "1h15 en Z2 baixa a {56,68}, res per sobre de {70}"
+     "x": "1h30 en Z2 baixa a {56,68}, res per sobre de {70}"
     }
    ]
   },
@@ -6505,6 +6505,10 @@
   {
    "date": "2026-11-21",
    "text": "Avui, descans total complert. Així m'agrada. Els últims 7 dies sumen ≈ 450 TSS, però amb el dia en blanc el TSB passa de ≈ −7 a ≈ +1: comences a carregar piles per al test. Demà, 1h30 en Z2 baixa, res per sobre de 172 W i cadència a 85–90 rpm (divendres vas fer 81). La setmana del test no es toca: dimecres 3 × 3′ d'activació i dissabte, Sant Martí Sacalm."
+  },
+  {
+   "date": "2026-11-22",
+   "text": "Avui res a Strava: la Z2 d'1h30 no s'ha fet. Cap drama, i no es recupera. Últims 7 dies ≈ 350 TSS (cursa, Osor, dos rodatges) i, amb dos dies en blanc, el TSB puja cap a ≈ +5: arribes fresc a la setmana del test. Demà descans. Dimarts, Z2 que passo d'1h15 a 1h30 (el teu mínim), res per sobre de 172 W i cadència 85–90. Dimecres 3 × 3′ d'activació i dissabte, Sant Martí Sacalm."
   }
  ],
  "goals": [

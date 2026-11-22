@@ -2,13 +2,6 @@
  "updated": "2026-11-20",
  "about": "Títols per a Strava. 'byDay': 5 frases fetes a mida per a l'activitat d'aquell dia (surten primer). 'phrases': banc general amb etiquetes (ride, run, gym, long, short, hard, easy, climb, morning, night, weekend, sunday, monday, weekday, rest, group, solo, pr); una frase només surt si l'activitat compleix totes les seves etiquetes. 'topical': actualitat amb dates (from/to).",
  "byDay": {
-  "2026-11-07": [
-   "Tesla plega el Cybertruck i jo segueixo fent quadrats: 104 km, 1.030 m i 90 PR.",
-   "El rei Felip no accepta la dimissió de De Wever. Les meves cames tampoc l'acceptaven a Santa Pellaia.",
-   "Mélenchon presenta programa. Jo, 90 PR: la revolució comença a la Ganga.",
-   "Diumenge el Barça es veu amb l'Atlètic. Jo el clàssic ja l'he fet: Cassà–Santa Pellaia.",
-   "Última aturada de seleccions de l'any i a mi ningú em convoca. 4 hores de currículum per si de cas."
-  ],
   "2026-11-09": [
    "Fermín en fa dos al Metropolitano i jo dues sèries de búlgara. Ell remunta; jo baixo les escales de costat.",
    "El Barça ja és líder per 3 punts. Jo, líder d'agulletes per 3 dies.",
