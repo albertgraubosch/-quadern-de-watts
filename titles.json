@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20",
+ "updated": "2026-11-23",
  "about": "Títols per a Strava. 'byDay': 5 frases fetes a mida per a l'activitat d'aquell dia (surten primer). 'phrases': banc general amb etiquetes (ride, run, gym, long, short, hard, easy, climb, morning, night, weekend, sunday, monday, weekday, rest, group, solo, pr); una frase només surt si l'activitat compleix totes les seves etiquetes. 'topical': actualitat amb dates (from/to).",
  "byDay": {
   "2026-11-09": [
@@ -57,6 +57,13 @@
    "Suau per fora, gelat per dins.",
    "Tres capes i zero dignitat.",
    "Recuperació amb 5 PR. Ho sento."
+  ],
+  "2026-11-23": [
+   "Primer km a 5:45, l'últim a 5:21: remuntada de manual, com el Barça davant el Villarreal.",
+   "El rodet s'ha quedat a la banqueta. Pocs minuts, molt rendiment: soc el Carlos Espí del running.",
+   "9,4 km a ritme de conversa, que per parlar de remuntades sempre hi ha temps.",
+   "El Màlaga encara busca la primera victòria. Jo ja tinc la del dilluns.",
+   "Al descans perdia 0-2 contra el sofà. He acabat guanyant 3-2."
   ]
  },
  "phrases": [

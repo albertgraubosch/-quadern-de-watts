@@ -1,6 +1,6 @@
 {
- "version": 65,
- "updated": "2026-11-23T09:30",
+ "version": 66,
+ "updated": "2026-11-23T21:30",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1674,7 +1674,9 @@
      "l": "Sessió",
      "x": "1 h a {56,68}, cadència 88–95. Ventilador i bidó: al rodet es sua el doble."
     }
-   ]
+   ],
+   "doneT": "No fet",
+   "doneNote": "El rodet no s'ha fet: només la cursa. No es recupera."
   },
   {
    "id": "s20261123r",
@@ -1699,7 +1701,9 @@
      "l": "Sessió",
      "x": "45′ a 5:15–5:40/km, ritme de conversa. Sense rectes avui."
     }
-   ]
+   ],
+   "doneT": "Córrer suau 9,4 km",
+   "doneNote": "9,45 km en 52′22″ a 5:33/km i 51 m de desnivell. Suau de veritat i de menys a més: primer km a 5:45, l'últim sencer a 5:21."
   },
   {
    "id": "s20261124",
@@ -6683,6 +6687,10 @@
   {
    "date": "2026-11-23",
    "text": "Canvi teu: avui doble suau en lloc de descans. 1 h de rodet a 137–167 W i 45′ corrent a 5:15–5:40/km. Després de tres dies sense res, et va bé, però que sigui suau de veritat: entre els dos, ≈ 85 TSS. Demà, 3 × 12′ de sweet spot."
+  },
+  {
+   "date": "2026-11-23",
+   "text": "Del doble suau, només la cursa: 9,45 km a 5:33/km, de 5:45 el primer km a 5:21 l'últim. Suau de veritat, ≈ 50 TSS. El rodet, fora, i no passa res. Últims 7 dies ≈ 385 TSS i quatre dies sense bici: TSB positiu, arribes fresc. Demà, 3 × 12′ de sweet spot a 221–230 W, sense passar-te al primer, i gimnàs A a la tarda. Res canviat al pla."
   }
  ],
  "goals": [
