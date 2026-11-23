@@ -1,5 +1,5 @@
 {
- "version": 64,
+ "version": 65,
  "updated": "2026-11-23T09:30",
  "athlete": {
   "name": "Albert Grau",
@@ -1652,12 +1652,54 @@
   {
    "id": "s20261123",
    "d": "2026-11-23",
-   "type": "rest",
-   "t": "Descans",
-   "min": 0,
+   "type": "end",
+   "z": "z2",
+   "cat": "end",
+   "t": "Rodet Z2 1 h (molt suau)",
+   "min": 60,
+   "band": [
+    0.56,
+    0.68
+   ],
+   "cad": [
+    88,
+    95
+   ],
    "ord": 1,
    "k": 1,
-   "note": "Setmana del test. Avui descans."
+   "fuel": "Aigua",
+   "note": "Doble suau a proposta teva: rodet i córrer, tots dos molt tranquils. Demà hi ha sweet spot + gimnàs, així que res per sobre de 170 W.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "1 h a {56,68}, cadència 88–95. Ventilador i bidó: al rodet es sua el doble."
+    }
+   ]
+  },
+  {
+   "id": "s20261123r",
+   "d": "2026-11-23",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 45′",
+   "min": 45,
+   "km": 8,
+   "pace": [
+    315,
+    340
+   ],
+   "tssH": 50,
+   "ord": 2,
+   "k": 1,
+   "fuel": "Només aigua",
+   "note": "Més suau encara que un rodatge normal: 5:15–5:40/km. Si el fas després del rodet, deixa-hi unes hores entremig i menja alguna cosa.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "45′ a 5:15–5:40/km, ritme de conversa. Sense rectes avui."
+    }
+   ]
   },
   {
    "id": "s20261124",
@@ -6637,6 +6679,10 @@
   {
    "date": "2026-11-23",
    "text": "Fora test d'FTP: setmana normal de construcció. Dimarts 3 × 12′ de sweet spot a 220–230 W + gimnàs A, dimecres 40′ de córrer suau, dijous 4 × 8′ de llindar a 240–250 W (aquesta fa de test: si surten bé, pujo l'FTP a ~250), divendres descans + gimnàs B, dissabte 3 h de Z2 i diumenge 45′ corrent. Arribes fresc: tres dies sense res."
+  },
+  {
+   "date": "2026-11-23",
+   "text": "Canvi teu: avui doble suau en lloc de descans. 1 h de rodet a 137–167 W i 45′ corrent a 5:15–5:40/km. Després de tres dies sense res, et va bé, però que sigui suau de veritat: entre els dos, ≈ 85 TSS. Demà, 3 × 12′ de sweet spot."
   }
  ],
  "goals": [
