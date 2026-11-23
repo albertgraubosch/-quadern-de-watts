@@ -1,13 +1,13 @@
 {
- "version": 63,
- "updated": "2026-11-22T21:00",
+ "version": 64,
+ "updated": "2026-11-23T09:30",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
   "goalWeight": 70,
   "ftpStart": 245,
   "goalFtp": 280,
-  "ftpNote": "245 W és la referència actual (Strava). El primer valor mesurat serà el test de la Setmana 4.",
+  "ftpNote": "Sense test formal: l'FTP s'ajusta amb les sessions de llindar (4 × 8′ del 26/11, 2 × 15′ i 3 × 12′ de desembre).",
   "goalFtpNote": "FTP 280: es torna a mesurar a la primavera, després de la mitja."
  },
  "ftp": 245,
@@ -34,11 +34,11 @@
    "img": "media/group.webp"
   },
   "6": {
-   "name": "Setmana del test",
+   "name": "Construcció III",
    "img": "media/mud.webp"
   },
   "7": {
-   "name": "Construcció post-test",
+   "name": "Construcció IV",
    "img": "media/peloton.webp"
   },
   "8": {
@@ -793,41 +793,6 @@
    "tssH": 55
   },
   {
-   "id": "s20261103g",
-   "d": "2026-11-04",
-   "ord": 2,
-   "type": "gym",
-   "z": "z7",
-   "cat": "gym",
-   "t": "Gimnàs A: tren superior i core",
-   "min": 50,
-   "rpe": "RPE 7",
-   "note": "Avui sense cames: ja estan tocades de la cursa i de les sèries. Les cames tornen al gimnàs la setmana vinent.",
-   "steps": [
-    {
-     "l": "Escalfament",
-     "x": "8′: 5′ de bici o rem suau + 10 ponts de glutis + 10 gat-camell + 6 obertures de maluc per cama"
-    },
-    {
-     "l": "Flexions",
-     "x": "3 × 10–12"
-    },
-    {
-     "l": "Rem amb manuella",
-     "x": "3 × 10 per braç"
-    },
-    {
-     "l": "Core",
-     "x": "Dead bug 3 × 8 per costat · planxa lateral 3 × 25″ per costat"
-    },
-    {
-     "l": "Descans",
-     "x": "90″ entre sèries"
-    }
-   ],
-   "k": 1
-  },
-  {
    "id": "s20261104",
    "d": "2026-11-04",
    "type": "int",
@@ -878,6 +843,41 @@
     }
    ],
    "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261103g",
+   "d": "2026-11-04",
+   "ord": 2,
+   "type": "gym",
+   "z": "z7",
+   "cat": "gym",
+   "t": "Gimnàs A: tren superior i core",
+   "min": 50,
+   "rpe": "RPE 7",
+   "note": "Avui sense cames: ja estan tocades de la cursa i de les sèries. Les cames tornen al gimnàs la setmana vinent.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "8′: 5′ de bici o rem suau + 10 ponts de glutis + 10 gat-camell + 6 obertures de maluc per cama"
+    },
+    {
+     "l": "Flexions",
+     "x": "3 × 10–12"
+    },
+    {
+     "l": "Rem amb manuella",
+     "x": "3 × 10 per braç"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug 3 × 8 per costat · planxa lateral 3 × 25″ per costat"
+    },
+    {
+     "l": "Descans",
+     "x": "90″ entre sèries"
+    }
+   ],
    "k": 1
   },
   {
@@ -1041,6 +1041,77 @@
    ],
    "ord": 1,
    "k": 1
+  },
+  {
+   "id": "s20261109g",
+   "d": "2026-11-09",
+   "type": "gym",
+   "t": "Gimnàs A (versió suau): cames funcionals + tren superior",
+   "min": 45,
+   "ord": 1,
+   "k": 1,
+   "note": "Primer dia fet. Les planxes, a casa: 2 × 40″ abans de dormir.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de bici o rem + mobilitat de maluc i espatlles"
+    },
+    {
+     "l": "Cames (lleuger)",
+     "x": "Zancada búlgara 2 × 8 per cama: 1a sèrie sense pes, 2a amb 2 manuelles de 6–8 kg · pes mort romanès 2 × 10 amb 2 manuelles de 12–14 kg · step-up 2 × 8 per cama sense pes o amb 2 de 6 kg"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Press de banca 3 × 10–12 amb manuelles de 12–14 kg · rem 3 × 10–12 amb 14–18 kg · elevacions laterals 3 × 12–15 amb 4–6 kg"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press 3 × 10 per costat (goma o cable lleuger) · planxa 3 × 40″"
+    },
+    {
+     "l": "Regla",
+     "x": "Si les 2 últimes repeticions surten fàcils, la setmana que ve +2 kg. Si no pots fer-les bé, baixa el pes."
+    }
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 2,
+     "reps": "8/cama",
+     "tip": "Equilibri: peu del darrere ben recolzat, mirada fixa al davant. Si cal, agafa't amb una mà."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 2,
+     "reps": "10"
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Dominades",
+     "sets": 3,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Si no en surten 3, fes negatives: puja amb un salt i baixa en 3–4 segons."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ],
+   "done": {
+    "by": "log",
+    "at": "2026-11-09T18:00:00"
+   }
   },
   {
    "id": "s20261109",
@@ -1528,77 +1599,6 @@
    "doneNote": "46 km i 322 m a primera hora, el dia que tocava descans. NP 188 W, IF 0,77, ≈ 96 TSS, 10′ per sobre de l'FTP i pic d'1′ a 305 W. Tercer dia seguit més intens del previst."
   },
   {
-   "id": "s20261109g",
-   "d": "2026-11-09",
-   "type": "gym",
-   "t": "Gimnàs A (versió suau): cames funcionals + tren superior",
-   "min": 45,
-   "ord": 1,
-   "k": 1,
-   "note": "Primer dia fet. Les planxes, a casa: 2 × 40″ abans de dormir.",
-   "steps": [
-    {
-     "l": "Escalfament",
-     "x": "5′ de bici o rem + mobilitat de maluc i espatlles"
-    },
-    {
-     "l": "Cames (lleuger)",
-     "x": "Zancada búlgara 2 × 8 per cama: 1a sèrie sense pes, 2a amb 2 manuelles de 6–8 kg · pes mort romanès 2 × 10 amb 2 manuelles de 12–14 kg · step-up 2 × 8 per cama sense pes o amb 2 de 6 kg"
-    },
-    {
-     "l": "Tren superior",
-     "x": "Press de banca 3 × 10–12 amb manuelles de 12–14 kg · rem 3 × 10–12 amb 14–18 kg · elevacions laterals 3 × 12–15 amb 4–6 kg"
-    },
-    {
-     "l": "Core",
-     "x": "Pallof press 3 × 10 per costat (goma o cable lleuger) · planxa 3 × 40″"
-    },
-    {
-     "l": "Regla",
-     "x": "Si les 2 últimes repeticions surten fàcils, la setmana que ve +2 kg. Si no pots fer-les bé, baixa el pes."
-    }
-   ],
-   "ex": [
-    {
-     "n": "Zancada búlgara",
-     "sets": 2,
-     "reps": "8/cama",
-     "tip": "Equilibri: peu del darrere ben recolzat, mirada fixa al davant. Si cal, agafa't amb una mà."
-    },
-    {
-     "n": "Pes mort romanès",
-     "sets": 2,
-     "reps": "10"
-    },
-    {
-     "n": "Press de banca",
-     "sets": 3,
-     "reps": "10–12"
-    },
-    {
-     "n": "Rem amb manuella",
-     "sets": 3,
-     "reps": "10–12"
-    },
-    {
-     "n": "Dominades",
-     "sets": 3,
-     "reps": "màx.",
-     "bw": true,
-     "tip": "Si no en surten 3, fes negatives: puja amb un salt i baixa en 3–4 segons."
-    },
-    {
-     "n": "Pallof press",
-     "sets": 2,
-     "reps": "10/costat"
-    }
-   ],
-   "done": {
-    "by": "log",
-    "at": "2026-11-09T18:00:00"
-   }
-  },
-  {
    "id": "s20261120",
    "d": "2026-11-20",
    "type": "rest",
@@ -1662,231 +1662,6 @@
   {
    "id": "s20261124",
    "d": "2026-11-24",
-   "type": "end",
-   "z": "z2",
-   "cat": "end",
-   "t": "Z2 suau",
-   "min": 90,
-   "band": [
-    0.56,
-    0.68
-   ],
-   "cad": [
-    88,
-    95
-   ],
-   "ord": 1,
-   "k": 1,
-   "fuel": "Aigua i 30 g/h",
-   "note": "Suau de veritat. Res per sobre de 172 W. 1h30, que és el teu mínim: més no cal.",
-   "steps": [
-    {
-     "l": "Sessió",
-     "x": "1h30 en Z2 baixa a {56,68}, res per sobre de {70}"
-    }
-   ]
-  },
-  {
-   "id": "s20261124g",
-   "d": "2026-11-24",
-   "type": "gym",
-   "t": "Gimnàs suau: tren superior i core",
-   "min": 35,
-   "ord": 2,
-   "k": 1,
-   "note": "Res de cames: el test és dissabte.",
-   "ex": [
-    {
-     "n": "Dominades",
-     "sets": 3,
-     "reps": "màx.",
-     "bw": true
-    },
-    {
-     "n": "Press de banca",
-     "sets": 2,
-     "reps": "10"
-    },
-    {
-     "n": "Rem amb manuella",
-     "sets": 2,
-     "reps": "10"
-    },
-    {
-     "n": "Dead bug",
-     "sets": 2,
-     "reps": "10",
-     "bw": true
-    }
-   ]
-  },
-  {
-   "id": "s20261125",
-   "d": "2026-11-25",
-   "type": "int",
-   "z": "z4",
-   "cat": "vo2",
-   "t": "Z2 amb activacions",
-   "min": 90,
-   "band": [
-    0.56,
-    0.72
-   ],
-   "cad": [
-    85,
-    95
-   ],
-   "ord": 1,
-   "k": 1,
-   "fuel": "Aigua i 30 g/h",
-   "ints": [
-    {
-     "n": 3,
-     "s": 180,
-     "lo": 1.0,
-     "hi": 1.05,
-     "cad": [
-      90,
-      95
-     ],
-     "label": "Activació 3′"
-    }
-   ],
-   "note": "Recordar el ritme sense cansar-se: 3 × 3′ a 245–257 W amb 3′ suaus. La resta, Z2. 1h30 i prou.",
-   "steps": [
-    {
-     "l": "Escalfament",
-     "x": "20′ en Z2"
-    },
-    {
-     "l": "Activacions",
-     "x": "3 × 3′ a {100,105} · 3′ a {55} entre"
-    },
-    {
-     "l": "Resta",
-     "x": "Z2 a {60,70} fins a 1h30"
-    }
-   ]
-  },
-  {
-   "id": "s20261126",
-   "d": "2026-11-26",
-   "type": "rest",
-   "t": "Descans",
-   "min": 0,
-   "ord": 1,
-   "k": 1,
-   "note": "Descans."
-  },
-  {
-   "ord": 1,
-   "k": 1,
-   "id": "s20261127",
-   "d": "2026-11-27",
-   "type": "rec",
-   "z": "z1",
-   "cat": "rec",
-   "t": "Obertura pre-test (curta)",
-   "min": 45,
-   "band": [
-    0.5,
-    0.65
-   ],
-   "cad": [
-    90,
-    100
-   ],
-   "fuel": "Aigua",
-   "note": "Curt i suau de veritat, amb 2 canvis curts per despertar les cames: dimecres ja vas fer prou intensitat. Res per sobre de 160 W fora dels canvis. Sopar amb hidrats.",
-   "steps": [
-    {
-     "l": "Sessió",
-     "x": "35′ a {50,65} · 2 × 1′ a {105} amb 3′ suaus · 3 × 15″ a 110 rpm, sense força"
-    }
-   ]
-  },
-  {
-   "id": "s20261128",
-   "d": "2026-11-28",
-   "type": "int",
-   "z": "z4",
-   "cat": "test",
-   "key": true,
-   "t": "TEST d'FTP (20′) · Sant Martí Sacalm",
-   "min": 150,
-   "ints": [
-    {
-     "n": 1,
-     "s": 1200,
-     "lo": 1.0,
-     "hi": 1.12,
-     "cad": null,
-     "label": "Test 20′"
-    }
-   ],
-   "fuel": "Esmorzar fort 3 h abans. Anada: 30–40 g/h. Durant el test, només aigua. Porta jaqueta per a la baixada.",
-   "note": "Test a Sant Martí Sacalm des d'Amer (8,2 km al 7,3 %): a 260 W la pujada et dura uns 36′, així que els 20′ hi caben de sobres. Compta per temps, no fins dalt. FTP nou = 95 % de la mitjana dels 20′. Per a 250 W calen 263 W. Aplaçat al 28: no et trobaves bé.",
-   "steps": [
-    {
-     "l": "Anada",
-     "x": "Girona → Amer en Z2 a {61,70} (uns 45′). És l'escalfament de base."
-    },
-    {
-     "l": "Activació",
-     "x": "Abans d'Amer: 3 × 1′ a {82} i 105 rpm · 1 × 3′ a {100} · 5′ molt suau"
-    },
-    {
-     "l": "Test",
-     "x": "Comença a l'inici de la pujada, a la sortida d'Amer. 20′ per temps: 0–5′ a {104}–{106}, 5–15′ a {107}–{108}, últims 5′ el que quedi i l'últim minut a fons"
-    },
-    {
-     "l": "Després",
-     "x": "Acaba la pujada suau o gira, baixa amb la jaqueta posada i torna a Girona en Z1–Z2"
-    }
-   ],
-   "ord": 1,
-   "k": 1,
-   "maxMin": 180
-  },
-  {
-   "id": "s20261129",
-   "d": "2026-11-29",
-   "type": "end",
-   "z": "z2",
-   "cat": "end",
-   "t": "Z2 suau (opcional)",
-   "min": 90,
-   "band": [
-    0.56,
-    0.68
-   ],
-   "cad": [
-    88,
-    95
-   ],
-   "ord": 1,
-   "k": 1,
-   "fuel": "Aigua i 30 g/h",
-   "note": "Rodar suau després del test. Amb el nou FTP recalculo les zones.",
-   "steps": [
-    {
-     "l": "Sessió",
-     "x": "1h30 en Z2 baixa a {56,68}, res per sobre de {70}"
-    }
-   ]
-  },
-  {
-   "d": "2026-11-30",
-   "type": "rest",
-   "t": "Descans",
-   "min": 0,
-   "note": "Descans. Amb el resultat del test recalculo les zones.",
-   "ord": 1,
-   "k": 1,
-   "id": "s20261130"
-  },
-  {
-   "d": "2026-12-01",
    "type": "int",
    "z": "ss",
    "cat": "ss",
@@ -1906,8 +1681,8 @@
     {
      "n": 3,
      "s": 720,
-     "lo": 0.88,
-     "hi": 0.93,
+     "lo": 0.9,
+     "hi": 0.94,
      "cad": [
       85,
       92
@@ -1916,7 +1691,7 @@
     }
    ],
    "fuel": "60 g/h d'hidrats i 2 bidons",
-   "note": "Primera clau amb l'FTP nou. Constant, sense cops de pedal.",
+   "note": "Tornem a carregar. Sweet spot a la part alta (90–94 %): si surt amb esforç ≤ 7, l'FTP de 245 es queda curt i el pujo. Pujada llarga i constant (Àngels o Santa Pellaia), sense cops de pedal.",
    "steps": [
     {
      "l": "Escalfament",
@@ -1924,7 +1699,356 @@
     },
     {
      "l": "Principal",
-     "x": "3 × 12′ a {88,93} amb 4′ suaus a {55}"
+     "x": "3 × 12′ a {90,94} amb 4′ suaus a {55}, cadència 85–90"
+    },
+    {
+     "l": "Tornada",
+     "x": "Z2 a {60,70} fins a casa"
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "d": "2026-11-24",
+   "type": "gym",
+   "t": "Gimnàs A: cames + tren superior",
+   "min": 50,
+   "ord": 2,
+   "note": "Després de la bici (dur amb dur). Sense test a la vista, cames amb 3 sèries: búlgara i pes mort romanès pujant 2–2,5 kg si l'última setmana van sortir fàcils.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem o bici + mobilitat de maluc i turmells"
+    },
+    {
+     "l": "Cames",
+     "x": "Búlgara, pes mort romanès i bessons a una cama"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Press de banca, rem i dominades"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press + planxa 2 × 40″"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 3,
+     "reps": "8/cama",
+     "tip": "Puja de pes quan les 2 últimes surtin fàcils (ara 10 kg per mà)."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "Barra de 40 kg. Esquena neutra, baixa fins a sota el genoll."
+    },
+    {
+     "n": "Elevació de bessons a una cama",
+     "sets": 3,
+     "reps": "12/cama",
+     "bw": true,
+     "tip": "A un esglaó, baixant lent. Protegeix l'Aquil·les i el soli per córrer."
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "40 kg et va sobrat: prova 42,5–45 kg."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Sempre. Si no en surten, negatives de 3–4″."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ],
+   "k": 1,
+   "id": "s20261124g"
+  },
+  {
+   "id": "s20261125",
+   "d": "2026-11-25",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 40′ + 4 rectes",
+   "min": 44,
+   "km": 7.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "k": 1,
+   "fuel": "Només aigua",
+   "note": "Suau de veritat: anar acostumant les cames al bloc de la mitja. Res de mirar el ritme.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "40′ a 5:05–5:35/km, ritme de conversa"
+    },
+    {
+     "l": "Rectes",
+     "x": "4 × 20″ ràpides i relaxades, amb 1′ caminant entre"
+    }
+   ]
+  },
+  {
+   "id": "s20261126",
+   "d": "2026-11-26",
+   "type": "int",
+   "z": "z4",
+   "cat": "ss",
+   "key": true,
+   "t": "4 × 8′ de llindar",
+   "min": 105,
+   "maxMin": 120,
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    95
+   ],
+   "ints": [
+    {
+     "n": 4,
+     "s": 480,
+     "lo": 0.98,
+     "hi": 1.02,
+     "cad": [
+      85,
+      92
+     ],
+     "label": "Llindar 8′"
+    }
+   ],
+   "fuel": "60 g/h d'hidrats i 2 bidons",
+   "note": "Aquesta és la sessió que substitueix el test: 32′ a l'FTP. Si fas els 4 blocs a 245–250 W amb esforç ≤ 8, l'FTP real és d'uns 250 i el pujo; si l'últim cau, ens quedem a 245. Regular: el primer no més fort que l'últim.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "20′ fins a {70} + 2 × 1′ a {100}"
+    },
+    {
+     "l": "Principal",
+     "x": "4 × 8′ a {98,102} amb 4′ suaus a {55}"
+    },
+    {
+     "l": "Tornada",
+     "x": "Z2 fins a casa"
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261127",
+   "d": "2026-11-27",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans.",
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "d": "2026-11-27",
+   "type": "gym",
+   "t": "Gimnàs B: tren superior i core",
+   "min": 45,
+   "ord": 2,
+   "note": "Sense cames. Tren superior per tonificar i core per mantenir la postura quan arribi el cansament a la cursa.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem + mobilitat d'espatlles"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Dominades, rem, press militar, flexions, bíceps i tríceps"
+    },
+    {
+     "l": "Core",
+     "x": "Dead bug i planxa lateral"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Press militar amb manuelles",
+     "sets": 3,
+     "reps": "10"
+    },
+    {
+     "n": "Flexions",
+     "sets": 3,
+     "reps": "màx. − 2",
+     "bw": true
+    },
+    {
+     "n": "Curl de bíceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Extensió de tríceps",
+     "sets": 2,
+     "reps": "12"
+    },
+    {
+     "n": "Dead bug",
+     "sets": 2,
+     "reps": "10",
+     "bw": true
+    },
+    {
+     "n": "Planxa lateral",
+     "sets": 2,
+     "reps": "30″/costat",
+     "bw": true
+    }
+   ],
+   "k": 1,
+   "id": "s20261127g"
+  },
+  {
+   "id": "s20261128",
+   "d": "2026-11-28",
+   "type": "long",
+   "z": "z2",
+   "cat": "long",
+   "key": true,
+   "t": "Fons de 3 h en Z2",
+   "min": 180,
+   "maxMin": 210,
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    92
+   ],
+   "ints": [],
+   "fuel": "60–70 g/h d'hidrats. Comença al minut 30.",
+   "note": "Amb la grupeta si va tranquil·la. Les pujades a {76,83} com a màxim; en pla, Z2. Res d'esprints: dijous ja vas fer la feina dura.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "3 h en Z2 a {61,72}, cadència 85–92"
+    },
+    {
+     "l": "Pujades",
+     "x": "Assegut, a {76,83}, sense passar de {88}"
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "id": "s20261129",
+   "d": "2026-11-29",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 45′",
+   "min": 45,
+   "km": 8.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
+   "ord": 1,
+   "k": 1,
+   "fuel": "Només aigua",
+   "note": "Rodatge suau per sumar km de córrer sense fatiga.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "45′ a 5:05–5:35/km, ritme de conversa"
+    }
+   ]
+  },
+  {
+   "d": "2026-11-30",
+   "type": "rest",
+   "t": "Descans",
+   "min": 0,
+   "note": "Descans.",
+   "ord": 1,
+   "k": 1,
+   "id": "s20261130"
+  },
+  {
+   "d": "2026-12-01",
+   "type": "int",
+   "z": "ss",
+   "cat": "ss",
+   "key": true,
+   "t": "3 × 15′ sweet spot",
+   "min": 115,
+   "maxMin": 130,
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    95
+   ],
+   "ints": [
+    {
+     "n": 3,
+     "s": 900,
+     "lo": 0.88,
+     "hi": 0.93,
+     "cad": [
+      85,
+      92
+     ],
+     "label": "Sweet spot 15′"
+    }
+   ],
+   "fuel": "60 g/h d'hidrats i 2 bidons",
+   "note": "Progressió: de 3 × 12′ a 3 × 15′. Watts segons l'FTP que surti dels 4 × 8′ de dijous.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "20′ progressius fins a {70} + 2 × 1′ a {100}"
+    },
+    {
+     "l": "Principal",
+     "x": "3 × 15′ a {88,93} amb 5′ suaus a {55}"
     },
     {
      "l": "Tornada",
@@ -1941,7 +2065,7 @@
    "t": "Gimnàs A: cames per córrer + tren superior",
    "min": 50,
    "ord": 2,
-   "note": "Gimnàs A després de la bici: setmana de construcció, cames amb 3 sèries.",
+   "note": "Després de la bici. Cames amb 2 sèries: dijous hi ha força-resistència.",
    "steps": [
     {
      "l": "Escalfament",
@@ -6509,14 +6633,13 @@
   {
    "date": "2026-11-22",
    "text": "Avui res a Strava: la Z2 d'1h30 no s'ha fet. Cap drama, i no es recupera. Últims 7 dies ≈ 350 TSS (cursa, Osor, dos rodatges) i, amb dos dies en blanc, el TSB puja cap a ≈ +5: arribes fresc a la setmana del test. Demà descans. Dimarts, Z2 que passo d'1h15 a 1h30 (el teu mínim), res per sobre de 172 W i cadència 85–90. Dimecres 3 × 3′ d'activació i dissabte, Sant Martí Sacalm."
+  },
+  {
+   "date": "2026-11-23",
+   "text": "Fora test d'FTP: setmana normal de construcció. Dimarts 3 × 12′ de sweet spot a 220–230 W + gimnàs A, dimecres 40′ de córrer suau, dijous 4 × 8′ de llindar a 240–250 W (aquesta fa de test: si surten bé, pujo l'FTP a ~250), divendres descans + gimnàs B, dissabte 3 h de Z2 i diumenge 45′ corrent. Arribes fresc: tres dies sense res."
   }
  ],
  "goals": [
-  {
-   "t": "Test d'FTP (20′) · Sant Martí Sacalm",
-   "d": "2026-11-28",
-   "kind": "test"
-  },
   {
    "t": "Test de 10K",
    "d": "2027-01-31",

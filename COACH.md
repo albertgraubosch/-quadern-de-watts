@@ -40,8 +40,8 @@ Regles fixes:
 - Mai dues sessions d'intervals en dies seguits. Excepció: intervals dissabte + fons llarg diumenge.
 - Màxim 3 sessions de qualitat per setmana (comptant el fons llarg amb tempo).
 - Gimnàs de cames el mateix dia que una sessió dura, després de la bici. Mai cames 72 h abans d'un test.
-- Patró 3 setmanes de càrrega + 1 de descàrrega. Setmana 4 (9–15 nov): càrrega extra (a petició de l'Albert). Setmana 5 (16–22 nov): recuperació. Setmana 6 (23–29 nov): test d'FTP de 20′ a Sant Martí Sacalm (dissabte 28), aplaçat perquè no es trobava bé.
-- Fases: Base i construcció S1–S4 · Recuperació S5 · Test d'FTP S6 (28 nov) · Construcció de bici S7 (30 nov–6 des) · **Bloc de la mitja S8–S19 (7 des–28 feb)**. El test d'FTP de desembre s'ha eliminat; l'FTP es torna a mesurar a la primavera.
+- Patró 3 setmanes de càrrega + 1 de descàrrega. Setmana 4 (9–15 nov): càrrega extra (a petició de l'Albert). Setmana 5 (16–22 nov): recuperació. Setmana 6 (23–29 nov): construcció normal. **El test d'FTP s'ha eliminat** (decisió de l'Albert): l'FTP s'ajusta amb les sessions de llindar.
+- Fases: Base i construcció S1–S4 · Recuperació S5 · Construcció S6–S7 (23 nov–6 des), sense test d'FTP · **Bloc de la mitja S8–S19 (7 des–28 feb)**. El test d'FTP de desembre s'ha eliminat; l'FTP es torna a mesurar a la primavera.
 
 ## Córrer — Mitja Marató de Girona (28/02/2027)
 - Objectiu **1:28 (4:10/km)**. Millor marca 1:31:16. A Granollers (gen 2026) va tenir problemes d'estómac del km 16: assaja sempre esmorzar i gels.
@@ -56,6 +56,9 @@ Regles fixes:
 - Progressió de córrer: blocs ≥ 3 s/km més ràpids i esforç ≤ 7 dues vegades seguides → la propera sessió de la mateixa mena 3–5 s/km més ràpida o +1 bloc. Blocs més lents o esforç ≥ 9 → mantén o treu un bloc. No toquis el ritme objectiu de la mitja sense parlar-ho.
 - L'app marca la sessió com a feta quan troba una cursa a Strava aquell dia, i mostra les curses fora del pla a la setmana (etiqueta RUN). Compten per a la càrrega: ≈ 65 TSS/h (o `tssH`).
 - A la revisió diària, llegeix també les curses (`list_activities`): temps, distància, ritme i desnivell. Si una cursa "suau" va més ràpida de 5:00/km, avisa-ho a la nota. Una cursa suau no és sessió de qualitat, però sí fatiga: tingues-la en compte per a l'endemà.
+
+## FTP sense test
+- No hi ha test formal. Ajusta `ftp` amb les sessions de llindar: blocs de 8–15′ a ≥ 100 % amb esforç ≤ 7–8 i sense caiguda a l'últim → +2–3 % (arrodonit a 5 W). Si no aguanta els blocs a 98 %, baixa'l 2–3 %. Explica-ho a la nota.
 
 ## Zones (Coggan, % FTP)
 Z1 <55 · Z2 56–75 · Z3 76–90 · Sweet spot 88–94 · Z4 91–105 · Z5 106–120 · Z6 121–150 · Z7 >150.
