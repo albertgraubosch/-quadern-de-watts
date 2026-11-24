@@ -1,6 +1,6 @@
 {
- "version": 69,
- "updated": "2026-11-24T22:40",
+ "version": 70,
+ "updated": "2026-11-24T22:50",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -2298,9 +2298,9 @@
    "type": "run",
    "z": "z2",
    "cat": "run",
-   "t": "Córrer suau 35′ + 4 rectes",
-   "min": 39,
-   "km": 6.5,
+   "t": "Córrer suau 40′ + 4 rectes",
+   "min": 44,
+   "km": 7.5,
    "pace": [
     305,
     335
@@ -2312,7 +2312,7 @@
    "steps": [
     {
      "l": "Sessió",
-     "x": "35′ a 5:05–5:35/km, ritme de conversa"
+     "x": "40′ a 5:05–5:35/km, ritme de conversa"
     },
     {
      "l": "Rectes",
@@ -2373,14 +2373,29 @@
    "id": "s20261203"
   },
   {
+   "id": "s20261204",
    "d": "2026-12-04",
-   "type": "rest",
-   "t": "Descans",
-   "min": 0,
-   "note": "Descans.",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 40′",
+   "min": 40,
+   "km": 7.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
    "ord": 1,
    "k": 1,
-   "id": "s20261204"
+   "fuel": "Només aigua",
+   "note": "Tercer dia de córrer per no saltar de 15 a 33 km la setmana del 7. Molt suau: demà hi ha 3 h de bici amb tempo.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "40′ a 5:10–5:35/km, ritme de conversa"
+    }
+   ]
   },
   {
    "d": "2026-12-04",
@@ -6863,6 +6878,10 @@
   {
    "date": "2026-11-24",
    "text": "Canvi teu: 4 dies de córrer ja des del 7 de desembre. Els divendres 11 i 18, que eren de descans, passen a rodatge suau (35′ amb rectes i 40′). Setmanes de ≈ 33 i 38 km. Des del 21 de desembre, igual que abans: 4 curses + 2 bici."
+  },
+  {
+   "date": "2026-11-24",
+   "text": "Setmana del 30 de novembre: afegeixo un tercer rodatge suau divendres (40′) i el de dimecres passa a 40′. Queda en ≈ 23 km, i el salt cap als 33 km de la setmana del 7 és més progressiu."
   }
  ],
  "goals": [
