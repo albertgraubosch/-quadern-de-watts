@@ -1,6 +1,6 @@
 {
- "version": 68,
- "updated": "2026-11-24T21:00",
+ "version": 69,
+ "updated": "2026-11-24T22:40",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -2747,14 +2747,33 @@
    "id": "s20261210"
   },
   {
+   "id": "s20261211",
    "d": "2026-12-11",
-   "type": "rest",
-   "t": "Descans",
-   "min": 0,
-   "note": "Descans de córrer.",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 35′ + 6 rectes",
+   "min": 39,
+   "km": 6.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
    "ord": 1,
    "k": 1,
-   "id": "s20261211"
+   "fuel": "Només aigua",
+   "note": "Quart dia de córrer (a petició teva). Suau de veritat: és per sumar km i adaptar les cames, no per entrenar el ritme.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "35′ a 5:05–5:35/km, ritme de conversa"
+    },
+    {
+     "l": "Rectes",
+     "x": "6 × 20″ ràpides i relaxades, amb 1′ caminant entre"
+    }
+   ]
   },
   {
    "d": "2026-12-11",
@@ -3085,14 +3104,29 @@
    "id": "s20261217"
   },
   {
+   "id": "s20261218",
    "d": "2026-12-18",
-   "type": "rest",
-   "t": "Descans",
-   "min": 0,
-   "note": "Descans de córrer.",
+   "type": "run",
+   "z": "z2",
+   "cat": "run",
+   "t": "Córrer suau 40′",
+   "min": 40,
+   "km": 7.5,
+   "pace": [
+    305,
+    335
+   ],
+   "tssH": 55,
    "ord": 1,
    "k": 1,
-   "id": "s20261218"
+   "fuel": "Només aigua",
+   "note": "Quart dia de córrer (a petició teva). Suau de veritat: és per sumar km i adaptar les cames, no per entrenar el ritme.",
+   "steps": [
+    {
+     "l": "Sessió",
+     "x": "40′ a 5:05–5:35/km, ritme de conversa"
+    }
+   ]
   },
   {
    "d": "2026-12-18",
@@ -6825,6 +6859,10 @@
   {
    "date": "2026-11-24",
    "text": "Avui el sweet spot no ha sortit: en lloc de bici, 9,37 km corrent a 5:31/km, kms entre 5:14 i 5:47. Suau de veritat, ≈ 50 TSS. Últims 7 dies ≈ 390 TSS i cinc dies sense bici: arribes fresc. Reorganitzo: dimecres 3 × 12′ de sweet spot a 221–230 W + gimnàs A, dijous córrer suau + gimnàs B, divendres 4 × 8′ de llindar (el que decideix l'FTP) i dissabte 3 h de Z2. Toca tornar a la bici."
+  },
+  {
+   "date": "2026-11-24",
+   "text": "Canvi teu: 4 dies de córrer ja des del 7 de desembre. Els divendres 11 i 18, que eren de descans, passen a rodatge suau (35′ amb rectes i 40′). Setmanes de ≈ 33 i 38 km. Des del 21 de desembre, igual que abans: 4 curses + 2 bici."
   }
  ],
  "goals": [
