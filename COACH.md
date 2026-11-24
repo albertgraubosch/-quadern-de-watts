@@ -49,6 +49,7 @@ Regles fixes:
 - Ritmes: suau 5:05–5:35 · mitjà 4:30–4:40 · mitja 4:08–4:12 · llindar 3:58–4:03 · VO2 3:45–3:55 (també a `plan.run.paces`).
 - Estructura: S8–S9 (7–20 des) mixt: 3 curses + 3 bici (dimecres llindar de bici). Des de S10: Dl descans · Dt sèries + gimnàs A (cames per córrer, poc volum) · Dc bici Z2 1h30 · Dj tempo/ritme de mitja · Dv suau + rectes + gimnàs B · Ds bici Z2 2–3 h amb la grupeta · Dg llarga.
 - Claus que l'Albert valora (també les hi va dir un amic): 5 × 1 km, 4 × 2 km, 3 × 3 km i les llargues. Mantén-les.
+- **Test de 2.000 m el dimarts 8 de desembre** (inici del bloc): < 7:10 → ritmes del pla; 7:10–7:30 → sèries +5 s/km; > 7:30 → +10 s/km. El ritme objectiu de la mitja no es toca fins al 10K.
 - **Test de 10K el 31 de gener** (S15, setmana de descàrrega): sota 39:45 → ritme 4:10; 39:45–40:30 → 4:13; més lent → 4:15. Actualitza `plan.run`, el `work.pace` de la cursa i `goals` després del test (això es parla amb l'Albert).
 - Assaig general dijous 11 feb: 12 km a 4:10 amb l'esmorzar, la roba i els gels del dia de la cursa.
 - Res de cames al gimnàs la setmana de la cursa ni 72 h abans del test de 10K.

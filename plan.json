@@ -1,6 +1,6 @@
 {
- "version": 67,
- "updated": "2026-11-24T21:30",
+ "version": 68,
+ "updated": "2026-11-24T21:00",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -2540,31 +2540,45 @@
   {
    "d": "2026-12-08",
    "type": "run",
-   "z": "z2",
+   "z": "z5",
    "cat": "run",
-   "t": "Córrer suau 40′ + 6 rectes",
-   "min": 44,
-   "km": 7.5,
-   "pace": [
-    305,
-    335
-   ],
-   "tssH": 55,
+   "t": "TEST: 2.000 m a tope",
+   "min": 40,
+   "km": 7,
+   "tssH": 70,
    "ord": 1,
-   "fuel": "Només aigua",
-   "note": "Suau de veritat: si et costa parlar, vas massa ràpid. El 80 % dels km del pla són així.",
+   "fuel": "Només aigua. Menja lleuger 2–3 h abans.",
+   "note": "Test de referència abans del bloc. Millor a la pista de Girona o en un tram pla i sense semàfors. Amb el temps ajusto els ritmes de les sèries: menys de 7:10 → ritmes del pla tal com estan (objectiu 4:10); 7:10–7:30 → sèries 5 s/km més lentes; més de 7:30 → 10 s/km més lentes.",
    "steps": [
     {
-     "l": "Sessió",
-     "x": "40′ a 5:05–5:35/km, ritme de conversa"
+     "l": "Escalfament",
+     "x": "15′ suau + 4 rectes de 20″ + 1′ a ritme de test"
     },
     {
-     "l": "Rectes",
-     "x": "6 × 20″ ràpides i relaxades (ritme de 5K, no esprint), amb 1′ caminant o trotant entre"
+     "l": "Test",
+     "x": "2.000 m al màxim sostenible. Surt controlat el primer km (3:35–3:40) i buida el segon. Apunta el temps exacte"
+    },
+    {
+     "l": "Tornada a la calma",
+     "x": "10′ molt suau"
     }
    ],
    "k": 1,
-   "id": "s20261208"
+   "id": "s20261208",
+   "key": true,
+   "work": {
+    "n": 1,
+    "dist": 2000,
+    "pace": [
+     205,
+     220
+    ],
+    "rec": ""
+   },
+   "pace": [
+    305,
+    335
+   ]
   },
   {
    "d": "2026-12-09",
@@ -6814,6 +6828,11 @@
   }
  ],
  "goals": [
+  {
+   "t": "Test de 2.000 m",
+   "d": "2026-12-08",
+   "kind": "test2k"
+  },
   {
    "t": "Test de 10K",
    "d": "2027-01-31",
