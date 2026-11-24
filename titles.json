@@ -1,14 +1,7 @@
 {
- "updated": "2026-11-23",
+ "updated": "2026-11-24T21:30",
  "about": "Títols per a Strava. 'byDay': 5 frases fetes a mida per a l'activitat d'aquell dia (surten primer). 'phrases': banc general amb etiquetes (ride, run, gym, long, short, hard, easy, climb, morning, night, weekend, sunday, monday, weekday, rest, group, solo, pr); una frase només surt si l'activitat compleix totes les seves etiquetes. 'topical': actualitat amb dates (from/to).",
  "byDay": {
-  "2026-11-09": [
-   "Fermín en fa dos al Metropolitano i jo dues sèries de búlgara. Ell remunta; jo baixo les escales de costat.",
-   "El Barça ja és líder per 3 punts. Jo, líder d'agulletes per 3 dies.",
-   "A Madrid avui fan festa per l'Almudena. A Girona, gimnàs i 6 km: festius, els justos.",
-   "El Barça remunta a l'Atlètic i jo remunto del gimnàs: 6,3 km a 5:48 sense mirar el rellotge.",
-   "El Girona a Segona i jo corrent en segona marxa: 5:48/km i cap pressa per pujar."
-  ],
   "2026-11-10": [
    "Vaga general per l'habitatge i jo pujant als Àngels: l'únic pis amb vistes que em puc permetre és el santuari.",
    "Rodalies no compleix els serveis mínims. Jo sí: 1h28 de Z2 i cap a casa.",
@@ -64,6 +57,13 @@
    "9,4 km a ritme de conversa, que per parlar de remuntades sempre hi ha temps.",
    "El Màlaga encara busca la primera victòria. Jo ja tinc la del dilluns.",
    "Al descans perdia 0-2 contra el sofà. He acabat guanyant 3-2."
+  ],
+  "2026-11-24": [
+   "Brussel·les vol retallar un 32 % els dies de pesca. Jo he retallat el 100 % del sweet spot.",
+   "La Cubana s'endú vuit Butaques amb «L'amor venia amb taxi». Jo, cap watt: la bici venia amb sabatilles.",
+   "El govern allarga el permís de dol a deu dies. El sweet spot només n'ha tingut un: dimecres ressuscita.",
+   "L'escut torna a la porta del Parlament el 6 de desembre. La bici, a la porta de casa, encara m'espera.",
+   "Planas diu que no a retallar dies al Mediterrani. Jo dic que no a la bici dos dies seguits."
   ]
  },
  "phrases": [

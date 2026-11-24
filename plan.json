@@ -1,13 +1,13 @@
 {
- "version": 66,
- "updated": "2026-11-23T21:30",
+ "version": 67,
+ "updated": "2026-11-24T21:30",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
   "goalWeight": 70,
   "ftpStart": 245,
   "goalFtp": 280,
-  "ftpNote": "Sense test formal: l'FTP s'ajusta amb les sessions de llindar (4 × 8′ del 26/11, 2 × 15′ i 3 × 12′ de desembre).",
+  "ftpNote": "Sense test formal: l'FTP s'ajusta amb les sessions de llindar (4 × 8′ del 27/11, 2 × 15′ i 3 × 12′ de desembre).",
   "goalFtpNote": "FTP 280: es torna a mesurar a la primavera, després de la mitja."
  },
  "ftp": 245,
@@ -1647,7 +1647,9 @@
      "l": "Sessió",
      "x": "1h30 en Z2 baixa a {56,68}, res per sobre de {70}"
     }
-   ]
+   ],
+   "doneT": "Descans",
+   "doneNote": "No hi ha cap activitat a Strava: dia en blanc en lloc de la Z2 prevista."
   },
   {
    "id": "s20261123",
@@ -1753,7 +1755,9 @@
     }
    ],
    "ord": 1,
-   "k": 1
+   "k": 1,
+   "doneT": "Córrer suau 9,4 km (fora del pla)",
+   "doneNote": "El sweet spot no s'ha fet: 9,37 km corrent en 51′43″ a 5:31/km i 66 m de desnivell. Kms entre 5:14 i 5:47, suau de veritat. Passa a dimecres."
   },
   {
    "d": "2026-11-24",
@@ -1830,6 +1834,128 @@
   {
    "id": "s20261125",
    "d": "2026-11-25",
+   "type": "int",
+   "z": "ss",
+   "cat": "ss",
+   "key": true,
+   "t": "3 × 12′ sweet spot",
+   "min": 105,
+   "maxMin": 120,
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    95
+   ],
+   "ints": [
+    {
+     "n": 3,
+     "s": 720,
+     "lo": 0.9,
+     "hi": 0.94,
+     "cad": [
+      85,
+      92
+     ],
+     "label": "Sweet spot 12′"
+    }
+   ],
+   "fuel": "60 g/h d'hidrats i 2 bidons",
+   "note": "Ve de dimarts. Sweet spot a 221–230 W (90–94 %): si surt amb esforç ≤ 7, l'FTP de 245 es queda curt. Pujada llarga i constant (Àngels o Santa Pellaia), sense cops de pedal. Primer bloc controlat.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "20′ progressius fins a {70} + 2 × 1′ a {100}"
+    },
+    {
+     "l": "Principal",
+     "x": "3 × 12′ a {90,94} amb 4′ suaus a {55}, cadència 85–90"
+    },
+    {
+     "l": "Tornada",
+     "x": "Z2 a {60,70} fins a casa"
+    }
+   ],
+   "ord": 1,
+   "k": 1
+  },
+  {
+   "d": "2026-11-25",
+   "type": "gym",
+   "t": "Gimnàs A: cames + tren superior",
+   "min": 50,
+   "ord": 2,
+   "note": "Després de la bici (dur amb dur). Si dimarts ja el vas fer, avui només bici. Cames amb 3 sèries, i divendres hi ha llindar: res d'anar a l'escac.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem o bici + mobilitat de maluc i turmells"
+    },
+    {
+     "l": "Cames",
+     "x": "Búlgara, pes mort romanès i bessons a una cama"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Press de banca, rem i dominades"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press + planxa 2 × 40″"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 3,
+     "reps": "8/cama",
+     "tip": "Puja de pes quan les 2 últimes surtin fàcils (ara 10 kg per mà)."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "Barra de 40 kg. Esquena neutra, baixa fins a sota el genoll."
+    },
+    {
+     "n": "Elevació de bessons a una cama",
+     "sets": 3,
+     "reps": "12/cama",
+     "bw": true,
+     "tip": "A un esglaó, baixant lent. Protegeix l'Aquil·les i el soli per córrer."
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "40 kg et va sobrat: prova 42,5–45 kg."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12"
+    },
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Sempre. Si no en surten, negatives de 3–4″."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ],
+   "k": 1,
+   "id": "s20261125g"
+  },
+  {
+   "id": "s20261126",
+   "d": "2026-11-26",
    "type": "run",
    "z": "z2",
    "cat": "run",
@@ -1844,7 +1970,7 @@
    "ord": 1,
    "k": 1,
    "fuel": "Només aigua",
-   "note": "Suau de veritat: anar acostumant les cames al bloc de la mitja. Res de mirar el ritme.",
+   "note": "Suau de veritat entre les dues claus: 5:05–5:35/km. Res de mirar el ritme.",
    "steps": [
     {
      "l": "Sessió",
@@ -1857,72 +1983,12 @@
    ]
   },
   {
-   "id": "s20261126",
    "d": "2026-11-26",
-   "type": "int",
-   "z": "z4",
-   "cat": "ss",
-   "key": true,
-   "t": "4 × 8′ de llindar",
-   "min": 105,
-   "maxMin": 120,
-   "band": [
-    0.56,
-    0.75
-   ],
-   "cad": [
-    85,
-    95
-   ],
-   "ints": [
-    {
-     "n": 4,
-     "s": 480,
-     "lo": 0.98,
-     "hi": 1.02,
-     "cad": [
-      85,
-      92
-     ],
-     "label": "Llindar 8′"
-    }
-   ],
-   "fuel": "60 g/h d'hidrats i 2 bidons",
-   "note": "Aquesta és la sessió que substitueix el test: 32′ a l'FTP. Si fas els 4 blocs a 245–250 W amb esforç ≤ 8, l'FTP real és d'uns 250 i el pujo; si l'últim cau, ens quedem a 245. Regular: el primer no més fort que l'últim.",
-   "steps": [
-    {
-     "l": "Escalfament",
-     "x": "20′ fins a {70} + 2 × 1′ a {100}"
-    },
-    {
-     "l": "Principal",
-     "x": "4 × 8′ a {98,102} amb 4′ suaus a {55}"
-    },
-    {
-     "l": "Tornada",
-     "x": "Z2 fins a casa"
-    }
-   ],
-   "ord": 1,
-   "k": 1
-  },
-  {
-   "id": "s20261127",
-   "d": "2026-11-27",
-   "type": "rest",
-   "t": "Descans",
-   "min": 0,
-   "note": "Descans.",
-   "ord": 1,
-   "k": 1
-  },
-  {
-   "d": "2026-11-27",
    "type": "gym",
    "t": "Gimnàs B: tren superior i core",
    "min": 45,
    "ord": 2,
-   "note": "Sense cames. Tren superior per tonificar i core per mantenir la postura quan arribi el cansament a la cursa.",
+   "note": "Sense cames: demà hi ha llindar. Tren superior i core.",
    "steps": [
     {
      "l": "Escalfament",
@@ -1984,7 +2050,57 @@
     }
    ],
    "k": 1,
-   "id": "s20261127g"
+   "id": "s20261126g"
+  },
+  {
+   "id": "s20261127",
+   "d": "2026-11-27",
+   "type": "int",
+   "z": "z4",
+   "cat": "ss",
+   "key": true,
+   "t": "4 × 8′ de llindar",
+   "min": 105,
+   "maxMin": 120,
+   "band": [
+    0.56,
+    0.75
+   ],
+   "cad": [
+    85,
+    95
+   ],
+   "ints": [
+    {
+     "n": 4,
+     "s": 480,
+     "lo": 0.98,
+     "hi": 1.02,
+     "cad": [
+      85,
+      92
+     ],
+     "label": "Llindar 8′"
+    }
+   ],
+   "fuel": "60 g/h d'hidrats i 2 bidons",
+   "note": "Passa de dijous a divendres perquè el sweet spot ha anat a dimecres. Substitueix el test: 4 × 8′ a 240–250 W. Si els 4 surten amb esforç ≤ 8 i sense caiguda a l'últim, l'FTP puja a 250. Regular: el primer no més fort que l'últim.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "20′ fins a {70} + 2 × 1′ a {100}"
+    },
+    {
+     "l": "Principal",
+     "x": "4 × 8′ a {98,102} amb 4′ suaus a {55}"
+    },
+    {
+     "l": "Tornada",
+     "x": "Z2 fins a casa"
+    }
+   ],
+   "ord": 1,
+   "k": 1
   },
   {
    "id": "s20261128",
@@ -2006,7 +2122,7 @@
    ],
    "ints": [],
    "fuel": "60–70 g/h d'hidrats. Comença al minut 30.",
-   "note": "Amb la grupeta si va tranquil·la. Les pujades a {76,83} com a màxim; en pla, Z2. Res d'esprints: dijous ja vas fer la feina dura.",
+   "note": "Amb la grupeta si va tranquil·la. Ahir vas fer llindar: avui Z2 de veritat. Les pujades a {76,83} com a màxim; res d'esprints.",
    "steps": [
     {
      "l": "Sessió",
@@ -6691,6 +6807,10 @@
   {
    "date": "2026-11-23",
    "text": "Del doble suau, només la cursa: 9,45 km a 5:33/km, de 5:45 el primer km a 5:21 l'últim. Suau de veritat, ≈ 50 TSS. El rodet, fora, i no passa res. Últims 7 dies ≈ 385 TSS i quatre dies sense bici: TSB positiu, arribes fresc. Demà, 3 × 12′ de sweet spot a 221–230 W, sense passar-te al primer, i gimnàs A a la tarda. Res canviat al pla."
+  },
+  {
+   "date": "2026-11-24",
+   "text": "Avui el sweet spot no ha sortit: en lloc de bici, 9,37 km corrent a 5:31/km, kms entre 5:14 i 5:47. Suau de veritat, ≈ 50 TSS. Últims 7 dies ≈ 390 TSS i cinc dies sense bici: arribes fresc. Reorganitzo: dimecres 3 × 12′ de sweet spot a 221–230 W + gimnàs A, dijous córrer suau + gimnàs B, divendres 4 × 8′ de llindar (el que decideix l'FTP) i dissabte 3 h de Z2. Toca tornar a la bici."
   }
  ],
  "goals": [
