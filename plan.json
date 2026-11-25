@@ -1,6 +1,6 @@
 {
- "version": 70,
- "updated": "2026-11-24T22:50",
+ "version": 71,
+ "updated": "2026-11-25T20:55",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1879,7 +1879,9 @@
     }
    ],
    "ord": 1,
-   "k": 1
+   "k": 1,
+   "doneT": "No fet",
+   "doneNote": "Cap activitat a Strava: el sweet spot no s'ha fet. Segona vegada que cau; no es recupera."
   },
   {
    "d": "2026-11-25",
@@ -1951,7 +1953,9 @@
     }
    ],
    "k": 1,
-   "id": "s20261125g"
+   "id": "s20261125g",
+   "doneT": "No fet",
+   "doneNote": "Sense gimnàs. Les cames passen a divendres, després del llindar."
   },
   {
    "id": "s20261126",
@@ -1988,7 +1992,7 @@
    "t": "Gimnàs B: tren superior i core",
    "min": 45,
    "ord": 2,
-   "note": "Sense cames: demà hi ha llindar. Tren superior i core.",
+   "note": "Sense cames: demà hi ha llindar. Tren superior i core. Avui no ha caigut el gimnàs A, així que aquest es fa sí o sí.",
    "steps": [
     {
      "l": "Escalfament",
@@ -2084,7 +2088,7 @@
     }
    ],
    "fuel": "60 g/h d'hidrats i 2 bidons",
-   "note": "Passa de dijous a divendres perquè el sweet spot ha anat a dimecres. Substitueix el test: 4 × 8′ a 240–250 W. Si els 4 surten amb esforç ≤ 8 i sense caiguda a l'últim, l'FTP puja a 250. Regular: el primer no més fort que l'últim.",
+   "note": "Única clau de bici de la setmana (el sweet spot ha caigut): és la que decideix l'FTP. 4 × 8′ a 240–250 W. Si els 4 surten amb esforç ≤ 8 i sense caiguda a l'últim, l'FTP puja a 250. Fa 7 dies que no toques la bici: escalfa bé i el primer, a la part baixa.",
    "steps": [
     {
      "l": "Escalfament",
@@ -2101,6 +2105,67 @@
    ],
    "ord": 1,
    "k": 1
+  },
+  {
+   "d": "2026-11-27",
+   "type": "gym",
+   "t": "Gimnàs A: cames + dominades",
+   "min": 40,
+   "ord": 2,
+   "k": 1,
+   "id": "s20261127g",
+   "note": "Ve de dimecres. Després del llindar (dur amb dur). Cames amb 3 sèries i, com que ahir vas fer tren superior, només dominades i core a dalt. Dissabte és Z2: les cames tenen marge.",
+   "steps": [
+    {
+     "l": "Escalfament",
+     "x": "5′ de rem o bici + mobilitat de maluc i turmells"
+    },
+    {
+     "l": "Cames",
+     "x": "Búlgara, pes mort romanès i bessons a una cama"
+    },
+    {
+     "l": "Tren superior",
+     "x": "Dominades"
+    },
+    {
+     "l": "Core",
+     "x": "Pallof press + planxa 2 × 40″"
+    }
+   ],
+   "ex": [
+    {
+     "n": "Zancada búlgara",
+     "sets": 3,
+     "reps": "8/cama",
+     "tip": "Puja de pes quan les 2 últimes surtin fàcils (ara 10 kg per mà)."
+    },
+    {
+     "n": "Pes mort romanès",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "Barra de 40 kg. Esquena neutra, baixa fins a sota el genoll."
+    },
+    {
+     "n": "Elevació de bessons a una cama",
+     "sets": 3,
+     "reps": "12/cama",
+     "bw": true,
+     "tip": "A un esglaó, baixant lent. Protegeix l'Aquil·les i el soli per córrer."
+    },
+    {
+     "n": "Dominades",
+     "sets": 4,
+     "reps": "màx.",
+     "bw": true,
+     "tip": "Sempre. Si no en surten, negatives de 3–4″."
+    },
+    {
+     "n": "Pallof press",
+     "sets": 2,
+     "reps": "10/costat"
+    }
+   ]
   },
   {
    "id": "s20261128",
@@ -2177,9 +2242,9 @@
    "z": "ss",
    "cat": "ss",
    "key": true,
-   "t": "3 × 15′ sweet spot",
-   "min": 115,
-   "maxMin": 130,
+   "t": "3 × 12′ sweet spot",
+   "min": 105,
+   "maxMin": 120,
    "band": [
     0.56,
     0.75
@@ -2191,18 +2256,18 @@
    "ints": [
     {
      "n": 3,
-     "s": 900,
-     "lo": 0.88,
-     "hi": 0.93,
+     "s": 720,
+     "lo": 0.9,
+     "hi": 0.94,
      "cad": [
       85,
       92
      ],
-     "label": "Sweet spot 15′"
+     "label": "Sweet spot 12′"
     }
    ],
    "fuel": "60 g/h d'hidrats i 2 bidons",
-   "note": "Progressió: de 3 × 12′ a 3 × 15′. Watts segons l'FTP que surti dels 4 × 8′ de dijous.",
+   "note": "El 3 × 12′ encara no s'ha fet: abans de passar a 3 × 15′ cal que surti. Part alta del sweet spot (90–94 %), amb els watts de l'FTP que surti divendres. Pujada llarga i constant, primer bloc controlat.",
    "steps": [
     {
      "l": "Escalfament",
@@ -2210,7 +2275,7 @@
     },
     {
      "l": "Principal",
-     "x": "3 × 15′ a {88,93} amb 5′ suaus a {55}"
+     "x": "3 × 12′ a {90,94} amb 4′ suaus a {55}, cadència 85–90"
     },
     {
      "l": "Tornada",
@@ -6882,6 +6947,10 @@
   {
    "date": "2026-11-24",
    "text": "Setmana del 30 de novembre: afegeixo un tercer rodatge suau divendres (40′) i el de dimecres passa a 40′. Queda en ≈ 23 km, i el salt cap als 33 km de la setmana del 7 és més progressiu."
+  },
+  {
+   "date": "2026-11-25",
+   "text": "Avui res a Strava: el sweet spot cau per segona vegada i no el recupero. Divendres el 4 × 8′ de llindar a 240–250 W queda com l'única clau de bici i decideix l'FTP; després, cames del gimnàs A. Últims 7 dies ≈ 245 TSS i TSB ben positiu: estàs fresc, però fa 7 dies sense bici. Dimarts 1, de nou 3 × 12′ (no 3 × 15′). Si els dimecres no et van bé per a la bici, digues-m'ho i movem les claus."
   }
  ],
  "goals": [

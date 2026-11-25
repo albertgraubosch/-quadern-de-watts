@@ -1,14 +1,7 @@
 {
- "updated": "2026-11-24T21:30",
+ "updated": "2026-11-25T20:55",
  "about": "Títols per a Strava. 'byDay': 5 frases fetes a mida per a l'activitat d'aquell dia (surten primer). 'phrases': banc general amb etiquetes (ride, run, gym, long, short, hard, easy, climb, morning, night, weekend, sunday, monday, weekday, rest, group, solo, pr); una frase només surt si l'activitat compleix totes les seves etiquetes. 'topical': actualitat amb dates (from/to).",
  "byDay": {
-  "2026-11-10": [
-   "Vaga general per l'habitatge i jo pujant als Àngels: l'únic pis amb vistes que em puc permetre és el santuari.",
-   "Rodalies no compleix els serveis mínims. Jo sí: 1h28 de Z2 i cap a casa.",
-   "Sánchez i Feijóo pacten un cara a cara. Jo n'he fet un amb els Àngels, i ha guanyat la pujada.",
-   "Arrenca la campanya del 29-N i jo ja tinc el vot decidit: 19 PR a favor, cap en contra.",
-   "Comença la COP31 a Turquia i jo ja hi poso de la meva part: 30 km sense emetre res més que suor."
-  ],
   "2026-11-11": [
    "Dia de vaga general i jo fent 3 × 10′ per sobre de l'FTP: el comitè d'empresa de les meves cames ja prepara la denúncia",
    "Els sindicats demanen la setmana de 35 hores; jo amb 2h30 i 900 m ja he fet la jornada de tota la setmana",
