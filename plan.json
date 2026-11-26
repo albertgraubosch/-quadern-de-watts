@@ -1,6 +1,6 @@
 {
- "version": 71,
- "updated": "2026-11-25T20:55",
+ "version": 72,
+ "updated": "2026-11-26T20:50",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -1984,7 +1984,9 @@
      "l": "Rectes",
      "x": "4 × 20″ ràpides i relaxades, amb 1′ caminant entre"
     }
-   ]
+   ],
+   "doneT": "No fet",
+   "doneNote": "Cap cursa a Strava. No es recupera: diumenge torna el rodatge."
   },
   {
    "d": "2026-11-26",
@@ -2054,7 +2056,9 @@
     }
    ],
    "k": 1,
-   "id": "s20261126g"
+   "id": "s20261126g",
+   "doneT": "No fet",
+   "doneNote": "Sense registre de gimnàs. El tren superior passa a divendres, amb les cames."
   },
   {
    "id": "s20261127",
@@ -2088,7 +2092,7 @@
     }
    ],
    "fuel": "60 g/h d'hidrats i 2 bidons",
-   "note": "Única clau de bici de la setmana (el sweet spot ha caigut): és la que decideix l'FTP. 4 × 8′ a 240–250 W. Si els 4 surten amb esforç ≤ 8 i sense caiguda a l'últim, l'FTP puja a 250. Fa 7 dies que no toques la bici: escalfa bé i el primer, a la part baixa.",
+   "note": "Única clau de bici de la setmana (el sweet spot ha caigut): és la que decideix l'FTP. 4 × 8′ a 240–250 W. Si els 4 surten amb esforç ≤ 8 i sense caiguda a l'últim, l'FTP puja a 250. Fa 7 dies que no toques la bici i arribes molt fresc: escalfa bé i el primer, a la part baixa.",
    "steps": [
     {
      "l": "Escalfament",
@@ -2109,12 +2113,12 @@
   {
    "d": "2026-11-27",
    "type": "gym",
-   "t": "Gimnàs A: cames + dominades",
-   "min": 40,
+   "t": "Gimnàs A: cames + tren superior",
+   "min": 50,
    "ord": 2,
    "k": 1,
    "id": "s20261127g",
-   "note": "Ve de dimecres. Després del llindar (dur amb dur). Cames amb 3 sèries i, com que ahir vas fer tren superior, només dominades i core a dalt. Dissabte és Z2: les cames tenen marge.",
+   "note": "Després del llindar (dur amb dur). Cames amb 3 sèries. Com que el gimnàs B de dijous no s'ha fet, avui tren superior complet: press, rem i dominades. Dissabte és Z2: les cames tenen marge.",
    "steps": [
     {
      "l": "Escalfament",
@@ -2126,7 +2130,7 @@
     },
     {
      "l": "Tren superior",
-     "x": "Dominades"
+     "x": "Press de banca, rem i dominades"
     },
     {
      "l": "Core",
@@ -2152,6 +2156,18 @@
      "reps": "12/cama",
      "bw": true,
      "tip": "A un esglaó, baixant lent. Protegeix l'Aquil·les i el soli per córrer."
+    },
+    {
+     "n": "Press de banca",
+     "sets": 3,
+     "reps": "8–10",
+     "tip": "L'últim dia 3 × 10 a 40 kg et va sobrar: puja a 42,5 kg."
+    },
+    {
+     "n": "Rem amb manuella",
+     "sets": 3,
+     "reps": "10–12",
+     "tip": "10 kg es va quedar curt: puja a 12,5 kg per mà."
     },
     {
      "n": "Dominades",
@@ -6951,6 +6967,10 @@
   {
    "date": "2026-11-25",
    "text": "Avui res a Strava: el sweet spot cau per segona vegada i no el recupero. Divendres el 4 × 8′ de llindar a 240–250 W queda com l'única clau de bici i decideix l'FTP; després, cames del gimnàs A. Últims 7 dies ≈ 245 TSS i TSB ben positiu: estàs fresc, però fa 7 dies sense bici. Dimarts 1, de nou 3 × 12′ (no 3 × 15′). Si els dimecres no et van bé per a la bici, digues-m'ho i movem les claus."
+  },
+  {
+   "date": "2026-11-26",
+   "text": "Avui res a Strava: ni el rodatge ni el gimnàs B. No es recupera res. Últims 7 dies ≈ 165 TSS (bici de dv 20 a 136 W de mitjana, IF ≈ 0,59, i dues curses de 9,4 km a 5:31–5:33): estàs molt fresc. Demà, el 4 × 8′ a 240–250 W decideix l'FTP; primer bloc a 240. Després, gimnàs A amb tren superior complet (press, rem i dominades) perquè no es perdi aquesta setmana. Dissabte, 3 h Z2."
   }
  ],
  "goals": [
