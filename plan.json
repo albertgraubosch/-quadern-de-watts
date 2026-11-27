@@ -1,6 +1,6 @@
 {
- "version": 72,
- "updated": "2026-11-26T20:50",
+ "version": 73,
+ "updated": "2026-11-27T21:00",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -2108,7 +2108,9 @@
     }
    ],
    "ord": 1,
-   "k": 1
+   "k": 1,
+   "doneT": "No fet",
+   "doneNote": "Cap activitat a Strava: el 4 × 8′ de llindar no s'ha fet. No es recupera; l'FTP es queda a 245 W."
   },
   {
    "d": "2026-11-27",
@@ -2181,7 +2183,9 @@
      "sets": 2,
      "reps": "10/costat"
     }
-   ]
+   ],
+   "doneT": "No fet",
+   "doneNote": "Sense registre del gimnàs A. No es recupera: dimarts torna amb cames i tren superior."
   },
   {
    "id": "s20261128",
@@ -2203,7 +2207,7 @@
    ],
    "ints": [],
    "fuel": "60–70 g/h d'hidrats. Comença al minut 30.",
-   "note": "Amb la grupeta si va tranquil·la. Ahir vas fer llindar: avui Z2 de veritat. Les pujades a {76,83} com a màxim; res d'esprints.",
+   "note": "Amb la grupeta si va tranquil·la. Fa 8 dies que no puges a la bici: avui és per tornar-hi, no per recuperar el llindar perdut. Z2 de veritat (150–176 W), pujades a {76,83} com a màxim i res d'esprints ni de segments.",
    "steps": [
     {
      "l": "Sessió",
@@ -2283,7 +2287,7 @@
     }
    ],
    "fuel": "60 g/h d'hidrats i 2 bidons",
-   "note": "El 3 × 12′ encara no s'ha fet: abans de passar a 3 × 15′ cal que surti. Part alta del sweet spot (90–94 %), amb els watts de l'FTP que surti divendres. Pujada llarga i constant, primer bloc controlat.",
+   "note": "El 3 × 12′ encara no s'ha fet i el llindar de divendres tampoc: l'FTP es queda a 245, així que els blocs a 221–230 W (90–94 %). Si surten amb esforç ≤ 7 i sense caiguda, dijous ja es nota i la setmana següent pugem. Pujada llarga i constant, primer bloc controlat.",
    "steps": [
     {
      "l": "Escalfament",
@@ -2308,7 +2312,7 @@
    "t": "Gimnàs A: cames per córrer + tren superior",
    "min": 50,
    "ord": 2,
-   "note": "Després de la bici. Cames amb 2 sèries: dijous hi ha força-resistència.",
+   "note": "Després de la bici. Fa dues setmanes que no hi ha registre de gimnàs: cames amb 2 sèries i el mateix pes de l'últim dia (dijous hi ha força-resistència). Tren superior complet: press, rem i dominades.",
    "steps": [
     {
      "l": "Escalfament",
@@ -6971,6 +6975,10 @@
   {
    "date": "2026-11-26",
    "text": "Avui res a Strava: ni el rodatge ni el gimnàs B. No es recupera res. Últims 7 dies ≈ 165 TSS (bici de dv 20 a 136 W de mitjana, IF ≈ 0,59, i dues curses de 9,4 km a 5:31–5:33): estàs molt fresc. Demà, el 4 × 8′ a 240–250 W decideix l'FTP; primer bloc a 240. Després, gimnàs A amb tren superior complet (press, rem i dominades) perquè no es perdi aquesta setmana. Dissabte, 3 h Z2."
+  },
+  {
+   "date": "2026-11-27",
+   "text": "Avui tampoc res a Strava: el 4 × 8′ de llindar i el gimnàs A cauen. És la tercera clau de bici perduda aquesta setmana i ja en portes 8 sense bici; últims 7 dies ≈ 110 TSS, només les dues curses de 9,4 km a 5:31–5:33. L'FTP es queda a 245 W. Demà, 3 h Z2 de veritat (150–176 W), sense compensar res. Dimarts, 3 × 12′ a 221–230 W. Proposta: si entre setmana no et va bé, movem les claus de bici al cap de setmana. Digues-m'ho."
   }
  ],
  "goals": [
