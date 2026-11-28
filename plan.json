@@ -1,6 +1,6 @@
 {
- "version": 73,
- "updated": "2026-11-27T21:00",
+ "version": 74,
+ "updated": "2026-11-28T21:00",
  "athlete": {
   "name": "Albert Grau",
   "weight": 75,
@@ -2219,7 +2219,9 @@
     }
    ],
    "ord": 1,
-   "k": 1
+   "k": 1,
+   "doneT": "No fet",
+   "doneNote": "Sense activitat a Strava. No es recupera: diumenge, el rodatge suau previst."
   },
   {
    "id": "s20261129",
@@ -2287,7 +2289,7 @@
     }
    ],
    "fuel": "60 g/h d'hidrats i 2 bidons",
-   "note": "El 3 × 12′ encara no s'ha fet i el llindar de divendres tampoc: l'FTP es queda a 245, així que els blocs a 221–230 W (90–94 %). Si surten amb esforç ≤ 7 i sense caiguda, dijous ja es nota i la setmana següent pugem. Pujada llarga i constant, primer bloc controlat.",
+   "note": "Fa més de 10 dies sense bici, així que l'FTP es queda a 245 i els blocs a 221–230 W (90–94 %). Primer bloc a 221, sense passar-te. Si surten amb esforç ≤ 7 i sense caiguda, dijous ja es nota i la setmana següent pugem. Pujada llarga i constant.",
    "steps": [
     {
      "l": "Escalfament",
@@ -6979,6 +6981,10 @@
   {
    "date": "2026-11-27",
    "text": "Avui tampoc res a Strava: el 4 × 8′ de llindar i el gimnàs A cauen. És la tercera clau de bici perduda aquesta setmana i ja en portes 8 sense bici; últims 7 dies ≈ 110 TSS, només les dues curses de 9,4 km a 5:31–5:33. L'FTP es queda a 245 W. Demà, 3 h Z2 de veritat (150–176 W), sense compensar res. Dimarts, 3 × 12′ a 221–230 W. Proposta: si entre setmana no et va bé, movem les claus de bici al cap de setmana. Digues-m'ho."
+  },
+  {
+   "date": "2026-11-28",
+   "text": "Avui res a Strava: el fons de 3 h cau i no el recupero. Setmana tancada amb ≈ 110 TSS, només les dues curses de 9,4 km (dl i dt) a 5:31–5:33, i ja són 9 dies sense bici. Demà, 45′ suaus a 5:05–5:35, res més. Dimarts, 3 × 12′ a 221–230 W: primer bloc a 221. Torno a proposar-ho: si entre setmana no et va bé, posem les claus de bici en cap de setmana. Digues-m'ho."
   }
  ],
  "goals": [
